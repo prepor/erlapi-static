@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_network_interface</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_network_interface</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the agent network
+      interface. A <tt>snmpa_network_interface</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="#start_link">start_link/4</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#info">info/1</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#get_log_type">get_log_type/1</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#set_log_type">set_log_type/2</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#verbosity">verbosity/2</seealso></p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+    <p>But this is not enough. There is also a set of <em>mandatory</em>
+      messages which the network interface entity must be able to 
+      receive and be able to send. This is described in chapter
+      <seealso marker="snmp_agent_netif">snmp_agent_netif</seealso>.
+      </p>
+
+     <marker id="start_link"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#get_log_typePidgtokLogTypeerrorReason">get_log_type(Pid) -&gt; {ok, LogType} | {error, Reason}</a></li>
+        
+        <li><a href="#infoPidgtKeyValue">info(Pid) -&gt; [{Key, Value}]</a></li>
+        
+        <li><a href="#set_log_typePidNewTypegtokOldTypeerrorReason">set_log_type(Pid, NewType) -&gt; {ok, OldType} | {error, Reason}</a></li>
+        
+        <li><a href="#start_linkPrioNoteStoreMasterAgentOptsgtokPiderrorReason">start_link(Prio, NoteStore, MasterAgent, Opts) -&gt; {ok, Pid} | {error, Reason}</a></li>
+        
+        <li><a href="#verbosityPidVerbositygtvoid">verbosity(Pid, Verbosity) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_linkPrioNoteStoreMasterAgentOptsgtokPiderrorReason"></a><b>start_link(Prio, NoteStore, MasterAgent, Opts) -&gt; {ok, Pid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Prio        = priority()</b><br/>
+        <b>NoteStore   = pid()</b><br/>
+        <b>MasterAgent = pid()</b><br/>
+        <b>Opts        = [opt()]</b><br/>
+        <b>opt()       = {verbosity, verbosity()} | {versions, versions()} | term()</b><br/>
+        <b>versions()  = [version()]</b><br/>
+        <b>version()   = v1 | v2 | v3</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start-link the network interface process.</p>
+        <p><tt>NoteStore</tt> is the pid of the note-store process and 
+          <tt>MasterAgent</tt> is the pid of the master-agent process.</p>
+        <p><tt>Opts</tt> is an (basically) implementation dependent list of 
+          options to the network interface process. There are however
+          a number of options which <em>must</em> be handled: 
+          <tt>versions</tt> and <tt>verbosity</tt>.</p>
+
+        <marker id="info"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infoPidgtKeyValue"></a><b>info(Pid) -&gt; [{Key, Value}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The info returned is basically up to the implementer to decide. 
+          This implementation provided by the application provides info about 
+          memory allocation and various socket information.</p>
+        <p>The info returned by this function is returned together with other 
+          info collected by the agent when the 
+          <seealso marker="snmpa#info">info</seealso> function is called 
+          (tagged with with the key <tt>net_if</tt>).</p>
+
+        <marker id="verbosity"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="verbosityPidVerbositygtvoid"></a><b>verbosity(Pid, Verbosity) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid       = pid()</b><br/>
+        <b>Verbosity = verbosity()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Change the verbosity of a running network interface process.</p>
+
+        <marker id="get_log_type"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_log_typePidgtokLogTypeerrorReason"></a><b>get_log_type(Pid) -&gt; {ok, LogType} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid     = pid()</b><br/>
+        <b>LogType = atl_type()</b><br/>
+        <b>Reason  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The Audit Trail Log is managed by the network interface process. 
+          So, it is this process that has to retrieve the actual log-type. </p>
+<!--
+        <p>See 
+          <seealso marker="snmpa#get_log_type">get_log_type</seealso>
+          for more info. </p>
+-->
+
+        <marker id="set_log_type"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_log_typePidNewTypegtokOldTypeerrorReason"></a><b>set_log_type(Pid, NewType) -&gt; {ok, OldType} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid     = pid()</b><br/>
+        <b>NewType = OldType = atl_type()</b><br/>
+        <b>Reason  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The Audit Trail Log is managed by the network interface process. 
+          So, it is this process that has to do the actual changing of the 
+          type. </p>
+        <p>See 
+          <seealso marker="snmpa#set_log_type">set_log_type</seealso>
+          for more info. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

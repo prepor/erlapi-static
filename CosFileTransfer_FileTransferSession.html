@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosFileTransfer_FileTransferSession</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosFileTransfer_FileTransferSession</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosFileTransfer/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_protocols_supportedFTSgtReturn">'_get_protocols_supported'(FTS) -&gt; Return</a></li>
+        
+        <li><a href="#appendFTSSourceFileDestinationFilegtReturn">append(FTS, SourceFile, DestinationFile) -&gt; Return</a></li>
+        
+        <li><a href="#create_directoryFTSFileNameListgtReturn">create_directory(FTS, FileNameList) -&gt; Return</a></li>
+        
+        <li><a href="#create_fileFTSFileNameListgtReturn">create_file(FTS, FileNameList) -&gt; Return</a></li>
+        
+        <li><a href="#deleteFTSFilegtReturn">delete(FTS, File) -&gt; Return</a></li>
+        
+        <li><a href="#get_fileFTSFileNameListgtReturn">get_file(FTS, FileNameList) -&gt; Return</a></li>
+        
+        <li><a href="#insertFTSSourceFileDestinationFileOffsetgtReturn">insert(FTS, SourceFile, DestinationFile, Offset) -&gt; Return</a></li>
+        
+        <li><a href="#logoutFTSgtok">logout(FTS) -&gt; ok</a></li>
+        
+        <li><a href="#set_directoryFTSDirectorygtReturn">set_directory(FTS, Directory) -&gt; Return</a></li>
+        
+        <li><a href="#transferFTSSourceFileDestinationFilegtReturn">transfer(FTS, SourceFile, DestinationFile) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_protocols_supportedFTSgtReturn"></a><b>'_get_protocols_supported'(FTS) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = #objref</b><br/>
+        <b>Return = [#'CosFileTransfer_ProtocolSupport'{protocol_name=Type, addresses=[Address]}]</b><br/>
+        <b>Type = Address = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This read only attribute returns the protocols supported by the
+          target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_directoryFTSDirectorygtReturn"></a><b>set_directory(FTS, Directory) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = Directory = #objref</b><br/>
+        <b>Return = ok | {'EXCEPTION, E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Invoking this operation will change the current working directory of
+          the target object's associated file system. If fail to do so the
+          appropriate exception is raised. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_fileFTSFileNameListgtReturn"></a><b>create_file(FTS, FileNameList) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = #objref</b><br/>
+        <b>FileNameList = [string()]</b><br/>
+        <b>Return = File | {'EXCEPTION, E}</b><br/>
+        <b>File = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a <tt>File</tt> Object representing a file which 
+          may or may not exist. 
+          For this operation to be independent of the working directory the
+          supplied <tt>FileNameList</tt> must represent the absolute name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_directoryFTSFileNameListgtReturn"></a><b>create_directory(FTS, FileNameList) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = #objref</b><br/>
+        <b>FileNameList = [string()]</b><br/>
+        <b>Return = Directory | {'EXCEPTION, E}</b><br/>
+        <b>Directory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new directory in the target objects associated
+          file systems domain. If fail to do so an exception is raised but,
+          if successful, a <tt>Directory</tt> object representing the new
+          directory is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_fileFTSFileNameListgtReturn"></a><b>get_file(FTS, FileNameList) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = #objref</b><br/>
+        <b>FileNameList = [string()]</b><br/>
+        <b>Return = FileWrapper | {'EXCEPTION, E}</b><br/>
+        <b>FileWrapper = #'CosFileTransfer_FileWrapper'{the_file = File file_type = Type}</b><br/>
+        <b>File = #objref</b><br/>
+        <b>Type = nfile | ndirectory</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation, creates a <tt>FileWrapper</tt> which represents a file or directory, and 
+          should be independent of the working Directory,
+          i.e., a full path name must be supplied. Furthermore, the file or
+          directory represented by the <tt>FileNameList</tt> must exist.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteFTSFilegtReturn"></a><b>delete(FTS, File) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = File = #objref</b><br/>
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation removes the file or directory, represented by the <tt>File</tt>
+          object, from the target objects associated file system. If it is a non-empty
+          directory or non-existing file or directory an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="transferFTSSourceFileDestinationFilegtReturn"></a><b>transfer(FTS, SourceFile, DestinationFile) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = SourceFile = DestinationFile = #objref</b><br/>
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the target object's and the <tt>DestinationFile's</tt> associated
+          <tt>FileTransferSession's</tt> support the same protocol(s) this operation
+          will copy the file represented by the <tt>SourceFile</tt> from the target 
+          object's file system to a file in the destination 
+          <tt>FileTransferSession's</tt> file system. The file is represented by the
+          <tt>DestinationFile</tt> object and may not exist.
+          This operation must be invoked on the <tt>FileTransferSession</tt>
+          associated with the <tt>SourceFile</tt> object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="appendFTSSourceFileDestinationFilegtReturn"></a><b>append(FTS, SourceFile, DestinationFile) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = SourceFile = DestinationFile = #objref</b><br/>
+        <b>Return =  ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation behaves almost like the <tt>transfer/3</tt> operation. The
+          difference is that the <tt>DestinationFile</tt> must exist since the
+          <tt>SourceFile</tt> will be appended to the <tt>DestinationFile</tt>.</p>
+        <p>Currently, it is not possible to use this operation when the target 
+          object represents FTP.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="insertFTSSourceFileDestinationFileOffsetgtReturn"></a><b>insert(FTS, SourceFile, DestinationFile, Offset) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = SourceFile = DestinationFile = #objref</b><br/>
+        <b>Offset = long()</b><br/>
+        <b>Return =  ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation behaves almost like the <tt>append/3</tt> operation. The 
+          difference is that the <tt>SourceFile</tt> will be inserted into the
+          <tt>DestinationFile</tt><tt>Offset</tt> bytes from the start of the file.</p>
+        <p>Currently, it is not possible to use this operation when the target 
+          object represents FTP.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="logoutFTSgtok"></a><b>logout(FTS) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FTS = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This opertion terminates the target object and closes the connection
+          to the file system it represents.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

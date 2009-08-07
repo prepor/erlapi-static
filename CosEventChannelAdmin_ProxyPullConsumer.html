@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventChannelAdmin_ProxyPullConsumer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventChannelAdmin_ProxyPullConsumer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The ProxyPullConsumer interface defines the second step for connecting pull
+      suppliers to the event channel. A proxy consumer is similar to a normal consumer,
+      but includes an additional method for connecting a supplier to the proxy
+      consumer.</p>
+    <p>To get access to all definitions, e.g., exceptions,
+      include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+    <p>Any object that possesses an object reference that supports the ProxyPullConsumer
+      interface can perform the following operations:</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_pull_supplierObjectPullSuppliergtReturn">connect_pull_supplier(Object, PullSupplier) -&gt; Return</a></li>
+        
+        <li><a href="#disconnect_pull_consumerObjectgtReturn">disconnect_pull_consumer(Object) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_pull_supplierObjectPullSuppliergtReturn"></a><b>connect_pull_supplier(Object, PullSupplier) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object       = #objref</b><br/>
+        <b>PullSupplier = #objref of PullSupplier type</b><br/>
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+        <b>E = #'CosEventChannelAdmin_AlreadyConnected'{} | #'CosEventChannelAdmin_TypeError'{}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects PullSupplier object to the ProxyPullConsumer object.
+          If a nil object reference is passed CORBA standard <tt>BAD_PARAM</tt> exception 
+          is raised. If the ProxyPullConsumer is already connected to a PullSupplier,
+          then the <tt>CosEventChannelAdmin_AlreadyConnected</tt> exception is raised.
+          Implementations of ProxyPullConsumers may require additional interface
+          functionality; if these requirements are not met the 
+          <tt>CosEventChannelAdmin_TypeError</tt> exception will be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_pull_consumerObjectgtReturn"></a><b>disconnect_pull_consumer(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation disconnects proxy pull consumer from the event channel and
+          sends a notification about the loss of the connection to the pull supplier
+          attached to it.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

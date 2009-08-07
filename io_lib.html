@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>io_lib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />io_lib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions for converting to and from
+      strings (lists of characters). They are used for implementing the
+      functions in the <tt>io</tt> module. There is no guarantee that the
+      character lists returned from some of the functions are flat,
+      they can be deep lists. <tt>lists:flatten/1</tt> can be used for
+      flattening deep lists.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#char_listTermgtbool">char_list(Term) -&gt; bool()</a></li>
+        
+        <li><a href="#deep_char_listTermgtbool">deep_char_list(Term) -&gt; bool()</a></li>
+        
+        <li><a href="#freadContinuationStringFormatgtReturn">fread(Continuation, String, Format) -&gt; Return</a></li>
+        
+        <li><a href="#freadFormatStringgtResult">fread(Format, String) -&gt; Result</a></li>
+        
+        <li><a href="#fwriteFormatDatagt">fwrite(Format, Data) -&gt;</a></li>
+        
+        <li><a href="#indentationStringStartIndentgtint">indentation(String, StartIndent) -&gt; int()</a></li>
+        
+        <li><a href="#nlgtchars">nl() -&gt; chars()</a></li>
+        
+        <li><a href="#printTermgt">print(Term) -&gt;</a></li>
+        
+        <li><a href="#printable_listTermgtbool">printable_list(Term) -&gt; bool()</a></li>
+        
+        <li><a href="#writeTermgt">write(Term) -&gt;</a></li>
+        
+        <li><a href="#write_atomAtomgtchars">write_atom(Atom) -&gt; chars()</a></li>
+        
+        <li><a href="#write_charIntegergtchars">write_char(Integer) -&gt; chars()</a></li>
+        
+        <li><a href="#write_stringStringgtchars">write_string(String) -&gt; chars()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+chars() = [char() | chars()]</code>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="nlgtchars"></a><b>nl() -&gt; chars()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns a character list which represents a new line
+          character.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="writeTermgt"></a><b>write(Term) -&gt;<br/>write(Term, Depth) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+        <b>Depth = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a character list which represents <tt>Term</tt>. The
+          <tt>Depth</tt> (-1) argument controls the depth of the
+          structures written. When the specified depth is reached,
+          everything below this level is replaced by "...". For
+          example:</p>
+        <pre>
+1&gt; <input>
+"{1,[2],[3],[4,5],6,7,8,9}"
+2&gt; <input>
+"{1,[2],[3],[...],...}"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="printTermgt"></a><b>print(Term) -&gt;<br/>print(Term, Column, LineLength, Depth) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+        <b>Column = LineLenght = Depth = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Also returns a list of characters which represents
+          <tt>Term</tt>, but breaks representations which are longer than
+          one line into many lines and indents each line sensibly. It
+          also tries to detect and output lists of printable characters 
+          as strings. <tt>Column</tt> is the starting column (1),
+          <tt>LineLength</tt> the maximum line length (80), and
+          <tt>Depth</tt> (-1) the maximum print depth.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fwriteFormatDatagt"></a><b>fwrite(Format, Data) -&gt;<br/>format(Format, Data) -&gt; chars() | UnicodeList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = atom() | string() | binary()</b><br/>
+        <b>Data = [term()]</b><br/>
+	<b>UnicodeList = [Unicode]</b><br/>
+	<b>Unicode = int() representing valid unicode codepoint</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a character list which represents <tt>Data</tt>
+          formatted in accordance with <tt>Format</tt>. See
+          <seealso marker="io#fwrite/1">io:fwrite/1,2,3</seealso> for a detailed
+          description of the available formatting options. A fault is
+          generated if there is an error in the format string or
+          argument list.</p>
+
+	  <p>If (and only if) the Unicode translation modifier is used
+	  in the format string (i.e. ~ts or ~tc), the resulting list
+	  may contain characters beyond the ISO-latin-1 character
+	  range (in other words, numbers larger than 255). If so, the
+	  result is not an ordinary Erlang string(), but can well be
+	  used in any context where Unicode data is allowed.</p>
+	  
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="freadFormatStringgtResult"></a><b>fread(Format, String) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = String = string()</b><br/>
+        <b>Result = {ok, InputList, LeftOverChars} | {more, RestFormat, Nchars, InputStack} | {error, What}</b><br/>
+        <b>&nbsp;InputList = chars()</b><br/>
+        <b>&nbsp;LeftOverChars = string()</b><br/>
+        <b>&nbsp;RestFormat = string()</b><br/>
+        <b>&nbsp;Nchars = int()</b><br/>
+        <b>&nbsp;InputStack = chars()</b><br/>
+        <b>&nbsp;What = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to read <tt>String</tt> in accordance with the control
+          sequences in <tt>Format</tt>. See
+          <seealso marker="io#fread/3">io:fread/3</seealso> for a detailed
+          description of the available formatting options. It is
+          assumed that <tt>String</tt> contains whole lines. It returns:</p>
+        <taglist>
+          <tag><tt>{ok, InputList, LeftOverChars}</tt></tag>
+          <item>
+            <p>The string was read. <tt>InputList</tt> is the list of
+              successfully matched and read items, and
+              <tt>LeftOverChars</tt> are the input characters not used.</p>
+          </item>
+          <tag><tt>{more, RestFormat, Nchars, InputStack}</tt></tag>
+          <item>
+            <p>The string was read, but more input is needed in order
+              to complete the original format string. <tt>RestFormat</tt>
+              is the remaining format string, <tt>NChars</tt> the number
+              of characters scanned, and <tt>InputStack</tt> is the
+              reversed list of inputs matched up to that point.</p>
+          </item>
+          <tag><tt>{error, What}</tt></tag>
+          <item>
+            <p>The read operation failed and the parameter <tt>What</tt>
+              gives a hint about the error.</p>
+          </item>
+        </taglist>
+        <p>Example:</p>
+        <pre>
+3&gt; <input>
+{ok,[15.6,1.73e-5,24.5],[]}</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="freadContinuationStringFormatgtReturn"></a><b>fread(Continuation, String, Format) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Continuation = see below</b><br/>
+        <b>String = Format = string()</b><br/>
+        <b>Return = {done, Result, LeftOverChars} | {more, Continuation}</b><br/>
+        <b>&nbsp;Result = {ok, InputList} | eof | {error, What}</b><br/>
+        <b>&nbsp;&nbsp;InputList = chars()</b><br/>
+        <b>&nbsp;&nbsp;What = term()()</b><br/>
+        <b>&nbsp;LeftOverChars = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is the re-entrant formatted reader. The continuation of
+          the first call to the functions must be <tt>[]</tt>. Refer to
+          Armstrong, Virding, Williams, 'Concurrent Programming in
+          Erlang', Chapter 13 for a complete description of how the
+          re-entrant input scheme works.</p>
+        <p>The function returns:</p>
+        <taglist>
+          <tag><tt>{done, Result, LeftOverChars}</tt></tag>
+          <item>
+            <p>The input is complete. The result is one of the
+              following:</p>
+            <taglist>
+              <tag><tt>{ok, InputList}</tt></tag>
+              <item>
+                <p>The string was read. <tt>InputList</tt> is the list of
+                  successfully matched and read items, and
+                  <tt>LeftOverChars</tt> are the remaining characters.</p>
+              </item>
+              <tag><tt>eof</tt></tag>
+              <item>
+                <p>End of file has been encountered.
+                  <tt>LeftOverChars</tt> are the input characters not
+                  used.</p>
+              </item>
+              <tag><tt>{error, What}</tt></tag>
+              <item>
+                <p>An error occurred and the parameter <tt>What</tt> gives
+                  a hint about the error.</p>
+              </item>
+            </taglist>
+          </item>
+          <tag><tt>{more, Continuation}</tt></tag>
+          <item>
+            <p>More data is required to build a term.
+              <tt>Continuation</tt> must be passed to <tt>fread/3</tt>,
+              when more data becomes available.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_atomAtomgtchars"></a><b>write_atom(Atom) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Atom = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the list of characters needed to print the atom
+          <tt>Atom</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_stringStringgtchars"></a><b>write_string(String) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the list of characters needed to print <tt>String</tt>
+          as a string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_charIntegergtchars"></a><b>write_char(Integer) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Integer = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the list of characters needed to print a character
+          constant in the ISO-latin-1 character set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="indentationStringStartIndentgtint"></a><b>indentation(String, StartIndent) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>StartIndent = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the indentation if <tt>String</tt> has been printed,
+          starting at <tt>StartIndent</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="char_listTermgtbool"></a><b>char_list(Term) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Term</tt> is a flat list of
+          characters in the ISO-latin-1 range, otherwise it returns <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deep_char_listTermgtbool"></a><b>deep_char_list(Term) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Term</tt> is a, possibly deep, list
+          of characters in the ISO-latin-1 range, otherwise it returns <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="printable_listTermgtbool"></a><b>printable_list(Term) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Term</tt> is a flat list of
+          printable ISO-latin-1 characters, otherwise it returns <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

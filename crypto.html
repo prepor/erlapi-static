@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>crypto</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />crypto</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides a set of cryptographic functions.
+      </p>
+    <p>References:</p>
+    <list type="bulleted">
+      <item>
+        <p>md5: The MD5 Message Digest Algorithm (RFC 1321)</p>
+      </item>
+      <item>
+        <p>sha: Secure Hash Standard (FIPS 180-2)</p>
+      </item>
+      <item>
+        <p>hmac: Keyed-Hashing for Message Authentication (RFC 2104)</p>
+      </item>
+      <item>
+        <p>des: Data Encryption Standard (FIPS 46-3)</p>
+      </item>
+      <item>
+        <p>aes: Advanced Encryption Standard (AES) (FIPS 197) </p>
+      </item>
+      <item>
+        <p>ecb, cbc, cfb, ofb: Recommendation for Block Cipher Modes
+          of Operation (NIST SP 800-38A).</p>
+      </item>
+      <item>
+        <p>rsa: Recommendation for Block Cipher Modes of Operation
+          (NIST 800-38A)</p>
+      </item>
+      <item>
+        <p>dss: Digital Signature Standard (FIPS 186-2)</p>
+      </item>
+    </list>
+    <p>The above publications can be found at <url href="http://csrc.nist.gov/publications">NIST publications</url>, at <url href="http://www.ietf.org">IETF</url>.
+      </p>
+    <p><em>Types</em></p>
+    <pre>
+byte() = 0 ... 255
+ioelem() = byte() | binary() | iolist()
+iolist() = [ioelem()]
+Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
+    </pre>
+    <p></p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DES in CBC mode</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#aes_cfb_128_decryptKeyIVecCiphergtText">aes_cfb_128_decrypt(Key, IVec, Cipher) -&gt; Text</a></li>
+        
+        <li><a href="#aes_cfb_128_encryptKeyIVecTextgtCipher">aes_cfb_128_encrypt(Key, IVec, Text) -&gt; Cipher</a></li>
+        
+        <li><a href="#des3_cbc_decryptKey1Key2Key3IVecCiphergtText">des3_cbc_decrypt(Key1, Key2, Key3, IVec, Cipher) -&gt; Text</a></li>
+        
+        <li><a href="#des3_cbc_encryptKey1Key2Key3IVecTextgtCipher">des3_cbc_encrypt(Key1, Key2, Key3, IVec, Text) -&gt; Cipher</a></li>
+        
+        <li><a href="#des_cbc_decryptKeyIVecCiphergtText">des_cbc_decrypt(Key, IVec, Cipher) -&gt; Text</a></li>
+        
+        <li><a href="#des_cbc_encryptKeyIVecTextgtCipher">des_cbc_encrypt(Key, IVec, Text) -&gt; Cipher</a></li>
+        
+        <li><a href="#dh_compute_keyOthersPublicKeyMyPrivateKeyDHParamsgtSharedSecret">dh_compute_key(OthersPublicKey, MyPrivateKey, DHParams) -&gt; SharedSecret</a></li>
+        
+        <li><a href="#dh_generate_keyDHParamsgtPublicKeyPrivateKey">dh_generate_key(DHParams) -&gt; {PublicKey,PrivateKey} </a></li>
+        
+        <li><a href="#dss_signDataKeygtSignature">dss_sign(Data, Key) -&gt; Signature</a></li>
+        
+        <li><a href="#dss_verifyDataSignatureKeygtVerified">dss_verify(Data, Signature, Key) -&gt; Verified</a></li>
+        
+        <li><a href="#erlintMpintgtN">erlint(Mpint) -&gt; N</a></li>
+        
+        <li><a href="#exorData1Data2gtResult">exor(Data1, Data2) -&gt; Result</a></li>
+        
+        <li><a href="#infogtatom">info() -&gt; [atom()]</a></li>
+        
+        <li><a href="#info_libgtNameVerNumVerStr">info_lib() -&gt; [{Name,VerNum,VerStr}]</a></li>
+        
+        <li><a href="#md5DatagtDigest">md5(Data) -&gt; Digest</a></li>
+        
+        <li><a href="#md5_finalContextgtDigest">md5_final(Context) -&gt; Digest</a></li>
+        
+        <li><a href="#md5_initgtContext">md5_init() -&gt; Context</a></li>
+        
+        <li><a href="#md5_macKeyDatagtMac">md5_mac(Key, Data) -&gt; Mac</a></li>
+        
+        <li><a href="#md5_mac_96KeyDatagtMac">md5_mac_96(Key, Data) -&gt; Mac</a></li>
+        
+        <li><a href="#md5_updateContextDatagtNewContext">md5_update(Context, Data) -&gt; NewContext</a></li>
+        
+        <li><a href="#mod_expNPMgtResult">mod_exp(N, P, M) -&gt; Result</a></li>
+        
+        <li><a href="#rand_bytesNgtbinary">rand_bytes(N) -&gt; binary()</a></li>
+        
+        <li><a href="#rand_uniformLoHigtN">rand_uniform(Lo, Hi) -&gt; N</a></li>
+        
+        <li><a href="#rc4_encryptKeyDatagtResult">rc4_encrypt(Key, Data) -&gt; Result</a></li>
+        
+        <li><a href="#rsa_private_decryptChipherTextPrivateKeyPaddinggtPlainText">rsa_private_decrypt(ChipherText, PrivateKey, Padding) -&gt; PlainText</a></li>
+        
+        <li><a href="#rsa_private_encryptPlainTextPrivateKeyPaddinggtChipherText">rsa_private_encrypt(PlainText, PrivateKey, Padding) -&gt; ChipherText</a></li>
+        
+        <li><a href="#rsa_public_decryptChipherTextPublicKeyPaddinggtPlainText">rsa_public_decrypt(ChipherText, PublicKey, Padding) -&gt; PlainText</a></li>
+        
+        <li><a href="#rsa_public_encryptPlainTextPublicKeyPaddinggtChipherText">rsa_public_encrypt(PlainText, PublicKey, Padding) -&gt; ChipherText</a></li>
+        
+        <li><a href="#rsa_signDataKeygtSignature">rsa_sign(Data, Key) -&gt; Signature</a></li>
+        
+        <li><a href="#rsa_verifyDataSignatureKeygtVerified">rsa_verify(Data, Signature, Key) -&gt; Verified</a></li>
+        
+        <li><a href="#shaDatagtDigest">sha(Data) -&gt; Digest</a></li>
+        
+        <li><a href="#sha_finalContextgtDigest">sha_final(Context) -&gt; Digest</a></li>
+        
+        <li><a href="#sha_initgtContext">sha_init() -&gt; Context</a></li>
+        
+        <li><a href="#sha_macKeyDatagtMac">sha_mac(Key, Data) -&gt; Mac</a></li>
+        
+        <li><a href="#sha_mac_96KeyDatagtMac">sha_mac_96(Key, Data) -&gt; Mac</a></li>
+        
+        <li><a href="#sha_updateContextDatagtNewContext">sha_update(Context, Data) -&gt; NewContext</a></li>
+        
+        <li><a href="#startgtok">start() -&gt; ok</a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DES in CBC mode</div>
+    
+    <div class="description">
+        
+    <title>DES in CBC mode</title>
+    <p>The Data Encryption Standard (DES) defines an algoritm for
+      encrypting and decrypting an 8 byte quantity using an 8 byte key
+      (actually only 56 bits of the key is used).
+      </p>
+    <p>When it comes to encrypting and decrypting blocks that are
+      multiples of 8 bytes various modes are defined (NIST SP
+      800-38A). One of those modes is the Cipher Block Chaining (CBC)
+      mode, where the encryption of an 8 byte segment depend not only
+      of the contents of the segment itself, but also on the result of
+      encrypting the previous segment: the encryption of the previous
+      segment becomes the initializing vector of the encryption of the
+      current segment.
+      </p>
+    <p>Thus the encryption of every segment depends on the encryption
+      key (which is secret) and the encryption of the previous
+      segment, except the first segment which has to be provided with
+      an initial initializing vector. That vector could be chosen at
+      random, or be a counter of some kind. It does not have to be
+      secret.
+      </p>
+    <p>The following example is drawn from the old FIPS 81 standard
+      (replaced by NIST SP 800-38A), where both the plain text and the
+      resulting cipher text is settled. The following code fragment
+      returns `true'.
+      </p>
+    <pre>
+
+      Key = <<16#01,16#23,16#45,16#67,16#89,16#ab,16#cd,16#ef>>,
+      IVec = <<16#12,16#34,16#56,16#78,16#90,16#ab,16#cd,16#ef>>,
+      P = "Now is the time for all ",
+      C = crypto:des_cbc_encrypt(Key, IVec, P),
+         % Which is the same as 
+      P1 = "Now is t", P2 = "he time ", P3 = "for all ",
+      C1 = crypto:des_cbc_encrypt(Key, IVec, P1),
+      C2 = crypto:des_cbc_encrypt(Key, C1, P2),
+      C3 = crypto:des_cbc_encrypt(Key, C2, P3),
+
+      C = <<C1/binary, C2/binary, C3/binary>>,
+      C = <<16#e5,16#c7,16#cd,16#de,16#87,16#2b,16#f2,16#7c,
+             16#43,16#e9,16#34,16#00,16#8c,16#38,16#9c,16#0f,
+             16#68,16#37,16#88,16#49,16#9a,16#7c,16#05,16#f6>>,
+      <<"Now is the time for all ">> == 
+                        crypto:des_cbc_decrypt(Key, IVec, C).
+    </pre>
+    <p>The following is true for the DES CBC mode. For all
+      decompositions <tt>P1 ++ P2 = P</tt> of a plain text message
+      <tt>P</tt> (where the length of all quantities are multiples of 8
+      bytes), the encryption <tt>C</tt> of <tt>P</tt> is equal to <tt>C1 ++
+      C2</tt>, where <tt>C1</tt> is obtained by encrypting <tt>P1</tt> with
+      <tt>Key</tt> and the initializing vector <tt>IVec</tt>, and where
+      <tt>C2</tt> is obtained by encrypting <tt>P2</tt> with <tt>Key</tt>
+      and the initializing vector <tt>last8(C1)</tt>,
+      where <tt>last(Binary)</tt> denotes the last 8 bytes of the
+      binary <tt>Binary</tt>.
+      </p>
+    <p>Similarly, for all decompositions <tt>C1 ++ C2 = C</tt> of a
+      cipher text message <tt>C</tt> (where the length of all quantities
+      are multiples of 8 bytes), the decryption <tt>P</tt> of <tt>C</tt>
+      is equal to <tt>P1 ++ P2</tt>, where <tt>P1</tt> is obtained by
+      decrypting <tt>C1</tt> with <tt>Key</tt> and the initializing vector
+      <tt>IVec</tt>, and where <tt>P2</tt> is obtained by decrypting
+      <tt>C2</tt> with <tt>Key</tt> and the initializing vector
+      <tt>last8(C1)</tt>, where <tt>last8(Binary)</tt> is as above.
+      </p>
+    <p>For DES3 (which uses three 64 bit keys) the situation is the
+      same.
+    </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtok"></a><b>start() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Starts the crypto server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the crypto server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infogtatom"></a><b>info() -&gt; [atom()]</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Provides the available crypto functions in terms of a list
+          of atoms.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="info_libgtNameVerNumVerStr"></a><b>info_lib() -&gt; [{Name,VerNum,VerStr}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = binary()</b><br/>
+        <b>VerNum = integer()</b><br/>
+        <b>VerStr = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Provides the name and version of the libraries used by crypto.</p>
+        <p><tt>Name</tt> is the name of the library. <tt>VerNum</tt> is
+        the numeric version according to the library's own versioning
+        scheme. <tt>VerStr</tt> contains a text variant of the version.</p>
+        <pre>
+&gt; <input>
+[{&lt;&lt;"OpenSSL"&gt;&gt;,9469983,&lt;&lt;"OpenSSL 0.9.8a 11 Oct 2005"&gt;&gt;}]
+        </pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5DatagtDigest"></a><b>md5(Data) -&gt; Digest</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = iolist() | binary()</b><br/>
+        <b>Digest = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>MD5</tt> message digest from <tt>Data</tt>, where
+          the length of the digest is 128 bits (16 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5_initgtContext"></a><b>md5_init() -&gt; Context</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Context = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an MD5 context, to be used in subsequent calls to 
+          <tt>md5_update/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5_updateContextDatagtNewContext"></a><b>md5_update(Context, Data) -&gt; NewContext</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = iolist() | binary()</b><br/>
+        <b>Context = NewContext = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Updates an MD5 <tt>Context</tt> with <tt>Data</tt>, and returns
+          a <tt>NewContext</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5_finalContextgtDigest"></a><b>md5_final(Context) -&gt; Digest</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Context = Digest = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finishes the update of an MD5 <tt>Context</tt> and returns
+          the computed <tt>MD5</tt> message digest.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="shaDatagtDigest"></a><b>sha(Data) -&gt; Digest</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = iolist() | binary()</b><br/>
+        <b>Digest = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>SHA</tt> message digest from <tt>Data</tt>, where
+          the length of the digest is 160 bits (20 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sha_initgtContext"></a><b>sha_init() -&gt; Context</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Context = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an SHA context, to be used in subsequent calls to 
+          <tt>sha_update/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sha_updateContextDatagtNewContext"></a><b>sha_update(Context, Data) -&gt; NewContext</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = iolist() | binary()</b><br/>
+        <b>Context = NewContext = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Updates an SHA <tt>Context</tt> with <tt>Data</tt>, and returns
+          a <tt>NewContext</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sha_finalContextgtDigest"></a><b>sha_final(Context) -&gt; Digest</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Context = Digest = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finishes the update of an SHA <tt>Context</tt> and returns
+          the computed <tt>SHA</tt> message digest.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5_macKeyDatagtMac"></a><b>md5_mac(Key, Data) -&gt; Mac</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Data = iolist() | binary()</b><br/>
+        <b>Mac = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>MD5 MAC</tt> message authentification code
+          from <tt>Key</tt> and <tt>Data</tt>, where the the length of the
+          Mac is 128 bits (16 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="md5_mac_96KeyDatagtMac"></a><b>md5_mac_96(Key, Data) -&gt; Mac</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Data = iolist() | binary()</b><br/>
+        <b>Mac = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>MD5 MAC</tt> message authentification code
+          from <tt>Key</tt> and <tt>Data</tt>, where the length of the Mac
+          is 96 bits (12 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sha_macKeyDatagtMac"></a><b>sha_mac(Key, Data) -&gt; Mac</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Data = iolist() | binary()</b><br/>
+        <b>Mac = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>SHA MAC</tt> message authentification code
+          from <tt>Key</tt> and <tt>Data</tt>, where the length of the Mac
+          is 160 bits (20 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sha_mac_96KeyDatagtMac"></a><b>sha_mac_96(Key, Data) -&gt; Mac</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Data = iolist() | binary()</b><br/>
+        <b>Mac = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Computes an <tt>SHA MAC</tt> message authentification code
+          from <tt>Key</tt> and <tt>Data</tt>, where the length of the Mac
+          is 96 bits (12 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="des_cbc_encryptKeyIVecTextgtCipher"></a><b>des_cbc_encrypt(Key, IVec, Text) -&gt; Cipher</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Text = iolist() | binary()</b><br/>
+        <b>IVec = Cipher = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encrypts <tt>Text</tt> according to DES in CBC
+          mode. <tt>Text</tt> must be a multiple of 64 bits (8
+          bytes). <tt>Key</tt> is the DES key, and <tt>IVec</tt> is an
+          arbitrary initializing vector. The lengths of <tt>Key</tt> and
+          <tt>IVec</tt> must be 64 bits (8 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="des_cbc_decryptKeyIVecCiphergtText"></a><b>des_cbc_decrypt(Key, IVec, Cipher) -&gt; Text</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Cipher = iolist() | binary()</b><br/>
+        <b>IVec = Text = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decrypts <tt>Cipher</tt> according to DES in CBC mode.
+          <tt>Key</tt> is the DES key, and <tt>IVec</tt> is an arbitrary
+          initializing vector.  <tt>Key</tt> and <tt>IVec</tt> must have
+          the same values as those used when encrypting. <tt>Cipher</tt>
+          must be a multiple of 64 bits (8 bytes).  The lengths of
+          <tt>Key</tt> and <tt>IVec</tt> must be 64 bits (8 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="des3_cbc_encryptKey1Key2Key3IVecTextgtCipher"></a><b>des3_cbc_encrypt(Key1, Key2, Key3, IVec, Text) -&gt; Cipher</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key1 =Key2 = Key3 Text = iolist() | binary()</b><br/>
+        <b>IVec = Cipher = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encrypts <tt>Text</tt> according to DES3 in CBC
+          mode. <tt>Text</tt> must be a multiple of 64 bits (8
+          bytes). <tt>Key1</tt>, <tt>Key2</tt>, <tt>Key3</tt>, are the DES
+          keys, and <tt>IVec</tt> is an arbitrary initializing
+          vector. The lengths of each of <tt>Key1</tt>, <tt>Key2</tt>,
+          <tt>Key3</tt> and <tt>IVec</tt> must be 64 bits (8 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="des3_cbc_decryptKey1Key2Key3IVecCiphergtText"></a><b>des3_cbc_decrypt(Key1, Key2, Key3, IVec, Cipher) -&gt; Text</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key1 = Key2 = Key3 = Cipher = iolist() | binary()</b><br/>
+        <b>IVec = Text = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decrypts <tt>Cipher</tt> according to DES3 in CBC mode.
+          <tt>Key1</tt>, <tt>Key2</tt>, <tt>Key3</tt> are the DES key, and
+          <tt>IVec</tt> is an arbitrary initializing vector.
+          <tt>Key1</tt>, <tt>Key2</tt>, <tt>Key3</tt> and <tt>IVec</tt> must
+          and <tt>IVec</tt> must have the same values as those used when
+          encrypting. <tt>Cipher</tt> must be a multiple of 64 bits (8
+          bytes).  The lengths of <tt>Key1</tt>, <tt>Key2</tt>,
+          <tt>Key3</tt>, and <tt>IVec</tt> must be 64 bits (8 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="aes_cfb_128_encryptKeyIVecTextgtCipher"></a><b>aes_cfb_128_encrypt(Key, IVec, Text) -&gt; Cipher<br/>aes_cbc_128_encrypt(Key, IVec, Text) -&gt; Cipher</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Text = iolist() | binary()</b><br/>
+        <b>IVec = Cipher = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encrypts <tt>Text</tt> according to AES in Cipher Feedback 
+          mode (CFB) or Cipher Block Chaining mode (CBC). <tt>Text</tt>
+          must be a multiple of 128 bits (16 bytes). <tt>Key</tt> is the
+          AES key, and <tt>IVec</tt> is an arbitrary initializing vector.
+          The lengths of <tt>Key</tt> and <tt>IVec</tt> must be 128 bits
+          (16 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="aes_cfb_128_decryptKeyIVecCiphergtText"></a><b>aes_cfb_128_decrypt(Key, IVec, Cipher) -&gt; Text<br/>aes_cbc_128_decrypt(Key, IVec, Cipher) -&gt; Text</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Cipher = iolist() | binary()</b><br/>
+        <b>IVec = Text = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decrypts <tt>Cipher</tt> according to Cipher Feedback Mode (CFB)
+          or Cipher Block Chaining mode (CBC).
+          <tt>Key</tt> is the AES key, and <tt>IVec</tt> is an arbitrary
+          initializing vector. <tt>Key</tt> and <tt>IVec</tt> must have
+          the same values as those used when encrypting. <tt>Cipher</tt>
+          must be a multiple of 128 bits (16 bytes).  The lengths of
+          <tt>Key</tt> and <tt>IVec</tt> must be 128 bits (16 bytes).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="erlintMpintgtN"></a><b>erlint(Mpint) -&gt; N<br/>mpint(N) -&gt; Mpint</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mpint = binary()</b><br/>
+        <b>N = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Convert a binary multi-precision integer <tt>Mpint</tt> to and from
+          an erlang big integer. A multi-precision integer is a binary
+          with the following form:
+          <tt><<ByteLen:32/integer, Bytes:ByteLen/binary>></tt> where both
+          <tt>ByteLen</tt> and <tt>Bytes</tt> are big-endian. Mpints are used in
+          some of the functions in <tt>crypto</tt> and are not translated
+          in the API for performance reasons.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rand_bytesNgtbinary"></a><b>rand_bytes(N) -&gt; binary()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates N bytes randomly uniform 0..255, and returns the
+          result in a binary. Uses the <tt>crypto</tt> library pseudo-random
+          number generator.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rand_uniformLoHigtN"></a><b>rand_uniform(Lo, Hi) -&gt; N</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Lo, Hi, N = Mpint | integer()</b><br/>
+        <b>Mpint = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generate a random number <tt>N, Lo =< N < Hi.</tt> Uses the
+          <tt>crypto</tt> library pseudo-random number generator. The
+          arguments (and result) can be either erlang integers or binary
+          multi-precision integers.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mod_expNPMgtResult"></a><b>mod_exp(N, P, M) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N, P, M, Result = Mpint</b><br/>
+        <b>Mpint = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function performs the exponentiation <tt>N ^ P mod M</tt>,
+          using the <tt>crypto</tt> library.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_signDataKeygtSignature"></a><b>rsa_sign(Data, Key) -&gt; Signature<br/>rsa_sign(DigestType, Data, Key) -&gt; Signature</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = Mpint</b><br/>
+        <b>Key = [E, N, D]</b><br/>
+        <b>E, N, D = Mpint</b><br/>
+        <d>Where <tt>E</tt> is the public exponent, <tt>N</tt> is public modulus and 
+	  <tt>D</tt> is the private exponent.</d>
+	<b>DigestType = md5 | sha</b><br/>
+	<d>The default <tt>DigestType</tt> is sha.</d>
+        <b>Mpint = binary()</b><br/>
+        <b>Signature = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates a <tt>DigestType</tt> digest of the <tt>Data</tt>
+	  and creates a RSA signature with the private key <tt>Key</tt>
+	  of the digest.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_verifyDataSignatureKeygtVerified"></a><b>rsa_verify(Data, Signature, Key) -&gt; Verified<br/>rsa_verify(DigestType, Data, Signature, Key) -&gt; Verified </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Verified = boolean()</b><br/>
+        <b>Data, Signature = Mpint</b><br/>
+        <b>Key = [E, N]</b><br/>
+        <b>E, N = Mpint</b><br/>
+        <d>Where <tt>E</tt> is the public exponent and <tt>N</tt> is public modulus.</d>
+	<b>DigestType = md5 | sha</b><br/>
+	<d> The default <tt>DigestType</tt> is sha.</d>
+        <b>Mpint = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates a <tt>DigestType</tt> digest of the <tt>Data</tt>
+          and verifies that the digest matches the RSA signature using the
+          signer's public key <tt>Key</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_public_encryptPlainTextPublicKeyPaddinggtChipherText"></a><b>rsa_public_encrypt(PlainText, PublicKey, Padding) -&gt; ChipherText</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>PlainText = binary()</b><br/>
+	<b>PublicKey = [E, N]</b><br/>
+	<b>E, N = Mpint</b><br/>	
+	<d>Where <tt>E</tt> is the public exponent and <tt>N</tt> is public modulus.</d>
+	<b>Padding = rsa_pkcs1_padding | rsa_pkcs1_oaep_padding | rsa_no_padding</b><br/>
+        <b>ChipherText = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Encrypts the <tt>PlainText</tt> (usually a session key) using the <tt>PublicKey</tt>
+	  and returns the chipher. The <tt>Padding</tt> decides what padding mode is used,
+	  <tt>rsa_pkcs1_padding</tt> is PKCS #1 v1.5 currently the most
+	  used mode and <tt>rsa_pkcs1_oaep_padding</tt> is EME-OAEP as
+	  defined in PKCS #1 v2.0 with SHA-1, MGF1 and an empty encoding
+	  parameter. This mode is recommended for all new applictions.
+	  The size of the <tt>Msg</tt> must be less
+	  than <tt>byte_size(N)-11</tt> if
+	  <tt>rsa_pkcs1_padding</tt> is used, <tt>byte_size(N)-41</tt> if 
+	  <tt>rsa_pkcs1_oaep_padding</tt> is used and <tt>byte_size(N)</tt> if <tt>rsa_no_padding</tt> 
+	  is used.
+	  Where byte_size(N) is the size part of an <tt>Mpint-1</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_private_decryptChipherTextPrivateKeyPaddinggtPlainText"></a><b>rsa_private_decrypt(ChipherText, PrivateKey, Padding) -&gt; PlainText</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>ChipherText = binary()</b><br/>
+	<b>PrivateKey = [E, N, D]</b><br/>
+	<b>E, N, D = Mpint</b><br/>
+	<d>Where <tt>E</tt> is the public exponent, <tt>N</tt> is public modulus  and 
+	  <tt>D</tt> is the private exponent.</d>
+	<b>Padding = rsa_pkcs1_padding | rsa_pkcs1_oaep_padding | rsa_no_padding</b><br/>
+        <b>PlainText = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Decrypts the <tt>ChipherText</tt> (usually a session key encrypted with 
+	  <seealso marker="#rsa_public_encrypt/3">rsa_public_encrypt/3</seealso>) 
+	  using the <tt>PrivateKey</tt> and returns the
+	  message. The <tt>Padding</tt> is the padding mode that was
+	  used to encrypt the data, 
+	  see <seealso marker="#rsa_public_encrypt/3">rsa_public_encrypt/3</seealso>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_private_encryptPlainTextPrivateKeyPaddinggtChipherText"></a><b>rsa_private_encrypt(PlainText, PrivateKey, Padding) -&gt; ChipherText</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>PlainText = binary()</b><br/>
+	<b>PrivateKey = [E, N, D]</b><br/>
+	<b>E, N, D = Mpint</b><br/>	
+	<d>Where <tt>E</tt> is the public exponent, <tt>N</tt> is public modulus and 
+	  <tt>D</tt> is the private exponent.</d>
+	<b>Padding = rsa_pkcs1_padding | rsa_no_padding</b><br/>
+        <b>ChipherText = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Encrypts the <tt>PlainText</tt> using the <tt>PrivateKey</tt>
+	  and returns the chipher. The <tt>Padding</tt> decides what padding mode is used,
+	  <tt>rsa_pkcs1_padding</tt> is PKCS #1 v1.5 currently the most
+	  used mode.
+	  The size of the <tt>Msg</tt> must be less than <tt>byte_size(N)-11</tt> if
+	  <tt>rsa_pkcs1_padding</tt> is used, and <tt>byte_size(N)</tt> if <tt>rsa_no_padding</tt> 
+	  is used.  Where byte_size(N) is the size part of an <tt>Mpint-1</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rsa_public_decryptChipherTextPublicKeyPaddinggtPlainText"></a><b>rsa_public_decrypt(ChipherText, PublicKey, Padding) -&gt; PlainText</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>ChipherText = binary()</b><br/>
+	<b>PublicKey = [E, N]</b><br/>
+	<b>E, N = Mpint</b><br/>
+	<d>Where <tt>E</tt> is the public exponent and <tt>N</tt> is public modulus</d>
+	<b>Padding = rsa_pkcs1_padding | rsa_no_padding</b><br/>
+        <b>PlainText = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Decrypts the <tt>ChipherText</tt> (encrypted with 
+	  <seealso marker="#rsa_private_encrypt/3">rsa_private_encrypt/3</seealso>) 
+	  using the <tt>PrivateKey</tt> and returns the
+	  message. The <tt>Padding</tt> is the padding mode that was
+	  used to encrypt the data, 
+	  see <seealso marker="#rsa_private_encrypt/3">rsa_private_encrypt/3</seealso>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dss_signDataKeygtSignature"></a><b>dss_sign(Data, Key) -&gt; Signature</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Digest = Mpint</b><br/>
+        <b>Key = [P, Q, G, X]</b><br/>
+        <b>P, Q, G, X = Mpint</b><br/>
+	<d> Where <tt>P</tt>, <tt>Q</tt> and <tt>G</tt> are the dss
+	  parameters and <tt>X</tt> is the private key.</d>
+        <b>Mpint = binary()</b><br/>
+        <b>Signature = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates the sha digest of the <tt>Data</tt>
+	  and creates a DSS signature with the private key <tt>Key</tt>
+	  of the digest.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dss_verifyDataSignatureKeygtVerified"></a><b>dss_verify(Data, Signature, Key) -&gt; Verified</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Verified = boolean()</b><br/>
+        <b>Digest, Signature = Mpint</b><br/>
+        <b>Key = [P, Q, G, Y]</b><br/>
+        <b>P, Q, G, Y = Mpint</b><br/>
+	<d> Where <tt>P</tt>, <tt>Q</tt> and <tt>G</tt> are the dss
+	  parameters and <tt>Y</tt> is the public key.</d>
+        <b>Mpint = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates the sha digest of the <tt>Data</tt> and verifies that the
+          digest matches the DSS signature using the public key <tt>Key</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rc4_encryptKeyDatagtResult"></a><b>rc4_encrypt(Key, Data) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Key, Data = iolist() | binary()</b><br/>
+	<b>Result = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Encrypts the data with RC4 symmetric stream encryption.
+	  Since it is symmetric, the same function is used for
+	  decryption.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dh_generate_keyDHParamsgtPublicKeyPrivateKey"></a><b>dh_generate_key(DHParams) -&gt; {PublicKey,PrivateKey} <br/>dh_generate_key(PrivateKey, DHParams) -&gt; {PublicKey,PrivateKey} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>DHParameters = [P, G]</b><br/>
+	<b>P, G = Mpint</b><br/>
+	<d> Where <tt>P</tt> is the shared prime number and <tt>G</tt> is the shared generator.</d>
+	<b>PublicKey, PrivateKey = Mpint()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Generates a Diffie-Hellman <tt>PublicKey</tt> and <tt>PrivateKey</tt> (if not given).
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dh_compute_keyOthersPublicKeyMyPrivateKeyDHParamsgtSharedSecret"></a><b>dh_compute_key(OthersPublicKey, MyPrivateKey, DHParams) -&gt; SharedSecret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>DHParameters = [P, G]</b><br/>
+	<b>P, G = Mpint</b><br/>
+	<d> Where <tt>P</tt> is the shared prime number and <tt>G</tt> is the shared generator.</d>
+	<b>OthersPublicKey, MyPrivateKey = Mpint()</b><br/>
+	<b>SharedSecret = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Computes the shared secret from the private key and the other party's public key.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exorData1Data2gtResult"></a><b>exor(Data1, Data2) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Data1, Data2 = iolist() | binary()</b><br/>
+	<b>Result = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Performs bit-wise XOR (exclusive or) on the data supplied.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_codec_mstone2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_codec_mstone2</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module implements the <em>mstone2</em> tool, 
+      a simple megaco codec-based performance tool.</p>
+    <p>The results, the mstone value(s), are written to stdout.</p>
+    <p><em>Note</em> that this module is <em>not</em> included in the runtime part of 
+      the application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#startgtvoid">start() -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtvoid"></a><b>start() -&gt; void()<br/>start(MessagePackage) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MessagePackage = message_package()</b><br/>
+        <b>message_package() = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function starts the <em>mstone2</em> performance test with all codec configs. 
+          Processes are created dynamically. Each process make <em>one</em> run
+          through their messages (decoding and encoding messages) and then exits. 
+          When one process exits, a new is created with the same codec config and set 
+          of messages. </p>
+        <p>The number of messages processed in total (for all processes) is the mstone value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

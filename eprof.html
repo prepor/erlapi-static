@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>eprof</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />eprof</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>eprof</tt> provides a set of functions for time
+      profiling of Erlang programs to find out how the execution time is
+      used. The profiling is done using the Erlang trace BIFs. Tracing of
+      local function calls for a specfied set of processes is enabled when
+      profiling is begun, and disabled when profiling is stopped.</p>
+    <p>When using Eprof, expect a significant slowdown in program execution,
+      in most cases at least 100 percent.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#analyse">analyse()</a></li>
+        
+        <li><a href="#logFilegtok">log(File) -&gt; ok</a></li>
+        
+        <li><a href="#profileRootsetFungtokValueerrorReasonerror">profile(Rootset,Fun) -&gt; {ok,Value} | {error,Reason} | error</a></li>
+        
+        <li><a href="#startgtokPiderrorReason">start() -&gt; {ok,Pid} | {error,Reason}</a></li>
+        
+        <li><a href="#start_profilingRootsetgtprofilingerror">start_profiling(Rootset) -&gt; profiling | error</a></li>
+        
+        <li><a href="#stopgtstopped">stop() -&gt; stopped</a></li>
+        
+        <li><a href="#stop_profilinggtprofiling_stoppedprofiling_already_stopped">stop_profiling() -&gt; profiling_stopped | profiling_already_stopped</a></li>
+        
+        <li><a href="#total_analyse">total_analyse()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokPiderrorReason"></a><b>start() -&gt; {ok,Pid} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Reason = {already_started,Pid}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the Eprof server which owns the Eprof internal database.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_profilingRootsetgtprofilingerror"></a><b>start_profiling(Rootset) -&gt; profiling | error<br/>profile(Rootset) -&gt; profiling | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Rootset = [atom() | pid()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts profiling for the processes in <tt>Rootset</tt> (and any new
+          processes spawned from them). Information about activity in any
+          profiled process is stored in the Eprof database.</p>
+        <p><tt>Rootset</tt> is a list of pids and registered names.</p>
+        <p>The function returns <tt>profiling</tt> if tracing could be enabled
+          for all processes in <tt>Rootset</tt>, or <tt>error</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_profilinggtprofiling_stoppedprofiling_already_stopped"></a><b>stop_profiling() -&gt; profiling_stopped | profiling_already_stopped</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops profiling started with <tt>start_profiling/1</tt> or
+          <tt>profile/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profileRootsetFungtokValueerrorReasonerror"></a><b>profile(Rootset,Fun) -&gt; {ok,Value} | {error,Reason} | error<br/>profile(Rootset,Module,Function,Args) -&gt; {ok,Value} | {error,Reason} | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Rootset = [atom() | pid()]</b><br/>
+        <b>Fun = fun() -&gt; term()</b><br/>
+        <b>Module = Function = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+        <b>Value = Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function first spawns a process <tt>P</tt> which evaluates
+          <tt>Fun()</tt> or <tt>apply(Module,Function,Args)</tt>. Then, it
+          starts profiling for <tt>P</tt> and the processes in <tt>Rootset</tt>
+          (and any new processes spawned from them). Information about
+          activity in any profiled process is stored in the Eprof database.</p>
+        <p><tt>Rootset</tt> is a list of pids and registered names.</p>
+        <p>If tracing could be enabled for <tt>P</tt> and all processes in
+          <tt>Rootset</tt>, the function returns <tt>{ok,Value}</tt> when
+          <tt>Fun()</tt>/<tt>apply</tt> returns with the value <tt>Value</tt>, or
+          <tt>{error,Reason}</tt> if <tt>Fun()</tt>/<tt>apply</tt> fails with
+          exit reason <tt>Reason</tt>. Otherwise it returns <tt>error</tt>
+          immediately.</p>
+        <p>The programmer must ensure that the function given as argument
+          is truly synchronous and that no work continues after
+          the function has returned a value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyse"></a><b>analyse()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Call this function when profiling has been stopped to display
+          the results per process, that is:</p>
+        <list type="bulleted">
+          <item>how much time has been used by each process, and</item>
+          <item>in which function calls this time has been spent.</item>
+        </list>
+        <p>Time is shown as percentage of total time, not as absolute time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="total_analyse"></a><b>total_analyse()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Call this function when profiling has been stopped to display
+          the results per function call, that is in which function calls
+          the time has been spent.</p>
+        <p>Time is shown as percentage of total time, not as absolute time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="logFilegtok"></a><b>log(File) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = atom() | string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function ensures that the results displayed by
+          <tt>analyse/0</tt> and <tt>total_analyse/0</tt> are printed both to
+          the file <tt>File</tt> and the screen.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtstopped"></a><b>stop() -&gt; stopped</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the Eprof server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

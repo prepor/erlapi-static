@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosFileTransfer_FileIterator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosFileTransfer_FileIterator</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosFileTransfer/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#destroyIteratorgtok">destroy(Iterator) -&gt; ok</a></li>
+        
+        <li><a href="#next_nIteratorMaxgtReturn">next_n(Iterator, Max) -&gt; Return</a></li>
+        
+        <li><a href="#next_oneIteratorgtReturn">next_one(Iterator) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="next_oneIteratorgtReturn"></a><b>next_one(Iterator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Iterator = #objref</b><br/>
+        <b>Return = {boolean(), #'CosFileTransfer_FileWrapper'{the_file = File file_type = Type}}</b><br/>
+        <b>File = #objref</b><br/>
+        <b>Type = nfile | ndirectory</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns true if a <tt>FileWrapper</tt> exists at the
+          current position and the out parameter contains a valid <tt>File</tt>
+          reference. If false is returned the out parameter is a non-valid 
+          <tt>FileWrapper</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="next_nIteratorMaxgtReturn"></a><b>next_n(Iterator, Max) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Iterator = #objref</b><br/>
+        <b>Max = unsigned long()</b><br/>
+        <b>Return = {boolean(), FileList}</b><br/>
+        <b>FileList = [#'CosFileTransfer_FileWrapper'{the_file = File file_type = Type}]</b><br/>
+        <b>File = #objref</b><br/>
+        <b>Type = nfile | ndirectory</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns true if the requested number of <tt>FileWrappers</tt> 
+          can be delivered and there are additional <tt>FileWrappers</tt>. If false is 
+          returned a list, of length <tt>Max</tt> or less, containing the last valid
+          <tt>FileWrappers</tt> associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyIteratorgtok"></a><b>destroy(Iterator) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Iterator = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation terminates the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

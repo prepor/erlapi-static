@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>tags</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />tags</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>A <tt>TAGS</tt> file is used by Emacs to find function and variable
+      definitions in any source file in large projects.  This module can
+      generate a <tt>TAGS</tt> file from Erlang source files.  It recognises
+      functions, records, and macro definitions.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">OPTIONS</a></li>
+        
+        <li><a href="#">Examples</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#dirDirOptions">dir(Dir [, Options])</a></li>
+        
+        <li><a href="#dirsDirListOptions">dirs(DirList [, Options])</a></li>
+        
+        <li><a href="#fileFileOptions">file(File [, Options])</a></li>
+        
+        <li><a href="#filesFileListOptions">files(FileList [, Options])</a></li>
+        
+        <li><a href="#rootOptions">root([Options])</a></li>
+        
+        <li><a href="#subdirDirOptions">subdir(Dir [, Options])</a></li>
+        
+        <li><a href="#subdirsDirListOptions">subdirs(DirList [, Options])</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">OPTIONS</div>
+    
+    <div class="description">
+        
+    <title>OPTIONS</title>
+    <p>The functions above have an optional argument, <tt>Options</tt>.  It is a
+      list which can contain the following elements:</p>
+    <list type="bulleted">
+      <item><tt>{outfile, NameOfTAGSFile}</tt> Create a <tt>TAGS</tt> file named
+      <tt>NameOfTAGSFile</tt>.
+      </item>
+      <item><tt>{outdir, NameOfDirectory}</tt> Create a file named
+      <tt>TAGS</tt> in the directory <tt>NameOfDirectory</tt>.</item>
+    </list>
+    <p>The default behaviour is to create a file named <tt>TAGS</tt> in the current
+      directory.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Examples</div>
+    
+    <div class="description">
+        
+    <title>Examples</title>
+    <list type="bulleted">
+      <item>
+        <p><tt>tags:root([{outfile, "root.TAGS"}]).</tt>          <br>
+</p>
+        <p>This command will create a file named <tt>root.TAGS</tt> in the current
+          directory.  The file will contain references to all Erlang source
+          files in the Erlang distribution.</p>
+      </item>
+      <item>
+        <p><tt>tags:files(["foo.erl", "bar.erl", "baz.erl"], [{outdir, "../projectdir"}]). </tt>          <br>
+</p>
+        <p>Here we create file named <tt>TAGS</tt> placed it in the directory
+          <tt>../projectdir</tt>.  The file contains information about the
+          functions, records, and macro definitions of the three files.</p>
+      </item>
+    </list>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <list type="bulleted">
+      <item>Richard M. Stallman.  GNU Emacs Manual, chapter "Editing Programs",
+       section "Tag Tables".  Free Software Foundation, 1995.
+      </item>
+      <item>Anders Lindgren.  The Erlang editing mode for Emacs. Ericsson,
+       1998.</item>
+    </list>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFileOptions"></a><b>file(File [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Create a <tt>TAGS</tt> file for the file <tt>File</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filesFileListOptions"></a><b>files(FileList [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Create a TAGS file for the files in the list
+          <tt>FileList</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dirDirOptions"></a><b>dir(Dir [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Create a TAGS file for all files in directory
+          <tt>Dir</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dirsDirListOptions"></a><b>dirs(DirList [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Create a TAGS file for all files in any directory in
+          <tt>DirList</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subdirDirOptions"></a><b>subdir(Dir [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Descend recursively down the directory <tt>Dir</tt> and
+          create a <tt>TAGS</tt> file based on all files found.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subdirsDirListOptions"></a><b>subdirs(DirList [, Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Descend recursively down all the directories in
+          <tt>DirList</tt> and create a <tt>TAGS</tt> file based on all
+          files found.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rootOptions"></a><b>root([Options])</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Create a <tt>TAGS</tt> file covering all files in
+          the Erlang distribution.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

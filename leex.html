@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>leex</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />leex</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>A regular expression based lexical analyzer generator for
+      Erlang, similar to lex or flex.</p>
+    <note><p>The Leex module should be considered experimental
+      as it will be subject to changes in future releases.</p></note>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">GENERATED SCANNER EXPORTS</a></li>
+        
+        <li><a href="#">Input File Format</a></li>
+        
+        <li><a href="#">Regular Expressions</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#fileFileNamegtokerror">file(FileName) -&gt; ok | error</a></li>
+        
+        <li><a href="#format_errorErrorInfogtChars">format_error(ErrorInfo) -&gt; Chars</a></li>
+        
+        <li><a href="#stringStringgtStringRet">string(String) -&gt; StringRet</a></li>
+        
+        <li><a href="#tokenContCharsgtmoreCont1doneTokenRetRestChars">token(Cont, Chars) -&gt; {more,Cont1} | {done,TokenRet,RestChars}
+      </a></li>
+        
+        <li><a href="#tokensContCharsgtmoreCont1doneTokensRetRestChars">tokens(Cont, Chars) -&gt; {more,Cont1} | {done,TokensRet,RestChars}
+      </a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+ErrorInfo = {ErrorLine,module(),error_descriptor()}
+ErrorLine = integer()
+Token = tuple()</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">GENERATED SCANNER EXPORTS</div>
+    
+    <div class="description">
+        
+    <title>GENERATED SCANNER EXPORTS</title>
+    <p>The following functions are exported by the generated scanner.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Input File Format</div>
+    
+    <div class="description">
+        
+    <title>Input File Format</title>
+    <p>Erlang style comments starting with a <tt>%</tt> are allowed in
+      scanner files. A definition file has the following format:</p>
+    <code>
+&lt;Header&gt;
+
+Definitions.
+
+&lt;Macro Definitions&gt;
+
+Rules.
+
+&lt;Token Rules&gt;
+
+Erlang Code.
+
+&lt;Erlang Code&gt;</code>
+ 
+    <p>The "Definitions.", "Rules." and "Erlang Code." headings are
+      mandatory and must occur at the beginning of a source line. The
+      &lt;Header&gt;, &lt;Macro Definitions&gt; and &lt;Erlang Code&gt;
+      sections may be empty but there must be at least one rule.</p>
+ 
+    <p>Macro definitions have the following format:</p>
+
+    <code>
+NAME = VALUE</code>
+
+    <p>and there must be spaces around <tt>=</tt>. Macros can be used in
+      the regular expressions of rules by writing <tt>{NAME}</tt>.</p>
+
+    <note><p>When macros are expanded in expressions the macro calls
+      are replaced by the macro value without any form of quoting or
+      enclosing in parentheses.</p></note>
+ 
+    <p>Rules have the following format:</p>
+
+    <code>
+&lt;Regexp&gt; : &lt;Erlang code&gt;.</code>
+ 
+    <p>The &lt;Regexp&gt; must occur at the start of a line and not
+      include any blanks; use <tt>\\t</tt> and <tt>\\s</tt> to include TAB
+      and SPACE characters in the regular expression. If &lt;Regexp&gt;
+      matches then the corresponding &lt;Erlang code&gt; is evaluated to
+      generate a token. With the Erlang code the following predefined
+      variables are available:</p>
+ 
+    <taglist>
+      <tag><tt>TokenChars</tt></tag>
+      <item><p>A list of the characters in the matched token.</p>
+      </item>
+      <tag><tt>TokenLen</tt></tag>
+      <item><p>The number of characters in the matched token.</p>
+      </item>
+      <tag><tt>TokenLine</tt></tag>
+      <item><p>The line number where the token occurred.</p>
+      </item>
+    </taglist>
+ 
+    <p>The code must return:</p>
+ 
+    <taglist>
+      <tag><tt>{token,Token}</tt></tag>
+      <item><p>Return <tt>Token</tt> to the caller.</p>
+      </item>
+      <tag><tt>{end_token,Token}</tt></tag>
+      <item><p>Return <tt>Token</tt> and is last token in a tokens call.</p>
+      </item>
+      <tag><tt>skip_token</tt></tag>
+      <item><p>Skip this token completely.</p>
+      </item>
+      <tag><tt>{error,ErrString}</tt></tag>
+      <item><p>An error in the token, <tt>ErrString</tt> is a string
+         describing the error.</p>
+      </item>
+    </taglist>
+ 
+    <p>It is also possible to push back characters into the input
+      characters with the following returns:</p>
+ 
+    <list>
+      <item><tt>{token,Token,PushBackList}</tt></item>
+      <item><tt>{end_token,Token,PushBackList}</tt></item>
+      <item><tt>{skip_token,PushBackList}</tt></item>
+    </list>
+ 
+    <p>These have the same meanings as the normal returns but the
+      characters in <tt>PushBackList</tt> will be prepended to the input
+      characters and scanned for the next token. Note that pushing
+      back a newline will mean the line numbering will no longer be
+      correct.</p>
+
+    <note><p>Pushing back characters gives you unexpected
+      possibilities to cause the scanner to loop!</p></note>
+ 
+    <p>The following example would match a simple Erlang integer or
+      float and return a token which could be sent to the Erlang
+      parser:</p>
+    <code>
+D = [0-9]
+
+{D}+ :
+  {token,{integer,TokenLine,list_to_integer(TokenChars)}}.
+
+{D}+\\.{D}+((E|e)(\\+|\\-)?{D}+)? :
+  {token,{float,TokenLine,list_to_float(TokenChars)}}.</code>
+ 
+    <p>The Erlang code in the "Erlang Code." section is written into
+      the output file directly after the module declaration and
+      predefined exports declaration so it is possible to add extra
+      exports, define imports and other attributes which are then
+      visible in the whole file.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Regular Expressions</div>
+    
+    <div class="description">
+        
+    <title>Regular Expressions</title>
+ 
+    <p>The regular expressions allowed here is a subset of the set
+      found in <tt>egrep</tt> and in the AWK programming language, as
+      defined in the book, The AWK Programming Language, by A. V. Aho,
+      B. W. Kernighan, P. J. Weinberger. They are composed of the
+      following characters:</p>
+ 
+    <taglist>
+      <tag><tt>c</tt></tag>
+      <item><p>Matches the non-metacharacter c.</p>
+      </item>
+      <tag><tt>\\c</tt></tag>
+      <item><p>Matches the escape sequence or literal character c.</p>
+      </item>
+      <tag><tt>.</tt></tag>
+      <item><p>Matches any character.</p>
+      </item>
+      <tag><tt>^</tt></tag>
+      <item><p>Matches the beginning of a string.</p>
+      </item>
+      <tag><tt>$</tt></tag>
+      <item><p>Matches the end of a string.</p></item>
+      <tag><tt>[abc...]</tt></tag>
+      <item><p>Character class, which matches any of the characters
+        <tt>abc...</tt>. Character ranges are specified by a pair of
+        characters separated by a <tt>-</tt>.</p>
+      </item>
+      <tag><tt>[^abc...]</tt></tag>
+      <item><p>Negated character class, which matches any character
+        except <tt>abc...</tt>.</p>
+      </item>
+      <tag><tt>r1 | r2</tt></tag>
+      <item><p>Alternation. It matches either <tt>r1</tt> or <tt>r2</tt>.</p>
+      </item>
+      <tag><tt>r1r2</tt></tag>
+      <item><p>Concatenation. It matches <tt>r1</tt> and then <tt>r2</tt>.</p>
+      </item>
+      <tag><tt>r+</tt></tag>
+      <item><p>Matches one or more <tt>rs</tt>.</p>
+      </item>
+      <tag><tt>r*</tt></tag>
+      <item><p>Matches zero or more <tt>rs</tt>.</p>
+      </item>
+      <tag><tt>r?</tt></tag>
+      <item><p>Matches zero or one <tt>rs</tt>.</p>
+      </item>
+      <tag><tt>(r)</tt></tag>
+      <item><p>Grouping. It matches <tt>r</tt>.</p>
+      </item>
+    </taglist>
+ 
+    <p>The escape sequences allowed are the same as for Erlang strings:</p>
+
+    <taglist>
+      <tag><tt>\\b</tt></tag>
+      <item><p>Backspace.</p></item>
+      <tag><tt>\\f</tt></tag>
+      <item><p>Form feed.</p></item>
+      <tag><tt>\\n</tt></tag>
+      <item><p>Newline (line feed).</p></item>
+      <tag><tt>\\r</tt></tag>
+      <item><p>Carriage return.</p></item>
+      <tag><tt>\\t</tt></tag>
+      <item><p>Tab.</p></item>
+      <tag><tt>\\e</tt></tag>
+      <item><p>Escape.</p></item>
+      <tag><tt>\\v</tt></tag>
+      <item><p>Vertical tab.</p></item>
+      <tag><tt>\\s</tt></tag>
+      <item><p>Space.</p></item>
+      <tag><tt>\\d</tt></tag>
+      <item><p>Delete.</p></item>
+      <tag><tt>\\ddd</tt></tag>
+      <item><p>The octal value <tt>ddd</tt>.</p></item>
+      <tag><tt>\\xhh</tt></tag>
+      <item><p>The hexadecimal value <tt>hh</tt>.</p></item>
+      <tag><tt>\\x{h...}</tt></tag>
+      <item><p>The hexadecimal value <tt>h...</tt>.</p></item>
+      <tag><tt>\\c</tt></tag>
+      <item><p>Any other character literally, for example <tt>\\\\</tt> for
+        backslash, <tt>\\"</tt> for <tt>"</tt>.</p>
+      </item>
+    </taglist>
+ 
+    <p>The following examples define Erlang data types:</p>
+    <code> 
+Atoms [a-z][0-9a-zA-Z_]*
+
+Variables [A-Z_][0-9a-zA-Z_]*
+
+Floats (\\+|-)?[0-9]+\\.[0-9]+((E|e)(\\+|-)?[0-9]+)?</code>
+ 
+    <note><p>Anchoring a regular expression with <tt>^</tt> and <tt>$</tt>
+      is not implemented in the current version of Leex and just
+      generates an error.</p></note>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFileNamegtokerror"></a><b>file(FileName) -&gt; ok | error<br/>file(FileName, Options) -&gt; ok | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = filename()</b><br/>
+        <b>Options = Option | [Option]</b><br/>
+        <b>Option =&nbsp;-&nbsp;see below&nbsp;-</b><br/>
+        <b>FileReturn = {ok, Scannerfile} 
+                      | {ok, Scannerfile, Warnings}
+                      | error
+                      | {error, Warnings, Errors}</b><br/>
+        <b>Scannerfile = filename()</b><br/>
+        <b>Warnings = Errors = [{filename(), [ErrorInfo]}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a lexical analyzer from the definition in the input
+          file. The input file has the extension <tt>.xrl</tt>. This is
+          added to the filename if it is not given. The resulting module
+          is the Xrl filename without the <tt>.xrl</tt> extension.</p>
+
+        <p>The current options are:</p>
+          <taglist>
+            <tag><tt>dfa_graph</tt></tag>
+            <item><p>Generates a <tt>.dot</tt> file which contains a
+              description of the DFA in a format which can be viewed with
+              Graphviz, <tt>www.graphviz.com</tt>.</p>
+            </item>
+            <tag><tt>{includefile,Includefile}</tt></tag>
+            <item><p>Uses a specific or customised prologue file
+              instead of default
+              <tt>lib/parsetools/include/leexinc.hrl</tt> which is
+              otherwise included.</p>
+            </item>
+            <tag><tt>{report_errors, bool()}</tt></tag>
+            <item><p>Causes errors to be printed as they occur. Default is
+              <tt>true</tt>.</p>
+            </item>
+            <tag><tt>{report_warnings, bool()}</tt></tag>
+            <item><p>Causes warnings to be printed as they occur. Default is
+              <tt>true</tt>.</p>
+            </item>
+            <tag><tt>{report, bool()}</tt></tag>
+            <item><p>This is a short form for both <tt>report_errors</tt> and
+              <tt>report_warnings</tt>.</p>
+            </item>
+            <tag><tt>{return_errors, bool()}</tt></tag>
+            <item><p>If this flag is set, <tt>{error, Errors, Warnings}</tt>
+              is returned when there are errors. Default is <tt>false</tt>.</p>
+            </item>
+            <tag><tt>{return_warnings, bool()}</tt></tag>
+            <item><p>If this flag is set, an extra field containing
+              <tt>Warnings</tt> is added to the tuple returned upon
+               success. Default is <tt>false</tt>.</p>
+            </item>
+            <tag><tt>{return, bool()}</tt></tag>
+            <item><p>This is a short form for both <tt>return_errors</tt> and
+              <tt>return_warnings</tt>.</p>
+            </item>
+            <tag><tt>{scannerfile, Scannerfile}</tt></tag>
+            <item><p><tt>Scannerfile</tt> is the name of the file that
+             will contain the Erlang scanner code that is generated.
+             The default (<tt>""</tt>) is to add the extension
+             <tt>.erl</tt> to <tt>FileName</tt> stripped of the
+             <tt>.xrl</tt> extension.</p>
+            </item>
+            <tag><tt>{verbose, bool()}</tt></tag>
+            <item><p>Outputs information from parsing the input file and
+              generating the internal tables.</p>
+            </item>
+          </taglist>
+        <p>Any of the Boolean options can be set to <tt>true</tt> by 
+          stating the name of the option. For example, <tt>verbose</tt>
+          is equivalent to <tt>{verbose, true}</tt>.</p>
+        <p>Leex will add the extension <tt>.hrl</tt> to the 
+          <tt>Includefile</tt> name and the extension <tt>.erl</tt> to the
+          <tt>Scannerfile</tt> name, unless the extension is already
+          there.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorErrorInfogtChars"></a><b>format_error(ErrorInfo) -&gt; Chars</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Chars = [char() | Chars]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a string which describes the error
+          <tt>ErrorInfo</tt> returned when there is an error in a
+          regular expression.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stringStringgtStringRet"></a><b>string(String) -&gt; StringRet<br/>string(String, StartLine) -&gt; StringRet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>StringRet = {ok,Tokens,EndLine} | ErrorInfo</b><br/>
+        <b>Tokens = [Token]</b><br/>
+        <b>EndLine = StartLine = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Scans <tt>String</tt> and returns all the tokens in it, or an
+          error.</p>
+        <note><p>It is an error if not all of the characters in
+          <tt>String</tt> are consumed.</p></note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tokenContCharsgtmoreCont1doneTokenRetRestChars"></a><b>token(Cont, Chars) -&gt; {more,Cont1} | {done,TokenRet,RestChars}
+      <br/>token(Cont, Chars, StartLine) -&gt; {more,Cont1} 
+             | {done,TokenRet,RestChars}
+      </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Cont = [] | Cont1</b><br/>
+        <b>Cont1 = tuple()</b><br/>
+        <b>Chars = RestChars = string() | eof</b><br/>
+        <b>TokenRet = {ok, Token, EndLine} 
+                    | {eof, EndLine}
+                    | ErrorInfo</b><br/>
+        <b>StartLine = EndLine = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is a re-entrant call to try and scan one token from
+          <tt>Chars</tt>. If there are enough characters in <tt>Chars</tt>
+          to either scan a token or detect an error then this will be
+          returned with <tt>{done,...}</tt>. Otherwise
+          <tt>{cont,Cont}</tt> will be returned where <tt>Cont</tt> is
+          used in the next call to <tt>token()</tt> with more characters
+          to try an scan the token. This is continued until a token
+          has been scanned. <tt>Cont</tt> is initially <tt>[]</tt>.</p>
+ 
+        <p>It is not designed to be called directly by an application
+          but used through the i/o system where it can typically be
+          called in an application by:</p>
+        <code>
+io:request(InFile, {get_until,Prompt,Module,token,[Line]})
+  -&gt; TokenRet</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tokensContCharsgtmoreCont1doneTokensRetRestChars"></a><b>tokens(Cont, Chars) -&gt; {more,Cont1} | {done,TokensRet,RestChars}
+      <br/>tokens(Cont, Chars, StartLine) -&gt; 
+               {more,Cont1} | {done,TokensRet,RestChars}
+      </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Cont = [] | Cont1</b><br/>
+        <b>Cont1 = tuple()</b><br/>
+        <b>Chars = RestChars = string() | eof</b><br/>
+        <b>TokensRet = {ok, Tokens, EndLine} 
+                     | {eof, EndLine}
+                     | ErrorInfo</b><br/>
+        <b>Tokens = [Token]</b><br/>
+        <b>StartLine = EndLine = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is a re-entrant call to try and scan tokens from
+          <tt>Chars</tt>. If there are enough characters in <tt>Chars</tt>
+          to either scan tokens or detect an error then this will be
+          returned with <tt>{done,...}</tt>. Otherwise
+          <tt>{cont,Cont}</tt> will be returned where <tt>Cont</tt> is
+          used in the next call to <tt>tokens()</tt> with more
+          characters to try an scan the tokens. This is continued
+          until all tokens have been scanned. <tt>Cont</tt> is initially
+          <tt>[]</tt>.</p>
+ 
+        <p>This functions differs from <tt>token</tt> in that it will
+          continue to scan tokens upto and including an
+          <tt>{end_token,Token}</tt> has been scanned (see next
+          section). It will then return all the tokens. This is
+          typically used for scanning grammars like Erlang where there
+          is an explicit end token, <tt>'.'</tt>. If no end token is
+          found then the whole file will be scanned and returned. If
+          an error occurs then all tokens upto and including the next
+          end token will be skipped.</p>
+ 
+        <p>It is not designed to be called directly by an application
+          but used through the i/o system where it can typically be
+          called in an application by:</p>
+        <code>
+io:request(InFile, {get_until,Prompt,Module,tokens,[Line]})
+  -&gt; TokensRet</code>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

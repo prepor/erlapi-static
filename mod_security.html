@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mod_security</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mod_security</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Security Audit and Trailing Functionality</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">The SecurityCallbackModule</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#block_userUserPortDirSecondsgttrueerrorReason">block_user(User, Port, Dir, Seconds) -&gt; true | {error, Reason}</a></li>
+        
+        <li><a href="#eventWhatPortDirDatagtignored">event(What, Port, Dir, Data) -&gt; ignored</a></li>
+        
+        <li><a href="#list_auth_usersPortgtUsers">list_auth_users(Port) -&gt; Users | []</a></li>
+        
+        <li><a href="#list_blocked_usersPortgtUsers">list_blocked_users(Port) -&gt; Users | []</a></li>
+        
+        <li><a href="#unblock_userUserPortgttrueerrorReason">unblock_user(User, Port)          -&gt; true | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">The SecurityCallbackModule</div>
+    
+    <div class="description">
+        
+    <marker id="callback_module"></marker>
+    <title>The SecurityCallbackModule</title>
+    <p>The SecurityCallbackModule is a user written module that can receive events from
+      the mod_security Erlang Webserver API module. This module only exports one function,
+      <seealso marker="#callback_module_event">event/4</seealso>, which is described below.
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="list_auth_usersPortgtUsers"></a><b>list_auth_users(Port) -&gt; Users | []<br/>list_auth_users(Address, Port) -&gt; Users | []<br/>list_auth_users(Port, Dir) -&gt; Users | []<br/>list_auth_users(Address, Port, Dir) -&gt; Users | []</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port    = integer()</b><br/>
+        <b>Address = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir     = string()</b><br/>
+        <b>Users   = list() = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="list_auth_users"></marker>
+        <p><tt>list_auth_users/1</tt>, <tt>list_auth_users/2</tt> and 
+          <tt>list_auth_users/3</tt> returns a list of users that are 
+          currently authenticated. Authentications are stored for
+          SecurityAuthTimeout seconds, and are then discarded.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_blocked_usersPortgtUsers"></a><b>list_blocked_users(Port) -&gt; Users | []<br/>list_blocked_users(Address, Port) -&gt; Users | []<br/>list_blocked_users(Port, Dir) -&gt; Users | []<br/>list_blocked_users(Address, Port, Dir) -&gt; Users | []</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port    = integer()</b><br/>
+        <b>Address = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir     = string()</b><br/>
+        <b>Users   = list() = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="list_blocked_users"></marker>
+        <p><tt>list_blocked_users/1</tt>, <tt>list_blocked_users/2</tt> and 
+          <tt>list_blocked_users/3</tt> returns a list of users that are 
+          currently blocked from access.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="block_userUserPortDirSecondsgttrueerrorReason"></a><b>block_user(User, Port, Dir, Seconds) -&gt; true | {error, Reason}<br/>block_user(User, Address, Port, Dir, Seconds) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>User    = string()</b><br/>
+        <b>Port    = integer()</b><br/>
+        <b>Address = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir     = string()</b><br/>
+        <b>Seconds = integer() | infinity</b><br/>
+        <b>Reason  = no_such_directory</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="block_user"></marker>
+        <p><tt>block_user/4</tt> and <tt>block_user/5</tt> blocks the user 
+          <tt>User</tt> from the directory <tt>Dir</tt> for a specified 
+          amount of time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unblock_userUserPortgttrueerrorReason"></a><b>unblock_user(User, Port)          -&gt; true | {error, Reason}<br/>unblock_user(User, Address, Port) -&gt; true | {error, Reason}<br/>unblock_user(User, Port, Dir)     -&gt; true | {error, Reason}<br/>unblock_user(User, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>User   = string()</b><br/>
+        <b>Port   = integer()</b><br/>
+        <b>Address = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir    = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="unblock_user"></marker>
+        <p><tt>unblock_user/2</tt>, <tt>unblock_user/3</tt> and 
+          <tt>unblock_user/4</tt> removes the user <tt>User</tt> from 
+          the list of blocked users for the Port (and Dir) specified.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="eventWhatPortDirDatagtignored"></a><b>event(What, Port, Dir, Data) -&gt; ignored<br/>event(What, Address, Port, Dir, Data) -&gt; ignored</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>What  = atom()</b><br/>
+        <b>Port  = integer()</b><br/>
+        <b>Address = {A,B,C,D} | string() &lt;v&gt;Dir   = string()</b><br/>
+        <b>What  = [Info]</b><br/>
+        <b>Info  = {Name, Value}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="callback_module_event"></marker>
+        <p><tt>event/4</tt> or <tt>event/4</tt> is called whenever an event 
+          occurs in the mod_security Erlang Webserver API module (<tt>event/4</tt> is
+          called if Address is undefined and <tt>event/5</tt> otherwise). 
+          The <tt>What</tt> argument specifies the type of event that has 
+          occurred, and should be one of the following reasons; 
+          <tt>auth_fail</tt> (a failed user authentication), 
+          <tt>user_block</tt> (a user is being blocked from access) or 
+          <tt>user_unblock</tt> (a user is being removed from the block list).</p>
+        <note>
+          <p>Note that the <tt>user_unblock</tt> event is not triggered when 
+            a user is removed from the block list explicitly using the 
+            <tt>unblock_user</tt> function.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

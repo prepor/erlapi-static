@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyFilter_MappingFilter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyFilter_MappingFilter</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The main purpose of this module is to match events against associated
+      constraints and return the value for the first constraint that returns
+      true for the given event. If all constraints return false the default value
+      will be returned.</p>
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_constraint_grammarMappingFiltergtGrammar">_get_constraint_grammar(MappingFilter) -&gt; Grammar</a></li>
+        
+        <li><a href="#_get_default_valueMappingFiltergtany">_get_default_value(MappingFilter) -&gt; #any</a></li>
+        
+        <li><a href="#_get_value_typeMappingFiltergtCORBATypeCode">_get_value_type(MappingFilter) -&gt; CORBA::TypeCode</a></li>
+        
+        <li><a href="#add_mapping_constraintsMappingFilterMappingConstraintPairSeqgtReply">add_mapping_constraints(MappingFilter, MappingConstraintPairSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#destroyMappingFiltergtok">destroy(MappingFilter) -&gt; ok</a></li>
+        
+        <li><a href="#get_all_mapping_constraintsMappingFiltergtMappingConstraintInfoSeq">get_all_mapping_constraints(MappingFilter) -&gt; MappingConstraintInfoSeq</a></li>
+        
+        <li><a href="#get_mapping_constraintsMappingFilterConstraintIDSeqgtReply">get_mapping_constraints(MappingFilter, ConstraintIDSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#matchMappingFilterEventgtReply">match(MappingFilter, Event) -&gt; Reply</a></li>
+        
+        <li><a href="#match_structuredMappingFilterEventgtReply">match_structured(MappingFilter, Event) -&gt; Reply</a></li>
+        
+        <li><a href="#modify_constraintsMappingFilterConstraintIDSeqMappingConstraintInfoSeqgtReply">modify_constraints(MappingFilter, ConstraintIDSeq, MappingConstraintInfoSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#remove_all_mapping_constraintsMappingFiltergtok">remove_all_mapping_constraints(MappingFilter) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_constraint_grammarMappingFiltergtGrammar"></a><b>_get_constraint_grammar(MappingFilter) -&gt; Grammar</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>Grammar = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns which type of Grammar the MappingFilter uses. 
+          Currently, only <tt>"EXTENDED_TCL"</tt> is supported.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_value_typeMappingFiltergtCORBATypeCode"></a><b>_get_value_type(MappingFilter) -&gt; CORBA::TypeCode</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the <tt>CORBA::TypeCode</tt> of the default value
+          associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_default_valueMappingFiltergtany"></a><b>_get_default_value(MappingFilter) -&gt; #any</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the <tt>#any{}</tt> default value associated with 
+          the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_mapping_constraintsMappingFilterMappingConstraintPairSeqgtReply"></a><b>add_mapping_constraints(MappingFilter, MappingConstraintPairSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>MappingConstraintPairSeq = [MappingConstraintPair]</b><br/>
+        <b>MappingConstraintPair = #'CosNotifyFilter_MappingConstraintPair'{constraint_expression, result_to_set}</b><br/>
+        <b>constraint_expression = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+        <b>result_to_set = #any</b><br/>
+        <b>Reply = MappingConstraintInfoSeq | {'EXCEPTION', #'CosNotifyFilter_InvalidConstraint'{constr}} | {'EXCEPTION', #'CosNotifyFilter_InvalidValue'{constr, value}}</b><br/>
+        <b>constr = ConstraintExp</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+        <b>MappingConstraintInfoSeq = [MappingConstraintInfo]</b><br/>
+        <b>MappingConstraintInfo = #'CosNotifyFilter_MappingConstraintInfo'{constraint_expression, constraint_id, value}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+        <b>value = #any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation add new mapping constraints, which will be used when trying to override
+          Quality of Service settings defined in the given event. If a constraint return true the
+          associated value will be returned, otherwise the default value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="modify_constraintsMappingFilterConstraintIDSeqMappingConstraintInfoSeqgtReply"></a><b>modify_constraints(MappingFilter, ConstraintIDSeq, MappingConstraintInfoSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>ConstraintIDSeq = [ConstraintID]</b><br/>
+        <b>ConstraintID = long()</b><br/>
+        <b>MappingConstraintInfoSeq = [MappingConstraintInfo]</b><br/>
+        <b>MappingConstraintInfo = #'CosNotifyFilter_MappingConstraintInfo'{constraint_expression, constraint_id, value}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+        <b>value = #any</b><br/>
+        <b>ConstraintInfoSeq = [ConstraintInfo]</b><br/>
+        <b>ConstraintInfo = #'CosNotifyFilter_ConstraintInfo'{constraint_expression, constraint_id}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosNotifyFilter_InvalidConstraint'{constr}} | {'EXCEPTION', #'CosNotifyFilter_ConstraintNotFound'{id}} | {'EXCEPTION', #'CosNotifyFilter_InvalidValue'{constr, value}}</b><br/>
+        <b>constr = ConstraintExp</b><br/>
+        <b>id = long()</b><br/>
+        <b>value = #any</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>ConstraintIDSeq</tt> supplied should relate to constraints the caller wishes to
+          remove. If any of the supplied Id's are not found an exception will be raised. This 
+          operation also accepts a sequence of <tt>MappingConstraintInfo</tt> which will be added.
+          If the target object cannot modify the constraints as requested an exception is raised
+          describing which constraint, and why, could not be updated.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_mapping_constraintsMappingFilterConstraintIDSeqgtReply"></a><b>get_mapping_constraints(MappingFilter, ConstraintIDSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>ConstraintIDSeq = [ConstraintID]</b><br/>
+        <b>ConstraintID = long()</b><br/>
+        <b>Reply = MappingConstraintInfoSeq | {'EXCEPTION', #'CosNotifyFilter_ConstraintNotFound'{id}}</b><br/>
+        <b>MappingConstraintInfoSeq = [MappingConstraintInfo]</b><br/>
+        <b>MappingConstraintInfo = #'CosNotifyFilter_MappingConstraintInfo'{constraint_expression, constraint_id, value}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+        <b>constraint_id = id = long()</b><br/>
+        <b>value = #any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When adding a new constraint a unique Id is returned, which is accepted as input for this
+          operation. The associated constraint is returned, but if no such Id exists an exception is raised.          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_mapping_constraintsMappingFiltergtMappingConstraintInfoSeq"></a><b>get_all_mapping_constraints(MappingFilter) -&gt; MappingConstraintInfoSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>MappingConstraintInfoSeq = [MappingConstraintInfo]</b><br/>
+        <b>MappingConstraintInfo = #'CosNotifyFilter_MappingConstraintInfo'{constraint_expression, constraint_id, value}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+        <b>constraint_id = long()</b><br/>
+        <b>value = #any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a sequence of all unique Id's associated with the target object.
+          If no constraint have been added the sequence will be empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_all_mapping_constraintsMappingFiltergtok"></a><b>remove_all_mapping_constraints(MappingFilter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation removes all constraints associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyMappingFiltergtok"></a><b>destroy(MappingFilter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation terminates the target object. Remember to remove
+          this Filter from the objects it have been associated with.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="matchMappingFilterEventgtReply"></a><b>match(MappingFilter, Event) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>Event = #any</b><br/>
+        <b>Reply = {boolean(), #any} | {'EXCEPTION', #'CosNotifyFilter_UnsupportedFilterableData'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation evaluates <tt>Any</tt> events with the Filter's constraints, 
+          and returns the value to use. The value is the default value if all constraints
+          returns false and the value associated with the first constraint returning true.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="match_structuredMappingFilterEventgtReply"></a><b>match_structured(MappingFilter, Event) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MappingFilter = #objref</b><br/>
+        <b>Event = #'CosNotification_StructuredEvent'{}</b><br/>
+        <b>Reply = {boolean(), #any} | {'EXCEPTION', #'CosNotifyFilter_UnsupportedFilterableData'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Similar to <tt>match/2</tt> but accepts a structured event as input.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

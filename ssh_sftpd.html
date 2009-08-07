@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ssh_sftpd</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ssh_sftpd</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Specifies a channel process to handle a sftp subsystem.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#subsystem_specOptionsgtsubssystem_spec">subsystem_spec(Options) -&gt; subssystem_spec()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p><tt>subsystem_spec() = {subsystem_name(), {channel_callback(), channel_init_args()}} </tt></p>
+    <p><tt>subsystem_name() =  "sftp"</tt></p>
+    <p><tt>channel_callback() = atom()</tt> - Name of the erlang module implementing the
+    subsystem using the ssh_channel behavior see
+    <seealso marker="ssh_channel">ssh_channel(3)</seealso></p>
+    <p><tt> channel_init_args() = list() - The one given as argument to function
+    subssystem_spec/1.</tt></p>  
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="subsystem_specOptionsgtsubssystem_spec"></a><b>subsystem_spec(Options) -&gt; subssystem_spec()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Options = [{Option, Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Should be used together with ssh:daemon/[1,2,3]</p>
+        <p>Options are:</p>
+        <taglist>
+          <tag><tt>{cwd, String}</tt></tag>
+          <item>
+            <p>Sets the initial current working directory for the
+              server.</p>
+          </item>
+          <tag><tt>{file_handler, CallbackModule}</tt></tag>
+          <item>
+            <p>Determines which module to call for communicating with
+              the file server. Default value is <tt>ssh_sftpd_file</tt> that uses the
+              file and filelib API:s to access the standard OTP file
+              server. This option may be used to plug in the use of
+              other file servers.</p>
+          </item>
+          <tag><tt>{max_files, Integer}</tt></tag>
+          <item>
+            <p>The default value is <tt>0</tt>, which means that there is no upper limit.
+               If supplied, the number of filenames returned to the sftp client per <tt>READDIR</tt>
+               request, is limited to at most the given value.</p>
+          </item>
+	  <tag><tt>{root, String}</tt></tag>
+	  <item>
+	    <p>Sets the sftp root directory. The user will then not be
+	      able to see any files above this root. If for instance
+	      the root is set to <tt>/tmp</tt> the user will see this
+	      directory as <tt>/</tt> and if the user does cd <tt>/etc</tt>
+	      the user will end up in <tt>/tmp/etc</tt>.
+	    </p>
+	  </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

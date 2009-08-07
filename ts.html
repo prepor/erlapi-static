@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ts</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This is a framework for testing OTP. The <tt>ts</tt> module
+      implements the interface to all the functionality in the
+      framework.
+      </p>
+    <p>The framwork is built on top of the Test Server Controller,
+      <tt>test_server_ctrl</tt>, and provides a high level operator
+      interface. The main fatures added by the framework are:
+      </p>
+    <list type="bulleted">
+      <item>Automatic compilation of test suites and data directories
+      </item>
+      <item>Collection of files in central directories and creation of
+       additional HTML pages for better overview.
+      </item>
+      <item>Single command interface for running all available tests
+      </item>
+      <item>Spawns a new node with correct parameters before starting
+       the test server
+      </item>
+      <item>Atomatically creates the parameter file needed when
+       running tests on remote target
+      </item>
+    </list>
+    <p>More information about the Test Server Framework and how to run
+      test cases can be found in the Test Server User's Guide.
+      </p>
+    <p>For writing you own test server framework, please turn to the
+      reference manual for the Test Server Controller and chapter named
+      "Writing your own test server framework" in the Test Server User's
+      Guide.
+      </p>
+      <p>SETUP</p>
+    <p>To be able to run <tt>ts</tt>, you must first `install'
+        <tt>ts</tt> for the current environment. This is done by calling
+        <tt>ts:install/0/1/2</tt>. A file called `variables' is created
+        and used by <tt>ts</tt> when running test suites. It is not
+        recommended to edit this file, but it is possible to alter if
+        <tt>ts</tt> gets the wrong idea about your environment.
+        </p>
+    <p><tt>ts:install/0</tt> is used if the target platform is the
+        same as the controller host, i.e. if you run on "local target"
+        and no options are needed. Then running <tt>ts:install/0</tt><tt>ts</tt> 
+	will run an autoconf script for your current
+        environment and set up the necessary variables needed by the
+        test suites.
+        </p>
+    <p><tt>ts:install/1</tt> or <tt>ts:install/2</tt> is used if the
+        target platform is different from the controller host, i.e. if
+        you run on "remote target" or if special options are required
+        for your system. VxWorks is currently supported
+        as remote target platform.
+        </p>
+      <p>See the reference manual for detailed information about
+        <tt>ts:install/0/1/2</tt>.
+        </p>
+    <p>Some of the common variables in the 'variables' file are
+        discribed below. Do not make any assumptions as of what is found
+        in this file, as it may change at any time.
+        </p>
+    <list>
+        <item><tt>longnames</tt><br>
+        Set to true if the system is using fully qualified
+         nodenames.
+        </item>
+        <item><tt>platform_id</tt><br>
+        This is the currently installed platform identification
+         string.
+        </item>
+        <item><tt>platform_filename</tt><br>
+        This is the name used to create the final save directory
+         for test runs.
+        </item>
+        <item><tt>platform_label</tt><br>
+        This is the string presented in the generated test
+         results index page.
+        </item>
+        <item><tt>rsh_name</tt><br>
+        This is the rsh program to use when starting slave or
+         peer nodes on a remote host.
+        </item>
+        <item><tt>erl_flags</tt><br>
+        Compile time flags used when compiling test suites.
+        </item>
+        <item><tt>erl_release</tt><br>
+        The Erlang/OTP release being tested.
+        </item>
+        <item><tt>'EMULATOR'</tt><br>
+        The emulator being tested (e.g. beam)
+        </item>
+        <item><tt>'CPU'</tt><br>
+        The CPU in the machine running the tests, e.g. sparc.
+        </item>
+        <item><tt>target_host</tt><br>
+        The target host name
+        </item>
+        <item><tt>os</tt><br>
+        The target operating system, e.g. solaris2.8
+        </item>
+        <item><tt>target</tt><br>
+        The current target platform, e.g. sparc-sun-solaris2.8
+        </item>
+      </list>
+      <p>RUNNING TESTS</p>
+      <p>After installing <tt>ts</tt>, you can run your test with the
+        <tt>ts:run/0/1/2/3/4</tt> functions. These functions, however,
+        require a special directory structure to be able to find your
+        test suites. Both the test server and all tests must be located
+        under your $TESTROOT directory. The test server implementation
+        shall be located in the directory <tt>$TESTROOT/test_server</tt>
+        and for each application there must be a directory named
+        <tt>$TESTROOT/<application>_test</tt> containing the .spec file
+        and all test suites and data directories for the
+        application. Note that there shall only be one .spec file for
+        each application.
+        </p>
+      <p><tt>$TESTROOT/test_server</tt> must be the current directory
+        when calling the <tt>ts:run/*</tt> function.
+        </p>
+      <p>All available tests can be found with <tt>ts:tests()</tt>. This
+        will list all applications for which a test specification file
+        <tt>../<application>_test/<application>.spec</tt> can be found.
+        </p>
+      <p>To run all these tests, use <tt>ts:run()</tt>.
+        </p>
+      <p>To run one or some of the tests, use <tt>ts:run(Tests)</tt>,
+        where <tt>Tests</tt> is the name of the application you want to
+        test, or a list of such names.
+        </p>
+      <p>To run one test suite within a test, use
+        <tt>ts:run(Test,Suite)</tt>.
+        </p>
+      <p>To run one test case within a suite, use
+        <tt>ts:run(Test,Suite,Case)</tt></p>
+      <p>To all these functions, you can also add a list of
+        options. Please turn to the reference manual for the <tt>ts</tt>
+        module to see the valid options to use.
+        </p>
+      <p>The function <tt>ts:help()</tt> displays some simple help for
+        the functions in <tt>ts</tt>. Use this for quick reference.
+        </p>
+      <p>LOG FILES</p>
+      <p>As the execution of the test suites go on, events are logged in
+      four different ways:
+      </p>
+    <list type="bulleted">
+      <item>Text to the operator's console.</item>
+      <item>Suite related information is sent to the major log file.</item>
+      <item>Case related information is sent to the minor log file.</item>
+      <item>The HTML log file gets updated with test results.</item>
+    </list>
+    <p>Typically the operator, who may run hundreds or thousands of
+      test cases, doesn't want to fill the screen with details
+      about/from the specific test cases. By default, the operator will
+      only see:
+      </p>
+    <list type="bulleted">
+      <item>A confirmation that the test has started.
+      </item>
+      <item>A small note about each failed test case.
+      </item>
+      <item>A summary of all the run test cases.
+      </item>
+      <item>A confirmation that the test run is complete
+      </item>
+      <item>Some special information like error reports and progress
+       reports, printouts written with erlang:display/1 or io:format/3
+       specifically addressed to somewhere other than
+      <tt>standard_io</tt>.</item>
+    </list>
+    <p>This is enough for the operator to know, and if he wants to dig
+      in deeper into a specific test case result, he can do so by
+      following the links in the HTML presentation to take a look in the
+      major or minor log files.
+      </p>
+    <p>A detailed report of the entire test suite is stored in the
+      major logfile, the exact reason for failure, time spent etc.
+      </p>
+    <p>The HTML log file is a summary of the major log file, but gives
+      a much better overview of the test run. It also has links to every
+      test case's log file for quick viewing with a HTML browser.
+      </p>
+    <p>The minor log file contain full details of every single test
+      case, each one in a separate file. This way the files should be
+      easy to compare with previous test runs, even if the set of test
+      cases change.
+      </p>
+    <p>Which information that goes where is user configurable via the
+      test server controller. Three threshold values determine what
+      comes out on screen, and in the major or minor log files. The
+      contents that goes to the HTML log file is fixed, and cannot be
+      altered.
+      </p>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Makfile.src in Data Directory</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#cleangtok">clean() -&gt; ok</a></li>
+        
+        <li><a href="#cross_cover_analyseLevelgtok">cross_cover_analyse(Level) -&gt; ok</a></li>
+        
+        <li><a href="#estonegtokerrorReason">estone() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#helpgtok">help() -&gt; ok</a></li>
+        
+        <li><a href="#indexgtokerrorReason">index() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#installgtokerrorReason">install() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#rgtok">r() -&gt; ok</a></li>
+        
+        <li><a href="#rungtokerrorReason">run() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#testsgtTests">tests() -&gt; Tests</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Makfile.src in Data Directory</div>
+    
+    <div class="description">
+        
+    <title>Makfile.src in Data Directory</title>
+    <p>If a data directory contains code which must be compiled before
+      the test suite is run, a makefile source called
+      <tt>Makefile.src</tt> can be placed in the data directory. This file
+      will be converted to a valid makefile by <tt>ts:run/0/1/2/3/4</tt>.
+      </p>
+    <p>The reason for generating the makefile is that you can use
+      variables from the <tt>variables</tt> file which was generated by
+      <tt>ts:install/0/1/2</tt>. All occurencies of <tt>@Key@</tt> in
+      <tt>Makefile.src</tt> is substituted by the <tt>Value</tt> from
+      <tt>{Key,Value}</tt> found in the <tt>variables</tt> file. Example:
+      </p>
+    <p>Cut from <tt>variables</tt>:</p>
+    <code type="none">
+    ...
+    {'EMULATOR',"beam"}.
+    {'CFLAGS',"-g -O2"}.
+    {'LD',"$(CC) $(CFLAGS)"}.
+    {'CC',"gcc"}.
+    ...
+    </code>
+    <p><tt>Makefile.src</tt> for compiling erlang code could look
+      something like this:</p>
+    <code type="none">
+    EFLAGS=+debug_info
+    
+    all: ordsets1.@EMULATOR@
+    
+    ordsets1.@EMULATOR@: ordsets1.erl
+           erlc $(EFLAGS) ordsets1.erl
+    </code>
+    <p><tt>Makefile.src</tt> for compiling c code could look
+      something like this:</p>
+    <code type="none">
+    CC = @CC@
+    LD = @LD@
+    CFLAGS = @CFLAGS@ -I@erl_include@ @DEFS@
+    CROSSLDFLAGS = @CROSSLDFLAGS@
+    
+    PROGS = nfs_check@exe@
+    
+    all: $(PROGS)
+    
+    nfs_check@exe@: nfs_check@obj@
+\011   $(LD) $(CROSSLDFLAGS) -o nfs_check nfs_check@obj@ @LIBS@
+
+    nfs_check@obj@: nfs_check.c
+\011   $(CC) -c -o nfs_check@obj@ $(CFLAGS) nfs_check.c
+    </code>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="installgtokerrorReason"></a><b>install() -&gt; ok | {error, Reason}<br/>install(TargetSystem) -&gt; ok | {error, Reason}<br/>install(Opts) -&gt; ok | {error, Reason}<br/>install(TargetSystem,Opts) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetSystem = {Architecture, TargetHost}</b><br/>
+        <b>Architecture = atom() or string()</b><br/>
+        <d>e.g. "ose" or "vxworks_ppc603"</d>
+        <b>TargetHost = atom() or string()</b><br/>
+        <d>The name of the target host</d>
+        <b>Opts = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Installs and configures the Test Server Framework for
+          running test suites. If a remote host is to be used, the
+          <tt>TargetSystem</tt> argument must be given so that "cross
+          installation" can be done. This should be used for testing on
+          VxWorks or OSE/Delta. Installation is required for any of the
+          functions in <tt>ts</tt> to work.
+          </p>
+        <p>Opts may be one or more of
+          </p>
+        <list>
+          <item><tt>{longnames, Bool}</tt><br>
+          Use fully qualified hostnames for test_server and
+           slave nodes. Bool is <tt>true</tt> or <tt>false</tt> (default).
+          </item>
+          <item><tt>{verbose, Level}</tt><br>
+          Verbosity level for test server output, set to 0, 1 or
+           2, where 0 is quiet(default).
+          </item>
+          <item><tt>{hosts, Hosts}</tt><br>
+          This is a list of available hosts on which to start
+           slave nodes. It is used when the <tt>{remote, true}</tt>
+           option is given to the <tt>test_server:start_node/3</tt>
+           function. Also, if <tt>{require_nodenames, Num}</tt> is
+           contained in a test specification file, the generated
+           nodenames will be spread over all hosts given in this
+          <tt>Hosts</tt> list. The hostnames are given as atoms or
+           strings.
+          </item>
+          <item><tt>{slavetargets, SlaveTarges}</tt><br>
+          For VxWorks and OSE/Delta only. This is a list of
+           available hosts where slave nodes can be started. This is
+           necessary because only one node can run per host in the
+           VxWorks environment. This is not the same as
+          <tt>{hosts, Hosts}</tt> because it is used for all slave nodes
+           - not only the ones started with <tt>{remote, true}</tt>. The
+           hostnames are given as atoms or strings.
+          </item>
+          <item><tt>{crossroot, TargetErlRoot}</tt><br>
+          Erlang root directory on target host
+                    <br>
+This option is mandatory for remote targets
+          </item>
+          <item><tt>{master, {MasterHost, MasterCookie}}</tt><br>
+          If target is remote and the target node is started as
+           a slave node, this option
+           indicates which master and cookie to use. The given master
+           will also be used as master for slave nodes started with
+          <tt>test_server:start_node/3</tt>. It is expected that the
+          <tt>erl_boot_server</tt> is started on the master node before
+           the test is run. If this option is not given, the test
+           server controller node is used as master and the
+          <tt>erl_boot_server</tt> is automatically started.
+          </item>
+          <item><tt>{erl_start_args, ArgString}</tt><br>
+          Additional arguments to be used when starting the test
+           server controller node. <tt>ArgString</tt> will be appended to
+           the command line when starting the erlang node. Note that
+           this will only affect the startup of the <em>controller node</em>, 
+	   i.e. not the target node or any slave nodes
+           startet from a test case.
+          </item>
+          <item><tt>{ipv6_hosts, HostList}</tt><br>
+          This option will be inserted in the
+          <tt>Config</tt> parameter for each test case. <tt>HostList</tt>
+           is a list of hosts supporting IPv6.
+          </item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="helpgtok"></a><b>help() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Presents simple help on the functions in <tt>ts</tt>. Useful
+          for quick reference.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="testsgtTests"></a><b>tests() -&gt; Tests</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the list of available tests. This is actually just
+          a list of all test specification files found by looking up
+          "../*_test/*.spec".
+          </p>
+        <p>In each ../Name_test/ directory there should be one test
+          specification file named Name.spec.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rungtokerrorReason"></a><b>run() -&gt; ok | {error, Reason}<br/>run([all_tests|Opts])<br/>run(Specs)<br/>run(Specs, Opts)<br/>run(Spec, Module)<br/>run(Spec, Module, Opts)<br/>run(Spec, Module, Case)<br/>run(Spec, Module, Case, Opts)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Specs = Spec | [Spec]</b><br/>
+        <b>Spec = atom()</b><br/>
+        <b>Module = atom()</b><br/>
+        <b>Case = atom()</b><br/>
+        <b>Opts = [Opt]</b><br/>
+        <b>Opt = batch | verbose | {verbose, Level} | {vars, Vars} |  keep_topcase | cover | cover_details |{cover,CoverFile} |  {cover_details,CoverFile} | {trace, TraceSpec}</b><br/>
+        <b>Level = integer(); 0 means silent</b><br/>
+        <b>Vars = list() of key-value tuples</b><br/>
+        <b>CoverFile = string(); name of file listing modules to exclude from or include in cover compilation. The name must include full path to the file.</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function runs test suite(s)/case(s). To be able to run
+          any tests, ts:install must first be called to create the
+          <tt>variables</tt> file needed.  To run a whole test specification,
+          only specify the name of the test specification, and all test
+          suite modules belonging to that test spec will be run.  To run
+          a single module in a test specification, use the Module
+          argument to specify the name of the module to run and all test
+          cases in that module will be run, and to run a specified test
+          case, specify the name of the test case using the Case
+          argument. If called with no argument, all test specifications
+          availiable will be run. Use ts:tests/0 to see the available
+          test specifications.
+          </p>
+        <p>If the <tt>batch</tt> option is not given, a new xterm is
+          started (unix) when <tt>ts:run</tt> is called.
+          </p>
+        <p>The <tt>verbose</tt> option sets the verbosity level for test
+          server output. This has the same effect as if given to
+          <tt>ts:install/1/2</tt></p>
+        <p>The <tt>vars</tt> option can be used for adding configuration
+          variables that are not in the <tt>variables</tt> file generated
+          during installation. Can be any of the <tt>Opts</tt> valid for
+          <tt>ts:install/1/2</tt>.
+          </p>
+        <p>The <tt>keep_topcase</tt> option forces <tt>ts</tt> to keep the
+          topcase in your test specification file as is. This option can
+          only be used if you don't give the <tt>Module</tt> or
+          <tt>Case</tt> parameters to <tt>ts:run</tt>. The
+          <tt>keep_topcase</tt> option is necessary if your topcase
+          contains anything other than <tt>{dir,"../<Name>_test"}</tt>. If
+          the option is not used, <tt>ts</tt> will modify your topcase.
+          </p>
+        <p>The <tt>cover</tt> and <tt>cover_details</tt> options indicates
+          that the test shall be run with code coverage
+          analysis. <tt>cover_details</tt> means that analysis shall be
+          done on the most detailed level. If the test is run with a
+          remote target, this option creates a list of uncovered lines
+          in each cover compiled module. If the test is run with a local
+          target, each cover compiled module will be analysed with
+          <tt>cover:analyse_to_file/1</tt>. The <tt>cover</tt> options will
+          only create an overview of all cover compiled modules with the
+          number of covered and not covered lines.
+          </p>
+        <p>The <tt>CoverFile</tt> which can be given with the
+          <tt>cover</tt> and <tt>cover_details</tt> options must be the
+          filename of a file listing modules to be excluded from or
+          included in the cover compilation. By default, <tt>ts</tt>
+          believes that <tt>Spec</tt> is the name of an OTP application
+          and that all modules in this application shall be cover
+          compiled. The <tt>CoverFile</tt> can exclude modules that belong
+          to the application and add modules that don't belong to the
+          application. The file can have the following entries:</p>
+        <code type="none">
+{exclude, all | ExcludeModuleList}.
+{include, IncludeModuleList}.        </code>
+        <p>Note that each line must end with a full
+          stop. <tt>ExcludeModuleList</tt> and <tt>IncludeModuleList</tt>
+          are lists of atoms, where each atom is a module name.
+          </p>
+        <p>If the <tt>cover</tt> or <tt>cover_details</tt> options are
+          given on their own, the directory <tt>../<Spec>_test</tt> is
+          searched for a <tt>CoverFile</tt> named <tt><Spec>.cover</tt>. If
+          this file is not found, <tt>Spec</tt> is assumed to be the name
+          of an OTP application, and all modules in the <tt>ebin</tt>
+          directory for the application are cover compiled. The
+          <tt>ebin</tt> directory is found by adding <tt>ebin</tt> to
+          <tt>code:lib_dir(Spec)</tt>.
+          </p>
+        <p>The same cover compiled code will be loaded on all slave or
+          peer nodes started with <tt>test_server:start_node/3</tt>. The
+          exception is nodes that run an old version of OTP. If the loading 
+          fails, the node will simply not be a part of the coverage
+          analysis. Note that slave and peer nodes must be stopped with
+          <tt>test_server:stop_node/1</tt> for the node to be part of the
+          coverage analysis, else the test server will not be able to
+          fetch coverage data from the node.
+          </p>
+        <p>The <tt>trace</tt> option is used to turn on call trace on
+          target and on slave or peer nodes started with
+          <tt>test_server:start_node/3</tt>. <tt>TraceSpec</tt> can be the
+          name of a trace information file, or a list of elememnts like
+          the ones in a trace information file. Please turn to the
+          reference manual for <tt>test_server_ctrl:trc/1</tt> for details
+          about the trace information file.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cross_cover_analyseLevelgtok"></a><b>cross_cover_analyse(Level) -&gt; ok<br/>cross_cover_analyse([Level]) -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Analyse cover data collected from all tests.
+          </p>
+        <p>See test_server_ctrl:cross_cover_analyse/1
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rgtok"></a><b>r() -&gt; ok<br/>r(Opts) -&gt; ok<br/>r(SpecOrSuite) -&gt; ok<br/>r(SpecOrSuite,Opts) -&gt; ok<br/>r(Suite,Case) -&gt; ok<br/>r(Suite,Case,Opts) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SpecOrSuite = Spec | Suite</b><br/>
+        <b>Spec = string()</b><br/>
+        <d>"Name.spec" or "Name.spec.OsType", where OsType is vxworks</d>
+        <b>Suite = atom()</b><br/>
+        <b>Case = atom()</b><br/>
+        <b>Opts = [Opt]</b><br/>
+        <b>Opt = {Cover,AppOrCoverFile} | {Cover,Application,CoverFile}</b><br/>
+        <b>Cover = cover | cover_details</b><br/>
+        <b>AppOrCoverFile = Application | CoverFile</b><br/>
+        <b>Application = atom()</b><br/>
+        <d>OTP application to cover compile</d>
+        <b>CoverFile = string()</b><br/>
+        <d>Name of file listing modules to exclude from or include in cover compilation</d>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used to run a test suites or test
+          cases directly, without any of the additional features added
+          by the test server framework. It is simply a wrapper function
+          for the <tt>add_dir</tt>, <tt>add_spec</tt>, <tt>add_module</tt> and 
+          <tt>add_case</tt> functions in <tt>test_server_ctrl</tt>:
+          </p>
+        <p><tt>r() -&gt; add_dir(".")</tt>          <br>
+<tt>r(Spec) -&gt; add_spec(Spec)</tt>          <br>
+<tt>r(Suite) -&gt; add_module(Suite)</tt>          <br>
+<tt>r(Suite,Case) -&gt; add_case(Suite,Case)</tt></p>
+        <p>To use this function, it is required that the test suite is
+          compiled and in the code path of the node where the function
+          is called. The function can be used without having <tt>ts</tt>
+          installed.
+          </p>
+        <p>For information about the <tt>cover</tt> and
+          <tt>cover_details</tt> options, see <tt>test_server_ctrl:cover/2/3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="indexgtokerrorReason"></a><b>index() -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function updates the local index page. This can be
+          useful if a previous test run was not completed and the index
+          is incomplete.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cleangtok"></a><b>clean() -&gt; ok<br/>clean(all) -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function cleans up log directories created when
+          running test cases. <tt>clean/0</tt> cleans up all but the last
+          run of each application.  <tt>clean/1</tt> cleans up all test
+          runs found.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="estonegtokerrorReason"></a><b>estone() -&gt; ok | {error, Reason}<br/>estone(Opts) -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function runs the EStone test. It is a shortcut for
+          running the test suite <tt>estone_SUITE</tt> in the
+          <tt>kernel</tt> application.
+          </p>
+        <p><tt>Opts</tt> is the same as the <tt>Opts</tt> argument for the
+          <tt>ts:run</tt> functions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

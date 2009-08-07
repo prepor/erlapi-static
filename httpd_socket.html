@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>httpd_socket</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />httpd_socket</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides the Erlang Web server API module programmer
+      with utility functions for generic sockets communication. The
+      appropriate communication mechanism is transparently used, that
+      is <tt>ip_comm</tt> or <tt>ssl</tt>.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#deliverSocketTypeSocketDatagtResult">deliver(SocketType, Socket, Data) -&gt; Result</a></li>
+        
+        <li><a href="#peernameSocketTypeSocketgtPortIPAddress">peername(SocketType,Socket) -&gt; {Port,IPAddress}</a></li>
+        
+        <li><a href="#resolvegtHostName">resolve() -&gt; HostName</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <marker id="see_also"></marker>
+    <title>SEE ALSO</title>
+    <p><seealso marker="httpd">httpd(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="deliverSocketTypeSocketDatagtResult"></a><b>deliver(SocketType, Socket, Data) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SocketType = socket_type()</b><br/>
+        <b>Socket = socket()</b><br/>
+        <b>Data = io_list() | binary()</b><br/>
+        <b>Result = socket_closed | void()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="deliver"></marker>
+        <p><tt>deliver/3</tt> sends the <tt>Binary</tt> over the
+          <tt>Socket</tt> using the specified <tt>SocketType</tt>. Socket
+          and SocketType should be the socket and the socket_type form
+          the mod record as defined in httpd.hrl</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="peernameSocketTypeSocketgtPortIPAddress"></a><b>peername(SocketType,Socket) -&gt; {Port,IPAddress}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SocketType = socket_type()</b><br/>
+        <b>Socket = socket()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>IPAddress = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="peername"></marker>
+        <p><tt>peername/3</tt> returns the <tt>Port</tt> and
+          <tt>IPAddress</tt> of the remote <tt>Socket</tt>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resolvegtHostName"></a><b>resolve() -&gt; HostName</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>HostName = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="resolve"></marker>
+        <p><tt>resolve/0</tt> returns the official <tt>HostName</tt> of
+          the current host. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

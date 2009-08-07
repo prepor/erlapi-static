@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_notification_filter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_notification_filter</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the agent notification
+      filters. A <tt>snmpa_notification_filter</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p>handle_notification/2</p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+    <p>The purpose of notification filters is to allow for modification
+      and/or suppression of a notification.</p>
+    <p>A misbehaving filter will be removed.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#handle_notificationNotifDatagtReply">handle_notification(Notif, Data) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="handle_notificationNotifDatagtReply"></a><b>handle_notification(Notif, Data) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reply = send | {send, NewNotif} | dont_send</b><br/>
+        <b>Notif =  NewNotif = notification() | trap()</b><br/>
+        <b>Data  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Handle a notification to be sent. The filter can either
+          accept the notification as is, return <tt>send</tt>, modify
+          the notification, return <tt>{send, NewNotif}</tt> or
+          suppress the notification, return <tt>dont_send</tt>.</p>
+        <p><tt>Data</tt> is supplied at filter registration time,
+          see <seealso marker="snmpa#register_notification_filter">register_notification_filter</seealso>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

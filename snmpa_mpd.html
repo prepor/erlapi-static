@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_mpd</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_mpd</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmpa_mpd</tt> implements the version independent
+      Message Processing and Dispatch functionality in SNMP for the agent. 
+      It is supposed to be used from a Network Interface process 
+      (<seealso marker="snmp_agent_netif">Definition of Agent Net if</seealso>).
+      </p>
+
+    <marker id="init"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#discarded_pduVariablegtvoid">discarded_pdu(Variable) -&gt; void()</a></li>
+        
+        <li><a href="#generate_msgVsnPduMsgDataTogtokPacketsAndAddressesdiscardedReason">generate_msg(Vsn, Pdu, MsgData, To) -&gt; {ok, PacketsAndAddresses} | {discarded, Reason}</a></li>
+        
+        <li><a href="#generate_response_msgVsnRePduTypeACMDatagtokPacketdiscardedReason">generate_response_msg(Vsn, RePdu, Type, ACMData) -&gt; {ok, Packet} | {discarded, Reason}</a></li>
+        
+        <li><a href="#initVsnsgtmpd_state">init(Vsns) -&gt; mpd_state()</a></li>
+        
+        <li><a href="#process_packetPacketTDomainTAddressStategtokVsnPduPduMSACMDatadiscardedReasondiscoveryDiscoPacket">process_packet(Packet, TDomain, TAddress, State) -&gt; {ok, Vsn, Pdu, PduMS, ACMData} | {discarded, Reason} | {discovery, DiscoPacket}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="initVsnsgtmpd_state"></a><b>init(Vsns) -&gt; mpd_state()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsns = [Vsn]</b><br/>
+        <b>Vsn = v1 | v2 | v3</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be called from the net_if process at start-up.
+          The options list defines which versions to use.
+          </p>
+        <p>It also initializes some SNMP counters.
+          </p>
+
+        <marker id="process_packet"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="process_packetPacketTDomainTAddressStategtokVsnPduPduMSACMDatadiscardedReasondiscoveryDiscoPacket"></a><b>process_packet(Packet, TDomain, TAddress, State) -&gt; {ok, Vsn, Pdu, PduMS, ACMData} | {discarded, Reason} | {discovery, DiscoPacket}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Packet = binary()</b><br/>
+        <b>TDomain = snmpUDPDomain</b><br/>
+        <b>TAddress = {Ip, Udp}</b><br/>
+        <b>Ip = {integer(), integer(), integer(), integer()}</b><br/>
+        <b>Udp = integer()</b><br/>
+        <b>State = mpd_state()</b><br/>
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>Pdu = #pdu</b><br/>
+        <b>PduMs = integer()</b><br/>
+        <b>ACMData = acm_data()</b><br/>
+        <b>Reason = term()</b><br/>
+        <b>DiscoPacket = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Processes an incoming packet.  Performs authentication and 
+          decryption as necessary.  The return values should be passed the
+          agent.</p>
+
+        <marker id="generate_response_msg"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="generate_response_msgVsnRePduTypeACMDatagtokPacketdiscardedReason"></a><b>generate_response_msg(Vsn, RePdu, Type, ACMData) -&gt; {ok, Packet} | {discarded, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>RePdu = #pdu</b><br/>
+        <b>Type = atom()</b><br/>
+        <b>ACMData = acm_data()</b><br/>
+        <b>Packet = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a possibly encrypted response packet to be sent to the
+          network. <tt>Type</tt> is the <tt>#pdu.type</tt> of the original
+          request.</p>
+
+        <marker id="generate_msg"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="generate_msgVsnPduMsgDataTogtokPacketsAndAddressesdiscardedReason"></a><b>generate_msg(Vsn, Pdu, MsgData, To) -&gt; {ok, PacketsAndAddresses} | {discarded, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>Pdu = #pdu</b><br/>
+        <b>MsgData = msg_data()</b><br/>
+        <b>To = [dest_addrs()]</b><br/>
+        <b>PacketsAndAddresses = [{TDomain, TAddress, Packet}]</b><br/>
+        <b>TDomain = snmpUDPDomain</b><br/>
+        <b>TAddress = {Ip, Udp}</b><br/>
+        <b>Ip = {integer(), integer(), integer(), integer()}</b><br/>
+        <b>Udp = integer()</b><br/>
+        <b>Packet = binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a possibly encrypted request packet to be sent to the
+          network.
+          </p>
+        <p><tt>MsgData</tt> is the message specific data used in
+          the SNMP message.  This value is received in a <tt>send_pdu</tt>
+          or <tt>send_pdu_req</tt> message from the agent.  In SNMPv1 and
+          SNMPv2c, this message data is the community string.  In
+          SNMPv3, it is the context information.
+          <tt>To</tt> is a list of the destination addresses and
+          their corresponding security parameters.  This value is
+          also received from the requests mentioned above.
+          </p>
+
+        <marker id="discarded_pdu"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="discarded_pduVariablegtvoid"></a><b>discarded_pdu(Variable) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Variable = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Increments the variable associated with a discarded pdu.
+          This function can be used when the net_if process receives a
+          <tt>discarded_pdu</tt> message from the agent.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

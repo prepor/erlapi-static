@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>orddict</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />orddict</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>Orddict</tt> implements a <tt>Key</tt> - <tt>Value</tt> dictionary.
+      An <tt>orddict</tt> is a representation of a dictionary, where a
+      list of pairs is used to store the keys and values. The list is
+      ordered after the keys.</p>
+    <p>This module provides exactly the same interface as the module
+      <tt>dict</tt> but with a defined representation. One difference is
+      that while <tt>dict</tt> considers two keys as different if they
+      do not match (<tt>=:=</tt>), this module considers two keys as
+      different if and only if they do not compare equal
+      (<tt>==</tt>).</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">Notes</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#appendKeyValueOrddict1gtOrddict2">append(Key, Value, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#append_listKeyValListOrddict1gtOrddict2">append_list(Key, ValList, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#eraseKeyOrddict1gtOrddict2">erase(Key, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#fetchKeyOrddictgtValue">fetch(Key, Orddict) -&gt; Value</a></li>
+        
+        <li><a href="#fetch_keysOrddictgtKeys">fetch_keys(Orddict) -&gt; Keys</a></li>
+        
+        <li><a href="#filterPredOrddict1gtOrddict2">filter(Pred, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#findKeyOrddictgtokValueerror">find(Key, Orddict) -&gt; {ok, Value} | error</a></li>
+        
+        <li><a href="#foldFunAcc0OrddictgtAcc1">fold(Fun, Acc0, Orddict) -&gt; Acc1</a></li>
+        
+        <li><a href="#from_listListgtOrddict">from_list(List) -&gt; Orddict</a></li>
+        
+        <li><a href="#is_keyKeyOrddictgtbool">is_key(Key, Orddict) -&gt; bool()</a></li>
+        
+        <li><a href="#mapFunOrddict1gtOrddict2">map(Fun, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#mergeFunOrddict1Orddict2gtOrddict3">merge(Fun, Orddict1, Orddict2) -&gt; Orddict3</a></li>
+        
+        <li><a href="#newgtordered_dictionary">new() -&gt; ordered_dictionary()</a></li>
+        
+        <li><a href="#sizeOrddictgtint">size(Orddict) -&gt; int()</a></li>
+        
+        <li><a href="#storeKeyValueOrddict1gtOrddict2">store(Key, Value, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#to_listOrddictgtList">to_list(Orddict) -&gt; List</a></li>
+        
+        <li><a href="#updateKeyFunOrddict1gtOrddict2">update(Key, Fun, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#updateKeyFunInitialOrddict1gtOrddict2">update(Key, Fun, Initial, Orddict1) -&gt; Orddict2</a></li>
+        
+        <li><a href="#update_counterKeyIncrementOrddict1gtOrddict2">update_counter(Key, Increment, Orddict1) -&gt; Orddict2</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+ordered_dictionary()
+  as returned by new/0</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Notes</div>
+    
+    <div class="description">
+        
+    <title>Notes</title>
+    <p>The functions <tt>append</tt> and <tt>append_list</tt> are included
+      so we can store keyed values in a list <em>accumulator</em>. For
+      example:</p>
+    <pre>
+&gt; D0 = orddict:new(),
+  D1 = orddict:store(files, [], D0),
+  D2 = orddict:append(files, f1, D1),
+  D3 = orddict:append(files, f2, D2),
+  D4 = orddict:append(files, f3, D3),
+  orddict:fetch(files, D4).
+[f1,f2,f3]    </pre>
+    <p>This saves the trouble of first fetching a keyed value,
+      appending a new value to the list of stored values, and storing
+      the result.
+      </p>
+    <p>The function <tt>fetch</tt> should be used if the key is known to
+      be in the dictionary, otherwise <tt>find</tt>.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="dict">dict(3)</seealso>,
+      <seealso marker="gb_trees">gb_trees(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="appendKeyValueOrddict1gtOrddict2"></a><b>append(Key, Value, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Value = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function appends a new <tt>Value</tt> to the current list
+          of values associated with <tt>Key</tt>.  An exception is
+          generated if the initial value associated with <tt>Key</tt> is
+          not a list of values.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_listKeyValListOrddict1gtOrddict2"></a><b>append_list(Key, ValList, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ValList = [Value]</b><br/>
+        <b>Key = Value = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function appends a list of values <tt>ValList</tt> to
+          the current list of values associated with <tt>Key</tt>. An
+          exception is generated if the initial value associated with
+          <tt>Key</tt> is not a list of values.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="eraseKeyOrddict1gtOrddict2"></a><b>erase(Key, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function erases all items with a given key from a
+          dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fetchKeyOrddictgtValue"></a><b>fetch(Key, Orddict) -&gt; Value</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Value = term()</b><br/>
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the value associated with <tt>Key</tt>
+          in the dictionary <tt>Orddict</tt>. <tt>fetch</tt> assumes that
+          the <tt>Key</tt> is present in the dictionary and an exception
+          is generated if <tt>Key</tt> is not in the dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fetch_keysOrddictgtKeys"></a><b>fetch_keys(Orddict) -&gt; Keys</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Orddict = ordered_dictionary()</b><br/>
+        <b>Keys = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a list of all keys in the dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterPredOrddict1gtOrddict2"></a><b>filter(Pred, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Key, Value) -&gt; bool()</b><br/>
+        <b>&nbsp;Key = Value = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>Orddict2</tt> is a dictionary of all keys and values in
+          <tt>Orddict1</tt> for which <tt>Pred(Key, Value)</tt> is <tt>true</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="findKeyOrddictgtokValueerror"></a><b>find(Key, Orddict) -&gt; {ok, Value} | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Value = term()</b><br/>
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function searches for a key in a dictionary. Returns
+          <tt>{ok, Value}</tt> where <tt>Value</tt> is the value associated
+          with <tt>Key</tt>, or <tt>error</tt> if the key is not present in
+          the dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldFunAcc0OrddictgtAcc1"></a><b>fold(Fun, Acc0, Orddict) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Key, Value, AccIn) -&gt; AccOut</b><br/>
+        <b>Key = Value = term()</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calls <tt>Fun</tt> on successive keys and values of
+          <tt>Orddict</tt> together with an extra argument <tt>Acc</tt>
+          (short for accumulator). <tt>Fun</tt> must return a new
+          accumulator which is passed to the next call. <tt>Acc0</tt> is
+          returned if the list is empty. The evaluation order is
+          undefined.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListgtOrddict"></a><b>from_list(List) -&gt; Orddict</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [{Key, Value}]</b><br/>
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function converts the key/value list <tt>List</tt> to a 
+          dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_keyKeyOrddictgtbool"></a><b>is_key(Key, Orddict) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function tests if <tt>Key</tt> is contained in
+          the dictionary <tt>Orddict</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapFunOrddict1gtOrddict2"></a><b>map(Fun, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Key, Value1) -&gt; Value2</b><br/>
+        <b>&nbsp;Key = Value1 = Value2 = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>map</tt> calls <tt>Func</tt> on successive keys and values
+          of <tt>Orddict</tt> to return a new value for each key.
+          The evaluation order is undefined.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mergeFunOrddict1Orddict2gtOrddict3"></a><b>merge(Fun, Orddict1, Orddict2) -&gt; Orddict3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Key, Value1, Value2) -&gt; Value</b><br/>
+        <b>&nbsp;Key = Value1 = Value2 = Value3 = term()</b><br/>
+        <b>Orddict1 = Orddict2 = Orddict3 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>merge</tt> merges two dictionaries, <tt>Orddict1</tt> and
+          <tt>Orddict2</tt>, to create a new dictionary.  All the <tt>Key</tt>
+          - <tt>Value</tt> pairs from both dictionaries are included in
+          the new dictionary.  If a key occurs in both dictionaries then
+          <tt>Fun</tt> is called with the key and both values to return a
+          new value. <tt>merge</tt> could be defined as:</p>
+        <code type="none">
+merge(Fun, D1, D2) -&gt;
+    fold(fun (K, V1, D) -&gt;
+                 update(K, fun (V2) -&gt; Fun(K, V1, V2) end, V1, D)
+         end, D2, D1).</code>
+        <p>but is faster.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="newgtordered_dictionary"></a><b>new() -&gt; ordered_dictionary()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function creates a new dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeOrddictgtint"></a><b>size(Orddict) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Orddict = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements in an <tt>Orddict</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="storeKeyValueOrddict1gtOrddict2"></a><b>store(Key, Value, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Value = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function stores a <tt>Key</tt> - <tt>Value</tt> pair in a
+          dictionary. If the <tt>Key</tt> already exists in <tt>Orddict1</tt>,
+          the associated value is replaced by <tt>Value</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listOrddictgtList"></a><b>to_list(Orddict) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Orddict = ordered_dictionary()</b><br/>
+        <b>List = [{Key, Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function converts the dictionary to a list
+          representation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="updateKeyFunOrddict1gtOrddict2"></a><b>update(Key, Fun, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Fun = fun(Value1) -&gt; Value2</b><br/>
+        <b>&nbsp;Value1 = Value2 = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Update the a value in a dictionary by calling <tt>Fun</tt> on
+          the value to get a new value.  An exception is generated if
+          <tt>Key</tt> is not present in the dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="updateKeyFunInitialOrddict1gtOrddict2"></a><b>update(Key, Fun, Initial, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Initial = term()</b><br/>
+        <b>Fun = fun(Value1) -&gt; Value2</b><br/>
+        <b>&nbsp;Value1 = Value2 = term()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Update the a value in a dictionary by calling <tt>Fun</tt> on
+          the value to get a new value.  If <tt>Key</tt> is not present
+          in the dictionary then <tt>Initial</tt> will be stored as
+          the first value. For example <tt>append/3</tt> could be defined
+          as:</p>
+        <code type="none">
+append(Key, Val, D) -&gt;
+    update(Key, fun (Old) -&gt; Old ++ [Val] end, [Val], D).</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="update_counterKeyIncrementOrddict1gtOrddict2"></a><b>update_counter(Key, Increment, Orddict1) -&gt; Orddict2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Increment = number()</b><br/>
+        <b>Orddict1 = Orddict2 = ordered_dictionary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Add <tt>Increment</tt> to the value associated with <tt>Key</tt>
+          and store this value.  If <tt>Key</tt> is not present in
+          the dictionary then <tt>Increment</tt> will be stored as
+          the first value.</p>
+        <p>This could be defined as:</p>
+        <code type="none">
+update_counter(Key, Incr, D) -&gt;
+    update(Key, fun (Old) -&gt; Old + Incr end, Incr, D).</code>
+        <p>but is faster.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

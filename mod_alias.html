@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mod_alias</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mod_alias</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Erlang Webserver Server internal API for handling of things
+      such as interaction data exported by the mod_alias module.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#default_indexConfigDBPathgtNewPath">default_index(ConfigDB, Path) -&gt; NewPath</a></li>
+        
+        <li><a href="#pathPathDataConfigDBRequestURIgtPath">path(PathData, ConfigDB, RequestURI) -&gt; Path</a></li>
+        
+        <li><a href="#real_nameConfigDBRequestURIAliasesgtRet">real_name(ConfigDB, RequestURI, Aliases) -&gt; Ret</a></li>
+        
+        <li><a href="#real_script_nameConfigDBRequestURIScriptAliasesgtRet">real_script_name(ConfigDB,RequestURI,ScriptAliases) -&gt; Ret</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="default_indexConfigDBPathgtNewPath"></a><b>default_index(ConfigDB, Path) -&gt; NewPath</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigDB = config_db()</b><br/>
+        <b>Path = NewPath = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="default_index"></marker>
+        <p>If <tt>Path</tt> is a directory, <tt>default_index/2</tt>, it starts
+          searching for resources or files that are specified in the config
+          directive DirectoryIndex.
+          If an appropriate resource or file is found, it is appended to
+          the end of <tt>Path</tt> and then returned. <tt>Path</tt> is
+          returned unaltered, if no appropriate
+          file is found, or if <tt>Path</tt> is not a directory.
+          <tt>config_db()</tt> is the server config file in ETS table format
+          as described in
+          <seealso marker="http_server">Inets Users Guide.</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pathPathDataConfigDBRequestURIgtPath"></a><b>path(PathData, ConfigDB, RequestURI) -&gt; Path</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PathData = interaction_data()</b><br/>
+        <b>ConfigDB = config_db()</b><br/>
+        <b>RequestURI = Path = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="path"></marker>
+        <p><tt>path/3</tt> returns the actual file <tt>Path</tt> in the
+          <tt>RequestURI</tt> (See RFC 1945). If the interaction data
+          <tt>{real_name,{Path,AfterPath}}</tt> has been exported by
+          mod_alias;
+          <tt>Path</tt> is returned. If no interaction data has been
+          exported, ServerRoot is used to
+          generate a file <tt>Path</tt>. <tt>config_db()</tt> and
+          <tt>interaction_data()</tt> are as defined in <seealso marker="http_server">Inets Users Guide</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="real_nameConfigDBRequestURIAliasesgtRet"></a><b>real_name(ConfigDB, RequestURI, Aliases) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigDB = config_db()</b><br/>
+        <b>RequestURI = string()</b><br/>
+        <b>Aliases = [{FakeName,RealName}]</b><br/>
+        <b>Ret = {ShortPath,Path,AfterPath}</b><br/>
+        <b>ShortPath = Path = AfterPath = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="real_name"></marker>
+        <p><tt>real_name/3</tt> traverses <tt>Aliases</tt>, typically
+          extracted from <tt>ConfigDB</tt>, and matches each
+          <tt>FakeName</tt> with <tt>RequestURI</tt>. If a match is found 
+          <tt>FakeName</tt> is replaced with <tt>RealName</tt> in the
+          match. The resulting path is split into two parts, that
+          is <tt>ShortPath</tt> and <tt>AfterPath</tt> as defined in <seealso marker="httpd_util#split_path">httpd_util:split_path/1</seealso>. 
+          <tt>Path</tt> is generated from <tt>ShortPath</tt>, that is
+          the result from <seealso marker="#default_index">default_index/2</seealso> with
+          <tt>ShortPath</tt> as an argument.
+          <tt>config_db()</tt> is the server config file in ETS table
+          format as described in <seealso marker="http_server">Inets User Guide.</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="real_script_nameConfigDBRequestURIScriptAliasesgtRet"></a><b>real_script_name(ConfigDB,RequestURI,ScriptAliases) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigDB = config_db()</b><br/>
+        <b>RequestURI = string()</b><br/>
+        <b>ScriptAliases = [{FakeName,RealName}]</b><br/>
+        <b>Ret = {ShortPath,AfterPath} | not_a_script</b><br/>
+        <b>ShortPath = AfterPath = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="real_script_name"></marker>
+        <p><tt>real_name/3</tt> traverses <tt>ScriptAliases</tt>,
+          typically extracted from <tt>ConfigDB</tt>, and matches each
+          <tt>FakeName</tt> with <tt>RequestURI</tt>. If a match is found
+          <tt>FakeName</tt> is replaced with <tt>RealName</tt> in the
+          match. If the resulting match is not an executable script
+          <tt>not_a_script</tt> is returned. If it is a script the
+          resulting script path is in two parts, that is
+          <tt>ShortPath</tt> and <tt>AfterPath</tt> as defined in <seealso marker="httpd_util#split_script_path">httpd_util:split_script_path/1</seealso>.
+          <tt>config_db()</tt> is the server config file in ETS table
+          format as described in <seealso marker="http_server">Inets Users Guide.</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

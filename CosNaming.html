@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNaming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNaming</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The naming service provides  the principal mechanism for clients to find 
+      objects in an ORB based world. The naming service provides an initial naming
+      context that functions as the root context for all names. Given this context 
+      clients can navigate in the name space. </p>
+    <p>Types that are declared on the CosNaming level are:</p>
+    <code type="none">
+typedef string Istring;
+struct NameComponent {
+      Istring id;  
+      Istring kind;
+};
+  
+typedef sequence <NameComponent> Name;
+  
+enum BindingType {nobject, ncontext};
+  
+struct Binding {
+      Name    binding_name;
+      BindingType binding_type;
+};
+
+typedef sequence <Binding> BindingList;
+    </code>
+    <p>To get access to the record definitions for the structs use:
+      <tt>-include_lib("orber/COSS/CosNaming.hrl").</tt>.</p>
+    <p>Names are not an ORB object but the can be structured in components as seen by 
+      the definition above. There are no requirements on names so the service can support 
+      many different conventions and standards.</p>
+    <p>There are two different interfaces supported in the service:</p>
+    <list type="bulleted">
+      <item>NamingContext</item>
+      <item>BindingIterator</item>
+    </list>
+    <p>IDL specification for CosNaming:</p>
+    <codeinclude file="../../COSS/CosNaming/cos_naming.idl" tag="" type="c"></codeinclude>
+  </div>
+    
+
+    
+    
+
+    
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

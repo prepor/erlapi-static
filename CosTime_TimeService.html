@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosTime_TimeService</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosTime_TimeService</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTime/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#new_intervalTimeServiceLowerUppergtTIO">new_interval(TimeService, Lower, Upper) -&gt; TIO</a></li>
+        
+        <li><a href="#new_universal_timeTimeServiceTimeInaccuracyTdfgtUTO">new_universal_time(TimeService, Time, Inaccuracy, Tdf) -&gt; UTO</a></li>
+        
+        <li><a href="#universal_timeTimeServicegtReply">universal_time(TimeService) -&gt; Reply</a></li>
+        
+        <li><a href="#uto_from_utcTimeServiceUtcgtUTO">uto_from_utc(TimeService, Utc) -&gt; UTO</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="universal_timeTimeServicegtReply"></a><b>universal_time(TimeService) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = #objref</b><br/>
+        <b>Reply = UTO | {'EXCEPTION", #'TimerService_TimeUnavailable'{}}</b><br/>
+        <b>UTO = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the current time and the Inaccuracy given
+          when starting this application in a UTO. The time base is 
+          <em>15 october 1582 00:00</em>. Comparing two time objects which use 
+          different time base is, by obvious reasons, pointless.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_universal_timeTimeServiceTimeInaccuracyTdfgtUTO"></a><b>new_universal_time(TimeService, Time, Inaccuracy, Tdf) -&gt; UTO</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = UTO = #objref</b><br/>
+        <b>Time = Inaccuracy = ulonglong()</b><br/>
+        <b>Tdf = short()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new UTO object representing the time 
+          parameters given. This is the only way to create a UTO with an
+          arbitrary time from its components. This is useful when using the 
+          Timer Event Service.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uto_from_utcTimeServiceUtcgtUTO"></a><b>uto_from_utc(TimeService, Utc) -&gt; UTO</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = UTO = #objref</b><br/>
+        <b>Utc = #'TimeBase_UtcT'{time, inacclo, inacchi, tdf}</b><br/>
+        <b>time = ulonglong()</b><br/>
+        <b>inacclo = ulong()</b><br/>
+        <b>inacchi = ushort()</b><br/>
+        <b>tdf = short()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is used to create a UTO given a time in the Utc form.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_intervalTimeServiceLowerUppergtTIO"></a><b>new_interval(TimeService, Lower, Upper) -&gt; TIO</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = TIO = #objref</b><br/>
+        <b>Lower = Upper = ulonglong()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is used to create a new TIO object, representing 
+          the input parameters. If <em>Lower</em> is greater than Upper 
+          BAD_PARAM is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_id_trans</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_id_trans</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module performs an identity parse transformation of Erlang code.
+      It is included as an example for users who may wish to write their own
+      parse transformers. If the option <tt>{parse_transform,Module}</tt> is passed
+      to the compiler, a user written function <tt>parse_transform/2</tt>
+      is called by the compiler before the code is checked for
+      errors.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Parse Transformations</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#parse_transformFormsOptionsgtForms">parse_transform(Forms, Options) -&gt; Forms</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Parse Transformations</div>
+    
+    <div class="description">
+        
+    <title>Parse Transformations</title>
+    <p>Parse transformations are used if a programmer wants to use
+      Erlang syntax, but with different semantics. The original Erlang
+      code is then transformed into other Erlang code.
+      </p>
+    <note>
+      <p>Programmers are strongly advised not to engage in parse transformations and no support is offered for problems encountered.</p>
+    </note>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="erl_parse">erl_parse(3)</seealso>, compile(3).</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="parse_transformFormsOptionsgtForms"></a><b>parse_transform(Forms, Options) -&gt; Forms</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Forms = [erlang_form()]</b><br/>
+        <b>Options = [compiler_options()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs an identity transformation on Erlang forms, as an example.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

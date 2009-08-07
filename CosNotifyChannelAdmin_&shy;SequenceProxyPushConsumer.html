@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_&amp;shy;SequenceProxyPushConsumer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_&amp;shy;SequenceProxyPushConsumer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotifyComm_NotifyPublish">CosNotifyComm_NotifyPublish</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyFilter_FilterAdmin">CosNotifyFilter_FilterAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyChannelAdmin_ProxyConsumer">CosNotifyChannelAdmin_ProxyConsumer</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_sequence_push_supplierSequenceProxyPushConsumerPushSuppliergtReply">connect_sequence_push_supplier(SequenceProxyPushConsumer, PushSupplier) -&gt; Reply</a></li>
+        
+        <li><a href="#disconnect_sequence_push_consumerSequenceProxyPushConsumergtok">disconnect_sequence_push_consumer(SequenceProxyPushConsumer) -&gt; ok</a></li>
+        
+        <li><a href="#push_structured_eventsSequenceProxyPushConsumerEventBatchgtReply">push_structured_events(SequenceProxyPushConsumer, EventBatch) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_push_supplierSequenceProxyPushConsumerPushSuppliergtReply"></a><b>connect_sequence_push_supplier(SequenceProxyPushConsumer, PushSupplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPushConsumer = #objref</b><br/>
+        <b>PushSupplier = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosEventChannelAdmin_AlreadyConnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects a <tt>PushSupplier</tt> to the target object. If a
+          connection already exists the <tt>AlreadyConnected</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="push_structured_eventsSequenceProxyPushConsumerEventBatchgtReply"></a><b>push_structured_events(SequenceProxyPushConsumer, EventBatch) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPushConsumer = #objref</b><br/>
+        <b>EventBatch = [StructuredEvent]</b><br/>
+        <b>StructuredEvent = #'CosNotification_StructuredEvent'{header, filterable_data, remainder_of_body}</b><br/>
+        <b>header = EventHeader</b><br/>
+        <b>filterable_data = [#'CosNotification_Property'{name, value}]</b><br/>
+        <b>name = string()</b><br/>
+        <b>value = #any</b><br/>
+        <b>remainder_of_body = #any</b><br/>
+        <b>EventHeader = #'CosNotification_EventHeader'{fixed_header, variable_header}</b><br/>
+        <b>fixed_header = FixedEventHeader</b><br/>
+        <b>variable_header = OptionalHeaderFields</b><br/>
+        <b>FixedEventHeader = #'CosNotification_FixedEventHeader'{event_type, event_name}</b><br/>
+        <b>event_type = EventType</b><br/>
+        <b>event_name = string()</b><br/>
+        <b>EventType = #'CosNotification_EventType'{domain_name, type_name}</b><br/>
+        <b>domain_name = type_name = string()</b><br/>
+        <b>OptionalHeaderFields = [#'CosNotification_Property'{name, value}]</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosEventChannelAdmin_Disconnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A client must use this operation when it wishes to push a new sequence of events
+          to the target object. If no connection exists the <tt>Disconnected</tt> exception
+          is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_sequence_push_consumerSequenceProxyPushConsumergtok"></a><b>disconnect_sequence_push_consumer(SequenceProxyPushConsumer) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPushConsumer = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation cause the target object to close the connection and terminate.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

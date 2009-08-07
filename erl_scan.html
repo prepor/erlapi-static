@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_scan</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_scan</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions for tokenizing characters into
+      Erlang tokens.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">Error Information</a></li>
+        
+        <li><a href="#">Notes</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#attributes_infoAttributesgtAttributesInfo">attributes_info(Attributes) -&gt; AttributesInfo</a></li>
+        
+        <li><a href="#attributes_infoAttributesAttributeItemSpecgtAttributesInfo">attributes_info(Attributes, AttributeItemSpec) -&gt; AttributesInfo</a></li>
+        
+        <li><a href="#format_errorErrorDescriptorgtstring">format_error(ErrorDescriptor) -&gt; string()</a></li>
+        
+        <li><a href="#reserved_wordAtomgtbool">reserved_word(Atom) -&gt; bool()</a></li>
+        
+        <li><a href="#set_attributeAttributeItemAttributesSetAttributeFungtAttributesInfo">set_attribute(AttributeItem, Attributes, SetAttributeFun) -&gt; AttributesInfo</a></li>
+        
+        <li><a href="#stringStringgtReturn">string(String) -&gt; Return</a></li>
+        
+        <li><a href="#token_infoTokengtTokenInfo">token_info(Token) -&gt; TokenInfo</a></li>
+        
+        <li><a href="#token_infoTokenTokenItemSpecgtTokenInfo">token_info(Token, TokenItemSpec) -&gt; TokenInfo</a></li>
+        
+        <li><a href="#tokensContinuationCharSpecStartLocationgtReturn">tokens(Continuation, CharSpec, StartLocation) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+category() = atom()
+column() = integer() &gt; 0
+line() = integer()
+location() = line() | {line(), column()}
+reserved_word_fun() -&gt; fun(atom()) -&gt; bool()
+set_attribute_fun() -&gt; fun(term()) -&gt; term()
+symbol() = atom() | float() | integer() | string()
+token() = {category(), attributes()} | {category(), attributes(), symbol()}
+attributes() = line() | list() | tuple()</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Error Information</div>
+    
+    <div class="description">
+        
+    <title>Error Information</title>
+    <p>The <tt>ErrorInfo</tt> mentioned above is the standard
+      <tt>ErrorInfo</tt> structure which is returned from all IO
+      modules. It has the following format:</p>
+    <code type="none">
+{ErrorLocation, Module, ErrorDescriptor}</code>
+    <p>A string which describes the error is obtained with the
+      following call:</p>
+    <code type="none">
+Module:format_error(ErrorDescriptor)</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Notes</div>
+    
+    <div class="description">
+        
+    <title>Notes</title>
+    <p>The continuation of the first call to the re-entrant input
+      functions must be <tt>[]</tt>. Refer to Armstrong, Virding and
+      Williams, 'Concurrent Programming in Erlang', Chapter 13, for a
+      complete description of how the re-entrant input scheme works.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="io">io(3)</seealso>,
+      <seealso marker="erl_parse">erl_parse(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="stringStringgtReturn"></a><b>string(String) -&gt; Return<br/>string(String, StartLocation) -&gt; Return<br/>string(String, StartLocation, Options) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Return = {ok, Tokens, EndLocation} | Error</b><br/>
+        <b>Tokens = [token()]</b><br/>
+        <b>Error = {error, ErrorInfo, EndLocation}</b><br/>
+        <b>StartLocation = EndLocation = location()</b><br/>
+        <b>Options = Option | [Option]</b><br/>
+        <b>Option = {reserved_word_fun,reserved_word_fun()}
+                  | return_comments | return_white_spaces | return
+                  | text</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Takes the list of characters <tt>String</tt> and tries to
+          scan (tokenize) them. Returns <tt>{ok, Tokens, EndLocation}</tt>,
+          where <tt>Tokens</tt> are the Erlang tokens from
+          <tt>String</tt>. <tt>EndLocation</tt> is the first location
+          after the last token.</p>
+        <p><tt>{error, ErrorInfo, EndLocation}</tt> is returned if an
+          error occurs. <tt>EndLocation</tt> is the first location after
+          the erroneous token.</p>
+        <p><tt>string(String)</tt> is equivalent to
+          <tt>string(String, 1)</tt>, and <tt>string(String,
+          StartLocation)</tt> is equivalent to <tt>string(String,
+          StartLocation, [])</tt>.</p>
+        <p><tt>StartLocation</tt> indicates the initial location when
+          scanning starts. If <tt>StartLocation</tt> is a line
+          <tt>attributes()</tt> as well as <tt>EndLocation</tt> and
+          <tt>ErrorLocation</tt> will be lines. If
+          <tt>StartLocation</tt> is a pair of a line and a column
+          <tt>attributes()</tt> takes the form of an opaque compound
+          data type, and <tt>EndLocation</tt> and <tt>ErrorLocation</tt>
+          will be pairs of a line and a column. The <em>token
+          attributes</em> contain information about the column and the
+          line where the token begins, as well as the text of the
+          token (if the <tt>text</tt> option is given), all of which can
+          be accessed by calling <seealso marker="#token_info/1">token_info/1,2</seealso> or <seealso marker="#attributes_info/1">attributes_info/1,2</seealso>.</p>
+        <p>A <em>token</em> is a tuple containing information about
+          syntactic category, the token attributes, and the actual
+          terminal symbol. For punctuation characters (e.g. <tt>;</tt>,
+          <tt>|</tt>) and reserved words, the category and the symbol
+          coincide, and the token is represented by a two-tuple.
+          Three-tuples have one of the following forms: <tt>{atom,
+          Info, atom()}</tt>,
+          <tt>{char, Info, integer()}</tt>, <tt>{comment, Info,
+          string()}</tt>, <tt>{float, Info, float()}</tt>, <tt>{integer,
+          Info, integer()}</tt>, <tt>{var, Info, atom()}</tt>, 
+          and <tt>{white_space, Info, string()}</tt>.</p>
+        <p>The valid options are:</p>
+        <taglist>
+        <tag><tt>{reserved_word_fun, reserved_word_fun()}</tt></tag>
+        <item><p>A callback function that is called when the scanner
+          has found an unquoted atom. If the function returns
+          <tt>true</tt>, the unquoted atom itself will be the category
+          of the token; if the function returns <tt>false</tt>,
+          <tt>atom</tt> will be the category of the unquoted atom.</p>
+        </item>
+        <tag><tt>return_comments</tt></tag>
+        <item><p>Return comment tokens.</p>
+        </item>
+        <tag><tt>return_white_spaces</tt></tag>
+        <item><p>Return white space tokens. By convention, if there is
+          a newline character, it is always the first character of the
+          text (there cannot be more than one newline in a white space
+          token).</p>
+        </item>
+        <tag><tt>return</tt></tag>
+        <item><p>Short for <tt>[return_comments, return_white_spaces]</tt>.</p>
+        </item>
+        <tag><tt>text</tt></tag>
+        <item><p>Include the token's text in the token attributes. The
+          text is the part of the input corresponding to the token.</p>
+        </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tokensContinuationCharSpecStartLocationgtReturn"></a><b>tokens(Continuation, CharSpec, StartLocation) -&gt; Return<br/>tokens(Continuation, CharSpec, StartLocation, Options) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Continuation = [] | Continuation1</b><br/>
+        <b>Return = {done, Result, LeftOverChars} | {more, Continuation1}</b><br/>
+        <b>LeftOverChars = CharSpec</b><br/>
+        <b>CharSpec = string() | eof</b><br/>
+        <b>Continuation1 = tuple()</b><br/>
+        <b>Result = {ok, Tokens, EndLocation} | {eof, EndLocation} | Error</b><br/>
+        <b>Tokens = [token()]</b><br/>
+        <b>Error = {error, ErrorInfo, EndLocation}</b><br/>
+        <b>StartLocation = EndLocation = location()</b><br/>
+        <b>Options = Option | [Option]</b><br/>
+        <b>Option = {reserved_word_fun,reserved_word_fun()}
+                  | return_comments | return_white_spaces | return</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is the re-entrant scanner which scans characters until
+          a <em>dot</em> ('.' followed by a white space) or
+          <tt>eof</tt> has been reached. It returns:</p>
+        <taglist>
+          <tag><tt>{done, Result, LeftOverChars}</tt></tag>
+          <item>
+            <p>This return indicates that there is sufficient input
+              data to get a result. <tt>Result</tt> is:</p>
+            <taglist>
+              <tag><tt>{ok, Tokens, EndLocation}</tt></tag>
+              <item>
+                <p>The scanning was successful. <tt>Tokens</tt> is the
+                  list of tokens including <em>dot</em>.</p>
+              </item>
+              <tag><tt>{eof, EndLocation}</tt></tag>
+              <item>
+                <p>End of file was encountered before any more tokens.</p>
+              </item>
+              <tag><tt>{error, ErrorInfo, EndLocation}</tt></tag>
+              <item>
+                <p>An error occurred. <tt>LeftOverChars</tt> is always
+                  an empty list in this case.</p>
+              </item>
+            </taglist>
+          </item>
+          <tag><tt>{more, Continuation1}</tt></tag>
+          <item>
+            <p>More data is required for building a term.
+              <tt>Continuation1</tt> must be passed in a new call to
+              <tt>tokens/3,4</tt> when more data is available.</p>
+          </item>
+        </taglist>
+        <p>The <tt>CharSpec</tt> <tt>eof</tt> signals end of file.
+        <tt>LeftOverChars</tt> will then take the value <tt>eof</tt> as
+          well.</p>
+        <p><tt>tokens(Continuation, CharSpec, StartLocation)</tt> is
+          equivalent to <tt>tokens(Continuation, CharSpec,
+          StartLocation, [])</tt>.</p>
+        <p>See <seealso marker="#string/3">string/3</seealso> for a
+          description of the various options.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reserved_wordAtomgtbool"></a><b>reserved_word(Atom) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Atom = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Atom</tt> is an Erlang reserved
+          word, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="token_infoTokengtTokenInfo"></a><b>token_info(Token) -&gt; TokenInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Token = token()</b><br/>
+        <b>TokenInfo = [TokenInfoTuple]</b><br/>
+        <b>TokenInfoTuple = {TokenItem, Info}</b><br/>
+        <b>TokenItem = atom()</b><br/>
+        <b>Info = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing information about the token
+          <tt>Token</tt>. The order of the <tt>TokenInfoTuple</tt>s is not
+          defined. The following <tt>TokenItem</tt>s are returned:
+          <tt>category</tt>, <tt>column</tt>, <tt>length</tt>,
+          <tt>line</tt>, <tt>symbol</tt>, and <tt>text</tt>. See <seealso marker="#token_info/2">token_info/2</seealso> for
+          information about specific
+          <tt>TokenInfoTuple</tt>s.</p>
+        <p>Note that if <tt>token_info(Token, TokenItem)</tt> returns
+          <tt>undefined</tt> for some <tt>TokenItem</tt> in the list above, the
+          item is not included in <tt>TokenInfo</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="token_infoTokenTokenItemSpecgtTokenInfo"></a><b>token_info(Token, TokenItemSpec) -&gt; TokenInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Token = token()</b><br/>
+        <b>TokenItemSpec = TokenItem | [TokenItem]</b><br/>
+        <b>TokenInfo = TokenInfoTuple | undefined | [TokenInfoTuple]</b><br/>
+        <b>TokenInfoTuple = {TokenItem, Info}</b><br/>
+        <b>TokenItem = atom()</b><br/>
+        <b>Info = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing information about the token
+          <tt>Token</tt>. If <tt>TokenItemSpec</tt> is a single
+          <tt>TokenItem</tt>, the returned value is the corresponding
+          <tt>TokenInfoTuple</tt>, or <tt>undefined</tt> if the
+          <tt>TokenItem</tt> has no value. If <tt>TokenItemSpec</tt> is a
+          list of
+          <tt>TokenItem</tt>, the result is a list of
+          <tt>TokenInfoTuple</tt>. The <tt>TokenInfoTuple</tt>s will
+          appear with the corresponding
+	  <tt>TokenItem</tt>s in the same order as the <tt>TokenItem</tt>s
+	  appeared in the list of <tt>TokenItem</tt>s. <tt>TokenItem</tt>s
+	  with no value are not included in the list of
+	  <tt>TokenInfoTuple</tt>.</p>
+	<p>The following <tt>TokenInfoTuple</tt>s with corresponding
+	   <tt>TokenItem</tt>s are valid:</p>
+        <taglist>
+          <tag><tt>{category, category()}</tt></tag>
+          <item><p>The category of the token.</p>
+          </item>
+          <tag><tt>{column, column()}</tt></tag>
+          <item><p>The column where the token begins.</p>
+          </item>
+          <tag><tt>{length, integer() &gt; 0}</tt></tag>
+          <item><p>The length of the token's text.</p>
+          </item>
+          <tag><tt>{line, line()}</tt></tag>
+          <item><p>The line where the token begins.</p>
+          </item>
+          <tag><tt>{location, location()}</tt></tag>
+          <item><p>The line and column where the token begins, or
+            just the line if the column unknown.</p>
+          </item>
+          <tag><tt>{symbol, symbol()}</tt></tag>
+          <item><p>The token's symbol.</p>
+          </item>
+          <tag><tt>{text, string()}</tt></tag>
+          <item><p>The token's text..</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="attributes_infoAttributesgtAttributesInfo"></a><b>attributes_info(Attributes) -&gt; AttributesInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Attributes = attributes()</b><br/>
+        <b>AttributesInfo = [AttributeInfoTuple]</b><br/>
+        <b>AttributeInfoTuple = {AttributeItem, Info}</b><br/>
+        <b>AttributeItem = atom()</b><br/>
+        <b>Info = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing information about the token
+          attributes <tt>Attributes</tt>. The order of the
+          <tt>AttributeInfoTuple</tt>s is not defined. The following
+          <tt>AttributeItem</tt>s are returned:
+          <tt>column</tt>, <tt>length</tt>, <tt>line</tt>, and <tt>text</tt>.
+          See <seealso marker="#attributes_info/2">attributes_info/2</seealso> for
+          information about specific
+          <tt>AttributeInfoTuple</tt>s.</p>
+        <p>Note that if <tt>attributes_info(Token, AttributeItem)</tt>
+          returns <tt>undefined</tt> for some <tt>AttributeItem</tt> in
+          the list above, the item is not included in
+          <tt>AttributesInfo</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="attributes_infoAttributesAttributeItemSpecgtAttributesInfo"></a><b>attributes_info(Attributes, AttributeItemSpec) -&gt; AttributesInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Attributes = attributes()</b><br/>
+        <b>AttributeItemSpec = AttributeItem | [AttributeItem]</b><br/>
+        <b>AttributesInfo = AttributeInfoTuple | undefined 
+                          | [AttributeInfoTuple]</b><br/>
+        <b>AttributeInfoTuple = {AttributeItem, Info}</b><br/>
+        <b>AttributeItem = atom()</b><br/>
+        <b>Info = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing information about the token
+          attributes <tt>Attributes</tt>. If <tt>AttributeItemSpec</tt> is
+          a single <tt>AttributeItem</tt>, the returned value is the
+          corresponding <tt>AttributeInfoTuple</tt>, or <tt>undefined</tt>
+          if the <tt>AttributeItem</tt> has no value. If
+          <tt>AttributeItemSpec</tt> is a list of
+          <tt>AttributeItem</tt>, the result is a list of
+          <tt>AttributeInfoTuple</tt>. The <tt>AttributeInfoTuple</tt>s
+          will appear with the corresponding <tt>AttributeItem</tt>s in
+          the same order as the <tt>AttributeItem</tt>s appeared in the
+          list of <tt>AttributeItem</tt>s. <tt>AttributeItem</tt>s with no
+          value are not included in the list of
+	  <tt>AttributeInfoTuple</tt>.</p>
+	<p>The following <tt>AttributeInfoTuple</tt>s with corresponding
+	   <tt>AttributeItem</tt>s are valid:</p>
+        <taglist>
+          <tag><tt>{column, column()}</tt></tag>
+          <item><p>The column where the token begins.</p>
+          </item>
+          <tag><tt>{length, integer() &gt; 0}</tt></tag>
+          <item><p>The length of the token's text.</p>
+          </item>
+          <tag><tt>{line, line()}</tt></tag>
+          <item><p>The line where the token begins.</p>
+          </item>
+          <tag><tt>{location, location()}</tt></tag>
+          <item><p>The line and column where the token begins, or
+            just the line if the column unknown.</p>
+          </item>
+          <tag><tt>{text, string()}</tt></tag>
+          <item><p>The token's text..</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_attributeAttributeItemAttributesSetAttributeFungtAttributesInfo"></a><b>set_attribute(AttributeItem, Attributes, SetAttributeFun) -&gt; AttributesInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AttributeItem = line</b><br/>
+        <b>Attributes = attributes()</b><br/>
+        <b>SetAttributeFun = set_attribute_fun()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the value of the <tt>line</tt> attribute of the token
+          attributes <tt>Attributes</tt>.</p>
+        <p>The <tt>SetAttributeFun</tt> is called with the value of
+          the <tt>line</tt> attribute, and is to return the new value of
+          the <tt>line</tt> attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorErrorDescriptorgtstring"></a><b>format_error(ErrorDescriptor) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ErrorDescriptor = errordesc()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Takes an <tt>ErrorDescriptor</tt> and returns a string which
+          describes the error or warning. This function is usually
+          called implicitly when processing an <tt>ErrorInfo</tt>
+          structure (see below).</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ttb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ttb</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The Trace Tool Builder <tt>ttb</tt> is a base for building trace
+      tools for distributed systems.
+      </p>
+    <p>When using <tt>ttb</tt>, <tt>dbg</tt> shall not be used in parallel.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#formatFileOptionsgtokerrorReason">format(File,Options) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#formatFile">format(File)</a></li>
+        
+        <li><a href="#list_configConfigFilegtConfigerrorReason">list_config(ConfigFile) -&gt; Config | {error,Reason}</a></li>
+        
+        <li><a href="#list_historygtHistory">list_history() -&gt; History</a></li>
+        
+        <li><a href="#pProcsFlagsgtReturn">p(Procs,Flags) -&gt; Return</a></li>
+        
+        <li><a href="#run_configConfigFilegtokerrorReason">run_config(ConfigFile) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#run_configConfigFileNumListgtokerrorReason">run_config(ConfigFile,NumList) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#run_historyNgtokerrorReason">run_history(N) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#seq_trigger_msgtMatchSpec">seq_trigger_ms() -&gt; MatchSpec</a></li>
+        
+        <li><a href="#seq_trigger_msFlagsgtMatchSpec">seq_trigger_ms(Flags) -&gt; MatchSpec</a></li>
+        
+        <li><a href="#stop">stop()</a></li>
+        
+        <li><a href="#stopOptsgtstopped">stop(Opts) -&gt; stopped</a></li>
+        
+        <li><a href="#tracerNodesgtResult">tracer(Nodes) -&gt; Result</a></li>
+        
+        <li><a href="#tracerNodesOptsgtResult">tracer(Nodes,Opts) -&gt; Result</a></li>
+        
+        <li><a href="#tracergtResult">tracer() -&gt; Result</a></li>
+        
+        <li><a href="#write_configConfigFileConfigOptgtokerrorReason">write_config(ConfigFile,Config,Opt) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#write_configConfigFileConfig">write_config(ConfigFile,Config)</a></li>
+        
+        <li><a href="#write_trace_infoKeyInfogtok">write_trace_info(Key,Info) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="tracergtResult"></a><b>tracer() -&gt; Result</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This is equivalent to <tt>tracer(node())</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tracerNodesgtResult"></a><b>tracer(Nodes) -&gt; Result</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This is equivalent to <tt>tracer(Nodes,[])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tracerNodesOptsgtResult"></a><b>tracer(Nodes,Opts) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = {ok, ActivatedNodes} | {error,Reason}</b><br/>
+        <b>Nodes   = atom() | [atom()] | all | existing | new</b><br/>
+        <b>Opts = [Opt]</b><br/>
+        <b>Opt = {file,Client} | {handler, FormatHandler} | {process_info,PI}</b><br/>
+        <b>Client = File | {local, File}</b><br/>
+        <b>File = Filename | Wrap</b><br/>
+        <b>Filename = string()</b><br/>
+        <b>Wrap = {wrap,Filename} | {wrap,Filename,Size,Count}</b><br/>
+        <b>FormatHandler = See format/2</b><br/>
+        <b>PI = true | false </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function starts a file trace port on all given nodes
+          and also points the system tracer for sequential tracing to
+          the same port.
+          </p>
+        <p>The given <tt>Filename</tt> will be prefixed with the node
+          name. Default <tt>Filename</tt> is "ttb".
+          </p>
+        <p><tt>File={wrap,Filename,Size,Count}</tt> can be used if
+          the size of the trace logs must be limited. Default values are
+          <tt>Size=128*1024</tt> and <tt>Count=8</tt>.
+          </p>
+        <p>When tracing diskless nodes, <tt>ttb</tt> must be started
+          from an external "trace control node" with disk access, and
+          <tt>Client</tt> must be <tt>{local, File}</tt>. All
+          trace information is then sent to the trace control node where
+          it is written to file.
+          </p>
+        <p>The <tt>process_info</tt> option indicates if process
+          information should be collected. If <tt>PI = true</tt> (which is
+          default), each process identifier <tt>Pid</tt> is replaced by a
+          tuple <tt>{Pid,ProcessInfo,Node}</tt>, where <tt>ProcessInfo</tt>
+          is the process' registered name its globally registered name,
+          or its initial function. It is possible to turn off this
+          functionality by setting <tt>PI = false</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pProcsFlagsgtReturn"></a><b>p(Procs,Flags) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = {ok,[{Procs,MatchDesc}]}</b><br/>
+        <b>Procs   = Process | [Process] | all | new | existing</b><br/>
+        <b>Process = pid() | atom() | {global,atom()}</b><br/>
+        <b>Flags   = Flag | [Flag]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the given trace flags on the given
+          processes.
+          </p>
+        <p>Please turn to the Reference manual for module <tt>dbg</tt>
+          for details about the possible trace flags. The parameter
+          <tt>MatchDesc</tt> is the same as returned from <tt>dbg:p/2</tt></p>
+        <p>Processes can be given as registered names, globally
+          registered names or process identifiers. If a registered name
+          is given, the flags are set on processes with this name on all
+          active nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_historygtHistory"></a><b>list_history() -&gt; History</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>History = [{N,Func,Args}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>All calls to <tt>ttb</tt> is stored in the history. This
+          function returns the current content of the history. Any entry
+          can be re-executed with <tt>run_history/1</tt> or stored in a
+          config file with <tt>write_config/2/3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="run_historyNgtokerrorReason"></a><b>run_history(N) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer() | [integer()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes the given entry or entries from the history
+          list. History can be listed with <tt>list_history/0</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_configConfigFileConfig"></a><b>write_config(ConfigFile,Config)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Equivalent to <tt>write_config(ConfigFile,Config,[])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_configConfigFileConfigOptgtokerrorReason"></a><b>write_config(ConfigFile,Config,Opt) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigFile = string()</b><br/>
+        <b>Config = all | [integer()] | [{Mod,Func,Args}]</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+        <b>Opt = [] | [append]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function creates or extends a config file which can be
+          used for restoring a specific configuration later.
+          </p>
+        <p>The content of the config file can either be fetched from
+          the history or given directly as a list of
+          <tt>{Mod,Func,Args}</tt>.
+          </p>
+        <p>If the complete history is to be stored in the config file
+          <tt>Config</tt> should be <tt>all</tt>. If only a selected number
+          of entries from the history should be stored, <tt>Config</tt>
+          should be a list of integers pointing out the entries to be
+          stored.
+          </p>
+        <p>If <tt>Opt</tt> is not given or if it is <tt>[]</tt>,
+          <tt>ConfigFile</tt> is deleted and a new file is created. If
+          <tt>Opt = [append]</tt>, <tt>ConfigFile</tt> will not be deleted.
+          The new information will be appended at the end of the file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="run_configConfigFilegtokerrorReason"></a><b>run_config(ConfigFile) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigFile = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes all entries in the given config file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="run_configConfigFileNumListgtokerrorReason"></a><b>run_config(ConfigFile,NumList) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigFile = string()</b><br/>
+        <b>NumList = [integer()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes selected entries from the given config
+          file. <tt>NumList</tt> is a list of integers pointing out the
+          entries to be executed.
+          </p>
+        <p>The content of a config file can be listed with
+          <tt>list_config/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_configConfigFilegtConfigerrorReason"></a><b>list_config(ConfigFile) -&gt; Config | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfigFile = string()</b><br/>
+        <b>Config = [{N,Func,Args}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Lists all entries in the given config file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_trace_infoKeyInfogtok"></a><b>write_trace_info(Key,Info) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Info = Data | fun() -&gt; Data</b><br/>
+        <b>Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>.ti</tt> file contains <tt>{Key,ValueList}</tt>
+          tuples. This function adds <tt>Data</tt> to the ValueList
+          associated with <tt>Key</tt>. All information written with this
+          function will be included in the call to the format handler.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seq_trigger_msgtMatchSpec"></a><b>seq_trigger_ms() -&gt; MatchSpec</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Equivalent to <tt>seq_trigger_ms(all)</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seq_trigger_msFlagsgtMatchSpec"></a><b>seq_trigger_ms(Flags) -&gt; MatchSpec</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MatchSpec = match_spec()</b><br/>
+        <b>Flags = all | SeqTraceFlag | [SeqTraceFlag]</b><br/>
+        <b>SeqTraceFlag = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A match specification can turn on or off sequential
+          tracing. This function returns a match specification which
+          turns on sequential tracing with the given <tt>Flags</tt>.
+          </p>
+        <p>This match specification can be given as the last argument
+          to <tt>tp</tt> or <tt>tpl</tt>. The activated <tt>Item</tt> will
+          then become a <em>trigger</em> for sequential tracing. This
+          means that if the item is called on a process with the
+          <tt>call</tt> trace flag set, the process will be "contaminated"
+          with the seq_trace token.
+          </p>
+        <p>If <tt>Flags = all</tt>, all possible flags are set.
+          </p>
+        <p>Please turn to the reference manual for the
+          <em><tt>seq_trace</tt></em> module in the <em><tt>kernel</tt></em>
+          application to see the possible values for
+          <tt>SeqTraceFlag</tt>.  For a description of the match_spec()
+          syntax, please turn to the <em>User's guide</em> for the
+          runtime system (<em>erts</em>). The chapter <em>Match Specification in Erlang</em> explains the general match
+          specification "language".
+          </p>
+        <note>
+          <p>The <em>system tracer</em> for sequential tracing is
+            automatically initiated by <tt>ttb</tt> when a trace port is
+            started with <tt>ttb:tracer/0/1/2</tt>.</p>
+        </note>
+        <p>Example of how to use the <tt>seq_trigger_ms/0/1</tt> function:</p>
+        <code type="none">
+(tiger@durin)5&gt; ttb:tracer().
+{ok,[tiger@durin]}
+(tiger@durin)6&gt; ttb:p(all,call).
+{ok,{[all],[call]}}
+(tiger@durin)7&gt; ttb:tp(mod,func,ttb:seq_trigger_ms()).
+{ok,[{matched,1},{saved,1}]}
+(tiger@durin)8&gt;         </code>
+        <p>Whenever <tt>mod:func(...)</tt> is called after this, the
+          seq_trace token will be set on the executing process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop"></a><b>stop()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Equivalent to <tt>stop([])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopOptsgtstopped"></a><b>stop(Opts) -&gt; stopped</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Opts = [Opt]</b><br/>
+        <b>Opt = fetch | format</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops tracing on all nodes.
+          </p>
+        <p>The <tt>fetch</tt> option indicates that trace logs shall be
+          collected from all nodes after tracing is stopped. This option
+          is useful if nodes on remote machines are traced. Logs and
+          trace information files are then sent to the trace control
+          node and stored in a directory named
+          <tt>ttb_upload-Timestamp</tt>, where <tt>Timestamp</tt> is on the
+          form <tt>yyyymmdd-hhmmss</tt>. Even logs from nodes on the same
+          machine as the trace control node are moved to this directory.
+          </p>
+        <p>The <tt>format</tt> option indicates that the trace logs
+          shall be formatted after tracing is stopped. Note that this
+          option also implies the <tt>fetch</tt> option, i.e. logs are
+          collected in a new directory on the trace control node before
+          formatting. All logs in the directory will be merged.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="formatFile"></a><b>format(File)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Same as <tt>format(File,[])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="formatFileOptionsgtokerrorReason"></a><b>format(File,Options) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string() | [string()]</b><br/>
+        <d>This can be the name of a binary log, a list of such logs or the name of a directory containing one or more binary logs.</d>
+        <b>Options = [Opt]</b><br/>
+        <b>Opt = {out,Out} | {handler,FormatHandler}</b><br/>
+        <b>Out = standard_io | string()</b><br/>
+        <b>FormatHandler = {Function, InitialState} | et</b><br/>
+        <b>Function = fun(Fd,Trace,TraceInfo,State) -&gt; State</b><br/>
+        <b>Fd = standard_io | FileDescriptor</b><br/>
+        <d>This is the file descriptor of the destination file <tt>Out</tt></d>
+        <b>Trace = tuple()</b><br/>
+        <d>This is the trace message. Please turn to the Reference manual for the <tt>erlang</tt>module for details.</d>
+        <b>TraceInfo = [{Key,ValueList}]</b><br/>
+        <d>This includes the keys <tt>flags</tt>, <tt>client</tt>and <tt>node</tt>,  and if <tt>handler</tt>is given as option to the tracer function,  this is also included. In addition all information written with the <tt>write_trace_info/2</tt>function is included. </d>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads the given binary trace log(s). If a directory or a
+          list of logs is given and the <tt>timestamp</tt> flag was set
+          during tracing, the trace messages from the different logs are
+          merged according to the timestamps.
+          </p>
+        <p>If <tt>FormatHandler = {Function,InitialState}</tt>,
+          <tt>Function</tt> will be called for each trace message. If
+          <tt>FormatHandler = et</tt>, <tt>et_viewer</tt> in the <em>Event Tracer</em> application (<tt>et</tt>) is used for presenting the
+          trace log graphically. <tt>ttb</tt> provides a few different
+          filters which can be selected from the Filter menu in the
+          <tt>et_viewer</tt>. If <tt>FormatHandler</tt> is not given, a
+          default handler is used which presents each trace message as a
+          line of text.
+          </p>
+        <p>If <tt>Out</tt> is given, <tt>FormatHandler</tt> gets the
+          filedescriptor to <tt>Out</tt> as the first parameter.
+          </p>
+        <p><tt>Out</tt> is ignored if <tt>FormatHandler = et</tt>.
+          </p>
+        <p>Wrap logs can be formatted one by one or all in one go. To
+          format one of the wrap logs in a set, give the exact name of
+          the file. To format the whole set of wrap logs, give the name
+          with '*' instead of the wrap count. See examples in the
+          <tt>ttb</tt> User's Guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>heart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />heart</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This modules contains the interface to the <tt>heart</tt> process.
+      <tt>heart</tt> sends periodic heartbeats to an external port
+      program, which is also named <tt>heart</tt>. The purpose of
+      the heart port program is to check that the Erlang runtime system
+      it is supervising is still running. If the port program has not
+      received any heartbeats within <tt>HEART_BEAT_TIMEOUT</tt> seconds
+      (default is 60 seconds), the system can be rebooted. Also, if
+      the system is equipped with a hardware watchdog timer and is
+      running Solaris, the watchdog can be used to supervise the entire
+      system.</p>
+    <p>An Erlang runtime system to be monitored by a heart program,
+      should be started with the command line flag <tt>-heart</tt> (see
+      also <seealso marker="erts:erl">erl(1)</seealso>. The <tt>heart</tt>
+      process is then started automatically:</p>
+    <pre>
+% <input></pre>
+    <p>If the system should be rebooted because of missing heart-beats,
+      or a terminated Erlang runtime system, the environment variable
+      <tt>HEART_COMMAND</tt> has to be set before the system is started.
+      If this variable is not set, a warning text will be printed but
+      the system will not reboot. However, if the hardware watchdog is
+      used, it will trigger a reboot <tt>HEART_BEAT_BOOT_DELAY</tt>
+      seconds later nevertheless (default is 60).</p>
+    <p>To reboot on the WINDOWS platform <tt>HEART_COMMAND</tt> can be
+      set to <tt>heart -shutdown</tt> (included in the Erlang delivery)
+      or of course to any other suitable program which can activate a
+      reboot.</p>
+    <p>The hardware watchdog will not be started under Solaris if
+      the environment variable <tt>HW_WD_DISABLE</tt> is set.</p>
+    <p>The <tt>HEART_BEAT_TIMEOUT</tt> and <tt>HEART_BEAT_BOOT_DELAY</tt>
+      environment variables can be used to configure the heart timeouts,
+      they can be set in the operating system shell before Erlang is
+      started or be specified at the command line:</p>
+    <pre>
+% <input></pre>
+    <p>The value (in seconds) must be in the range 10 &lt; X &lt;= 65535.</p>
+    <p>It should be noted that if the system clock is adjusted with
+      more than <tt>HEART_BEAT_TIMEOUT</tt> seconds, <tt>heart</tt> will
+      timeout and try to reboot the system. This can happen, for
+      example, if the system clock is adjusted automatically by use of
+      NTP (Network Time Protocol).</p>
+    <p>In the following descriptions, all function fails with reason
+      <tt>badarg</tt> if <tt>heart</tt> is not started.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#clear_cmdgtok">clear_cmd() -&gt; ok</a></li>
+        
+        <li><a href="#get_cmdgtokCmd">get_cmd() -&gt; {ok, Cmd}</a></li>
+        
+        <li><a href="#set_cmdCmdgtokerrorbad_cmdCmd">set_cmd(Cmd) -&gt; ok | {error, {bad_cmd, Cmd}}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="set_cmdCmdgtokerrorbad_cmdCmd"></a><b>set_cmd(Cmd) -&gt; ok | {error, {bad_cmd, Cmd}}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Cmd = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets a temporary reboot command. This command is used if 
+          a <tt>HEART_COMMAND</tt> other than the one specified with
+          the environment variable should be used in order to reboot
+          the system. The new Erlang runtime system will (if it
+          misbehaves) use the environment variable
+          <tt>HEART_COMMAND</tt> to reboot.</p>
+        <p>Limitations: The length of the <tt>Cmd</tt> command string
+          must be less than 2047 characters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="clear_cmdgtok"></a><b>clear_cmd() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Clears the temporary boot command. If the system terminates,
+          the normal <tt>HEART_COMMAND</tt> is used to reboot.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_cmdgtokCmd"></a><b>get_cmd() -&gt; {ok, Cmd}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Cmd = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Get the temporary reboot command. If the command is cleared,
+          the empty string will be returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

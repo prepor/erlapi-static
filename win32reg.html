@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>win32reg</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />win32reg</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>win32reg</tt> provides read and write access to the
+      registry on Windows. It is essentially a port driver wrapped around the
+      Win32 API calls for accessing the registry.</p>
+    <p>The registry is a hierarchical database, used to store various system
+      and software information in Windows. It is available in Windows 95 and
+      Windows NT. It contains installation data, and is updated by installers
+      and system programs. The Erlang installer updates the registry by adding
+      data that Erlang needs.</p>
+    <p>The registry contains keys and values. Keys are like the directories
+      in a file system, they form a hierarchy. Values are like files, they have
+      a name and a value, and also a type.</p>
+    <p>Paths to keys are left to right, with sub-keys to the right and backslash
+      between keys. (Remember that backslashes must be doubled in Erlang strings.)
+      Case is preserved but not significant.
+      Example: <tt>"\\\\hkey_local_machine\\\\software\\\\Ericsson\\\\Erlang\\\\5.0"</tt> is the key
+      for the installation data for the latest Erlang release.</p>
+    <p>There are six entry points in the Windows registry, top level keys. They can be
+      abbreviated in the <tt>win32reg</tt> module as:</p>
+    <pre>
+Abbrev.          Registry key
+=======          ============      
+hkcr             HKEY_CLASSES_ROOT
+current_user     HKEY_CURRENT_USER
+hkcu             HKEY_CURRENT_USER
+local_machine    HKEY_LOCAL_MACHINE
+hklm             HKEY_LOCAL_MACHINE
+users            HKEY_USERS
+hku              HKEY_USERS
+current_config   HKEY_CURRENT_CONFIG
+hkcc             HKEY_CURRENT_CONFIG
+dyn_data         HKEY_DYN_DATA
+hkdd             HKEY_DYN_DATA</pre>
+    <p>The key above could be written as <tt>"\\\\hklm\\\\software\\\\ericsson\\\\erlang\\\\5.0"</tt>.</p>
+    <p>The <tt>win32reg</tt> module uses a current key. It works much like the
+      current directory. From the current key, values can be fetched, sub-keys
+      can be listed, and so on.</p>
+    <p>Under a key, any number of named values can be stored. They have name, and
+      types, and data.</p>
+    <p>Currently, the <tt>win32reg</tt> module supports storing only the following
+      types: REG_DWORD, which is an
+      integer, REG_SZ which is a string and REG_BINARY which is a binary.
+      Other types can be read, and will be returned as binaries.</p>
+    <p>There is also a "default" value, which has the empty string as name. It is read and
+      written with the atom <tt>default</tt> instead of the name.</p>
+    <p>Some registry values are stored as strings with references to environment variables,
+      e.g. <tt>"%SystemRoot%Windows"</tt>. <tt>SystemRoot</tt> is an environment variable, and should be
+      replaced with its value. A function <tt>expand/1</tt> is provided, so that environment
+      variables surrounded in % can be expanded to their values.</p>
+    <p>For additional information on the Windows registry consult the Win32
+      Programmer's Reference.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#change_keyRegHandleKeygtReturnValue">change_key(RegHandle, Key) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#change_key_createRegHandleKeygtReturnValue">change_key_create(RegHandle, Key) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#closeRegHandlegtReturnValue">close(RegHandle)-&gt; ReturnValue</a></li>
+        
+        <li><a href="#current_keyRegHandlegtReturnValue">current_key(RegHandle) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#delete_keyRegHandlegtReturnValue">delete_key(RegHandle) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#delete_valueRegHandleNamegtReturnValue">delete_value(RegHandle, Name) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#expandStringgtExpandedString">expand(String) -&gt; ExpandedString</a></li>
+        
+        <li><a href="#format_errorErrorIdgtErrorString">format_error(ErrorId) -&gt; ErrorString</a></li>
+        
+        <li><a href="#openOpenModeListgtReturnValue">open(OpenModeList)-&gt; ReturnValue</a></li>
+        
+        <li><a href="#set_valueRegHandleNameValuegtReturnValue">set_value(RegHandle, Name, Value) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#sub_keysRegHandlegtReturnValue">sub_keys(RegHandle) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#valueRegHandleNamegtReturnValue">value(RegHandle, Name) -&gt; ReturnValue</a></li>
+        
+        <li><a href="#valuesRegHandlegtReturnValue">values(RegHandle) -&gt; ReturnValue</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p>Win32 Programmer's Reference (from Microsoft)</p>
+    <p><tt>erl_posix_msg</tt></p>
+    <p>The Windows 95 Registry (book from O'Reilly)</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="change_keyRegHandleKeygtReturnValue"></a><b>change_key(RegHandle, Key) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+        <b>Key = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the current key to another key. Works like cd.
+          The key can be specified as a relative path or as an
+          absolute path, starting with \\.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_key_createRegHandleKeygtReturnValue"></a><b>change_key_create(RegHandle, Key) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+        <b>Key = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a key, or just changes to it, if it is already there. Works
+          like a combination of <tt>mkdir</tt> and <tt>cd</tt>. Calls the Win32 API function
+          <tt>RegCreateKeyEx()</tt>.</p>
+        <p>The registry must have been opened in write-mode.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeRegHandlegtReturnValue"></a><b>close(RegHandle)-&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes the registry. After that, the <tt>RegHandle</tt> cannot
+          be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="current_keyRegHandlegtReturnValue"></a><b>current_key(RegHandle) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+        <b>ReturnValue = {ok, string()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the path to the current key. This is the equivalent of <tt>pwd</tt>.</p>
+        <p>Note that the current key is stored in the driver, and might be
+          invalid (e.g. if the key has been removed).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_keyRegHandlegtReturnValue"></a><b>delete_key(RegHandle) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+        <b>ReturnValue = ok | {error, ErrorId}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes the current key, if it is valid. Calls the Win32 API
+          function <tt>RegDeleteKey()</tt>. Note that this call does not change the current key,
+          (unlike <tt>change_key_create/2</tt>.) This means that after the call, the
+          current key is invalid.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_valueRegHandleNamegtReturnValue"></a><b>delete_value(RegHandle, Name) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegHandle = term()</b><br/>
+        <b>ReturnValue = ok | {error, ErrorId}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes a named value on the current key. The atom <tt>default</tt> is
+          used for the the default value.</p>
+        <p>The registry must have been opened in write-mode.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="expandStringgtExpandedString"></a><b>expand(String) -&gt; ExpandedString</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>ExpandedString = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Expands a string containing environment variables between percent
+          characters. Anything between two % is taken for a environment
+          variable, and is replaced by the value. Two consecutive % is replaced
+          by one %.</p>
+        <p>A variable name that is not in the environment, will result in an error.\011  </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorErrorIdgtErrorString"></a><b>format_error(ErrorId) -&gt; ErrorString</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ErrorId = atom()</b><br/>
+        <b>ErrorString = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Convert an POSIX errorcode to a string (by calling <tt>erl_posix_msg:message</tt>).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="openOpenModeListgtReturnValue"></a><b>open(OpenModeList)-&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpenModeList = [OpenMode]</b><br/>
+        <b>OpenMode = read | write</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens the registry for reading or writing. The current key will be the root
+          (<tt>HKEY_CLASSES_ROOT</tt>). The <tt>read</tt> flag in the mode list can be omitted.</p>
+        <p>Use <tt>change_key/2</tt> with an absolute path after <tt>open</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_valueRegHandleNameValuegtReturnValue"></a><b>set_value(RegHandle, Name, Value) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string() | default</b><br/>
+        <b>Value = string() | integer() | binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the named (or default) value to value. Calls the Win32
+          API function <tt>RegSetValueEx()</tt>. The value can be of three types, and
+          the corresponding registry type will be used. Currently the types supported
+          are: <tt>REG_DWORD</tt> for integers, <tt>REG_SZ</tt> for strings and
+          <tt>REG_BINARY</tt> for binaries. Other types cannot currently be added
+          or changed.</p>
+        <p>The registry must have been opened in write-mode.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sub_keysRegHandlegtReturnValue"></a><b>sub_keys(RegHandle) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ReturnValue = {ok, SubKeys} | {error, ErrorId}</b><br/>
+        <b>SubKeys = [SubKey]</b><br/>
+        <b>SubKey = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of subkeys to the current key. Calls the Win32
+          API function <tt>EnumRegKeysEx()</tt>.</p>
+        <p>Avoid calling this on the root keys, it can be slow.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="valueRegHandleNamegtReturnValue"></a><b>value(RegHandle, Name) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string() | default</b><br/>
+        <b>ReturnValue = {ok, Value}</b><br/>
+        <b>Value = string() | integer() | binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieves the named value (or default) on the current key.
+          Registry values of type <tt>REG_SZ</tt>, are returned as strings. Type <tt>REG_DWORD</tt>
+          values are returned as integers. All other types are returned as binaries.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="valuesRegHandlegtReturnValue"></a><b>values(RegHandle) -&gt; ReturnValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ReturnValue = {ok, ValuePairs} | {ok, ErrorId}</b><br/>
+        <b>ValuePairs = [ValuePair]</b><br/>
+        <b>ValuePair = {Name, Value}</b><br/>
+        <b>Name = string | default</b><br/>
+        <b>Value = string() | integer() | binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieves a list of all values on the current key. The values
+          have types corresponding to the registry types, see <tt>value</tt>.
+          Calls the Win32 API function <tt>EnumRegValuesEx()</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

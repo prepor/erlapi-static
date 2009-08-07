@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>lname_component</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />lname_component</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This interface is a part of the name library, which is used to hide the 
+      representation of names. In Orbers Erlang mapping the pseudo-object names 
+      and the real IDL names have the same representation but it is desirable that 
+      the clients uses the names library so they will not be dependent of the representation.
+      The lname_component interface supports handling of name components e.g. set and get
+      of the struct members.</p>
+    <p>Note that the lname_component interface in orber does not contain a destroy 
+      function because the NameComponents are represented as Erlang records and 
+      therefor will be removed by the garbage collector when not in use.</p>
+    <p>The type <tt>NameComponent</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_NameComponent', {id, kind=""}).
+    </code>
+    <p><tt>id</tt> and <tt>kind</tt> are strings. </p>
+    <p>The record is defined in the file <tt>CosNaming.hrl</tt> and it 
+      is included with:</p>
+    <code type="none">
+      -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
+    </code>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#creategtReturn">create() -&gt; Return</a></li>
+        
+        <li><a href="#get_idNameComponentgtReturn">get_id(NameComponent) -&gt; Return</a></li>
+        
+        <li><a href="#get_kindNameComponentgtReturn">get_kind(NameComponent) -&gt; Return</a></li>
+        
+        <li><a href="#set_idNameComponentIdgtReturn">set_id(NameComponent, Id) -&gt; Return</a></li>
+        
+        <li><a href="#set_kindNameComponentKindgtReturn">set_kind(NameComponent, Kind) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="creategtReturn"></a><b>create() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = NameComponent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a new name component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_idNameComponentgtReturn"></a><b>get_id(NameComponent) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the id string of a name component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_idNameComponentIdgtReturn"></a><b>set_id(NameComponent, Id) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Id = string()</b><br/>
+        <b>Return = NameComponent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the id string of a name component and returns the component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_kindNameComponentgtReturn"></a><b>get_kind(NameComponent) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the id string of a name component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_kindNameComponentKindgtReturn"></a><b>set_kind(NameComponent, Kind) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Kind = string()</b><br/>
+        <b>Return = NameComponent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the kind string of a name component and returns the component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

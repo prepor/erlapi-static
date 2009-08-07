@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>otp_mib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />otp_mib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The SNMP application should be used to start an SNMP agent. Then
+      the API functions below can be used to load/unload the OTP-MIB
+      into/from the agent. The instrumentation of the OTP-MIB uses
+      Mnesia, hence Mnesia must be started prior to loading the OTP-MIB.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#loadAgentgtokerrorReason">load(Agent) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#unloadAgentgtokerrorReason">unload(Agent) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>snmp(3)</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="loadAgentgtokerrorReason"></a><b>load(Agent) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Loads the OTP-MIB.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unloadAgentgtokerrorReason"></a><b>unload(Agent) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unloads the OTP-MIB.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

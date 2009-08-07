@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>et</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />et</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Interface module for the Event Trace (ET) application</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#report_eventDetailLevelFromToLabelContentsgthopefully_traced">report_event(DetailLevel, FromTo, Label, Contents) -&gt; hopefully_traced</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="report_eventDetailLevelFromToLabelContentsgthopefully_traced"></a><b>report_event(DetailLevel, FromTo, Label, Contents) -&gt; hopefully_traced<br/>report_event(DetailLevel, From, To, Label, Contents) -&gt; hopefully_traced<br/>phone_home(DetailLevel, FromTo, Label, Contents) -&gt; hopefully_traced<br/>phone_home(DetailLevel, From, To, Label, Contents) -&gt; hopefully_traced</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DetailLevel = integer(X) when X =&lt; 0, X &gt;= 100</b><br/>
+        <b>From        = actor()</b><br/>
+        <b>To          = actor()</b><br/>
+        <b>FromTo      = actor()</b><br/>
+        <b>Label       = atom() | string() | term()</b><br/>
+        <b>Contents    = [{Key, Value}] | term()</b><br/>
+        <b>actor()  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reports an event, such as a message.</p>
+        <p>These functions are intended to be invoked at strategic places
+          in user applications in order to enable simplified tracing.
+          The functions are extremely light weight as they do nothing
+          besides returning an atom. These functions are designed for
+          being traced. The global tracing mechanism in et_collector
+          defaults to set its trace pattern to these functions.</p>
+        <p>The label is intended to provide a brief summary of the event.
+          A simple tag would do.</p>
+        <p>The contents can be any term but in order to simplify
+          post processing of the traced events, a plain list
+          of {Key, Value} tuples is preferred.</p>
+        <p>Some events, such as messages, are directed from some actor to another.
+          Other events (termed actions) may be undirected and only have one actor.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

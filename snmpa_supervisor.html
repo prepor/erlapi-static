@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_supervisor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_supervisor</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This is the top supervisor for the agent part of the SNMP 
+      application. There is always one supervisor at each node with 
+      an SNMP agent (master agent or sub-agent).
+      </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#start_master_supOptsgtokpiderroralready_startedpiderrorReason">start_master_sup(Opts) -&gt; {ok, pid()} |  {error, {already_started, pid()}} | {error, Reason}</a></li>
+        
+        <li><a href="#start_sub_agentParentAgentSubtreeMibsgtokpiderrorReason">start_sub_agent(ParentAgent,Subtree,Mibs) -&gt; {ok, pid()} | {error, Reason}</a></li>
+        
+        <li><a href="#start_sub_supOptsgtokpiderroralready_startedpiderrorReason">start_sub_sup(Opts) -&gt; {ok, pid()} | {error, {already_started, pid()}} | {error, Reason}</a></li>
+        
+        <li><a href="#stop_sub_agentSubAgentgtokno_such_child">stop_sub_agent(SubAgent) -&gt; ok | no_such_child</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_sub_supOptsgtokpiderroralready_startedpiderrorReason"></a><b>start_sub_sup(Opts) -&gt; {ok, pid()} | {error, {already_started, pid()}} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Opts = [opt()]</b><br/>
+        <b>opt() = {db_dir, string()} | ...</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a supervisor for the SNMP agent system without a
+          master agent.  The supervisor starts all involved SNMP
+          processes, but no agent processes.  Sub-agents should be
+          started by calling <tt>start_sub_agent/3</tt>.
+          </p>
+        <p><tt>db_dir</tt> is mandatory.</p>
+        <p>See <seealso marker="snmp_config#configuration_params">configuration parameters</seealso> for 
+          a description of the options.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_master_supOptsgtokpiderroralready_startedpiderrorReason"></a><b>start_master_sup(Opts) -&gt; {ok, pid()} |  {error, {already_started, pid()}} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Opts = [opt()]</b><br/>
+        <b>opt() = {db_dir, string()} | {config, ConfOpts()} | ...</b><br/>
+        <b>ConfOpts = [conf_opts()]</b><br/>
+        <b>conf_opts() = {dir, string()} | ...</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a supervisor for the SNMP agent system.  The
+          supervisor starts all involved SNMP processes, including the
+          master agent.  Sub-agents should be started by calling
+          <tt>start_subagent/3</tt>.
+          </p>
+        <p><tt>db_dir</tt> is mandatory.</p>
+        <p><tt>dir</tt> in config is mandatory.</p>
+        <p>See <seealso marker="snmp_config">snmp config</seealso> for 
+          a description of the options.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_sub_agentParentAgentSubtreeMibsgtokpiderrorReason"></a><b>start_sub_agent(ParentAgent,Subtree,Mibs) -&gt; {ok, pid()} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ParentAgent = pid()</b><br/>
+        <b>SubTree = oid()</b><br/>
+        <b>Mibs = [MibName]</b><br/>
+        <b>MibName = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a sub-agent on the node where the function is
+          called.  The <tt>snmpa_supervisor</tt> must be running.
+          </p>
+        <p>If the supervisor is not running, the function fails with the
+          reason <tt>badarg</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_sub_agentSubAgentgtokno_such_child"></a><b>stop_sub_agent(SubAgent) -&gt; ok | no_such_child</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SubAgent = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops the sub-agent on the node where the function is
+          called.  The <tt>snmpa_supervisor</tt> must be running.
+          </p>
+        <p>If the supervisor is not running, the function fails with the
+          reason <tt>badarg</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

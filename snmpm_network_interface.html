@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpm_network_interface</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpm_network_interface</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the manager network
+      interface. A <tt>snmpm_network_interface</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="#start_link">start_link/2</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#stop">stop/1</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#send_pdu">send_pdu/7</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#inform_response">inform_response/4</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#note_store">note_store/2</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#info">info/1</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#get_log_type">get_log_type/1</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#set_log_type">set_log_type/2</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#verbosity">verbosity/2</seealso></p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+
+    <marker id="start_link"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#get_log_typePidgtokLogTypeerrorReason">get_log_type(Pid) -&gt; {ok, LogType} | {error, Reason}</a></li>
+        
+        <li><a href="#infoPidgtKeyValue">info(Pid) -&gt; [{Key, Value}]</a></li>
+        
+        <li><a href="#inform_responsePidRefAddrPortgtvoid">inform_response(Pid, Ref, Addr, Port) -&gt; void()</a></li>
+        
+        <li><a href="#note_storePidNoteStoregtvoid">note_store(Pid, NoteStore) -&gt; void()</a></li>
+        
+        <li><a href="#send_pduPidPduVsnMsgDataAddrPortExtraInfogtvoid">send_pdu(Pid, Pdu, Vsn, MsgData, Addr, Port, ExtraInfo) -&gt; void()</a></li>
+        
+        <li><a href="#set_log_typePidNewTypegtokOldTypeerrorReason">set_log_type(Pid, NewType) -&gt; {ok, OldType} | {error, Reason}</a></li>
+        
+        <li><a href="#start_linkServerNoteStoregtokPiderrorReason">start_link(Server, NoteStore) -&gt; {ok, Pid} | {error, Reason}</a></li>
+        
+        <li><a href="#stopPidgtvoid">stop(Pid) -&gt; void()</a></li>
+        
+        <li><a href="#verbosityPidVerbositygtvoid">verbosity(Pid, Verbosity) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_linkServerNoteStoregtokPiderrorReason"></a><b>start_link(Server, NoteStore) -&gt; {ok, Pid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server    = pid()</b><br/>
+        <b>NoteStore = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start-link the network interface process.</p>
+        <p><tt>Server</tt> is the pid of the managing process.</p>
+        <p><tt>NoteStore</tt> is the pid of the note-store process.</p>
+
+        <marker id="stop"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopPidgtvoid"></a><b>stop(Pid) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stop the network interface process.</p>
+
+        <marker id="send_pdu"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_pduPidPduVsnMsgDataAddrPortExtraInfogtvoid"></a><b>send_pdu(Pid, Pdu, Vsn, MsgData, Addr, Port, ExtraInfo) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Pdu = pdu()</b><br/>
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>MsgData = term()</b><br/>
+        <b>Addr = address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>ExtraInfo = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Request the network interface process (<tt>Pid</tt>) to send
+          this pdu (<tt>Pdu</tt>).</p>
+        <p><tt>ExtraInfo</tt> is some opaque data that is passed to the
+          net-if process. It originates from the <tt>ExtraInfo</tt>
+          parameter in the calls to the 
+          <seealso marker="snmpm#sync_get">synchronous get-request</seealso>, 
+          <seealso marker="snmpm#async_get">asynchronous get-request</seealso>,
+          <seealso marker="snmpm#sync_get_next">synchronous get-next-request</seealso>, 
+          <seealso marker="snmpm#async_get_next">asynchronous get-next-request</seealso>,
+          <seealso marker="snmpm#sync_set">synchronous set-request</seealso>
+          and 
+          <seealso marker="snmpm#async_set">asynchronous set-request</seealso>
+          functions. 
+          Whether the net-if process chooses
+          to use this is implementation dependent. The net-if process
+          included in this application ignores it. </p>
+
+        <marker id="inform_response"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="inform_responsePidRefAddrPortgtvoid"></a><b>inform_response(Pid, Ref, Addr, Port) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Ref = term()</b><br/>
+        <b>Addr = address()</b><br/>
+        <b>Port = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Instruct the network interface process to send the response
+          (acknowledgment) to an inform-request.</p>
+        <p><tt>Ref</tt> is something that can be used to identify the 
+          inform-request, e.g. request-id of the inform-request.</p>
+        <p><tt>Addr</tt> and <tt>Port</tt> identifies the agent, from 
+          which the inform-request originated.</p>
+
+        <marker id="note_store"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="note_storePidNoteStoregtvoid"></a><b>note_store(Pid, NoteStore) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid       = pid()</b><br/>
+        <b>NoteStore = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Change the pid of the note-store process.
+          This is used when the server re-starts the note_store 
+          (e.g. after a crach).</p>
+
+        <marker id="info"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infoPidgtKeyValue"></a><b>info(Pid) -&gt; [{Key, Value}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The info returned is basically up to the implementer to decide. 
+          The implementation provided by this application provides info about 
+          memory allocation and various socket information.</p>
+        <p>The info returned by this function is returned together with other
+          info collected by the manager when the
+          <seealso marker="snmpm#info">info</seealso> function is called 
+          (tagged with the key <tt>net_if</tt>).</p>
+
+        <marker id="verbosity"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="verbosityPidVerbositygtvoid"></a><b>verbosity(Pid, Verbosity) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid       = pid()</b><br/>
+        <b>Verbosity = verbosity()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Change the verbosity of the network interface process.</p>
+
+        <marker id="get_log_type"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_log_typePidgtokLogTypeerrorReason"></a><b>get_log_type(Pid) -&gt; {ok, LogType} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid     = pid()</b><br/>
+        <b>LogType = atl_type()</b><br/>
+        <b>Reason  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The Audit Trail Log is managed by the network interface process.
+          So, it is this process that has to return the actual log-type. </p>
+<!--
+        <p>See
+          <seealso marker="snmpm#get_log_type">get_log_type</seealso>
+          for more info. </p>
+-->
+
+        <marker id="set_log_type"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_log_typePidNewTypegtokOldTypeerrorReason"></a><b>set_log_type(Pid, NewType) -&gt; {ok, OldType} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid     = pid()</b><br/>
+        <b>NewType = OldType = atl_type()</b><br/>
+        <b>Reason  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The Audit Trail Log is managed by the network interface process.
+          So, it is this process that has to do the actual changing of the
+          type. </p>
+        <p>See
+          <seealso marker="snmpm#set_log_type">set_log_type</seealso>
+          for more info. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

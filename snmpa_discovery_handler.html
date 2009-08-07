@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_discovery_handler</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_discovery_handler</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the agent discovery
+      handler. A <tt>snmpa_discovery_handler</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="#stage1_finish">stage1_finish/2</seealso></p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+
+     <marker id="stage1_finish"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#stage1_finishTargetNameManagerEngineIDgtignoreokusm_entry">stage1_finish(TargetName, ManagerEngineID) -&gt; ignore | {ok, usm_entry()}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="stage1_finishTargetNameManagerEngineIDgtignoreokusm_entry"></a><b>stage1_finish(TargetName, ManagerEngineID) -&gt; ignore | {ok, usm_entry()}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = string()</b><br/>
+        <b>ManagerEngineID = string()</b><br/>
+        <b>usm_entry() = tuple() compatible with usm.conf</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is called at the end of stage 1 of the 
+          discovery process. It should return either the atom 
+          <tt>ignore</tt> or <tt>{ok, usm_entry()}</tt>. See 
+          <seealso marker="snmp_agent_config_files#usm">usm_entry()</seealso>
+          and 
+          <seealso marker="snmpa_conf#usm_entry">usm_entry/13</seealso>
+          for more info. </p>
+
+        <p>If the function returns <tt>ignore</tt>, then it is assumed that 
+          either: </p>
+        
+        <list type="bulleted">
+          <item>The caller (of the discovery function) will make the 
+             needed updates later. </item>
+          <item>The callback function itself did the updates. </item>
+        </list>
+
+        <p>In either case, the agent will do nothing, but return
+          the retreived ManagerEngineID (see 
+          <seealso marker="snmpa#discovery">discovery</seealso>
+          for more info) and possible continue with stage 2 of 
+          the discovery process. </p>
+
+        <p>The purpose of this function is to generate the usm-
+          related security data needed for usm processing in the 
+          agent. Specifically, updating the usmUserTable. </p>
+
+        <p>When an <tt>usm_entry()</tt> tuple is returned, this data is
+          then added to the <tt>usmUserTable</tt> by the (master-) agent. </p>
+
+        <note><p>Note that this function is executed in the context of 
+          the master-agent process. </p></note>
+
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

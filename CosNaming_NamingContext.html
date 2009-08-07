@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNaming_NamingContext</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNaming_NamingContext</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This is the object that defines name scopes, names must be unique within a 
+      naming context. Objects may have multiple names and may exist in multiple
+      naming contexts. Name context may be named in other contexts and cycles are
+      permitted.</p>
+    <p>The type <tt>NameComponent</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_NameComponent', {id, kind=""}).
+    </code>
+    <p>where <tt>id</tt> and <tt>kind</tt> are strings. </p>
+    <p>The type <tt>Binding</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_Binding', {binding_name, binding_type}).
+    </code>
+    <p>where <tt>binding_name</tt> is a Name and <tt>binding_type</tt> is an enum which 
+      has the values <tt>nobject</tt> and <tt>ncontext</tt>.</p>
+    <p>Both these records are defined in the file <tt>CosNaming.hrl</tt> and it 
+      is included with:</p>
+    <code type="none">
+      -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
+    </code>
+    <p>There are a number of exceptions that can be returned from functions in this 
+      interface.</p>
+    <list type="bulleted">
+      <item>
+        <p>NotFound is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_NotFound', 
+                      {rest_of_name, why}).        </code>
+      </item>
+      <item>
+        <p>CannotProceed is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_CannotProceed', 
+                      {rest_of_name, cxt}).        </code>
+      </item>
+      <item>
+        <p>InvalidName is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_InvalidName', {}).        </code>
+      </item>
+      <item>
+        <p>NotFound is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_NotFound', {}).        </code>
+      </item>
+      <item>
+        <p>AlreadyBound is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_AlreadyBound', {}).        </code>
+      </item>
+      <item>
+        <p>NotEmpty is defined as </p>
+        <code type="none">
+-record('CosNaming_NamingContext_NotEmpty', {).        </code>
+      </item>
+    </list>
+    <p>These exceptions are defined in the file <tt>CosNaming_NamingContext.hrl</tt> and it 
+      is included with:</p>
+    <code type="none">
+      -include_lib("orber/COSS/CosNaming/CosNaming_NamingContext.hrl").
+    </code>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#bindNamingContextNameObjectgtReturn">bind(NamingContext, Name, Object) -&gt; Return</a></li>
+        
+        <li><a href="#bind_contextNamingContext1NameNamingContex2gtReturn">bind_context(NamingContext1, Name, NamingContex2) -&gt; Return</a></li>
+        
+        <li><a href="#bind_new_contextNamingContextNamegtReturn">bind_new_context(NamingContext, Name) -&gt; Return</a></li>
+        
+        <li><a href="#destroyNamingContextgtReturn">destroy(NamingContext) -&gt; Return</a></li>
+        
+        <li><a href="#listNamingContextHowManygtReturn">list(NamingContext, HowMany) -&gt; Return</a></li>
+        
+        <li><a href="#new_contextNamingContextgtReturn">new_context(NamingContext) -&gt; Return</a></li>
+        
+        <li><a href="#rebindNamingContextNameObjectgtReturn">rebind(NamingContext, Name, Object) -&gt; Return</a></li>
+        
+        <li><a href="#rebind_contextNamingContext1NameNamingContex2gtReturn">rebind_context(NamingContext1, Name, NamingContex2) -&gt; Return</a></li>
+        
+        <li><a href="#resolveNamingContextNamegtReturn">resolve(NamingContext, Name) -&gt; Return</a></li>
+        
+        <li><a href="#unbindNamingContextNamegtReturn">unbind(NamingContext, Name) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="bindNamingContextNameObjectgtReturn"></a><b>bind(NamingContext, Name, Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NameContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Object = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a binding of a name and an object in the naming context. 
+          Naming contexts that are bound using <em>bind()</em> do not participate
+          in name resolution.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rebindNamingContextNameObjectgtReturn"></a><b>rebind(NamingContext, Name, Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Object = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a binding of a name and an object in the naming context even
+          if the name is already bound. Naming contexts that are bound using
+          <em>rebind()</em> do not participate in name resolution.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bind_contextNamingContext1NameNamingContex2gtReturn"></a><b>bind_context(NamingContext1, Name, NamingContex2) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext1 = NamingContext2 =#objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The bind_context function creates a binding of a name and a naming context in
+          the current context.
+          Naming contexts that are bound using <em>bind_context()</em> participate
+          in name resolution.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rebind_contextNamingContext1NameNamingContex2gtReturn"></a><b>rebind_context(NamingContext1, Name, NamingContex2) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext1 = NamingContext2 =#objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The rebind_context function creates a binding of a name and a naming context in
+          the current context even if the name already is bound.
+          Naming contexts that are bound using <em>rebind_context()</em> participate
+          in name resolution.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resolveNamingContextNamegtReturn"></a><b>resolve(NamingContext, Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = Object</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The resolve function is the way to retrieve an object bound to a name in
+          the naming context. The given name must match exactly the bound name. The 
+          type of the object is not returned, clients are responsible for narrowing 
+          the object to the correct type.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unbindNamingContextNamegtReturn"></a><b>unbind(NamingContext, Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The unbind operation removes a name binding from the naming context.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_contextNamingContextgtReturn"></a><b>new_context(NamingContext) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Return = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The new_context operation creates a new naming context.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bind_new_contextNamingContextNamegtReturn"></a><b>bind_new_context(NamingContext, Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The new_context operation creates a new naming context and binds it to
+          Name in the current context.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyNamingContextgtReturn"></a><b>destroy(NamingContext) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The destroy operation disposes the NamingContext object and removes it from the 
+          name server. The context must be empty e.g. not contain any bindings to be 
+          removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="listNamingContextHowManygtReturn"></a><b>list(NamingContext, HowMany) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NamingContext = #objref</b><br/>
+        <b>HowMany = int()</b><br/>
+        <b>Return = {ok, BindingList, BindingIterator}</b><br/>
+        <b>BindingList = [Binding]</b><br/>
+        <b>BindingIterator = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The list operation returns a BindingList with a number of bindings up-to
+          HowMany from the context. It also returns a BindinIterator which can be used to
+          step through the list. If the total number of existing bindings are less
+          than, or equal to, the <tt>HowMany</tt> parameter a NIL object reference
+          is returned.</p>
+        <p></p>
+        <note>
+          <p>One must destroy the BindingIterator, unless it is a NIL object
+            reference, by using 'BindingIterator':destroy(). Otherwise one can get
+            dangling objects.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

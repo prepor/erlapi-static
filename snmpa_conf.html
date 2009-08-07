@@ -1,0 +1,1425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_conf</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_conf</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmpa_conf</tt> contains various utility functions to 
+      used for manipulating (write/append/read) the config files of the
+      SNMP agent. </p>
+
+    <marker id="agent_entry"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#agent_entryTagValgtagent_entry">agent_entry(Tag, Val) -&gt; agent_entry()</a></li>
+        
+        <li><a href="#append_agent_configDirConfgtok">append_agent_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_community_configDirConfgtok">append_community_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_context_configDirConfgtok">append_context_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_notify_configDirConfgtok">append_notify_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_standard_configDirConfgtok">append_standard_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_target_addr_configDirConfgtok">append_target_addr_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_target_params_configDirConfgtok">append_target_params_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_usm_configDirConfgtok">append_usm_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_vacm_configDirConfgtok">append_vacm_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#community_entryCommunityIndexgtcommunity_entry">community_entry(CommunityIndex) -&gt; community_entry()</a></li>
+        
+        <li><a href="#context_entryContextgtcontext_entry">context_entry(Context) -&gt; context_entry()</a></li>
+        
+        <li><a href="#notify_entryNameTagTypegtnotify_entry">notify_entry(Name, Tag, Type) -&gt; notify_entry()</a></li>
+        
+        <li><a href="#read_agent_configDirgtConf">read_agent_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_community_configDirgtConf">read_community_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_context_configDirgtConf">read_context_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_notify_configDirgtConf">read_notify_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_standard_configDirgtConf">read_standard_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_target_addr_configDirgtConf">read_target_addr_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_target_params_configDirgtConf">read_target_params_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_usm_configDirgtConf">read_usm_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_vacm_configDirgtConf">read_vacm_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#standard_entryTagValgtstandard_entry">standard_entry(Tag, Val) -&gt; standard_entry()</a></li>
+        
+        <li><a href="#target_addr_entryNameIpTagListParamsNameEngineIdgttarget_addr_entry">target_addr_entry(Name, Ip, TagList, ParamsName, EngineId) -&gt; target_addr_entry()</a></li>
+        
+        <li><a href="#target_params_entryNameVsngttarget_params_entry">target_params_entry(Name, Vsn) -&gt; target_params_entry()</a></li>
+        
+        <li><a href="#usm_entryEngineIdgtusm_entry">usm_entry(EngineId) -&gt; usm_entry()</a></li>
+        
+        <li><a href="#vacm_s2g_entrySecModelSecNameGroupNamegtvacm_s2g_entry">vacm_s2g_entry(SecModel, SecName, GroupName) -&gt; vacm_s2g_entry()</a></li>
+        
+        <li><a href="#write_agent_configDirConfgtok">write_agent_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_community_configDirConfgtok">write_community_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_context_configDirConfgtok">write_context_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_notify_configDirConfgtok">write_notify_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_standard_configDirConfgtok">write_standard_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_target_addr_configDirConfgtok">write_target_addr_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_target_params_configDirConfgtok">write_target_params_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_usm_configDirConfgtok">write_usm_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_vacm_configDirConfgtok">write_vacm_config(Dir, Conf) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="agent_entryTagValgtagent_entry"></a><b>agent_entry(Tag, Val) -&gt; agent_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = intAgentIpAddress | intAgentUDPPort | intAgentMaxPacketSize | snmpEngineMaxMessageSize | snmpEngineID</b><br/>
+        <b>Val = term()</b><br/>
+        <b>agent_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent config file, <tt>agent.conf</tt>. </p>
+        <p>The type of <tt>Val</tt> depends on the value of <tt>Tag</tt>, 
+          see 
+          <seealso marker="snmp_agent_config_files#agent_information">Agent Information</seealso> 
+          for more info. </p>
+
+        <marker id="write_agent_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_agent_configDirConfgtok"></a><b>write_agent_config(Dir, Conf) -&gt; ok<br/>write_agent_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [agent_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent config to the agent config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#agent_information">Agent Information</seealso> 
+          for more info. </p>
+
+        <marker id="append_agent_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_agent_configDirConfgtok"></a><b>append_agent_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [agent_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the config to the current agent config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#agent_information">Agent Information</seealso> 
+          for more info. </p>
+
+        <marker id="read_agent_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_agent_configDirgtConf"></a><b>read_agent_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [agent_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#agent_information">Agent Information</seealso> 
+          for more info. </p>
+
+        <marker id="standard_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="standard_entryTagValgtstandard_entry"></a><b>standard_entry(Tag, Val) -&gt; standard_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = sysDescr | sysObjectID | sysContact | sysName | sysLocation | sysServices | snmpEnableAuthenTraps</b><br/>
+        <b>Val = term()</b><br/>
+        <b>standard_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent standard config file, 
+          <tt>standard.conf</tt>. </p>
+        <p>The type of <tt>Val</tt> depends on the value of <tt>Tag</tt>, 
+          see 
+          <seealso marker="snmp_agent_config_files#system_information">System Information</seealso> 
+          for more info. </p>
+
+        <marker id="write_standard_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_standard_configDirConfgtok"></a><b>write_standard_config(Dir, Conf) -&gt; ok<br/>write_standard_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [standard_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent standard config to the agent standard 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#system_information">System Information</seealso> 
+          for more info. </p>
+
+        <marker id="append_standard_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_standard_configDirConfgtok"></a><b>append_standard_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [standard_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the standard config to the current agent standard 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#system_information">System Information</seealso> 
+          for more info. </p>
+
+        <marker id="read_standard_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_standard_configDirgtConf"></a><b>read_standard_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [standard_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent standard config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#system_information">System Information</seealso> 
+          for more info. </p>
+
+        <marker id="context_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="context_entryContextgtcontext_entry"></a><b>context_entry(Context) -&gt; context_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Context = string()</b><br/>
+        <b>context_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent context config file, 
+          <tt>context.conf</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#context">Contexts</seealso> 
+          for more info. </p>
+
+        <marker id="write_context_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_context_configDirConfgtok"></a><b>write_context_config(Dir, Conf) -&gt; ok<br/>write_context_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [context_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent context config to the agent context 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#context">Contexts</seealso> 
+          for more info. </p>
+
+        <marker id="append_context_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_context_configDirConfgtok"></a><b>append_context_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [context_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the context config to the current agent context 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#context">Contexts</seealso> 
+          for more info. </p>
+
+        <marker id="read_context_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_context_configDirgtConf"></a><b>read_context_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [context_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent context config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#context">Contexts</seealso> 
+          for more info. </p>
+
+        <marker id="community_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="community_entryCommunityIndexgtcommunity_entry"></a><b>community_entry(CommunityIndex) -&gt; community_entry()<br/>community_entry(CommunityIndex, CommunityName, SecName, ContextName, TransportTag) -&gt; community_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>CommunityIndex = string()</b><br/>
+        <b>CommunityName = string()</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>CtxName = string()</b><br/>
+        <b>TransportTag = string()</b><br/>
+        <b>community_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent community config file, 
+          <tt>community.conf</tt>. </p>
+        <p><tt>CommunityIndex</tt> must be a <em>non-empty</em> string. </p>
+        <p><tt>community_entry("public")</tt> translates to the following call:
+          <tt>community_entry(CommunityIndex, CommunityIndex, "initial", "", "")</tt>. </p>
+        <p><tt>community_entry("all-rights")</tt> translates to the following 
+          call: <tt>community_entry(CommunityIndex, CommunityIndex, CommunityIndex, "", "")</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#community">Community</seealso> 
+          for more info. </p>
+
+        <marker id="write_community_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_community_configDirConfgtok"></a><b>write_community_config(Dir, Conf) -&gt; ok<br/>write_community_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [community_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent community config to the agent community 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#community">Community</seealso> 
+          for more info. </p>
+
+        <marker id="append_community_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_community_configDirConfgtok"></a><b>append_community_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [community_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the community config to the current agent community 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#community">Community</seealso> 
+          for more info. </p>
+
+        <marker id="read_community_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_community_configDirgtConf"></a><b>read_community_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [community_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent community config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#community">Communities</seealso> 
+          for more info. </p>
+
+        <marker id="target_addr_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="target_addr_entryNameIpTagListParamsNameEngineIdgttarget_addr_entry"></a><b>target_addr_entry(Name, Ip, TagList, ParamsName, EngineId) -&gt; target_addr_entry()<br/>target_addr_entry(Name, Ip, TagList, ParamsName, EngineId, TMask) -&gt; target_addr_entry()<br/>target_addr_entry(Name, Ip, Udp, TagList, ParamsName, EngineId, TMask, MaxMessageSize) -&gt; target_addr_entry()<br/>target_addr_entry(Name, Ip, Udp, Timeout, RetryCount, TagList, ParamsName, EngineId, TMask, MaxMessageSize) -&gt; target_addr_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+        <b>Ip = string()</b><br/>
+        <b>Udp = integer()</b><br/>
+        <b>Timeout = integer()</b><br/>
+        <b>RetryCount = integer()</b><br/>
+        <b>TagList = string()</b><br/>
+        <b>ParamsName = string()</b><br/>
+        <b>EngineId = string()</b><br/>
+        <b>TMask = string()</b><br/>
+        <b>MaxMessageSize = integer()</b><br/>
+        <b>target_addr_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent target_addr config file, 
+          <tt>target_addr.conf</tt>. </p>
+        <p><tt>Name</tt> must be a <em>non-empty</em> string. </p>
+        <p><tt>target_addr_entry/5</tt> translates to the following call:
+          <tt>target_addr_entry(Name, Ip, TagList, ParamsName, EngineId)</tt>. </p>
+        <p><tt>target_addr_entry/6</tt> translates to the following call:
+          <tt>target_addr_entry(Name, Ip, 162, TagList, ParamsName, EngineId, TMask, 2048)</tt>. </p>
+        <p><tt>target_addr_entry/8</tt> translates to the following call:
+          <tt>target_addr_entry(Name, Ip, Udp, 1500, 3, TagList, ParamsName, EngineId, TMask, MaxMessageSize)</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_addr">Target Address Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="write_target_addr_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_target_addr_configDirConfgtok"></a><b>write_target_addr_config(Dir, Conf) -&gt; ok<br/>write_target_addr_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [target_addr_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent target_addr config to the agent target_addr 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_addr">Target Address Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="append_target_addr_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_target_addr_configDirConfgtok"></a><b>append_target_addr_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [target_addr_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the target_addr config to the current agent target_addr 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_addr">Target Address Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="read_target_addr_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_target_addr_configDirgtConf"></a><b>read_target_addr_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [target_addr_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent target_addr config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_addr">Target Address Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="target_params_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="target_params_entryNameVsngttarget_params_entry"></a><b>target_params_entry(Name, Vsn) -&gt; target_params_entry()<br/>target_params_entry(Name, Vsn, SecName, SecLevel) -&gt; target_params_entry()<br/>target_params_entry(Name, MPModel, SecModel, SecName, SecLevel) -&gt; target_params_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+        <b>Vsn = v1 | v2 | v3</b><br/>
+        <b>MPModel = v1 | v2c | v3</b><br/>
+        <b>SecModel = v1 | v2c | usm</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>SecLevel = noAuthNoPriv | authNoPriv | authPriv</b><br/>
+        <b>target_params_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent target_params config file, 
+          <tt>target_params.conf</tt>. </p>
+        <p><tt>Name</tt> must be a <em>non-empty</em> string. </p>
+        <p><tt>Vsn</tt> translates into <tt>MPModel</tt> and <tt>SecModel</tt> as follows:</p>
+        <pre>
+\011  Vsn = v1 =&gt; MPModel = v1,  SecModel = v1
+\011  Vsn = v2 =&gt; MPModel = v2c, SecModel = v2c
+\011  Vsn = v3 =&gt; MPModel = v3,  SecModel = usm
+        </pre>
+        <p><tt>target_params_entry/2</tt> translates to the following call:
+          <tt>target_params_entry(Name, Vsn, "initial", noAuthNoPriv)</tt>. </p>
+        <p><tt>target_params_entry/4</tt> translates to the following
+          call: <tt>target_params_entry(Name, MPModel, SecModel, SecName, SecLevel)</tt> where <tt>MPModel</tt> and
+          <tt>SecModel</tt> is mapped from <tt>Vsn</tt>, see above. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_params">Target Parameters Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="write_target_params_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_target_params_configDirConfgtok"></a><b>write_target_params_config(Dir, Conf) -&gt; ok<br/>write_target_params_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [target_params_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent target_params config to the agent target_params 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_params">Target Parameters Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="append_target_params_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_target_params_configDirConfgtok"></a><b>append_target_params_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [target_params_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the target_params config to the current agent target_params 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_params">Target Parameters Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="read_target_params_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_target_params_configDirgtConf"></a><b>read_target_params_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [target_params_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent target_params config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#target_params">Target Parameters Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="vacm_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="vacm_s2g_entrySecModelSecNameGroupNamegtvacm_s2g_entry"></a><b>vacm_s2g_entry(SecModel, SecName, GroupName) -&gt; vacm_s2g_entry()<br/>vacm_acc_entry(GroupName, Prefix, SecModel, SecLevel, Match, ReadView, WriteView, NotifyView) -&gt; vacm_acc_entry()<br/>vacm_vtf_entry(ViewIndex, ViewSubtree) -&gt; vacm_vtf_entry()<br/>vacm_vtf_entry(ViewIndex, ViewSubtree, ViewStatus, ViewMask) -&gt; vacm_vtf_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SecModel = v1 | v2c | usm</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>GroupName = string()</b><br/>
+        <b>Prefix = string()</b><br/>
+        <b>SecLevel = noAuthNoPriv | authNoPriv | authPriv</b><br/>
+        <b>Match = prefix | exact</b><br/>
+        <b>ReadView = string()</b><br/>
+        <b>WriteView = string()</b><br/>
+        <b>NotifyView = string()</b><br/>
+        <b>ViewIndex = integer()</b><br/>
+        <b>ViewSubtree = [integer()]</b><br/>
+        <b>ViewStatus = included | excluded</b><br/>
+        <b>ViewMask = null | [zero_or_one()]</b><br/>
+        <b>zero_or_one() = 0 | 1</b><br/>
+        <b>vacm_s2g_entry() = term()</b><br/>
+        <b>vacm_acc_entry() = term()</b><br/>
+        <b>vacm_vtf_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent vacm config file, 
+          <tt>vacm.conf</tt>. </p>
+        <p><tt>vacm_vtf_entry/2</tt> translates to the following call:
+          <tt>vacm_vtf_entry(ViewIndex, ViewSubtree, included, null)</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#vacm">MIB Views for VACM</seealso> 
+          for more info. </p>
+
+        <marker id="write_vacm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_vacm_configDirConfgtok"></a><b>write_vacm_config(Dir, Conf) -&gt; ok<br/>write_vacm_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [vacm_entry()]</b><br/>
+        <b>vacm_entry() = vacm_sg2_entry() | vacm_acc_entry() | vacm_vtf_entry()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent vacm config to the agent vacm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#vacm">MIB Views for VACM</seealso> 
+          for more info. </p>
+
+        <marker id="append_vacm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_vacm_configDirConfgtok"></a><b>append_vacm_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [vacm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the vacm config to the current agent vacm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#vacm">MIB Views for VACM</seealso> 
+          for more info. </p>
+
+        <marker id="read_vacm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_vacm_configDirgtConf"></a><b>read_vacm_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [vacm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent vacm config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#vacm">MIB Views for VACM</seealso> 
+          for more info. </p>
+
+        <marker id="usm_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="usm_entryEngineIdgtusm_entry"></a><b>usm_entry(EngineId) -&gt; usm_entry()<br/>usm_entry(EngineID, UserName, SecName, Clone, AuthP, AuthKeyC, OwnAuthKeyC, PrivP, PrivKeyC, OwnPrivKeyC, Public, AuthKey, PrivKey) -&gt; usm_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EngineId = string()</b><br/>
+        <b>UserName = string()</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>Clone = zeroDotZero | [integer()]</b><br/>
+        <b>AuthP = usmNoAuthProtocol | usmHMACMD5AuthProtocol, | usmHMACSHAAuthProtocol</b><br/>
+        <b>AuthKeyC = string()</b><br/>
+        <b>OwnAuthKeyC = string()</b><br/>
+        <b>PrivP = usmNoPrivProtocol | usmDESPrivProtocol | usmAesCfb128Protocol</b><br/>
+        <b>PrivKeyC = string()</b><br/>
+        <b>OwnPrivKeyC = string()</b><br/>
+        <b>Public = string()</b><br/>
+        <b>AuthKey = [integer()]</b><br/>
+        <b>PrivKey = [integer()]</b><br/>
+        <b>usm_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent vacm config file, 
+          <tt>vacm.conf</tt>. </p>
+        <p><tt>usm_entry/1</tt> translates to the following call:
+          <tt>usm_entry("initial", "initial", zeroDotZero, usmNoAuthProtocol, "", "", usmNoPrivProtocol, "", "", "", "", "")</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+
+        <marker id="write_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_usm_configDirConfgtok"></a><b>write_usm_config(Dir, Conf) -&gt; ok<br/>write_usm_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent usm config to the agent usm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+
+        <marker id="append_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_usm_configDirConfgtok"></a><b>append_usm_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the usm config to the current agent vacm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+        <marker id="read_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_usm_configDirgtConf"></a><b>read_usm_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent usm config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+
+        <marker id="notify_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="notify_entryNameTagTypegtnotify_entry"></a><b>notify_entry(Name, Tag, Type) -&gt; notify_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+        <b>Tag = string()</b><br/>
+        <b>Type = trap | inform</b><br/>
+        <b>community_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent notify config file, 
+          <tt>notify.conf</tt>. </p>
+        <p><tt>Name</tt> must be a <em>non-empty</em> string. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#notify">Notify Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="write_notify_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_notify_configDirConfgtok"></a><b>write_notify_config(Dir, Conf) -&gt; ok<br/>write_notify_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [notify_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the agent notify config to the agent notify 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#notify">Notify Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="append_notify_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_notify_configDirConfgtok"></a><b>append_notify_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [notify_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the notify config to the current agent notify 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#notify">Notify Definitions</seealso> 
+          for more info. </p>
+
+        <marker id="read_notify_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_notify_configDirgtConf"></a><b>read_notify_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [community_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current agent notify config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_agent_config_files#notify">Notify Definitions</seealso> 
+          for more info. </p>
+        <marker id="end"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

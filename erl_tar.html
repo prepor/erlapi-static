@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_tar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_tar</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>erl_tar</tt> module archives and extract files to and from
+      a tar file. The tar file format is the POSIX extended tar file format
+      specified in IEEE Std 1003.1 and ISO/IEC&nbsp;9945-1. That is the same
+      format as used by <tt>tar</tt> program on Solaris, but is not the same
+      as used by the GNU tar program.</p>
+    <p>By convention, the name of a tar file should end in "<tt>.tar</tt>".
+      To abide to the convention, you'll need to add "<tt>.tar</tt>" yourself
+      to the name.</p>
+    <p>Tar files can be created in one operation using the
+      <seealso marker="#create_2">create/2</seealso> or
+      <seealso marker="#create_3">create/3</seealso> function.</p>
+    <p>Alternatively, for more control, the
+      <seealso marker="#open">open</seealso>,
+      <seealso marker="#add">add/3,4</seealso>, and 
+      <seealso marker="#close">close/1</seealso> functions can be used.</p>
+    <p>To extract all files from a tar file, use the 
+      <seealso marker="#extract_1">extract/1</seealso> function.
+      To extract only some files or to be able to specify some more options,
+      use the <seealso marker="#extract_2">extract/2</seealso> function.</p>
+    <p>To return a list of the files in a tar file,
+      use either the <seealso marker="#table_1">table/1</seealso> or
+      <seealso marker="#table_2">table/2</seealso> function.
+      To print a list of files to the Erlang shell,
+      use either the <seealso marker="#t_1">t/1</seealso> or
+      <seealso marker="#tt_1">tt/1</seealso> function.</p>
+    <p>To convert an error term returned from one of the functions
+      above to a readable message, use the
+      <seealso marker="#format_error_1">format_error/1</seealso> function.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">LIMITATIONS</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#addTarDescriptorFilenameOptionsgtRetValue">add(TarDescriptor, Filename, Options) -&gt; RetValue</a></li>
+        
+        <li><a href="#addTarDescriptorFilenameOrBinNameInArchiveOptionsgtRetValue">add(TarDescriptor, FilenameOrBin, NameInArchive, Options) -&gt; RetValue </a></li>
+        
+        <li><a href="#closeTarDescriptor">close(TarDescriptor)</a></li>
+        
+        <li><a href="#createNameFileListOptionList">create(Name, FileList, OptionList)</a></li>
+        
+        <li><a href="#createNameFileListgtRetValue">create(Name, FileList) -&gt;RetValue </a></li>
+        
+        <li><a href="#extractNamegtRetValue">extract(Name) -&gt; RetValue</a></li>
+        
+        <li><a href="#extractNameOptionList">extract(Name, OptionList)</a></li>
+        
+        <li><a href="#format_errorReasongtstring">format_error(Reason) -&gt; string()</a></li>
+        
+        <li><a href="#openNameOpenModeListgtRetValue">open(Name, OpenModeList) -&gt; RetValue</a></li>
+        
+        <li><a href="#tName">t(Name)</a></li>
+        
+        <li><a href="#tableNamegtRetValue">table(Name) -&gt; RetValue</a></li>
+        
+        <li><a href="#tableNameOptions">table(Name, Options)</a></li>
+        
+        <li><a href="#ttName">tt(Name)</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">LIMITATIONS</div>
+    
+    <div class="description">
+        
+    <title>LIMITATIONS</title>
+    <p>For maximum compatibility, it is safe to archive files with names
+      up to 100 characters in length. Such tar files can generally be
+      extracted by any <tt>tar</tt> program.</p>
+    <p>If filenames exceed 100 characters in length, the resulting tar
+      file can only be correctly extracted by a POSIX-compatible <tt>tar</tt>
+      program (such as Solaris <tt>tar</tt>), not by GNU tar.</p>
+    <p>File have longer names than 256 bytes cannot be stored at all.</p>
+    <p>The filename of the file a symbolic link points is always limited
+      to 100 characters.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="addTarDescriptorFilenameOptionsgtRetValue"></a><b>add(TarDescriptor, Filename, Options) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TarDescriptor = term()</b><br/>
+        <b>Filename = filename()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = dereference|verbose</b><br/>
+        <b>RetValue = ok|{error,{Filename,Reason}}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="add"></marker>
+<tt>add/3</tt> function adds a file to a tar file
+          that has been opened for writing by
+          <seealso marker="#open">open/1</seealso>.</p>
+        <taglist>
+          <tag><tt>dereference</tt></tag>
+          <item>
+            <p>By default, symbolic links will be stored as symbolic links
+              in the tar file. Use the <tt>dereference</tt> option to override the
+              default and store the file that the symbolic link points to into
+              the tar file.</p>
+          </item>
+          <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Print an informational message about the file being added.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="addTarDescriptorFilenameOrBinNameInArchiveOptionsgtRetValue"></a><b>add(TarDescriptor, FilenameOrBin, NameInArchive, Options) -&gt; RetValue </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TarDescriptor = term()</b><br/>
+        <b>FilenameOrBin = Filename()|binary()</b><br/>
+        <b>Filename = filename()()</b><br/>
+        <b>NameInArchive = filename()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = dereference|verbose</b><br/>
+        <b>RetValue = ok|{error,{Filename,Reason}}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>add/4</tt> function adds a file to a tar file
+          that has been opened for writing by
+          <seealso marker="#open">open/1</seealso>. It accepts the same
+          options as <seealso marker="#add">add/3</seealso>.</p>
+        <p><tt>NameInArchive</tt> is the name under which the file will
+          be stored in the tar file. That is the name that the file will
+          get when it will be extracted from the tar file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeTarDescriptor"></a><b>close(TarDescriptor)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TarDescriptor = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="close"></marker>
+<tt>close/1</tt> function closes a tar file
+          opened by <seealso marker="#open">open/1</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="createNameFileListgtRetValue"></a><b>create(Name, FileList) -&gt;RetValue </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+        <b>FileList = [Filename|{NameInArchive, binary()},{NameInArchive, Filename}]</b><br/>
+        <b>Filename = filename()</b><br/>
+        <b>NameInArchive = filename()</b><br/>
+        <b>RetValue = ok|{error,{Name,Reason}} &lt;V&gt;Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="create_2"></marker>
+<tt>create/2</tt> function creates a tar file and
+          archives the files whose names are given in <tt>FileList</tt> into it.
+          The files may either be read from disk or given as
+          binaries.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="createNameFileListOptionList"></a><b>create(Name, FileList, OptionList)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+	<b>FileList = [Filename|{NameInArchive, binary()},{NameInArchive, Filename}]</b><br/>
+	<b>Filename = filename()</b><br/>
+        <b>NameInArchive = filename()</b><br/>
+        <b>OptionList = [Option]</b><br/>
+        <b>Option = compressed|cooked|dereference|verbose</b><br/>
+        <b>RetValue = ok|{error,{Name,Reason}} &lt;V&gt;Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="create_3"></marker>
+<tt>create/3</tt> function 
+          creates a tar file and archives the files whose names are given
+          in <tt>FileList</tt> into it. The files may either be read from
+          disk or given as binaries.</p>
+        <p>The options in <tt>OptionList</tt> modify the defaults\011as follows.
+          </p>
+        <taglist>
+          <tag><tt>compressed</tt></tag>
+          <item>
+            <p>The entire tar file will be compressed, as if it has
+              been run through the <tt>gzip</tt> program. To abide to the
+              convention that a compressed tar file should end in "<tt>.tar.gz</tt>" or
+              "<tt>.tgz</tt>", you'll need to add the appropriate extension yourself.</p>
+          </item>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the tar file
+              in <tt>raw</tt> mode, which is faster but does not allow a remote (erlang)
+              file server to be used. Adding <tt>cooked</tt> to the mode list will 
+              override the default and open the tar file without the <tt>raw</tt>
+              option.</p>
+          </item>
+          <tag><tt>dereference</tt></tag>
+          <item>
+            <p>By default, symbolic links will be stored as symbolic links
+              in the tar file. Use the <tt>dereference</tt> option to override the
+              default and store the file that the symbolic link points to into
+              the tar file.</p>
+          </item>
+          <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Print an informational message about each file being added.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="extractNamegtRetValue"></a><b>extract(Name) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+        <b>RetValue = ok|{error,{Name,Reason}}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="extract_1"></marker>
+<tt>extract/1</tt> function extracts
+          all files from a tar archive.</p>
+        <p>If the <tt>Name</tt> argument is given as "<tt>{binary,Binary}</tt>",
+          the contents of the binary is assumed to be a tar archive.
+          </p>
+        <p>If the <tt>Name</tt> argument is given as "<tt>{file,Fd}</tt>",
+          <tt>Fd</tt> is assumed to be a file descriptor returned from
+          the <tt>file:open/2</tt> function.
+          </p>
+        <p>Otherwise, <tt>Name</tt> should be a filename.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="extractNameOptionList"></a><b>extract(Name, OptionList)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename() | {binary,Binary} | {file,Fd}  </b><br/>
+        <b>Binary = binary()</b><br/>
+        <b>Fd = file_descriptor()</b><br/>
+        <b>OptionList = [Option]</b><br/>
+        <b>Option = {cwd,Cwd}|{files,FileList}|keep_old_files|verbose|memory</b><br/>
+        <b>Cwd = [dirname()]</b><br/>
+        <b>FileList = [filename()]</b><br/>
+        <b>RetValue = ok|MemoryRetValue|{error,{Name,Reason}}</b><br/>
+        <b>MemoryRetValue = {ok, [{NameInArchive,binary()}]}</b><br/>
+        <b>NameInArchive = filename()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="extract_2"></marker>
+<tt>extract/2</tt> function extracts
+          files from a tar archive.</p>
+        <p>If the <tt>Name</tt> argument is given as "<tt>{binary,Binary}</tt>",
+          the contents of the binary is assumed to be a tar archive.
+          </p>
+        <p>If the <tt>Name</tt> argument is given as "<tt>{file,Fd}</tt>",
+          <tt>Fd</tt> is assumed to be a file descriptor returned from
+          the <tt>file:open/2</tt> function.
+          </p>
+        <p>Otherwise, <tt>Name</tt> should be a filename.
+          </p>
+        <p>The following options modify the defaults for the extraction as
+          follows.</p>
+        <taglist>
+          <tag><tt>{cwd,Cwd}</tt></tag>
+          <item>
+            <p>Files with relative filenames will by default be extracted
+              to the current working directory.
+              Given the <tt>{cwd,Cwd}</tt> option, the <tt>extract/2</tt> function
+              will extract into the directory <tt>Cwd</tt> instead of to the current
+              working directory.</p>
+          </item>
+          <tag><tt>{files,FileList}</tt></tag>
+          <item>
+            <p>By default, all files will be extracted from the tar file.
+              Given the <tt>{files,Files}</tt> option, the <tt>extract/2</tt> function
+              will only extract the files whose names are included in <tt>FileList</tt>.</p>
+          </item>
+          <tag><tt>compressed</tt></tag>
+          <item>
+            <p>Given the <tt>compressed</tt> option, the <tt>extract/2</tt>
+              function will uncompress the file while extracting
+              If the tar file is not actually compressed, the <tt>compressed</tt>
+              will effectively be ignored.</p>
+          </item>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the tar file
+              in <tt>raw</tt> mode, which is faster but does not allow a remote (erlang)
+              file server to be used. Adding <tt>cooked</tt> to the mode list will 
+              override the default and open the tar file without the <tt>raw</tt>
+              option.</p>
+          </item>
+          <tag><tt>memory</tt></tag>
+          <item>
+            <p>Instead of extracting to a directory, the memory option will
+	      give the result  as  a  list  of  tuples  {Filename, Binary}, where
+	      Binary is a binary containing the extracted data of the file named
+	      Filename in the tar file.</p>
+          </item>
+          <tag><tt>keep_old_files</tt></tag>
+          <item>
+            <p>By default, all existing files with the same name as file in
+              the tar file will be overwritten
+              Given the <tt>keep_old_files</tt> option, the <tt>extract/2</tt> function
+              will not overwrite any existing files.</p>
+          </item>
+          <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Print an informational message as each file is being extracted.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorReasongtstring"></a><b>format_error(Reason) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="format_error_1"></marker>
+<tt>format_error/1</tt> converts
+          an error reason term to a human-readable error message string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="openNameOpenModeListgtRetValue"></a><b>open(Name, OpenModeList) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+        <b>OpenModeList = [OpenMode]</b><br/>
+        <b>Mode = write|compressed|cooked</b><br/>
+        <b>RetValue = {ok,TarDescriptor}|{error,{Name,Reason}}</b><br/>
+	<b>TarDescriptor = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="open"></marker>
+<tt>open/2</tt> function creates a tar file for writing.
+        (Any existing file with the same name will be truncated.)</p>
+        <p>By convention, the name of a tar file should end in "<tt>.tar</tt>".
+          To abide to the convention, you'll need to add "<tt>.tar</tt>" yourself
+          to the name.</p>
+        <p>Except for the <tt>write</tt> atom the following atoms
+	may be added to <tt>OpenModeList</tt>:</p>
+        <taglist>
+          <tag><tt>compressed</tt></tag>
+          <item>
+            <p>The entire tar file will be compressed, as if it has
+              been run through the <tt>gzip</tt> program. To abide to the
+              convention that a compressed tar file should end in "<tt>.tar.gz</tt>" or
+              "<tt>.tgz</tt>", you'll need to add the appropriate extension yourself.</p>
+          </item>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the tar file
+              in <tt>raw</tt> mode, which is faster but does not allow a remote (erlang)
+              file server to be used. Adding <tt>cooked</tt> to the mode list will 
+              override the default and open the tar file without the <tt>raw</tt>
+              option.</p>
+          </item>
+        </taglist>
+        <p>Use the <seealso marker="#add">add/3,4</seealso> functions
+          to add one file at the time into an opened tar file. When you are
+          finished adding files, use the <seealso marker="#close">close</seealso>
+          function to close the tar file.</p>
+        <warning>
+          <p>The <tt>TarDescriptor</tt> term is not a file descriptor.
+            You should not rely on the specific contents of the <tt>TarDescriptor</tt>
+            term, as it may change in future versions as more features are added
+            to the <tt>erl_tar</tt> module.</p>
+          <p></p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tableNamegtRetValue"></a><b>table(Name) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+        <b>RetValue = {ok,[string()]}|{error,{Name,Reason}}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="table_1"></marker>
+<tt>table/1</tt> function retrieves
+          the names of all files in the tar file <tt>Name</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tableNameOptions"></a><b>table(Name, Options)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="table_2"></marker>
+<tt>table/2</tt> function retrieves
+          the names of all files in the tar file <tt>Name</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tName"></a><b>t(Name)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="t_1"></marker>
+<tt>t/1</tt> function prints the names
+          of all files in the tar file <tt>Name</tt> to the Erlang shell.
+          (Similar to "<tt>tar&nbsp;t</tt>".)</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ttName"></a><b>tt(Name)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="tt_1"></marker>
+<tt>tt/1</tt> function prints names and
+          information about all files in the tar file <tt>Name</tt> to
+          the Erlang shell. (Similar to "<tt>tar&nbsp;tv</tt>".)</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

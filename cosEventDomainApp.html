@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cosEventDomainApp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cosEventDomainApp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:<br><tt>-include_lib("cosEventDomain/include/*.hrl").</tt></p>
+    <p>This module contains the functions for starting and stopping the application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#installgtReturn">install() -&gt; Return</a></li>
+        
+        <li><a href="#startgtReturn">start() -&gt; Return</a></li>
+        
+        <li><a href="#start_factoryOptionsgtFactory">start_factory(Options) -&gt; Factory</a></li>
+        
+        <li><a href="#start_factorygtFactory">start_factory() -&gt; Factory</a></li>
+        
+        <li><a href="#start_factory_linkgtFactory">start_factory_link() -&gt; Factory</a></li>
+        
+        <li><a href="#start_factory_linkOptionsgtFactory">start_factory_link(Options) -&gt; Factory</a></li>
+        
+        <li><a href="#stopgtReturn">stop() -&gt; Return</a></li>
+        
+        <li><a href="#stop_factoryFactorygtReply">stop_factory(Factory) -&gt; Reply</a></li>
+        
+        <li><a href="#uninstallgtReturn">uninstall() -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="installgtReturn"></a><b>install() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E} | {'EXIT', R}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosEventDomain application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallgtReturn"></a><b>uninstall() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E} | {'EXIT', R}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosEventDomain application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtReturn"></a><b>start() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts the cosEventDomain application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtReturn"></a><b>stop() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the cosEventDomain application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factorygtFactory"></a><b>start_factory() -&gt; Factory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a
+          <seealso marker="CosEventDomainAdmin_EventDomainFactory">Event Domain Factory</seealso>
+          using the default settings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factoryOptionsgtFactory"></a><b>start_factory(Options) -&gt; Factory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+        <b>Option = currently no options defined.</b><br/>
+        <b>Factory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a
+          <seealso marker="CosEventDomainAdmin_EventDomainFactory">Event Domain Factory</seealso></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factory_linkgtFactory"></a><b>start_factory_link() -&gt; Factory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a
+          <seealso marker="CosEventDomainAdmin_EventDomainFactory">Event Domain Factory</seealso>,
+          which is linked to the invoking process, using the default settings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factory_linkOptionsgtFactory"></a><b>start_factory_link(Options) -&gt; Factory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+        <b>Option = currently no options defined.</b><br/>
+        <b>Factory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a
+          <seealso marker="CosEventDomainAdmin_EventDomainFactory">Event Domain Factory</seealso>,
+          which is linked to the invoking process, with settings defined by the
+          given options. Allowed options are the same as for 
+          <tt>cosEventDomainApp:start_factory/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_factoryFactorygtReply"></a><b>stop_factory(Factory) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stop the target factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

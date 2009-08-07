@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpm_user</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpm_user</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the manager user. 
+      A <tt>snmpm_user</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p>handle_error/3</p>
+      </item>
+      <item>
+        <p>handle_agent/4</p>
+      </item>
+      <item>
+        <p>handle_pdu/4</p>
+      </item>
+      <item>
+        <p>handle_trap/3</p>
+      </item>
+      <item>
+        <p>handle_inform/3</p>
+      </item>
+      <item>
+        <p>handle_report/3</p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+    <p>Note that if an agent is registered using the old, no longer 
+      documented, functions (using Addr and Port), the old variant of the 
+      callback functions, handle_pdu, handle_trap, handle_inform and 
+      handle_report, will be called. </p>
+
+    <marker id="handle_error"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#handle_agentAddrPortSnmpInfoUserDatagtReply">handle_agent(Addr, Port, SnmpInfo, UserData) -&gt; Reply</a></li>
+        
+        <li><a href="#handle_errorReqIdReasonUserDatagtReply">handle_error(ReqId, Reason, UserData) -&gt; Reply</a></li>
+        
+        <li><a href="#handle_informTargetNameSnmpInfoUserDatagtReply">handle_inform(TargetName, SnmpInfo, UserData) -&gt; Reply</a></li>
+        
+        <li><a href="#handle_pduTargetNameReqIdSnmpResponseUserDatagtReply">handle_pdu(TargetName, ReqId, SnmpResponse, UserData) -&gt; Reply</a></li>
+        
+        <li><a href="#handle_reportTargetNameSnmpInfoUserDatagtReply">handle_report(TargetName, SnmpInfo, UserData) -&gt; Reply</a></li>
+        
+        <li><a href="#handle_trapTargetNameSnmpTrapInfoUserDatagtReply">handle_trap(TargetName, SnmpTrapInfo, UserData) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="handle_errorReqIdReasonUserDatagtReply"></a><b>handle_error(ReqId, Reason, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ReqId = integer()</b><br/>
+        <b>Reason = {unexpected_pdu, SnmpInfo} | {invalid_sec_info, SecInfo, SnmpInfo} | {empty_message, Addr, Port} | term()</b><br/>
+        <b>Addr = ip_address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is called when the manager needs to
+          communicate an "asynchronous" error, to the user:
+          e.g. failure to send an asynchronous message (i.e. encoding
+          error), a received message was discarded due to security
+          error, the manager failed to generate a response message to
+          a received inform-request, or when receiving an unexpected
+          PDU from an agent (could be an expired async request). </p>
+        <p>If <tt>ReqId</tt> is less then 0, it means that this
+          information was not available to the manager (that info was
+          never retrieved before the message was discarded). 
+          </p>
+        <p>For <tt>SnmpInfo</tt> see handle_agent below.</p>
+
+        <marker id="handle_agent"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="handle_agentAddrPortSnmpInfoUserDatagtReply"></a><b>handle_agent(Addr, Port, SnmpInfo, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Addr = ip_address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>SnmpInfo = {ErrorStatus, ErrorIndex, Varbinds}</b><br/>
+        <b>ErrorStatus = atom()</b><br/>
+        <b>ErrorIndex = integer()</b><br/>
+        <b>Varbinds = [varbind()]</b><br/>
+        <b>varbind() = #varbind</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore | {register, UserId, TargetName, agent_info()}</b><br/>
+        <b>UserId = term()</b><br/>
+        <b>TargetName = target_name()</b><br/>
+        <b>agent_info() = [{agent_info_item(), agent_info_value()}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is called when a message is received from an 
+          unknown agent.</p>
+        <p>Note that this will always be the default user that is called.</p>
+        <p>For more info about the <tt>agent_info()</tt>, see 
+          <seealso marker="snmpm#register_agent">register_agent</seealso>.</p>
+        <p>The only user which would return 
+          <tt>{register, UserId, TargetName, agent_info()}</tt> is the 
+          <em>default user</em>.</p>
+
+        <marker id="handle_pdu"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="handle_pduTargetNameReqIdSnmpResponseUserDatagtReply"></a><b>handle_pdu(TargetName, ReqId, SnmpResponse, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = target_name()</b><br/>
+        <b>ReqId = term()</b><br/>
+        <b>SnmpResponse = {ErrorStatus, ErrorIndex, Varbinds}</b><br/>
+        <b>ErrorStatus = atom()</b><br/>
+        <b>ErrorIndex = integer()</b><br/>
+        <b>Varbinds = [varbind()]</b><br/>
+        <b>varbind() = #varbind</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Handle the reply to an asynchroneous request, such as 
+          <seealso marker="snmpm#async_get">async_get</seealso>, 
+          <seealso marker="snmpm#async_get_next">async_get_next</seealso> or 
+          <seealso marker="snmpm#async_set">async_set</seealso>.</p>
+        <p>It could also be a late reply to a synchronous request.</p>
+        <p><tt>ReqId</tt> is returned by the asynchroneous request function.</p>
+
+        <marker id="handle_trap"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="handle_trapTargetNameSnmpTrapInfoUserDatagtReply"></a><b>handle_trap(TargetName, SnmpTrapInfo, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = TargetName2 = target_name()</b><br/>
+        <b>SnmpTrapInfo = {Enteprise, Generic, Spec, Timestamp, Varbinds} | {ErrorStatus, ErrorIndex, Varbinds}</b><br/>
+        <b>Enterprise = oid()</b><br/>
+        <b>Generic = integer()</b><br/>
+        <b>Spec = integer()</b><br/>
+        <b>Timestamp = integer()</b><br/>
+        <b>ErrorStatus = atom()</b><br/>
+        <b>ErrorIndex = integer()</b><br/>
+        <b>Varbinds = [varbind()]</b><br/>
+        <b>varbind() = #varbind</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore | unregister | {register, UserId, TargetName2, agent_info()}</b><br/>
+        <b>UserId = term()</b><br/>
+        <b>agent_info() = [{agent_info_item(), agent_info_value()}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Handle a trap/notification message from an agent.</p>
+        <p>For more info about the <tt>agent_info()</tt>, see 
+          <seealso marker="snmpm#register_agent">register_agent</seealso></p>
+        <p>The only user which would return 
+          <tt>{register, UserId, TargetName2, agent_info()}</tt> is the 
+          <em>default user</em>.</p>
+
+        <marker id="handle_inform"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="handle_informTargetNameSnmpInfoUserDatagtReply"></a><b>handle_inform(TargetName, SnmpInfo, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = TargetName2 = target_name()</b><br/>
+        <b>SnmpInfo = {ErrorStatus, ErrorIndex, Varbinds}</b><br/>
+        <b>ErrorStatus = atom()</b><br/>
+        <b>ErrorIndex = integer()</b><br/>
+        <b>Varbinds = [varbind()]</b><br/>
+        <b>varbind() = #varbind</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore | unregister | {register, UserId, TargetName2, agent_info()}</b><br/>
+        <b>UserId = term()</b><br/>
+        <b>agent_info() = [{agent_info_item(), agent_info_value()}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Handle a inform message.</p>
+        <p>For more info about the <tt>agent_info()</tt>, see 
+          <seealso marker="snmpm#register_agent">register_agent</seealso></p>
+        <p>The only user which would return 
+          <tt>{register, UserId, TargetName2, agent_info()}</tt> is the 
+          <em>default user</em>.</p>
+        <p>If the 
+          <seealso marker="snmp_app">inform request behaviour</seealso> 
+          configuration option is set to <tt>user</tt> or 
+          <tt>{user, integer()}</tt>, the response (acknowledgment) to this 
+          inform-request will be sent when this function returnes.</p>
+
+        <marker id="handle_report"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="handle_reportTargetNameSnmpInfoUserDatagtReply"></a><b>handle_report(TargetName, SnmpInfo, UserData) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = TargetName2 = target_name()</b><br/>
+        <b>Addr = ip_address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>SnmpInfo = {ErrorStatus, ErrorIndex, Varbinds}</b><br/>
+        <b>ErrorStatus = atom()</b><br/>
+        <b>ErrorIndex = integer()</b><br/>
+        <b>Varbinds = [varbind()]</b><br/>
+        <b>varbind() = #varbind</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>Reply = ignore | unregister | {register, UserId, TargetName2, agent_info()}</b><br/>
+        <b>UserId = term()</b><br/>
+        <b>agent_info() = [{agent_info_item(), agent_info_value()}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Handle a report message.</p>
+        <p>For more info about the <tt>agent_info()</tt>, see 
+          <seealso marker="snmpm#register_agent">register_agent</seealso></p>
+        <p>The only user which would return 
+          <tt>{register, UserId, TargetName2, agent_info()}</tt> is the 
+          <em>default user</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

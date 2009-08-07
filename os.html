@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>os</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />os</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The functions in this module are operating system specific.
+      Careless use of these functions will result in programs that will
+      only run on a specific platform. On the other hand, with careful
+      use these functions can be of help in enabling a program to run on
+      most platforms.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#cmdCommandgtstring">cmd(Command) -&gt; string()</a></li>
+        
+        <li><a href="#find_executableNamegtFilenamefalse">find_executable(Name) -&gt; Filename | false</a></li>
+        
+        <li><a href="#getenvgtstring">getenv() -&gt; [string()]</a></li>
+        
+        <li><a href="#getenvVarNamegtValuefalse">getenv(VarName) -&gt; Value | false</a></li>
+        
+        <li><a href="#getpidgtValue">getpid() -&gt; Value </a></li>
+        
+        <li><a href="#putenvVarNameValuegttrue">putenv(VarName, Value) -&gt; true</a></li>
+        
+        <li><a href="#timestampgtMegaSecsSecsMicroSecs">timestamp() -&gt; {MegaSecs, Secs, MicroSecs}</a></li>
+        
+        <li><a href="#typegtOsfamilyOsnameOsfamily">type() -&gt; {Osfamily, Osname} | Osfamily</a></li>
+        
+        <li><a href="#versiongtMajorMinorReleaseVersionString">version() -&gt; {Major, Minor, Release} | VersionString</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="cmdCommandgtstring"></a><b>cmd(Command) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Command = string() | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes <tt>Command</tt> in a command shell of the target OS,
+          captures the standard output of the command and returns this
+          result as a string. This function is a replacement of
+          the previous <tt>unix:cmd/1</tt>; on a Unix platform they are
+          equivalent.</p>
+        <p>Examples:</p>
+        <code type="none">
+LsOut = os:cmd("ls"), % on unix platform
+DirOut = os:cmd("dir"), % on Win32 platform</code>
+        <p>Note that in some cases, standard output of a command when
+          called from another program (for example, <tt>os:cmd/1</tt>)
+          may differ, compared to the standard output of the command
+          when called directly from an OS command shell.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="find_executableNamegtFilenamefalse"></a><b>find_executable(Name) -&gt; Filename | false<br/>find_executable(Name, Path) -&gt; Filename | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+        <b>Path = string()</b><br/>
+        <b>Filename = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>These two functions look up an executable program given its
+          name and a search path, in the same way as the underlying
+          operating system. <tt>find_executable/1</tt> uses the current
+          execution path (that is, the environment variable PATH on
+          Unix and Windows).</p>
+        <p><tt>Path</tt>, if given, should conform to the syntax of
+          execution paths on the operating system. The absolute
+          filename of the executable program <tt>Name</tt> is returned,
+          or <tt>false</tt> if the program was not found.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getenvgtstring"></a><b>getenv() -&gt; [string()]</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns a list of all environement variables.
+          Each environment variable is given as a single string on
+          the format <tt>"VarName=Value"</tt>, where <tt>VarName</tt> is
+          the name of the variable and <tt>Value</tt> its value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getenvVarNamegtValuefalse"></a><b>getenv(VarName) -&gt; Value | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>VarName = string() </b><br/>
+        <b>Value = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>Value</tt> of the environment variable
+          <tt>VarName</tt>, or <tt>false</tt> if the environment variable
+          is undefined.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getpidgtValue"></a><b>getpid() -&gt; Value </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Value = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the process identifier of the current Erlang emulator
+          in the format most commonly used by the operating system
+          environment. <tt>Value</tt> is returned as a string containing
+          the (usually) numerical identifier for a process. On Unix,
+          this is typically the return value of the <tt>getpid()</tt>
+          system call. On VxWorks, <tt>Value</tt> contains the task id
+          (decimal notation) of the Erlang task. On Windows,
+          the process id as returned by the <tt>GetCurrentProcessId()</tt>
+          system call is used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="putenvVarNameValuegttrue"></a><b>putenv(VarName, Value) -&gt; true</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>VarName = string() </b><br/>
+        <b>Value = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets a new <tt>Value</tt> for the environment variable
+          <tt>VarName</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="timestampgtMegaSecsSecsMicroSecs"></a><b>timestamp() -&gt; {MegaSecs, Secs, MicroSecs}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MegaSecs = Secs = MicroSecs = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+      <p>Returns a tuple in the same format as <seealso marker="erts:erlang#now/0">erlang:now/0</seealso>. The difference is that this function returns what the operating system thinks (a.k.a. the wall clock time) without any attemts at time correction. The result of two different calls to this function is <em>not</em> guaranteed to be different.</p>
+      <p>The most obvious use for this function is logging. The tuple can be used together with the function <seealso marker="stdlib:calendar#now_to_universal_time/1">calendar:now_to_universal_time/1</seealso> 
+or <seealso marker="stdlib:calendar#now_to_local_time/1">calendar:now_to_local_time/1</seealso> to get calendar time. Using the calendar time together with the <tt>MicroSecs</tt> part of the return tuple from this function allows you to log timestams in high resolution and consistent with the time in the rest of the operating system.</p>
+      <p>Example of code formatting a string in the format "DD Mon YYYY HH:MM:SS.mmmmmm", where DD is the day of month, Mon is the textual month name, YYYY is the year, HH:MM:SS is the time and mmmmmm is the microseconds in six positions:</p>
+<code>
+-module(print_time).
+-export([format_utc_timestamp/0]).
+format_utc_timestamp() -&gt;
+    TS = {_,_,Micro} = os:timestamp(),
+    {{Year,Month,Day},{Hour,Minute,Second}} = 
+	calendar:now_to_universal_time(TS),
+    Mstr = element(Month,{"Jan","Feb","Mar","Apr","May","Jun","Jul",
+			  "Aug","Sep","Oct","Nov","Dec"}),
+    io_lib:format("~2w ~s ~4w ~2w:~2..0w:~2..0w.~6..0w",
+		  [Day,Mstr,Year,Hour,Minute,Second,Micro]).
+</code>
+
+       <p>The module above could be used in the following way:</p>
+<pre>
+1&gt; <input>
+29 Apr 2009  9:55:30.051711
+</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="typegtOsfamilyOsnameOsfamily"></a><b>type() -&gt; {Osfamily, Osname} | Osfamily</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Osfamily = win32 | unix | vxworks</b><br/>
+        <b>Osname = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>Osfamily</tt> and, in some cases, <tt>Osname</tt>
+          of the current operating system.</p>
+        <p>On Unix, <tt>Osname</tt> will have same value as
+          <tt>uname -s</tt> returns, but in lower case. For example, on
+          Solaris 1 and 2, it will be <tt>sunos</tt>.</p>
+        <p>In Windows, <tt>Osname</tt> will be either <tt>nt</tt> (on
+          Windows NT), or <tt>windows</tt> (on Windows 95).</p>
+        <p>On VxWorks the OS family alone is returned, that is
+          <tt>vxworks</tt>.</p>
+        <note>
+          <p>Think twice before using this function. Use the
+            <tt>filename</tt> module if you want to inspect or build
+            file names in a portable way.
+            Avoid matching on the <tt>Osname</tt> atom.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="versiongtMajorMinorReleaseVersionString"></a><b>version() -&gt; {Major, Minor, Release} | VersionString</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Major = Minor = Release = integer()</b><br/>
+        <b>VersionString = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the operating system version.
+          On most systems, this function returns a tuple, but a string
+          will be returned instead if the system has versions which
+          cannot be expressed as three numbers.</p>
+        <note>
+          <p>Think twice before using this function. If you still need
+            to use it, always <tt>call os:type()</tt> first.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

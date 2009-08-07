@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ssh_connection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ssh_connection</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides an API to the ssh connection protocol.
+    Not all features of the connection protocol are officially supported yet.
+    Only the ones supported are documented here.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+        <li><a href="#">MESSAGES SENT TO CHANNEL PROCESSES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#adjust_windowConnectionRefChannelIdNumOfBytesgtok">adjust_window(ConnectionRef, ChannelId, NumOfBytes) -&gt; ok</a></li>
+        
+        <li><a href="#closeConnectionRefChannelIdgtok"> close(ConnectionRef, ChannelId) -&gt; ok</a></li>
+        
+        <li><a href="#execConnectionRefChannelIdCommandTimeOutgtssh_request_status">exec(ConnectionRef, ChannelId, Command, TimeOut) -&gt; ssh_request_status()  </a></li>
+        
+        <li><a href="#exit_statusConnectionRefChannelIdStatusgtok">exit_status(ConnectionRef, ChannelId, Status) -&gt; ok</a></li>
+        
+        <li><a href="#reply_requestConnectionRefWantReplyStatusCannelIdgtok">reply_request(ConnectionRef, WantReply, Status, CannelId) -&gt; ok</a></li>
+        
+        <li><a href="#sendConnectionRefChannelIdDatagt">send(ConnectionRef, ChannelId, Data) -&gt;</a></li>
+        
+        <li><a href="#send_eofConnectionRefChannelIdgtok">send_eof(ConnectionRef, ChannelId) -&gt; ok </a></li>
+        
+        <li><a href="#session_channelConnectionRefTimeoutgt">session_channel(ConnectionRef, Timeout) -&gt; </a></li>
+        
+        <li><a href="#setenvConnectionRefChannelIdVarValueTimeOutgtssh_request_status">setenv(ConnectionRef, ChannelId, Var, Value, TimeOut) -&gt; ssh_request_status()</a></li>
+        
+        <li><a href="#shellConnectionRefChannelIdgtssh_request_status">shell(ConnectionRef, ChannelId) -&gt; ssh_request_status()
+      </a></li>
+        
+        <li><a href="#subsystemConnectionRefChannelIdSubsystemTimeoutgtssh_request_status">subsystem(ConnectionRef, ChannelId, Subsystem, Timeout) -&gt; ssh_request_status()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Type definitions that are used more than once in this module and/or
+    abstractions to indicate the intended use of the data type:</p>
+    
+    <p><tt>boolean() = true | false </tt></p>
+    <p><tt>string() = list of ASCII characters</tt></p>
+    <p><tt>timeout() =  infinity | integer() - in milliseconds.</tt></p>
+    <p><tt>ssh_connection_ref() - opaque to the user returned by
+    ssh:connect/[1,2,3] or sent to a ssh channel processes</tt></p>
+    <p><tt>ssh_channel_id() = integer() </tt></p>
+    <p><tt>ssh_data_type_code() = 1 ("stderr") | 0 ("normal") are
+    currently valid values see RFC 4254 section 5.2.</tt></p>
+    <p><tt>ssh_request_status() = success | failure</tt></p>
+   
+    </div>
+    
+    
+    <div class="sectiontitle">MESSAGES SENT TO CHANNEL PROCESSES</div>
+    
+    <div class="description">
+        
+     <title>MESSAGES SENT TO CHANNEL PROCESSES</title>
+     
+     <p>As a result of the ssh connection protocol messages on the form
+     <tt>{ssh_cm, ssh_connection_ref(), term()}</tt>
+     will be sent to a channel process. The term will contain
+     information regarding the ssh connection protocol event,
+     for details see the ssh channel behavior callback <seealso marker="ssh_channel">handle_ssh_msg/2 </seealso> </p>
+   
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="adjust_windowConnectionRefChannelIdNumOfBytesgtok"></a><b>adjust_window(ConnectionRef, ChannelId, NumOfBytes) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+       <b> ConnectionRef = ssh_connection_ref() </b><br/>
+       <b> ChannelId = ssh_channel_id() </b><br/>
+       <b> NumOfBytes = integer()</b><br/>
+     
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Adjusts the ssh flowcontrol window. </p>
+	
+	<note><p>This will be taken care of by the ssh_channel
+	behavior when the callback <seealso marker="ssh_channel">
+	handle_ssh_msg/2 </seealso> has returned after processing a
+	{ssh_cm, ssh_connection_ref(), {data, ssh_channel_id(),
+	ssh_data_type_code(), binary()}}
+	message, and should normally not be called explicitly.</p></note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeConnectionRefChannelIdgtok"></a><b> close(ConnectionRef, ChannelId) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+       <b> ConnectionRef = ssh_connection_ref() </b><br/>
+       <b> ChannelId = ssh_channel_id()</b><br/>
+     
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+       <p>Sends a close message on the channel <tt>ChannelId</tt>
+       </p>
+
+       <note><p>This function will be called by the ssh channel
+       behavior when the channel is terminated see <seealso marker="ssh_channel"> ssh_channel(3) </seealso> and should
+       normally not be called explicitly.</p></note>
+     
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="execConnectionRefChannelIdCommandTimeOutgtssh_request_status"></a><b>exec(ConnectionRef, ChannelId, Command, TimeOut) -&gt; ssh_request_status()  </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+       <b> ConnectionRef = ssh_connection_ref() </b><br/>
+       <b> ChannelId = ssh_channel_id()</b><br/>
+       <b> Command = string()</b><br/>
+       <b>Timeout = timeout() </b><br/>
+     
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+       <p>Will request that the server start the execution of the
+       given command, the result will be received as:</p>
+
+       <taglist>
+	 <tag><tt> N X {ssh_cm,
+	 ssh_connection_ref(), {data, ssh_channel_id(), ssh_data_type_code(),
+	 binary() = Data}} </tt></tag>
+	 <item>The result of executing the command may be only one line
+	 or thousands of lines depending on the command.</item>
+
+	 <tag><tt> 1 X {ssh_cm, ssh_connection_ref(), {eof, ssh_channel_id()}}</tt></tag>
+	 <item>Indicates that no more data will be sent.</item>
+
+	 <tag><tt>0 or 1 X {ssh_cm,
+	 ssh_connection_ref(), {exit_signal,
+	 ssh_channel_id(), string() = ExitSignal, string() = ErrorMsg, string() = LanguageString}}</tt></tag>
+	 <item>Not all systems send signals. For details on valid string
+	 values see RFC 4254 section 6.10 </item>
+	 
+	  <tag><tt>0 or 1 X {ssh_cm, ssh_connection_ref(), {exit_status,
+	  ssh_channel_id(), integer() = ExitStatus}}</tt></tag>
+	  <item>It is recommended by the <tt>ssh connection protocol</tt> that this
+	  message shall be sent, but that may not always be the case.</item>
+
+	  <tag><tt> 1 X {ssh_cm, ssh_connection_ref(),
+	  {closed, ssh_channel_id()}}</tt></tag>
+	  <item>Indicates that the ssh channel started for the
+	  execution of the command has now been shutdown.</item>
+       </taglist>
+       
+       <p> These message should be handled by the
+       client. The <seealso marker="ssh_channel">ssh channel
+       behavior</seealso> can be used when writing a client.
+       </p>
+     
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exit_statusConnectionRefChannelIdStatusgtok"></a><b>exit_status(ConnectionRef, ChannelId, Status) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+       <b> ConnectionRef = ssh_connection_ref() </b><br/>
+       <b> ChannelId = ssh_channel_id()</b><br/>
+       <b> Status = integer()</b><br/>
+     
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+       <p>Sends the exit status of a command to the client.</p>
+     
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reply_requestConnectionRefWantReplyStatusCannelIdgtok"></a><b>reply_request(ConnectionRef, WantReply, Status, CannelId) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b> ConnectionRef = ssh_connection_ref() </b><br/>
+	<b> WantReply =  boolean()</b><br/>
+	<b> Status = ssh_request_status() </b><br/>
+	<b> ChannelId = ssh_channel_id()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Sends status replies to requests where the requester has
+	stated that they want a status report e.i .<tt> WantReply = true</tt>,
+	if <tt> WantReply</tt> is false calling this function will be a
+	"noop". Should be called after handling an ssh connection
+	protocol message containing a <tt>WantReply</tt> boolean
+	value. See the ssh_channel behavior callback <seealso marker="ssh_channel"> handle_ssh_msg/2 </seealso>
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendConnectionRefChannelIdDatagt"></a><b>send(ConnectionRef, ChannelId, Data) -&gt;<br/>send(ConnectionRef, ChannelId, Data, Timeout) -&gt;<br/>send(ConnectionRef, ChannelId, Type, Data) -&gt;<br/>send(ConnectionRef, ChannelId, Type, Data, TimeOut) -&gt;
+       ok | {error, timeout}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b> ConnectionRef = ssh_connection_ref() </b><br/>
+	<b> ChannelId = ssh_channel_id()</b><br/>
+	<b> Data = binary()</b><br/>
+	<b> Type = ssh_data_type_code()</b><br/>
+	<b> Timeout = timeout()</b><br/>
+       
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	 <p>Sends channel data. 
+	 </p>
+       
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_eofConnectionRefChannelIdgtok"></a><b>send_eof(ConnectionRef, ChannelId) -&gt; ok </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b> ConnectionRef = ssh_connection_ref() </b><br/>
+	<b> ChannelId = ssh_channel_id()</b><br/>
+       
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	 <p>Sends eof on the channel <tt>ChannelId</tt>.
+	 </p>
+       
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="session_channelConnectionRefTimeoutgt"></a><b>session_channel(ConnectionRef, Timeout) -&gt; <br/>session_channel(ConnectionRef, InitialWindowSize,
+       MaxPacketSize, Timeout) -&gt; {ok, ssh_channel_id()} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	 <b> ConnectionRef = ssh_connection_ref()</b><br/>
+	 <b> InitialWindowSize = integer() </b><br/>
+	 <b> MaxPacketSize = integer() </b><br/>
+	 <b> Timeout = timeout()</b><br/>
+	 <b> Reason = term() </b><br/>
+       
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	 <p>Opens a channel for a ssh session. A session is a
+	 remote execution of a program. The program may be a shell, an
+	 application, a system command, or some built-in subsystem.
+	</p>
+       
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="setenvConnectionRefChannelIdVarValueTimeOutgtssh_request_status"></a><b>setenv(ConnectionRef, ChannelId, Var, Value, TimeOut) -&gt; ssh_request_status()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b> ConnectionRef = ssh_connection_ref() </b><br/>
+	<b> ChannelId = ssh_channel_id()</b><br/>
+	<b> Var = string()</b><br/>
+	<b> Value = string()</b><br/>
+	<b> Timeout = timeout()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p> Environment variables may be passed to the shell/command to be
+	started later.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="shellConnectionRefChannelIdgtssh_request_status"></a><b>shell(ConnectionRef, ChannelId) -&gt; ssh_request_status()
+      </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	 <b> ConnectionRef = ssh_connection_ref() </b><br/>
+	 <b> ChannelId = ssh_channel_id()</b><br/>
+       
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	 <p> Will request that the user's default shell (typically
+	 defined in /etc/passwd in UNIX systems) be started at the
+	 other end. 
+	 </p>
+       
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subsystemConnectionRefChannelIdSubsystemTimeoutgtssh_request_status"></a><b>subsystem(ConnectionRef, ChannelId, Subsystem, Timeout) -&gt; ssh_request_status()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	 <b> ConnectionRef = ssh_connection_ref() </b><br/>
+	 <b> ChannelId = ssh_channel_id()</b><br/>
+	 <b> Subsystem = string()</b><br/>
+	 <b> Timeout = timeout()</b><br/>
+       
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	 <p> Sends a request to execute a predefined subsystem.
+	 </p>
+       
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

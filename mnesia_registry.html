@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mnesia_registry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mnesia_registry</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>mnesia_registry</tt> is usually  part of
+      <tt>erl_interface</tt>, but for the time being, it is a part of the
+      Mnesia application.
+      </p>
+    <p><tt>mnesia_registry</tt> is mainly an module intended for
+      internal usage within OTP, but it has two functions that
+      are exported for public use.
+      </p>
+    <p>On C-nodes <tt>erl_interface</tt> has support for registry
+      tables. These reside in RAM on the C-node but they may also be
+      dumped into Mnesia tables. By default, the dumping of registry
+      tables via <tt>erl_interface</tt> causes a corresponding Mnesia
+      table to be created with <tt>mnesia_registry:create_table/1</tt>
+      if necessary.
+      </p>
+    <p>The tables that are created with these functions can be
+      administered as all other Mnesia tables. They may be included in
+      backups or replicas may be added etc. The tables are in fact
+      normal Mnesia tables owned by the user of the corresponding
+      <tt>erl_interface</tt> registries.
+      </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_tableTabgtokexitReason">create_table(Tab) -&gt; ok | exit(Reason)</a></li>
+        
+        <li><a href="#create_tableTabTabDefgtokexitReason">create_table(Tab, TabDef) -&gt; ok | exit(Reason)</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>mnesia(3), erl_interface(3)
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_tableTabgtokexitReason"></a><b>create_table(Tab) -&gt; ok | exit(Reason)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This is a wrapper function for
+          <tt>mnesia:create_table/2</tt> which creates a table (if there is no existing table)
+          with an appropriate set of <tt>attributes</tt>. The table will
+          only reside on the local node and its storage type will be
+          the same as the <tt>schema</tt> table on the local
+          node, ie. <tt>{ram_copies,[node()]}</tt> or
+          <tt>{disc_copies,[node()]}</tt>.
+          </p>
+        <p>It is this function that is used by <tt>erl_interface</tt> to
+          create the Mnesia table if it did not already exist.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_tableTabTabDefgtokexitReason"></a><b>create_table(Tab, TabDef) -&gt; ok | exit(Reason)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This is a wrapper function for
+          <tt>mnesia:create_table/2</tt> which creates a table (if there is no existing table)
+          with an appropriate set of <tt>attributes</tt>. The attributes
+          and <tt>TabDef</tt> are forwarded to
+          <tt>mnesia:create_table/2</tt>.  For example, if the table should
+          reside as <tt>disc_only_copies</tt> on all nodes a call would
+          look like:</p>
+        <code type="none">
+          TabDef = [{{disc_only_copies, node()|nodes()]}],
+          mnesia_registry:create_table(my_reg, TabDef)
+        </code>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

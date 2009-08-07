@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>asn1rt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />asn1rt</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module is the interface module for the ASN.1 runtime support functions.
+      To encode and decode ASN.1 types in runtime the functions in this module
+      should be used.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#decodeModuleTypeBytesgtokValueerrorReason">decode(Module,Type,Bytes) -&gt; {ok,Value}|{error,Reason}</a></li>
+        
+        <li><a href="#encodeModuleTypeValuegtokBinOrListerrorReason">encode(Module,Type,Value)-&gt; {ok,BinOrList} | {error,Reason}</a></li>
+        
+        <li><a href="#infoModulegtokInfoerrorReason">info(Module) -&gt;  {ok,Info} | {error,Reason}</a></li>
+        
+        <li><a href="#load_drivergtokerrorReason">load_driver() -&gt;  ok | {error,Reason}</a></li>
+        
+        <li><a href="#startgtokerrorReason">start() -&gt; ok |{error,Reason}</a></li>
+        
+        <li><a href="#stopgtokerrorReason">stop() -&gt; ok |{error,Reason}</a></li>
+        
+        <li><a href="#unload_drivergtokerrorReason">unload_driver() -&gt;  ok | {error,Reason}</a></li>
+        
+        <li><a href="#utf8_binary_to_listUTF8BinarygtokUnicodeListerrorReason">utf8_binary_to_list(UTF8Binary) -&gt;  {ok,UnicodeList} | {error,Reason}</a></li>
+        
+        <li><a href="#utf8_list_to_binaryUnicodeListgtokUTF8BinaryerrorReason">utf8_list_to_binary(UnicodeList) -&gt;  {ok,UTF8Binary} | {error,Reason}</a></li>
+        
+        <li><a href="#validateModuleTypeValuegtokerrorReason">validate(Module,Type,Value) -&gt;  ok | {error,Reason}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokerrorReason"></a><b>start() -&gt; ok |{error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Starts the asn1 server that loads the drivers.</p> 
+	<p>The server schedules a driver that is not blocked by
+	another caller. The driver is used by the asn1 application if
+	specs are compiled with options <tt>[per_bin, optimize]</tt> or
+	<tt>[ber_bin, optimize, driver]</tt>. The server will be started
+	automatically at encode/decode if it isn't done explicitly. If
+	encode/decode with driver is used in test or industrial code
+	it is a performance gain to start it explicitly to avoid the
+	one time load in run-time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtokerrorReason"></a><b>stop() -&gt; ok |{error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Stops the asn1 server and unloads the drivers.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="decodeModuleTypeBytesgtokValueerrorReason"></a><b>decode(Module,Type,Bytes) -&gt; {ok,Value}|{error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = Reason = term()</b><br/>
+        <b>Bytes = binary | [Int] when integer(Int), Int &gt;= 0, Int =&lt; 255 | binary</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes <tt>Type</tt> from <tt>Module</tt> from the list of bytes or
+          binary <tt>Bytes</tt>. If the module is compiled with <tt>ber_bin</tt>
+          or <tt>per_bin</tt> option <tt>Bytes</tt> must be a binary. 
+          Returns <tt>{ok,Value}</tt> if successful.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="encodeModuleTypeValuegtokBinOrListerrorReason"></a><b>encode(Module,Type,Value)-&gt; {ok,BinOrList} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>BinOrList = Bytes | binary()</b><br/>
+        <b>Bytes = [Int|binary|Bytes] when integer(Int), Int &gt;= 0, Int =&lt; 255</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes <tt>Value</tt> of <tt>Type</tt> defined in the ASN.1 module 
+          <tt>Module</tt>. Returns a possibly nested list of bytes and or binaries 
+          if successful. If <tt>Module</tt> was compiled with the options <tt>per_bin</tt> and <tt>optimize</tt> the result is a binary. To get as 
+          fast execution as possible the 
+          encode function only performs rudimentary tests that the input 
+          <tt>Value</tt>
+          is a correct instance of <tt>Type</tt>. The length of strings is for example
+          not always checked. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infoModulegtokInfoerrorReason"></a><b>info(Module) -&gt;  {ok,Info} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>Info = list()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>info/1</tt> returns the version of the asn1 compiler that was
+          used to comile the module. It also returns the compiler options
+          that was used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="load_drivergtokerrorReason"></a><b>load_driver() -&gt;  ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function loads the linked-in driver before the first call
+          to encode. If this function is not called the driver will be loaded
+          automatically at the first call to encode. If one doesn't want the
+          performance cost of a driver load when the application is running,
+          this function makes it possible to load the driver in an 
+          initialization.</p>
+        <p>The driver is only used when encoding/decoding ASN.1 files that
+          were compiled with the options <tt>per_bin</tt> and <tt>optimize</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unload_drivergtokerrorReason"></a><b>unload_driver() -&gt;  ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function unloads the linked-in driver.
+          When the driver has been loaded it remains in the environment until
+          it is unloaded. Normally the driver should remain loaded, it is
+          crucial for the performance of ASN.1 encoding. </p>
+        <p>The driver is only used when ASN.1 modules have been compiled
+          with the flags <tt>per_bin</tt> and <tt>optimize</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="utf8_binary_to_listUTF8BinarygtokUnicodeListerrorReason"></a><b>utf8_binary_to_list(UTF8Binary) -&gt;  {ok,UnicodeList} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UTF8Binary = binary()</b><br/>
+        <b>UnicodeList = [integer()]</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>utf8_binary_to_list/1</tt> Transforms a UTF8 encoded binary
+          to a list of integers, where each integer represents one
+          character as its unicode value. The function fails if the binary
+          is not a properly encoded UTF8 string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="utf8_list_to_binaryUnicodeListgtokUTF8BinaryerrorReason"></a><b>utf8_list_to_binary(UnicodeList) -&gt;  {ok,UTF8Binary} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UnicodeList = [integer()]</b><br/>
+        <b>UTF8Binary = binary()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>utf8_list_to_binary/1</tt> Transforms a list of integers,
+          where each integer represents one character as its unicode
+          value, to a UTF8 encoded binary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="validateModuleTypeValuegtokerrorReason"></a><b>validate(Module,Type,Value) -&gt;  ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Validates that <tt>Value</tt> conforms  to <tt>Type</tt> 
+          from <tt>Module</tt>. <em>Not implemented in this version of the ASN.1 application.</em></p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

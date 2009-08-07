@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>orber</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />orber</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains the functions for starting and stopping the 
+      application. It also has some utility functions to get some of 
+      the configuration information from running application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#activate_audit_trailgtResult">activate_audit_trail() -&gt; Result</a></li>
+        
+        <li><a href="#add_listen_interfaceIPTypegtResult">add_listen_interface(IP, Type) -&gt; Result</a></li>
+        
+        <li><a href="#add_nodeNodeOptionsgtRetVal">add_node(Node, Options) -&gt; RetVal</a></li>
+        
+        <li><a href="#close_connectionConnectiongtResult">close_connection(Connection) -&gt; Result</a></li>
+        
+        <li><a href="#configureKeyValuegtokEXITReason">configure(Key, Value) -&gt; ok | {'EXIT', Reason}</a></li>
+        
+        <li><a href="#deactivate_audit_trailgtResult">deactivate_audit_trail() -&gt; Result</a></li>
+        
+        <li><a href="#domaingtstring">domain() -&gt; string()</a></li>
+        
+        <li><a href="#exception_infoExceptiongtokstringerrorReason">exception_info(Exception) -&gt; {ok, string()} | {error, Reason}</a></li>
+        
+        <li><a href="#get_ORBDefaultInitRefgtstringundefined">get_ORBDefaultInitRef() -&gt; string() | undefined</a></li>
+        
+        <li><a href="#get_ORBInitRefgtstringundefined">get_ORBInitRef() -&gt; string() | undefined</a></li>
+        
+        <li><a href="#get_tablesgtTables">get_tables() -&gt; [Tables]</a></li>
+        
+        <li><a href="#iiop_aclgtResult">iiop_acl() -&gt; Result</a></li>
+        
+        <li><a href="#iiop_connection_timeoutgtintmilliseconds">iiop_connection_timeout() -&gt; int() (milliseconds)</a></li>
+        
+        <li><a href="#iiop_connectionsgtResult">iiop_connections() -&gt; Result</a></li>
+        
+        <li><a href="#iiop_connections_pendinggtResult">iiop_connections_pending() -&gt; Result</a></li>
+        
+        <li><a href="#iiop_in_connection_timeoutgtintmilliseconds">iiop_in_connection_timeout() -&gt; int() (milliseconds)</a></li>
+        
+        <li><a href="#iiop_out_portsgt0MinMax">iiop_out_ports() -&gt; 0 | {Min, Max}</a></li>
+        
+        <li><a href="#iiop_portgtint">iiop_port() -&gt; int()</a></li>
+        
+        <li><a href="#iiop_ssl_portgtint">iiop_ssl_port() -&gt; int()</a></li>
+        
+        <li><a href="#iiop_timeoutgtintmilliseconds">iiop_timeout() -&gt; int() (milliseconds)</a></li>
+        
+        <li><a href="#infogtok">info() -&gt; ok</a></li>
+        
+        <li><a href="#installNodeListgtok">install(NodeList) -&gt; ok</a></li>
+        
+        <li><a href="#is_system_exceptionExceptiongttruefalse">is_system_exception(Exception) -&gt; true | false</a></li>
+        
+        <li><a href="#jump_startAttributesgtokEXITReason">jump_start(Attributes) -&gt; ok | {'EXIT', Reason}</a></li>
+        
+        <li><a href="#objectkeys_gc_timegtintseconds">objectkeys_gc_time() -&gt; int() (seconds)</a></li>
+        
+        <li><a href="#orber_nodesgtRetVal">orber_nodes() -&gt; RetVal</a></li>
+        
+        <li><a href="#remove_listen_interfaceRefgtok">remove_listen_interface(Ref) -&gt; ok</a></li>
+        
+        <li><a href="#remove_nodeNodegtRetVal">remove_node(Node) -&gt; RetVal</a></li>
+        
+        <li><a href="#securegtnossl">secure() -&gt; no | ssl</a></li>
+        
+        <li><a href="#set_ssl_client_certfilePathgtok">set_ssl_client_certfile(Path) -&gt; ok</a></li>
+        
+        <li><a href="#set_ssl_client_depthDepthgtok">set_ssl_client_depth(Depth) -&gt; ok</a></li>
+        
+        <li><a href="#set_ssl_client_verifyValuegtok">set_ssl_client_verify(Value) -&gt; ok</a></li>
+        
+        <li><a href="#ssl_client_certfilegtstring">ssl_client_certfile() -&gt; string()</a></li>
+        
+        <li><a href="#ssl_client_depthgtint">ssl_client_depth() -&gt;  int()</a></li>
+        
+        <li><a href="#ssl_client_verifygt012">ssl_client_verify() -&gt; 0 | 1 | 2</a></li>
+        
+        <li><a href="#ssl_server_certfilegtstring">ssl_server_certfile() -&gt; string()</a></li>
+        
+        <li><a href="#ssl_server_depthgtint">ssl_server_depth() -&gt; int()</a></li>
+        
+        <li><a href="#ssl_server_verifygt012">ssl_server_verify() -&gt; 0 | 1 | 2</a></li>
+        
+        <li><a href="#startgtok">start() -&gt; ok</a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok</a></li>
+        
+        <li><a href="#uninstallgtok">uninstall() -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtok"></a><b>start() -&gt; ok<br/>start(Type) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = temporary | permanent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the Orber application (it also starts mnesia if it is not running).
+          Which <tt>Type</tt> parameter is supplied determines the behavior. If not
+          supplied Orber is started as <tt>temporary</tt>. 
+          See the Reference Manual <em>application(3)</em> for further information. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="jump_startAttributesgtokEXITReason"></a><b>jump_start(Attributes) -&gt; ok | {'EXIT', Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Attributes = Port | Options</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Options = [{Key, Value}]</b><br/>
+        <b>Key = any key listed in the configuration chapter</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Installs and starts the Orber and the Mnesia applications with the configuration
+          parameters <tt>domain</tt> and <tt>iiop_port</tt> set to <tt>"IP-number:Port"</tt>
+          and the supplied Port respectively. Theses settings are in most cases
+          sufficient to ensure that no clash with any other Orber instance occur.
+          If this operation fails, check if the listen port (iiop_port) is already
+          in use. This function <em>MAY ONLY</em> be used during development and
+          tests; how Orber is configured when using this operation may change 
+          at any time without warning.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the Orber application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infogtok"></a><b>info() -&gt; ok<br/>info(IoType) -&gt; ok | {'EXIT', Reason} | string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoType = info_msg | string | io | {io, IoDevice}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates an Info Report, which contain Orber's configuration settings.
+          If no <tt>IoType</tt> is supplied, <tt>info_msg</tt> is used (see the
+          error_logger documentation). When the atom string is supplied this
+          function will return a flat list. For <tt>io</tt> and <tt>{io, IoDevice}</tt>,
+          <tt>io:format/1</tt> and <tt>io:format/3</tt> is used respectively.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exception_infoExceptiongtokstringerrorReason"></a><b>exception_info(Exception) -&gt; {ok, string()} | {error, Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns a printable string, which describes the supplied exception
+          in greater detail. Note, this function is mainly intended for
+          system exceptions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_system_exceptionExceptiongttruefalse"></a><b>is_system_exception(Exception) -&gt; true | false</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns true if the supplied exception is a system defined 
+          exception, otherwise false.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_tablesgtTables"></a><b>get_tables() -&gt; [Tables]</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns a list of the Orber specific Mnesia tables. This list is
+          required to restore Mnesia if it has been partitioned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_ORBInitRefgtstringundefined"></a><b>get_ORBInitRef() -&gt; string() | undefined</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns undefined if we will resolve references locally,
+          otherwise a string describing which host we will contact if the Key given
+          to <tt>corba:resolve_initial_references/1</tt> matches the Key set
+          in this configuration variable. For more information
+          see the user's guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_ORBDefaultInitRefgtstringundefined"></a><b>get_ORBDefaultInitRef() -&gt; string() | undefined</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns undefined if we will resolve references locally,
+          otherwise a string describing which host, or hosts, from which we
+          will try to resolve the Key given to 
+          <tt>corba:resolve_initial_references/1</tt>. For more information
+          see the user's guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="domaingtstring"></a><b>domain() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the domain name of the current Orber domain
+          as a string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_portgtint"></a><b>iiop_port() -&gt; int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the port-number, which is used by the IIOP
+          protocol. It can be configured by setting the application variable 
+          <em>iiop_port</em>, if it is not set it will have the default number
+          4001.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_out_portsgt0MinMax"></a><b>iiop_out_ports() -&gt; 0 | {Min, Max}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>The return value of this operation is what the configuration
+          parameter <seealso marker="ch_install#config">iiop_out_ports</seealso>
+          have been set to.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_ssl_portgtint"></a><b>iiop_ssl_port() -&gt; int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the port-number, which is used by the secure IIOP
+          protocol. It can be configured by setting the application variable 
+          <em>iiop_ssl_port</em>, if it is not set it will have the default number
+          4002 if Orber is to configured to run in secure mode. Otherwise it returns -1.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_timeoutgtintmilliseconds"></a><b>iiop_timeout() -&gt; int() (milliseconds)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the timeout value after which outgoing IIOP requests terminate.
+          It can be configured by setting the application variable 
+          <em>iiop_timeout TimeVal (seconds)</em>, if it is not set it will have the default value
+          <em>infinity</em>. If a request times out a system exception, e.g.
+          <em>TIMEOUT</em>, is raised.</p>
+        <p>Note: the iiop_timeout configuration parameter (TimeVal) may only range between 0 and 1000000 seconds. 
+          Otherwise, the default value is used.</p>
+        <p>Note: Earlier IC versions required that the compile option <tt>{timeout,"module::interface"}</tt>,
+          was used, which allow the user to add an extra timeout parameter, e.g., 
+          <tt>module_interface:function(ObjRef, Timeout, ... Arguments ...)</tt> or
+          <tt>module_interface:function(ObjRef, [{timeout, Timeout}], ... Arguments ...)</tt>, 
+          instead of <tt>module_interface:function(ObjRef, ... Arguments ...)</tt>. 
+          This is no longer the case and if the extra Timeout is used,
+          argument will override the configuration parameter <tt>iiop_timeout</tt>.
+          It is, however, not possible
+          to use <tt>infinity</tt> to override the Timeout parameter. The Timeout
+          option is also valid for objects which resides within the same Orber domain.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_connection_timeoutgtintmilliseconds"></a><b>iiop_connection_timeout() -&gt; int() (milliseconds)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the timeout value after which outgoing IIOP connections terminate.
+          It can be configured by setting the application variable 
+          <em>iiop_connection_timeout TimeVal (seconds)</em>, if it is not set it will have the default value
+          <em>infinity</em>. The connection will not be terminated if there are 
+          pending requests.</p>
+        <p>Note: the iiop_connection_timeout configuration parameter (TimeVal) may only range between 0 and 1000000 seconds. 
+          Otherwise, the default value is used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_connectionsgtResult"></a><b>iiop_connections() -&gt; Result<br/>iiop_connections(Direction) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Direction = in | out | inout</b><br/>
+        <b>Result = [{Host, Port}] | [{Host, Port, Interface}] | {'EXIT',Reason}</b><br/>
+        <b>Host = string()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The list returned by this operation contain tuples of remote hosts/ports
+          Orber is currently connected to. If no Direction is not supplied, both
+          incoming and outgoing connections are included.</p>
+        <p>If a specific local interface has been defined for the connection,
+          this will be added to the returned tuple.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_connections_pendinggtResult"></a><b>iiop_connections_pending() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [{Host, Port}] | [{Host, Port, Interface}] | {'EXIT',Reason}</b><br/>
+        <b>Host = string()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>In some cases a connection attempt (i.e. trying to communicate with
+          another ORB) may block due to a number of reasons. This operation
+          allows the user to check if this is the case. The returned list
+          contain tuples of remote hosts/ports. Normally, the list is empty.</p>
+        <p>If a specific local interface has been defined for the connection,
+          this will be added to the returned tuple.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_in_connection_timeoutgtintmilliseconds"></a><b>iiop_in_connection_timeout() -&gt; int() (milliseconds)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the timeout value after which incoming IIOP 
+          connections terminate. It can be configured by setting the application 
+          variable <em>iiop_in_connection_timeout TimeVal (seconds)</em>, if it is
+          not set it will have the default value <em>infinity</em>. The connection
+          will not be terminated if there are pending requests.</p>
+        <p>Note: the iiop_in_connection_timeout configuration parameter (TimeVal) may 
+          only range between 0 and 1000000 seconds. Otherwise, the default value is
+          used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiop_aclgtResult"></a><b>iiop_acl() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [{Direction, Filter}] | [{Direction, Filter, [Interface]}]</b><br/>
+        <b>Direction = tcp_in | ssl_in | tcp_out | ssl_out</b><br/>
+        <b>Filter = string()</b><br/>
+        <b>Interface = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the ACL configuration. The <tt>Filter</tt> uses a extended format of 
+          Classless Inter Domain Routing (CIDR). For example, <tt>"123.123.123.10"</tt> limits
+          the connection to that particular host, while <tt>"123.123.123.10/17"</tt> allows
+          connections to or from any host equal to the 17 most significant bits. Orber
+          also allow the user to specify a certain port or port range, for example,
+          <tt>"123.123.123.10/17#4001"</tt> and <tt>"123.123.123.10/17#4001/5001"</tt>
+          respectively. IPv4 or none compressed IPv6 strings are accepted.          <br>
+
+          The list of <tt>Interfaces</tt>, IPv4 or IPv6 strings, are currently only used
+          for outgoing connections and may only contain <em>one</em> address. If set and
+          access is granted, Orber will use that local interface when connecting to the
+          other ORB. The module <seealso marker="orber_acl">orber_acl</seealso>
+          provides operations for evaluating the access control for filters and addresses.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="activate_audit_trailgtResult"></a><b>activate_audit_trail() -&gt; Result<br/>activate_audit_trail(Verbosity) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Verbosity = stealth | normal | verbose</b><br/>
+        <b>Result = ok | {error, Reason}</b><br/>
+        <b>Reason = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Activates audit/trail for all existing incoming and outgoing IIOP
+          connections. The <tt>Verbosity</tt> parameter, <tt>stealth</tt>, 
+          <tt>normal</tt> or <tt>verbose</tt>, determines which of the built in
+          interceptors is used (<tt>orber_iiop_tracer_stealth</tt>, 
+          <tt>orber_iiop_tracer_silent</tt> or <tt>orber_iiop_tracer</tt> respectively).
+          If no verbosity level is supplied, then the <tt>normal</tt> will be used.</p>
+        <p>In case Orber is configured to use other interceptors, the audit/trail
+          interceptors will simply be added to that list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deactivate_audit_trailgtResult"></a><b>deactivate_audit_trail() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = ok | {error, Reason}</b><br/>
+        <b>Reason = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deactivates audit/trail for all existing incoming and outgoing IIOP
+          connections. In case Orber is configured to use other interceptors, 
+          those will still be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_listen_interfaceIPTypegtResult"></a><b>add_listen_interface(IP, Type) -&gt; Result<br/>add_listen_interface(IP, Type, Port) -&gt; Result<br/>add_listen_interface(IP, Type, ConfigurationParameters) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IP = string</b><br/>
+        <b>Type = normal | ssl</b><br/>
+        <b>Port = integer() &gt; 0</b><br/>
+        <b>ConfigurationParameters = [{Key, Value}]</b><br/>
+        <b>Key = flags | iiop_in_connection_timeout | iiop_max_fragments | iiop_max_in_requests | interceptors | iiop_port | iiop_ssl_port</b><br/>
+        <b>Value = as described in the User's Guide</b><br/>
+        <b>Result = {ok, Ref} | {error, Reason} | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+        <b>Ref = #Ref</b><br/>
+        <b>Reason = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create a new process that handle requests for creating a new incoming
+          IIOP connection via the given interface and port. If the latter is 
+          excluded, Orber will use the value of the <tt>iiop_port</tt> or 
+          <tt>iiop_ssl_port</tt> configuration parameters.
+          The <tt>Type</tt> parameter determines if it is
+          supposed to be IIOP or IIOP via SSL. If successful, the returned
+          <tt>#Ref</tt> shall be passed to <tt>orber:remove_listen_interface/1</tt>
+          when the connection shall be terminated.</p>
+        <p>It is also possible to supply configuration parameters that override
+          the global configuration. The <em>iiop_in_connection_timeout</em>,
+          <em>iiop_max_fragments</em>, <em>iiop_max_in_requests</em> and
+          <em>interceptors</em> parameters simply overrides the global
+          counterparts (See the
+          <seealso marker="ch_install#config">Configuration</seealso> chapter
+          in the User's Guide). 
+          But the following parameters there are a few restrictions:</p>
+        <list type="bulleted">
+          <item><em>flags</em> - currently it is only possible to override the global
+           setting for the <tt>Use Current Interface in IOR</tt> and 
+          <tt>Exclude CodeSet Component</tt> flags.</item>
+          <item><em>iiop_port</em> - requires that <tt>Use Current Interface in IOR</tt>
+           is activated and the supplied <tt>Type</tt> is <tt>normal</tt>. If so,
+           exported IOR:s will contain the IIOP port defined by this configuration
+           parameter. Otherwise, the global setting will be used.</item>
+          <item><em>iiop_ssl_port</em> - almost equivalent to <tt>iiop_port</tt>.
+           The difference is that <tt>Type</tt> shall be <tt>ssl</tt> and that
+           exported IOR:s will contain the IIOP via SSL port defined by this configuration
+           parameter.</item>
+        </list>
+        <p>If it is not possible to add a listener based on the supplied interface
+          and port, the error message is one of the ones described in <tt>inet</tt>
+          and/or <tt>ssl</tt> documentation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_listen_interfaceRefgtok"></a><b>remove_listen_interface(Ref) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = #Ref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Terminates the listen process, associated with the supplied <tt>#Ref</tt>,
+          for incoming a connection. The Ref parameter is the return value from
+          the <tt>orber:add_listen_interface/2/3</tt> operation. When terminating
+          the connection, all associated requests will not deliver a reply to
+          the clients.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="close_connectionConnectiongtResult"></a><b>close_connection(Connection) -&gt; Result<br/>close_connection(Connection, Interface) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Connection = Object | [{Host, Port}]</b><br/>
+        <b>Object = #objref (external)</b><br/>
+        <b>Host = string()</b><br/>
+        <b>Port = string()</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Result = ok | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Will try to close all outgoing connections to the host/port combinations
+          found in the supplied object reference or the given list of hosts/ports.
+          If a <tt>#'IOP_ServiceContext'{}</tt> containing a local interface has been
+          used when communicating with the remote object
+          (see also <seealso marker="Module_Interface">Module_Interface</seealso>), 
+          that interface shall be passed as the second argument. Otherwise, connections
+          via the default local interface, will be terminated.</p>
+        <p></p>
+        <note>
+          <p>Since several clients maybe communicates via the same connection,
+            they will be affected when invoking this operation. Other clients may
+            re-create the connection by invoking an operation on the target object.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="securegtnossl"></a><b>secure() -&gt; no | ssl</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the security mode Orber is running in, which is either no if it is an 
+          insecure domain or the type of security mechanism used. For the moment the only security 
+          mechanism is ssl. This is configured by setting the application variable 
+          <em>secure</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_certfilegtstring"></a><b>ssl_server_certfile() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns a path to a file containing a chain of PEM encoded 
+          certificates for the Orber domain as server. 
+          This is configured by setting the application variable 
+          <em>ssl_server_certfile</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_certfilegtstring"></a><b>ssl_client_certfile() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns a path to a file containing a chain of PEM encoded 
+          certificates used in outgoing calls in the current process.
+          The default value is configured by setting the application variable 
+          <em>ssl_client_certfile</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_ssl_client_certfilePathgtok"></a><b>set_ssl_client_certfile(Path) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function takes a path to a file containing a chain of PEM encoded 
+          certificates as parameter and sets it for the current process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_verifygt012"></a><b>ssl_server_verify() -&gt; 0 | 1 | 2</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the type of verification used by SSL during authentication of the other 
+          peer for incoming calls. 
+          It is configured by setting the application variable 
+          <em>ssl_server_verify</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_verifygt012"></a><b>ssl_client_verify() -&gt; 0 | 1 | 2</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns  the type of verification used by SSL during authentication of the other 
+          peer for outgoing calls. 
+          The default value is configured by setting the application variable 
+          <em>ssl_client_verify</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_ssl_client_verifyValuegtok"></a><b>set_ssl_client_verify(Value) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Value = 0 | 1 | 2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the SSL verification type for the other peer of outgoing calls.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_depthgtint"></a><b>ssl_server_depth() -&gt; int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the SSL verification depth for incoming calls. 
+          It is configured by setting the application variable 
+          <em>ssl_server_depth</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_depthgtint"></a><b>ssl_client_depth() -&gt;  int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the SSL verification depth for outgoing calls. 
+          The default value is configured by setting the application variable 
+          <em>ssl_client_depth</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_ssl_client_depthDepthgtok"></a><b>set_ssl_client_depth(Depth) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Depth = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the SSL verification depth for the other peer of outgoing calls.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="objectkeys_gc_timegtintseconds"></a><b>objectkeys_gc_time() -&gt; int() (seconds)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the timeout value after which after which terminated object keys, 
+          related to servers started with the configuration parameter <tt>{persistent, true}</tt>,
+          will be removed.
+          It can be configured by setting the application variable <em>objectkeys_gc_time TimeVal (seconds)</em>, 
+          if it is not set it will have the default value <em>infinity</em>. </p>
+        <p>Objects terminating with reason <em>normal</em> or <em>shutdown</em> are removed automatically.</p>
+        <p>Note: the objectkeys_gc_time configuration parameter (TimeVal) may only range between 0 and 1000000 seconds. 
+          Otherwise, the default value is used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="orber_nodesgtRetVal"></a><b>orber_nodes() -&gt; RetVal</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RetVal = [node()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the list of node names that this orber 
+          domain consists of. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="installNodeListgtok"></a><b>install(NodeList) -&gt; ok<br/>install(NodeList, Options) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeList = [node()]</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = {install_timeout, Timeout} | {ifr_storage_type, TableType} | {nameservice_storage_type, TableType} | {initialreferences_storage_type, TableType} | {load_order, Priority}</b><br/>
+        <b>Timeout = infinity | integer()</b><br/>
+        <b>TableType = disc_copies | ram_copies</b><br/>
+        <b>Priority = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function installs all the necessary mnesia tables and
+          load default data in some of them. If one or more Orber tables
+          already exists the installation fails. The function\011
+          <em>uninstall</em> may be used, if it is safe, i.e., no other 
+          application is running Orber.</p>
+        <p>Preconditions:</p>
+        <list type="bulleted">
+          <item>a mnesia schema must exist before the installation</item>
+          <item>mnesia is running on the other nodes if the new installation 
+           shall be a multi node domain</item>
+        </list>
+        <p>Mnesia will be started by the function if it is not already running on 
+          the installation node and if it was started it will be stopped
+          afterwards.</p>
+        <p>The options that can be sent to the installation program is:</p>
+        <list type="bulleted">
+          <item><tt>{install_timeout, Timeout}</tt> - this timeout is how long we 
+           will wait for the tables to be created. The Timeout value can be
+          <em>infinity</em> or an integer number in milliseconds.
+           Default is infinity.</item>
+          <item><tt>{ifr_storage_type, TableType}</tt> - this option sets the 
+           type of tables used for the interface repository.
+           The TableType can be disc_copies or ram_copies. Default is 
+           disc_copies.</item>
+          <item><tt>{initialreferences_storage_type, TableType}</tt> - this option 
+           sets the type of table used for storing initial references.
+           The TableType can be disc_copies or ram_copies. Default is 
+           ram_copies.</item>
+          <item><tt>{nameservice_storage_type, TableType}</tt> - the default
+           behavior of Orber is to install the NameService as ram_copies.
+           This option makes it possible to change this to disc_copies. But
+           the user should be aware of that if a node is restarted, all
+           local object references stored in the NameService is not valid.
+           Hence, you cannot switch to disc_copies and expect exactly the same
+           behavior as before.</item>
+          <item><tt>{load_order, Priority}</tt> - per default the priority is set to 0.
+           Using this option it will change the priority of in which order
+           Mnesia will load Orber internal tables. For more information,
+           consult the Mnesia documentation.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallgtok"></a><b>uninstall() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function stops the Orber application, terminates all server
+          objects and removes all Orber related mnesia tables.</p>
+        <p>Note: Since other applications may be running on the same node
+          using mnesia <em>uninstall</em> will not stop the mnesia application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_nodeNodeOptionsgtRetVal"></a><b>add_node(Node, Options) -&gt; RetVal</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+        <b>Options = IFRStorageType | [KeyValue] </b><br/>
+        <b>IFRStorageType = StorageType</b><br/>
+        <b>StorageType = disc_copies | ram_copies</b><br/>
+        <b>KeyValue = {ifr_storage_type, StorageType} |  {initialreferences_storage_type, StorageType} |  {nameservice_storage_type, StorageType} |  {type, Type} </b><br/>
+        <b>Type = temporary | permanent</b><br/>
+        <b>RetVal = ok | exit()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function add given node to a existing Orber node group and starts
+          Orber on the new node. <tt>orber:add_node</tt> is called from a member in the Orber
+          node group.</p>
+        <p>Preconditions for new node:</p>
+        <list type="bulleted">
+          <item>Erlang started on the new node using the option <tt>-mnesia extra_db_nodes</tt>, e.g.,
+          <tt>erl -sname new_node_name -mnesia extra_db_nodes ConnectToNodes_List</tt></item>
+          <item>The new node's <tt>domain</tt> name is the same for the nodes we want to connect to.</item>
+          <item>Mnesia is running on the new node (no new schema created).</item>
+          <item>If the new node will use <tt>disc_copies</tt> the schema type must be changed using:
+          <tt>mnesia:change_table_copy_type(schema, node(), disc_copies).</tt></item>
+        </list>
+        <p>Orber will be started by the function on the new node.</p>
+        <p>Fails if:</p>
+        <list type="bulleted">
+          <item>Orber already installed on given node.</item>
+          <item>Mnesia not started as described above on the new node.</item>
+          <item>Impossible to copy data in Mnesia tables to the new node.</item>
+          <item>Not able to start Orber on the new node, due to, for example, the 
+          <tt>iiop_port</tt> is already in use.</item>
+        </list>
+        <p>The function do not remove already copied tables after a failure.
+          Use <tt>orber:remove_node</tt> to remove these tables.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_nodeNodegtRetVal"></a><b>remove_node(Node) -&gt; RetVal</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+        <b>RetVal = ok | exit()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function removes given node from a Orber node group. The Mnesia
+          application is not stopped.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="configureKeyValuegtokEXITReason"></a><b>configure(Key, Value) -&gt; ok | {'EXIT', Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = orbDefaultInitRef | orbInitRef | giop_version | iiop_timeout | iiop_connection_timeout | iiop_setup_connection_timeout | iiop_in_connection_timeout | objectkeys_gc_time | orber_debug_level</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function allows the user to configure Orber in, for example,
+          an Erlang shell. It is possible to invoke <tt>configure</tt> at any time
+          the keys specified above.</p>
+        <p>Any other key must be set before installing and starting Orber.</p>
+        <p>Trying to change the configuration in any other way is <em>NOT</em>
+          allowed since it may affect the behavior of Orber.</p>
+        <p>For more information regarding allowed values, see
+          <seealso marker="ch_install#config">configuration settings</seealso>
+          in the User's Guide.</p>
+        <p></p>
+        <note>
+          <p>Configuring the IIOP timeout values will not affect already
+            existing connections. If you want a guaranteed uniform behavior, you
+            must set these parameters from the start.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

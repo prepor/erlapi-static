@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>gs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />gs</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The Graphics System, GS, is easy to learn and
+      designed to be portable to many different platforms.</p>
+    <p>In the description below, the type <tt>gsobj()</tt> denotes a
+      reference to a graphical object created with GS. Such a reference
+      is either a GS object identifier or the name of the object (an atom),
+      if such a name exists.
+      The functions all return the specified values or <tt>{error,Reason}</tt>
+      if an error occurs.</p>
+    <p>Please refer to the GS User's Guide for a description of
+      the different object types and possible options.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ObjTypeParent">ObjType(Parent)</a></li>
+        
+        <li><a href="#configGSObjOptionsgtok">config(GSObj, Options) -&gt; ok</a></li>
+        
+        <li><a href="#createObjTypeParentgtObjId">create(ObjType, Parent) -&gt; ObjId</a></li>
+        
+        <li><a href="#create_treeParentTreegtok">create_tree(Parent, Tree) -&gt; ok</a></li>
+        
+        <li><a href="#destroyGSObjgtvoid">destroy(GSObj) -&gt; void()</a></li>
+        
+        <li><a href="#readGSObjKeygtValue">read(GSObj, Key) -&gt; Value</a></li>
+        
+        <li><a href="#startgtObjId">start() -&gt; ObjId</a></li>
+        
+        <li><a href="#stopgtvoid">stop() -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="configGSObjOptionsgtok"></a><b>config(GSObj, Options) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GSOBj = gsobj()</b><br/>
+        <b>Options = [Option] | Option</b><br/>
+        <b>&nbsp;Option = {Key,Value}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Configures a graphical object according to the specified
+          options.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="createObjTypeParentgtObjId"></a><b>create(ObjType, Parent) -&gt; ObjId<br/>create(ObjType, Parent, Options) -&gt; ObjId<br/>create(ObjType, Name, Parent, Options) -&gt; ObjId</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjType = atom()</b><br/>
+        <b>Parent = gsobj()</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>Options = [Option] | Option</b><br/>
+        <b>&nbsp;Option = {Key,Value}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a new graphical object of the specified type as a child
+          to the specified parent object. The object is configured according
+          to the options and its identifier is returned. If no options
+          are provided, default option values are used.</p>
+        <p>If a name is provided, this name can be used to reference
+          the object instead of the object identifier. The name is local
+          to the process which creates the object.</p>
+        <p>The following object types exist: <tt>window | button | radiobutton | checkbutton | label | frame | entry | listbox | canvas | arc | image | line | oval | polygon | rectangle | text | menubar | menubutton | menu | menuitem | grid | gridline | editor | scale</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_treeParentTreegtok"></a><b>create_tree(Parent, Tree) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Parent = gsobj()</b><br/>
+        <b>Tree = [Object]</b><br/>
+        <b>&nbsp;Object = {ObjType,Options} | {ObjType,Options,Tree} | {ObjType,Name,Options,Tree}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a hierarchy of graphical objects.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyGSObjgtvoid"></a><b>destroy(GSObj) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GSObj = gsobj()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Destroys a graphical object and all its children.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ObjTypeParent"></a><b>ObjType(Parent)<br/>ObjType(Parent, Options)<br/>ObjType(Name, Parent, Options)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>These functions are shorthand equivalents of <tt>create/2</tt>,
+          <tt>create/3</tt>, and <tt>create/4</tt>, respectively.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="readGSObjKeygtValue"></a><b>read(GSObj, Key) -&gt; Value</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GSObj = gsobj()</b><br/>
+        <b>Key = atom()</b><br/>
+        <b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the value of an option key for the specified graphical
+          object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtObjId"></a><b>start() -&gt; ObjId</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Starts GS, unless it is already started, and returns its object
+          identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtvoid"></a><b>stop() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops GS and closes all windows. This function is not the opposite
+          of <tt>start/0</tt> as it will cause <em>all</em> applications
+          to lose their GS objects.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

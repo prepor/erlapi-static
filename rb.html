@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>rb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />rb</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The Report Browser (RB) tool makes it possible to browse and
+      format error reports written by the error logger handler
+      <tt>log_mf_h</tt>.
+      </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#grepRegExp">grep(RegExp)</a></li>
+        
+        <li><a href="#h">h()</a></li>
+        
+        <li><a href="#list">list()</a></li>
+        
+        <li><a href="#rescan">rescan()</a></li>
+        
+        <li><a href="#show">show()</a></li>
+        
+        <li><a href="#start">start()</a></li>
+        
+        <li><a href="#start_logFileName">start_log(FileName)</a></li>
+        
+        <li><a href="#stop">stop()</a></li>
+        
+        <li><a href="#stop_log">stop_log()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="grepRegExp"></a><b>grep(RegExp)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RegExp = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>All reports containing the regular expression <tt>RegExp</tt>
+          are printed.
+          </p>
+        <p><tt>RegExp</tt> is a string containing the regular
+          expression. Refer to the module <tt>regexp</tt> in the STDLIB 
+          reference  manual
+          for a definition of valid regular expressions. They are
+          essentially the same as the UNIX command <tt>egrep</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="h"></a><b>h()<br/>help()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Prints the on-line help information.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list"></a><b>list()<br/>list(Type)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = type()</b><br/>
+        <b>type() = crash_report | supervisor_report | error | progress</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function lists all reports loaded in the
+          <tt>rb_server</tt>. Each report is given a unique number that
+          can be used as a reference to the report in the
+          <tt>show/1</tt> function.
+          </p>
+        <p>If no <tt>Type</tt> is given, all reports are listed.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rescan"></a><b>rescan()<br/>rescan(Options)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [opt()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Rescans the report directory. <tt>Options</tt> is the same as
+          for <tt>start()</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="show"></a><b>show()<br/>show(Report)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Report = int() | type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a type argument is given, all loaded reports of this
+          type are printed. If an integer argument is given, the
+          report with this reference number is printed. If no argument
+          is given, all reports are shown.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start"></a><b>start()<br/>start(Options)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [opt()]</b><br/>
+        <b>opt() = {start_log, FileName} | {max, MaxNoOfReports} | {report_dir, DirString} | {type, ReportType} | {abort_on_error, Bool}</b><br/>
+        <b>FileName = string() | standard_io</b><br/>
+        <b>MaxNoOfReports = int() | all</b><br/>
+        <b>DirString = string()</b><br/>
+        <b>ReportType = type() | [type()] | all</b><br/>
+        <b>Bool = true | false</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The function <tt>start/1</tt> starts the <tt>rb_server</tt>
+          with the specified options, while <tt>start/0</tt> starts with
+          default options. The <tt>rb_server</tt> must be started before
+          reports can be browsed. When the <tt>rb_server</tt> is
+          started, the files in the specified directory are
+          scanned. The other functions assume that the server has
+          started.
+          </p>
+        <p><tt>{start_log, FileName}</tt> starts logging to file. All
+          reports will be printed to the named file. The default is
+          <tt>standard_io</tt>.
+          </p>
+        <p><tt>{max, MaxNoOfReports}</tt>. Controls how many reports the
+          <tt>rb_server</tt> should read on start-up. This option is
+          useful as the directory may contain 20.000 reports. If this
+          option is given, the <tt>MaxNoOfReports</tt> latest reports
+          will be read. The default is 'all'.
+          </p>
+        <p><tt>{report_dir, DirString}</tt>. Defines the directory where
+          the error log files are located. The default is <tt>{sasl, error_logger_mf_dir}</tt>.  </p>
+        <p><tt>{type, ReportType}</tt>. Controls what kind of reports the
+          <tt>rb_server</tt> should read on start-up.  <tt>ReportType</tt>
+          is a supported type, 'all', or a list of supported
+          types. The default is 'all'.
+          </p>
+        <p><tt>{abort_on_error, Bool}</tt>. This option specifies whether
+          or not logging should be aborted if rb encounters an unprintable 
+          report. (You may get a report on incorrect form if the 
+          <tt>error_logger</tt> function <tt>error_msg</tt> or 
+          <tt>info_msg</tt> has been called with an invalid format string).
+          If <tt>Bool</tt> is <tt>true</tt>, rb will stop logging (and print an
+          error message to stdout) if it encounters a badly formatted report.
+          If logging to file is enabled, an error message will be appended to
+          the log file as well. 
+          If <tt>Bool</tt> is <tt>false</tt> (which is the default value), rb will 
+          print an error message to stdout for every bad report it 
+          encounters, but the logging process is never aborted. All printable 
+          reports will be written. If logging to file is enabled, rb prints 
+          <tt>* UNPRINTABLE REPORT *</tt> in the log file at the location of an 
+          unprintable report.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_logFileName"></a><b>start_log(FileName)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Redirects all report output from the RB tool to the
+          specified file.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop"></a><b>stop()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the <tt>rb_server</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_log"></a><b>stop_log()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Closes the log file. The output from the RB tool will be
+          directed to <tt>standard_io</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

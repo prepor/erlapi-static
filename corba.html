@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>corba</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />corba</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions that are specified on the CORBA module
+      level. It also contains some functions for creating and disposing
+      objects.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_alternate_iiop_addressObjectHostPortgtNewObjectEXCEPTIONE">add_alternate_iiop_address(Object, Host, Port) -&gt; NewObject | {'EXCEPTION', E}</a></li>
+        
+        <li><a href="#add_initial_serviceObjectIdObjectgtboolean">add_initial_service(ObjectId, Object) -&gt; boolean()</a></li>
+        
+        <li><a href="#createModuleTypeIDgtObject">create(Module, TypeID) -&gt; Object</a></li>
+        
+        <li><a href="#create_nil_objrefgtObject">create_nil_objref() -&gt; Object</a></li>
+        
+        <li><a href="#create_subobject_keyObjectKeygtResult">create_subobject_key(Object, Key) -&gt; Result</a></li>
+        
+        <li><a href="#disposeObjectgtok">dispose(Object) -&gt; ok</a></li>
+        
+        <li><a href="#get_pidObjectgtResult">get_pid(Object) -&gt; Result</a></li>
+        
+        <li><a href="#get_subobject_keyObjectgtResult">get_subobject_key(Object) -&gt; Result</a></li>
+        
+        <li><a href="#list_initial_servicesgtObjectId">list_initial_services() -&gt; [ObjectId]</a></li>
+        
+        <li><a href="#list_initial_services_remoteAddressgtObjectId">list_initial_services_remote(Address) -&gt; [ObjectId]</a></li>
+        
+        <li><a href="#object_to_stringObjectgtIOR_string">object_to_string(Object) -&gt; IOR_string</a></li>
+        
+        <li><a href="#orb_initKeyValueListgtokEXITReason">orb_init(KeyValueList) -&gt; ok | {'EXIT', Reason}</a></li>
+        
+        <li><a href="#print_objectDataTypegtokEXCEPTIONEEXITRstring">print_object(Data [, Type]) -&gt; ok | {'EXCEPTION', E} |  {'EXIT', R} | string()</a></li>
+        
+        <li><a href="#raiseException">raise(Exception)</a></li>
+        
+        <li><a href="#remove_initial_serviceObjectIdgtboolean">remove_initial_service(ObjectId) -&gt; boolean()</a></li>
+        
+        <li><a href="#replyToReplygttrue">reply(To, Reply) -&gt; true</a></li>
+        
+        <li><a href="#resolve_initial_referencesObjectIdgtObject">resolve_initial_references(ObjectId) -&gt; Object</a></li>
+        
+        <li><a href="#resolve_initial_references_remoteObjectIdAddressgtObject">resolve_initial_references_remote(ObjectId, Address) -&gt; Object</a></li>
+        
+        <li><a href="#string_to_objectIOR_stringgtObject">string_to_object(IOR_string) -&gt; Object</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="createModuleTypeIDgtObject"></a><b>create(Module, TypeID) -&gt; Object<br/>create(Module, TypeID, Env) -&gt; Object<br/>create(Module, TypeID, Env, Optons1) -&gt; Object<br/>create_link(Module, TypeID) -&gt; Object<br/>create_link(Module, TypeID, Env) -&gt; Object<br/>create_link(Module, TypeID, Env, Options2) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>TypeID = string()</b><br/>
+        <b>Env = term()</b><br/>
+        <b>Options1 = [{persistent, Bool} | {regname, RegName} | {local_typecheck, Bool}]</b><br/>
+        <b>Options2 = [{sup_child, Bool} | {persistent, Bool} | {regname, RegName} | {pseudo, Bool} | {local_typecheck, Bool}]</b><br/>
+        <b>RegName = {local, atom()} | {global, term()}</b><br/>
+        <b>Reply = #objref | {ok, Pid, #objref}</b><br/>
+        <b>Bool = true | false</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>These functions start a new server object. If you start it
+          without <em>RegName</em> it can only be accessed through the 
+          returned object key. Started with a <em>RegName</em> the name is
+          registered locally or globally. </p>
+        <p><em>TypeID</em> is the repository ID of the server object type and 
+          could for example look like "IDL:StackModule/Stack:1.0". </p>
+        <p><em>Module</em> is the name of the interface API module. </p>
+        <p><em>Env</em> is the arguments passed which will be passed to the 
+          implementations <em>init</em> call-back function.</p>
+        <p>A server started with create/2, create/3 or create/4 does not care
+          about the parent, which means that the parent is not handled
+          explicitly in  the  generic process part. </p>
+        <p>A server started with create_link2, create_link/3 or create_link/4
+          is initially linked to the caller, the parent, and it will
+          terminate whenever the parent process terminates, and with the same 
+          reason as the parent. If the server traps exits, the terminate/2 
+          call-back function is called in order to clean up before the 
+          termination. These functions should be used if the server is a 
+          worker in a supervision tree.</p>
+        <p>If you use the option <tt>{sup_child, true}</tt> create_link/4 will return
+          <tt>{ok, Pid, #objref}</tt>, otherwise <tt>#objref</tt>, and make it possible
+          to start a server as a supervisor child (stdlib-1.7 or later).</p>
+        <p>If you use the option <tt>{persistent, true}</tt> you also must use the option
+          <tt>{regname, {global, Name}}</tt>. This combination makes it possible to tell
+          the difference between a server permanently terminated or in the process of restarting.</p>
+        <p>The option <tt>{pseudo, true}</tt>, allow us to create an object which is not a
+          server. Using <tt>{pseudo, true}</tt> overrides all other start options. 
+          For more information see section <tt>Module_Interface</tt>.</p>
+        <p>If a server is started using the option <tt>{persistent, true}</tt> the object key
+          will not be removed unless it terminates with reason <em>normal</em> or <em>shutdown</em>.
+          Hence, if persistent servers is used as supervisor children they should be <em>transient</em>
+          and the <em>objectkeys_gc_time</em> should be modified (default equals <tt>infinity</tt>).</p>
+        <p>The option <tt>{local_typecheck, boolean()}</tt>, which overrides the
+          <seealso marker="ch_install#flags">Local Typechecking</seealso>
+          environment flag, turns on or off typechecking. If activated,
+          parameters, replies and raised exceptions will be checked to ensure that
+          the data is correct, when invoking operations on CORBA Objects within
+          the same Orber domain. Due to the extra overhead, this option 
+          <em>MAY ONLY</em> be used during testing and development.</p>
+        <code type="none">
+Example: 
+\011  
+  corba:create('StackModule_Stack', "IDL:StackModule/Stack:1.0",
+\011       {10, test})
+        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disposeObjectgtok"></a><b>dispose(Object) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for terminating the execution of a 
+          server object. Invoking this operation on a NIL object reference,
+          e.g., the return value of <tt>corba:create_nil_objref/0</tt>, always
+          return ok. For valid object references, invoking this operation
+          more than once, will result in a system exception.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_nil_objrefgtObject"></a><b>create_nil_objref() -&gt; Object</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref representing NIL.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an object reference that represents the NIL value.
+          Attempts to invoke operations using the returned object reference
+          will return a system exception.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_subobject_keyObjectKeygtResult"></a><b>create_subobject_key(Object, Key) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Result = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to create a subobject in a server object.
+          It can for example be useful when one wants unique access to 
+          separate rows in a mnesia or an ETS table. The <em>Result</em> is
+          an object reference that will be seen as a unique reference to 
+          the outside world but will access the same server object where one 
+          can use the <em>get_subobject_key/1</em> function to get the private
+          key value.</p>
+        <p><em>Key</em> is stored in the object reference <em>Object</em>.
+          If it is a binary it will be stored as is and otherwise it is 
+          converted to a binary before storage.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_subobject_keyObjectgtResult"></a><b>get_subobject_key(Object) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Result = #binary</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to fetch a subobject key from the object 
+          reference <em>Object</em>. The result is a always a binary, if it 
+          was an Erlang term that was stored with <em>create_subobject_key/2</em>
+          one can to do <em>binary_to_term/1</em> to get the real value. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_pidObjectgtResult"></a><b>get_pid(Object) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Result = #pid | {error, Reason} | {'EXCEPTION',E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is to get the process id  from an object, which is a 
+          must when CORBA objects is started/handled in a supervisor tree. 
+          The function will throw exceptions if the key is not found or 
+          some other error occurs.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="raiseException"></a><b>raise(Exception)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Exception = record()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for raising corba exceptions as an 
+          Erlang user generated exit signal. It will throw the tuple 
+          <tt>{'EXCEPTION', </tt><em>Exception</em><tt>}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="replyToReplygttrue"></a><b>reply(To, Reply) -&gt; true</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>To = client reference</b><br/>
+        <b>Reply = IDL type</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used by a CORBA object to explicitly send 
+          a reply to a client that invoked a two-way operation. If this operation
+          is used, it is <em>not</em> possible to return a reply in the call-back
+          module.
+                    <br>
+<em>To</em> must be the <em>From</em> argument provided to the 
+          callback function, which requires that the IC option <em>from</em> 
+          was used when compiling the IDL-file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resolve_initial_referencesObjectIdgtObject"></a><b>resolve_initial_references(ObjectId) -&gt; Object<br/>resolve_initial_references(ObjectId, Contexts) -&gt; Object</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjectId = string()</b><br/>
+        <b>Contexts = [Context]</b><br/>
+        <b>Context = #'IOP_ServiceContext'{context_id = CtxId, context_data = CtxData}</b><br/>
+        <b>CtxId = ?ORBER_GENERIC_CTX_ID</b><br/>
+        <b>CtxData = {interface, Interface} | {userspecific, term()} | {configuration, Options}</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Options = [{Key, Value}]</b><br/>
+        <b>Key = ssl_client_verify | ssl_client_depth | ssl_client_certfile | ssl_client_cacertfile |
+                 ssl_client_password | ssl_client_keyfile | ssl_client_ciphers | ssl_client_cachetimeout</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the object reference associated with the given
+          object id. Initially, only <tt>"NameService"</tt> is available. To add or remove
+          services use <tt>add_initial_service/2</tt> or <tt>remove_initial_service/1</tt>.</p>
+       <p>The <em>configuration</em> context is used to override the global
+           SSL client side 
+           <seealso marker="ch_install#config">configuration</seealso>.</p>
+       
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_initial_serviceObjectIdObjectgtboolean"></a><b>add_initial_service(ObjectId, Object) -&gt; boolean()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjectId = string()</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation allows us to add initial services, which can be accessed by 
+          using <tt>resolve_initial_references/1</tt> or the <tt>corbaloc</tt> schema.
+          If using an Id defined by the OMG, the given object must be of the
+          correct type; for more information see the
+          <seealso marker="ch_naming_service#interop_ns">Interoperable Naming Service</seealso>.
+          Returns <tt>false</tt> if the given id already exists.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_initial_serviceObjectIdgtboolean"></a><b>remove_initial_service(ObjectId) -&gt; boolean()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjectId = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If we don not want a certain service to be accessible, invoking this function
+          will remove the association. Returns <tt>true</tt> if able to terminate the
+          binding. If no such binding existed <tt>false</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_initial_servicesgtObjectId"></a><b>list_initial_services() -&gt; [ObjectId]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjectId = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a list of allowed object id's.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resolve_initial_references_remoteObjectIdAddressgtObject"></a><b>resolve_initial_references_remote(ObjectId, Address) -&gt; Object<br/>resolve_initial_references_remote(ObjectId, Address, Contexts) -&gt; Object</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ObjectId = string()</b><br/>
+        <b>Address = [RemoteModifier]</b><br/>
+        <b>RemoteModifier = string()</b><br/>
+        <b>Contexts = [Context]</b><br/>
+        <b>Context = #'IOP_ServiceContext'{context_id = CtxId, context_data = CtxData}</b><br/>
+        <b>CtxId = ?ORBER_GENERIC_CTX_ID</b><br/>
+        <b>CtxData = {interface, Interface} | {userspecific, term()} | {configuration, Options}</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Options = [{Key, Value}]</b><br/>
+        <b>Key = ssl_client_verify | ssl_client_depth | ssl_client_certfile | ssl_client_cacertfile |
+                 ssl_client_password | ssl_client_keyfile | ssl_client_ciphers | ssl_client_cachetimeout</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the object reference for the object id asked 
+          for.
+          The remote modifier string has the following format:
+          <tt>"iiop://host:port"</tt>.</p>
+        <p>The <em>configuration</em> context is used to override the global
+           SSL client side 
+           <seealso marker="ch_install#config">configuration</seealso>.</p>
+        <warning>
+          <p>This operation is not supported by most ORB's. Hence, use 
+            <tt>corba:string_to_object/1</tt> instead.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_initial_services_remoteAddressgtObjectId"></a><b>list_initial_services_remote(Address) -&gt; [ObjectId]<br/>list_initial_services_remote(Address, Contexts) -&gt; [ObjectId]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Address = [RemoteModifier]</b><br/>
+        <b>RemoteModifier = string()</b><br/>
+        <b>Contexts = [Context]</b><br/>
+        <b>Context = #'IOP_ServiceContext'{context_id = CtxId, context_data = CtxData}</b><br/>
+        <b>CtxId = ?ORBER_GENERIC_CTX_ID</b><br/>
+        <b>CtxData = {interface, Interface} | {userspecific, term()} | {configuration, Options}</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Options = [{Key, Value}]</b><br/>
+        <b>Key = ssl_client_verify | ssl_client_depth | ssl_client_certfile | ssl_client_cacertfile |
+                 ssl_client_password | ssl_client_keyfile | ssl_client_ciphers | ssl_client_cachetimeout</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+        <b>ObjectId = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a list of allowed object id's. The remote modifier
+          string has the following format: <tt>"iiop://host:port"</tt>.</p>
+        <p>The <em>configuration</em> context is used to override the global
+           SSL client side 
+           <seealso marker="ch_install#config">configuration</seealso>.</p>
+        <warning>
+          <p>This operation is not supported by most ORB's. Hence, avoid
+            using it.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="object_to_stringObjectgtIOR_string"></a><b>object_to_string(Object) -&gt; IOR_string</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>IOR_string = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the object reference as the external string 
+          representation of an IOR.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="string_to_objectIOR_stringgtObject"></a><b>string_to_object(IOR_string) -&gt; Object<br/>string_to_object(IOR_string, Contexts) -&gt; Object</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IOR_string = string()</b><br/>
+        <b>Contexts = [Context]</b><br/>
+        <b>Context = #'IOP_ServiceContext'{context_id = CtxId, context_data = CtxData}</b><br/>
+        <b>CtxId = ?ORBER_GENERIC_CTX_ID</b><br/>
+        <b>CtxData = {interface, Interface} | {userspecific, term()} | {configuration, Options}</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>Options = [{Key, Value}]</b><br/>
+        <b>Key = ssl_client_verify | ssl_client_depth | ssl_client_certfile | ssl_client_cacertfile |
+                 ssl_client_password | ssl_client_keyfile | ssl_client_ciphers | ssl_client_cachetimeout</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function takes a <tt>corbaname</tt>, <tt>corbaloc</tt> or an IOR on the
+          external string representation and returns the object reference.</p>
+        <p>To lookup the NameService reference, simply use
+          <tt>"corbaloc:iiop:1.2@123.0.0.012:4001/NameService"</tt></p>
+        <p>We can also resolve an object from the NameService by using
+          <tt>"corbaname:iiop:1.2@123.0.0.012:4001/NameService#org/Erlang/MyObj"</tt></p>
+        <p>For more information about <tt>corbaname</tt> and <tt>corbaloc</tt>, see
+          the User's Guide (Interoperable Naming Service).</p>
+        <p>The <em>configuration</em> context is used to override the global
+           SSL client side 
+           <seealso marker="ch_install#config">configuration</seealso>.</p>
+        <p>How to handle the interface context is further described in the User's Guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="print_objectDataTypegtokEXCEPTIONEEXITRstring"></a><b>print_object(Data [, Type]) -&gt; ok | {'EXCEPTION', E} |  {'EXIT', R} | string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = IOR_string | #objref (local or external) | corbaloc/corbaname string</b><br/>
+        <b>Type = IoDevice | error_report | {error_report, Reason} | info_msg | {info_msg, Comment} | string</b><br/>
+        <b>IoDevice = see the io-module</b><br/>
+        <b>Reason = Comment = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The object represented by the supplied data is dissected and presented
+          in a more readable form. The Type parameter is optional; if not supplied
+          standard output is used. For <tt>error_report</tt> and <tt>info_msg</tt>
+          the <tt>error_logger</tt> module is used, with or without Reason or Comment.
+          If the atom <tt>string</tt> is supplied this function will return a flat
+          list. The <tt>IoDevice</tt> is passed to the operation <tt>io:format/2</tt>.</p>
+        <p>If the supplied object is a local reference, the output is equivalent
+          to an object exported from the node this function is invoked on.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_alternate_iiop_addressObjectHostPortgtNewObjectEXCEPTIONE"></a><b>add_alternate_iiop_address(Object, Host, Port) -&gt; NewObject | {'EXCEPTION', E}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = NewObject = local #objref</b><br/>
+        <b>Host = string()</b><br/>
+        <b>Port = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of the supplied object
+          containing an ALTERNATE_IIOP_ADDRESS component. Only the new instance
+          contains the new component. When this object is passed to another
+          ORB, which supports the ALTERNATE_IIOP_ADDRESS, requests will be routed
+          to the alternate address if it is not possible to communicate with
+          the main address.</p>
+        <p>The ALTERNATE_IIOP_ADDRESS component requires that IIOP-1.2 is used.
+          Hence, make sure both Orber and the other ORB is correctly configured.</p>
+        <p></p>
+        <note>
+          <p>Make sure that the given <tt>Object</tt> is accessible via the
+            alternate Host/port. For example, if the object is correctly started as 
+            <tt>local</tt> or <tt>pseudo</tt>, the object should be available on all
+            nodes within a multi-node Orber installation. Since only one instance
+            exists for other object types, it will not be possible to access it
+            if the node it was started on terminates.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="orb_initKeyValueListgtokEXITReason"></a><b>orb_init(KeyValueList) -&gt; ok | {'EXIT', Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>KeyValueList = [{Key, Value}]</b><br/>
+        <b>Key = any key listed in the configuration chapter</b><br/>
+        <b>Value = allowed value associated with the given key</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function allows the user to configure Orber in, for example,
+          an Erlang shell. Orber may <em>NOT</em> be started prior to invoking
+          this operation. For more information, see
+          <seealso marker="ch_install#config">configuration settings</seealso>
+          in the User's Guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

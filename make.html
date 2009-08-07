@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>make</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />make</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>make</tt> provides a set of functions similar to
+      the UNIX type <tt>Make</tt> functions.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Emakefile</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#allgtup_to_dateerror">all() -&gt; up_to_date | error</a></li>
+        
+        <li><a href="#filesModFilesgtup_to_dateerror">files(ModFiles) -&gt; up_to_date | error</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Emakefile</div>
+    
+    <div class="description">
+        
+    <title>Emakefile</title>
+    <p><tt>make:all/0,1</tt> and <tt>make:files/1,2</tt> looks in the
+      current working directory for a file named <tt>Emakefile</tt>. If
+      it exists, <tt>Emakefile</tt> should contain elements like this:</p>
+    <code type="none">
+Modules.
+{Modules,Options}.    </code>
+    <p><tt>Modules</tt> is an atom or a list of atoms. It can be 
+      </p>
+    <list type="bulleted">
+      <item>a module name, e.g. <tt>file1</tt></item>
+      <item>a module name in another directory,
+       e.g. <tt>../foo/file3</tt></item>
+      <item>a set of modules specified with a wildcards,
+       e.g. <tt>'file*'</tt></item>
+      <item>a wildcard indicating all modules in current directory,
+       i.e. <tt>'*'</tt></item>
+      <item>a list of any of the above,
+       e.g. <tt>['file*','../foo/file3','File4']</tt></item>
+    </list>
+    <p><tt>Options</tt> is a list of compiler options.
+      </p>
+    <p><tt>Emakefile</tt> is read from top to bottom. If a module
+      matches more than one entry, the first match is valid. For
+      example, the following <tt>Emakefile</tt> means that <tt>file1</tt>
+      shall be compiled with the options
+      <tt>[debug_info,{i,"../foo"}]</tt>, while all other files in the
+      current directory shall be compiled with only the
+      <tt>debug_info</tt> flag.</p>
+    <code type="none">
+{'file1',[debug_info,{i,"../foo"}]}.
+{'*',[debug_info]}.    </code>
+    <p></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="allgtup_to_dateerror"></a><b>all() -&gt; up_to_date | error<br/>all(Options) -&gt; up_to_date | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+        <b>&nbsp;Option = noexec | load | netload | &lt;compiler option&gt;</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function first looks in the current working directory
+          for a file named <tt>Emakefile</tt> (see below) specifying the
+          set of modules to compile and the compile options to use. If
+          no such file is found, the set of modules to compile
+          defaults to all modules in the current working
+          directory.</p>
+        <p>Traversing the set of modules, it then recompiles every module for
+          which at least one of the following conditions apply:</p>
+        <list type="bulleted">
+          <item>there is no object file, or</item>
+          <item>the source file has been modified since it was last compiled,
+           or,</item>
+          <item>an include file has been modified since the source file was
+           last compiled.</item>
+        </list>
+        <p>As a side effect, the function prints the name of each module it
+          tries to compile. If compilation fails for a module, the make
+          procedure stops and <tt>error</tt> is returned.</p>
+        <p><tt>Options</tt> is a list of make- and compiler options.
+          The following make options exist:</p>
+        <list type="bulleted">
+          <item><tt>noexec</tt>          <br>
+
+           No execution mode. Just prints the name of each module that needs
+           to be compiled.</item>
+          <item><tt>load</tt>          <br>
+
+           Load mode. Loads all recompiled modules.</item>
+          <item><tt>netload</tt>          <br>
+
+           Net load mode. Loads all recompiled modules an all known nodes.</item>
+        </list>
+        <p>All items in <tt>Options</tt> that are not make options are assumed
+          to be compiler options and are passed as-is to
+          <tt>compile:file/2</tt>. <tt>Options</tt> defaults to <tt>[]</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filesModFilesgtup_to_dateerror"></a><b>files(ModFiles) -&gt; up_to_date | error<br/>files(ModFiles, Options) -&gt; up_to_date | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ModFiles = [Module | File]</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+        <b>&nbsp;File = string()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>&nbsp;Option = noexec | load | netload | &lt;compiler option&gt;</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>files/1,2</tt> does exactly the same thing as <tt>all/0,1</tt> but
+          for the specified <tt>ModFiles</tt>, which is a list of module or
+          file names. The file extension <tt>.erl</tt> may be omitted.</p>
+        <p>The <tt>Emakefile</tt> (if it exists) in the current
+          directory is searched for compiler options for each module. If
+          a given module does not exist in <tt>Emakefile</tt> or if
+          <tt>Emakefile</tt> does not exist, the module is still compiled.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

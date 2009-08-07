@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosFileTransfer_File</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosFileTransfer_File</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosFileTransfer/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p>CosPropertyService_PropertySetDef in the cosProperty application.</p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_nameFilegtstring">'_get_name'(File) -&gt; string()</a></li>
+        
+        <li><a href="#_get_complete_file_nameFilegtstring">'_get_complete_file_name'(File) -&gt; string()</a></li>
+        
+        <li><a href="#_get_parentFilegtDirectory">'_get_parent'(File) -&gt; Directory</a></li>
+        
+        <li><a href="#_get_associated_sessionFilegtFileTransferSession">'_get_associated_session'(File) -&gt; FileTransferSession</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_nameFilegtstring"></a><b>'_get_name'(File) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This read only attribute represents the target object's associated name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_complete_file_nameFilegtstring"></a><b>'_get_complete_file_name'(File) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This read only attribute represents the target object's associated 
+          absolute name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_parentFilegtDirectory"></a><b>'_get_parent'(File) -&gt; Directory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = Directory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This read only attribute represents the target object's container.
+          In some cases a <tt>NIL</tt> object will be returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_associated_sessionFilegtFileTransferSession"></a><b>'_get_associated_session'(File) -&gt; FileTransferSession</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = FileTransferSession = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This read only attribute represents the target object's associated
+          <tt>FileTransferSession</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

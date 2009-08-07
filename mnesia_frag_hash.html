@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mnesia_frag_hash</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mnesia_frag_hash</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>mnesia_frag_hash</tt> defines a callback
+      behaviour for user defined hash functions of fragmented tables.</p>
+    <p>Which module that is selected to implement the <tt>mnesia_frag_hash</tt>
+      behaviour for a particular fragmented table is specified together
+      with the other <tt>frag_properties</tt>. The <tt>hash_module</tt> defines
+      the module name. The <tt>hash_state</tt> defines the initial hash state.</p>
+    <p>It implements dynamic hashing which is a kind of hashing
+      that grows nicely when new fragments are added. It is well
+      suited for scalable hash tables</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_fragStategtNewStateIterFragsAdditionalLockFragsabortReason">add_frag(State) -&gt; {NewState, IterFrags, AdditionalLockFrags} | abort(Reason)</a></li>
+        
+        <li><a href="#del_fragStategtNewStateIterFragsAdditionalLockFragsabortReason">del_frag(State) -&gt;  {NewState, IterFrags, AdditionalLockFrags} | abort(Reason)</a></li>
+        
+        <li><a href="#init_stateTabStategtNewStateabortReason">init_state(Tab, State) -&gt; NewState | abort(Reason)</a></li>
+        
+        <li><a href="#key_to_frag_numberStateKeygtFragNumabortReason">key_to_frag_number(State, Key) -&gt; FragNum | abort(Reason)</a></li>
+        
+        <li><a href="#match_spec_to_frag_numbersStateMatchSpecgtFragNumsabortReason">match_spec_to_frag_numbers(State, MatchSpec) -&gt; FragNums | abort(Reason)</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>mnesia(3)
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="init_stateTabStategtNewStateabortReason"></a><b>init_state(Tab, State) -&gt; NewState | abort(Reason)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tab = atom()</b><br/>
+        <b>State = term()</b><br/>
+        <b>NewState = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is invoked when a fragmented table is
+          created with <tt>mnesia:create_table/2</tt> or when a
+          normal (un-fragmented) table is converted to be a
+          fragmented table with <tt>mnesia:change_table_frag/2</tt>.</p>
+        <p>Note that the <tt>add_frag/2</tt> function will be invoked
+          one time each for the rest of the fragments (all but number 1)
+          as a part of the table creation procedure.</p>
+        <p><tt>State</tt> is the initial value of the <tt>hash_state</tt><tt>frag_property</tt>. The <tt>NewState</tt> will be stored as
+          <tt>hash_state</tt> among the other <tt>frag_properties</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_fragStategtNewStateIterFragsAdditionalLockFragsabortReason"></a><b>add_frag(State) -&gt; {NewState, IterFrags, AdditionalLockFrags} | abort(Reason)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>State = term()</b><br/>
+        <b>NewState = term()</b><br/>
+        <b>IterFrags = [integer()]</b><br/>
+        <b>AdditionalLockFrags = [integer()]</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>In order to scale well, it is a good idea ensure that the
+          records are evenly distributed over all fragments including
+          the new one.</p>
+        <p>The <tt>NewState</tt> will be stored as <tt>hash_state</tt> among the
+          other <tt>frag_properties</tt>. 
+          </p>
+        <p>As a part of the <tt>add_frag</tt> procedure, Mnesia will iterate
+          over all fragments corresponding to the <tt>IterFrags</tt> numbers
+          and invoke <tt>key_to_frag_number(NewState,RecordKey)</tt> for
+          each record. If the new fragment differs from the old
+          fragment, the record will be moved to the new fragment.</p>
+        <p>As the <tt>add_frag</tt> procedure is a part of a schema
+          transaction Mnesia will acquire a write locks on the
+          affected tables. That is both the fragments corresponding
+          to <tt>IterFrags</tt> and those corresponding to
+          <tt>AdditionalLockFrags</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_fragStategtNewStateIterFragsAdditionalLockFragsabortReason"></a><b>del_frag(State) -&gt;  {NewState, IterFrags, AdditionalLockFrags} | abort(Reason)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>State = term()</b><br/>
+        <b>NewState = term()</b><br/>
+        <b>IterFrags = [integer()]</b><br/>
+        <b>AdditionalLockFrags = [integer()]</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>NewState</tt> will be stored as <tt>hash_state</tt> among the
+          other <tt>frag_properties</tt>. 
+          </p>
+        <p>As a part of the <tt>del_frag</tt> procedure, Mnesia will iterate
+          over all fragments corresponding to the <tt>IterFrags</tt> numbers
+          and invoke <tt>key_to_frag_number(NewState,RecordKey)</tt> for
+          each record. If the new fragment differs from the old
+          fragment, the record will be moved to the new fragment.</p>
+        <p>Note that all records in the last fragment must be moved to
+          another fragment as the entire fragment will be deleted.</p>
+        <p>As the <tt>del_frag</tt> procedure is a part of a schema
+          transaction Mnesia will acquire a write locks on the
+          affected tables. That is both the fragments corresponding
+          to <tt>IterFrags</tt> and those corresponding to
+          <tt>AdditionalLockFrags</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="key_to_frag_numberStateKeygtFragNumabortReason"></a><b>key_to_frag_number(State, Key) -&gt; FragNum | abort(Reason)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FragNum = integer()()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is invoked whenever Mnesia needs to determine
+          which fragment a certain record belongs to. It is typically
+          invoked at read, write and delete.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="match_spec_to_frag_numbersStateMatchSpecgtFragNumsabortReason"></a><b>match_spec_to_frag_numbers(State, MatchSpec) -&gt; FragNums | abort(Reason)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MatcSpec = ets_select_match_spec()</b><br/>
+        <b>FragNums = [FragNum]</b><br/>
+        <b>FragNum = integer()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is invoked whenever Mnesia needs to determine
+          which fragments that needs to be searched for a MatchSpec.
+          It is typically invoked at select and match_object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

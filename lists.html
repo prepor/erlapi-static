@@ -1,0 +1,2348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>lists</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />lists</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions for list processing. The functions
+      are organized in two groups: those in the first group perform a
+      particular operation on one or more lists, whereas those in the
+      second group are higher-order functions, using a fun as argument
+      to perform an operation on one list.</p>
+    <p>Unless otherwise stated, all functions assume that position
+      numbering starts at 1. That is, the first element of a list is at
+      position 1.</p>
+
+    <p>Whenever an <marker id="ordering_function"></marker><em>ordering function</em>
+      <tt>F</tt> is expected as argument, it is assumed that the
+      following properties hold of <tt>F</tt> for all x, y and z:</p>
+    <list type="bulleted">
+      <item><p>if x <tt>F</tt> y and y <tt>F</tt> x then x = y (<tt>F</tt>
+        is antisymmetric);</p>
+      </item>
+      <item><p>if x <tt>F</tt> y and and y <tt>F</tt> z then x <tt>F</tt> z
+        (<tt>F</tt> is transitive);</p>
+      </item>
+      <item><p>x <tt>F</tt> y or y <tt>F</tt> x (<tt>F</tt> is total).</p>
+      </item>
+    </list>
+
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#allPredListgtbool">all(Pred, List) -&gt; bool()</a></li>
+        
+        <li><a href="#anyPredListgtbool">any(Pred, List) -&gt; bool()</a></li>
+        
+        <li><a href="#appendListOfListsgtList1">append(ListOfLists) -&gt; List1</a></li>
+        
+        <li><a href="#appendList1List2gtList3">append(List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#concatThingsgtstring">concat(Things) -&gt; string()</a></li>
+        
+        <li><a href="#deleteElemList1gtList2">delete(Elem, List1) -&gt; List2</a></li>
+        
+        <li><a href="#dropwhilePredList1gtList2">dropwhile(Pred, List1) -&gt; List2</a></li>
+        
+        <li><a href="#duplicateNElemgtList">duplicate(N, Elem) -&gt; List</a></li>
+        
+        <li><a href="#filterPredList1gtList2">filter(Pred, List1) -&gt; List2</a></li>
+        
+        <li><a href="#flatlengthDeepListgtint">flatlength(DeepList) -&gt; int()</a></li>
+        
+        <li><a href="#flatmapFunList1gtList2">flatmap(Fun, List1) -&gt; List2</a></li>
+        
+        <li><a href="#flattenDeepListgtList">flatten(DeepList) -&gt; List</a></li>
+        
+        <li><a href="#flattenDeepListTailgtList">flatten(DeepList, Tail) -&gt; List</a></li>
+        
+        <li><a href="#foldlFunAcc0ListgtAcc1">foldl(Fun, Acc0, List) -&gt; Acc1</a></li>
+        
+        <li><a href="#foldrFunAcc0ListgtAcc1">foldr(Fun, Acc0, List) -&gt; Acc1</a></li>
+        
+        <li><a href="#foreachFunListgtvoid">foreach(Fun, List) -&gt; void()</a></li>
+        
+        <li><a href="#keydeleteKeyNTupleList1gtTupleList2">keydelete(Key, N, TupleList1) -&gt; TupleList2</a></li>
+        
+        <li><a href="#keyfindKeyNTupleListgtTuplefalse">keyfind(Key, N, TupleList) -&gt; Tuple | false</a></li>
+        
+        <li><a href="#keymapFunNTupleList1gtTupleList2">keymap(Fun, N, TupleList1) -&gt; TupleList2</a></li>
+        
+        <li><a href="#keymemberKeyNTupleListgtbool">keymember(Key, N, TupleList) -&gt; bool()</a></li>
+        
+        <li><a href="#keymergeNTupleList1TupleList2gtTupleList3">keymerge(N, TupleList1, TupleList2) -&gt; TupleList3</a></li>
+        
+        <li><a href="#keyreplaceKeyNTupleList1NewTuplegtTupleList2">keyreplace(Key, N, TupleList1, NewTuple) -&gt; TupleList2</a></li>
+        
+        <li><a href="#keysearchKeyNTupleListgtvalueTuplefalse">keysearch(Key, N, TupleList) -&gt; {value, Tuple} | false</a></li>
+        
+        <li><a href="#keysortNTupleList1gtTupleList2">keysort(N, TupleList1) -&gt; TupleList2</a></li>
+        
+        <li><a href="#keystoreKeyNTupleList1NewTuplegtTupleList2">keystore(Key, N, TupleList1, NewTuple) -&gt; TupleList2</a></li>
+        
+        <li><a href="#keytakeKeyNTupleList1gtvalueTupleTupleList2false">keytake(Key, N, TupleList1) -&gt; {value, Tuple, TupleList2} 
+             | false</a></li>
+        
+        <li><a href="#lastListgtLast">last(List) -&gt; Last</a></li>
+        
+        <li><a href="#mapFunList1gtList2">map(Fun, List1) -&gt; List2</a></li>
+        
+        <li><a href="#mapfoldlFunAcc0List1gtList2Acc1">mapfoldl(Fun, Acc0, List1) -&gt; {List2, Acc1}</a></li>
+        
+        <li><a href="#mapfoldrFunAcc0List1gtList2Acc1">mapfoldr(Fun, Acc0, List1) -&gt; {List2, Acc1}</a></li>
+        
+        <li><a href="#maxListgtMax">max(List) -&gt; Max</a></li>
+        
+        <li><a href="#memberElemListgtbool">member(Elem, List) -&gt; bool()</a></li>
+        
+        <li><a href="#mergeListOfListsgtList1">merge(ListOfLists) -&gt; List1</a></li>
+        
+        <li><a href="#mergeList1List2gtList3">merge(List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#mergeFunList1List2gtList3">merge(Fun, List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#merge3List1List2List3gtList4">merge3(List1, List2, List3) -&gt; List4</a></li>
+        
+        <li><a href="#minListgtMin">min(List) -&gt; Min</a></li>
+        
+        <li><a href="#nthNListgtElem">nth(N, List) -&gt; Elem</a></li>
+        
+        <li><a href="#nthtailNList1gtTail">nthtail(N, List1) -&gt; Tail</a></li>
+        
+        <li><a href="#partitionPredListgtSatisfyingNonSatisfying">partition(Pred, List) -&gt; {Satisfying, NonSatisfying}</a></li>
+        
+        <li><a href="#prefixList1List2gtbool">prefix(List1, List2) -&gt; bool()</a></li>
+        
+        <li><a href="#reverseList1gtList2">reverse(List1) -&gt; List2</a></li>
+        
+        <li><a href="#reverseList1TailgtList2">reverse(List1, Tail) -&gt; List2</a></li>
+        
+        <li><a href="#seqFromTogtSeq">seq(From, To) -&gt; Seq</a></li>
+        
+        <li><a href="#sortList1gtList2">sort(List1) -&gt; List2</a></li>
+        
+        <li><a href="#sortFunList1gtList2">sort(Fun, List1) -&gt; List2</a></li>
+        
+        <li><a href="#splitNList1gtList2List3">split(N, List1) -&gt; {List2, List3}</a></li>
+        
+        <li><a href="#splitwithPredListgtList1List2">splitwith(Pred, List) -&gt; {List1, List2}</a></li>
+        
+        <li><a href="#sublistList1LengtList2">sublist(List1, Len) -&gt; List2</a></li>
+        
+        <li><a href="#sublistList1StartLengtList2">sublist(List1, Start, Len) -&gt; List2</a></li>
+        
+        <li><a href="#subtractList1List2gtList3">subtract(List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#suffixList1List2gtbool">suffix(List1, List2) -&gt; bool()</a></li>
+        
+        <li><a href="#sumListgtnumber">sum(List) -&gt; number()</a></li>
+        
+        <li><a href="#takewhilePredList1gtList2">takewhile(Pred, List1) -&gt; List2</a></li>
+        
+        <li><a href="#ukeymergeNTupleList1TupleList2gtTupleList3">ukeymerge(N, TupleList1, TupleList2) -&gt; TupleList3</a></li>
+        
+        <li><a href="#ukeysortNTupleList1gtTupleList2">ukeysort(N, TupleList1) -&gt; TupleList2</a></li>
+        
+        <li><a href="#umergeListOfListsgtList1">umerge(ListOfLists) -&gt; List1</a></li>
+        
+        <li><a href="#umergeList1List2gtList3">umerge(List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#umergeFunList1List2gtList3">umerge(Fun, List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#umerge3List1List2List3gtList4">umerge3(List1, List2, List3) -&gt; List4</a></li>
+        
+        <li><a href="#unzipList1gtList2List3">unzip(List1) -&gt; {List2, List3}</a></li>
+        
+        <li><a href="#unzip3List1gtList2List3List4">unzip3(List1) -&gt; {List2, List3, List4}</a></li>
+        
+        <li><a href="#usortList1gtList2">usort(List1) -&gt; List2</a></li>
+        
+        <li><a href="#usortFunList1gtList2">usort(Fun, List1) -&gt; List2</a></li>
+        
+        <li><a href="#zipList1List2gtList3">zip(List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#zip3List1List2List3gtList4">zip3(List1, List2, List3) -&gt; List4</a></li>
+        
+        <li><a href="#zipwithCombineList1List2gtList3">zipwith(Combine, List1, List2) -&gt; List3</a></li>
+        
+        <li><a href="#zipwith3CombineList1List2List3gtList4">zipwith3(Combine, List1, List2, List3) -&gt; List4</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="allPredListgtbool"></a><b>all(Pred, List) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Pred(Elem)</tt> returns
+          <tt>true</tt> for all elements <tt>Elem</tt> in <tt>List</tt>,
+          otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="anyPredListgtbool"></a><b>any(Pred, List) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Pred(Elem)</tt> returns
+          <tt>true</tt> for at least one element <tt>Elem</tt> in
+          <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="appendListOfListsgtList1"></a><b>append(ListOfLists) -&gt; List1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ListOfLists = [List]</b><br/>
+        <b>List = List1 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list in which all the sub-lists of
+          <tt>ListOfLists</tt> have been appended. For example:</p>
+        <pre>
+&gt; <input>
+[1,2,3,a,b,4,5,6]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="appendList1List2gtList3"></a><b>append(List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new list <tt>List3</tt> which is made from
+          the elements of <tt>List1</tt> followed by the elements of
+          <tt>List2</tt>. For example:</p>
+        <pre>
+&gt; <input>
+"abcdef"</pre>
+        <p><tt>lists:append(A, B)</tt> is equivalent to <tt>A ++ B</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="concatThingsgtstring"></a><b>concat(Things) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Things = [Thing]</b><br/>
+        <b>&nbsp;Thing = atom() | integer() | float() | string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Concatenates the text representation of the elements
+          of <tt>Things</tt>. The elements of <tt>Things</tt> can be atoms,
+          integers, floats or strings.</p>
+        <pre>
+&gt; <input>
+"doc/file.3"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteElemList1gtList2"></a><b>delete(Elem, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Elem = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a copy of <tt>List1</tt> where the first element
+          matching <tt>Elem</tt> is deleted, if there is such an
+          element.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dropwhilePredList1gtList2"></a><b>dropwhile(Pred, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Drops elements <tt>Elem</tt> from <tt>List1</tt> while
+          <tt>Pred(Elem)</tt> returns <tt>true</tt> and returns
+          the remaining list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="duplicateNElemgtList"></a><b>duplicate(N, Elem) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = int()</b><br/>
+        <b>Elem = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list which contains N copies of the term
+          <tt>Elem</tt>. For example:</p>
+        <pre>
+&gt; <input>
+[xx,xx,xx,xx,xx]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterPredList1gtList2"></a><b>filter(Pred, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>List2</tt> is a list of all elements <tt>Elem</tt> in
+          <tt>List1</tt> for which <tt>Pred(Elem)</tt> returns
+          <tt>true</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flatlengthDeepListgtint"></a><b>flatlength(DeepList) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DeepList = [term() | DeepList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Equivalent to <tt>length(flatten(DeepList))</tt>, but more
+          efficient.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flatmapFunList1gtList2"></a><b>flatmap(Fun, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A) -&gt; [B]</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Takes a function from <tt>A</tt>s to lists of <tt>B</tt>s, and a
+          list of <tt>A</tt>s (<tt>List1</tt>) and produces a list of
+          <tt>B</tt>s by applying the function to every element in
+          <tt>List1</tt> and appending the resulting lists.</p>
+        <p>That is, <tt>flatmap</tt> behaves as if it had been defined as
+          follows:</p>
+        <code type="none">
+flatmap(Fun, List1) -&gt;
+    append(map(Fun, List1))</code>
+        <p>Example:</p>
+        <pre>
+&gt; <input>
+[a,a,b,b,c,c]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flattenDeepListgtList"></a><b>flatten(DeepList) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DeepList = [term() | DeepList]</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a flattened version of <tt>DeepList</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flattenDeepListTailgtList"></a><b>flatten(DeepList, Tail) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DeepList = [term() | DeepList]</b><br/>
+        <b>Tail = List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a flattened version of <tt>DeepList</tt> with the tail
+          <tt>Tail</tt> appended.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldlFunAcc0ListgtAcc1"></a><b>foldl(Fun, Acc0, List) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Elem, AccIn) -&gt; AccOut</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calls <tt>Fun(Elem, AccIn)</tt> on successive elements <tt>A</tt>
+          of <tt>List</tt>, starting with <tt>AccIn == Acc0</tt>.
+          <tt>Fun/2</tt> must return a new accumulator which is passed to
+          the next call. The function returns the final value of
+          the accumulator. <tt>Acc0</tt> is returned if the list is empty.
+          For example:</p>
+        <pre>
+&gt; <input>
+15
+&gt; <input>
+120</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldrFunAcc0ListgtAcc1"></a><b>foldr(Fun, Acc0, List) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Elem, AccIn) -&gt; AccOut</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Like <tt>foldl/3</tt>, but the list is traversed from right to
+          left. For example:</p>
+        <pre>
+&gt; <input>
+#Fun&lt;erl_eval.12.2225172&gt;
+&gt; <input>
+1 2 3 void
+&gt; <input>
+3 2 1 void</pre>
+        <p><tt>foldl/3</tt> is tail recursive and would usually be
+          preferred to <tt>foldr/3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foreachFunListgtvoid"></a><b>foreach(Fun, List) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Elem) -&gt; void()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calls <tt>Fun(Elem)</tt> for each element <tt>Elem</tt> in
+          <tt>List</tt>. This function is used for its side effects and
+          the evaluation order is defined to be the same as the order
+          of the elements in the list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keydeleteKeyNTupleList1gtTupleList2"></a><b>keydelete(Key, N, TupleList1) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a copy of <tt>TupleList1</tt> where the first
+          occurrence of a tuple whose <tt>N</tt>th element compares equal to
+          <tt>Key</tt> is deleted, if there is such a tuple.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keyfindKeyNTupleListgtTuplefalse"></a><b>keyfind(Key, N, TupleList) -&gt; Tuple | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList = [Tuple]</b><br/>
+        <b>Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the list of tuples <tt>TupleList</tt> for a
+          tuple whose <tt>N</tt>th element compares equal to <tt>Key</tt>.
+          Returns <tt>Tuple</tt> if such a tuple is found,
+          otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keymapFunNTupleList1gtTupleList2"></a><b>keymap(Fun, N, TupleList1) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Term1) -&gt; Term2</b><br/>
+        <b>&nbsp;Term1 = Term2 = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [tuple()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of tuples where, for each tuple in
+          <tt>TupleList1</tt>, the <tt>N</tt>th element <tt>Term1</tt> of the tuple
+          has been replaced with the result of calling
+          <tt>Fun(Term1)</tt>.</p>
+        <p>Examples:</p>
+        <pre>
+&gt; <input>
+#Fun&lt;erl_eval.6.10732646&gt;
+2&gt; <input>
+[{name,"jane",22},{name,"lizzie",20},{name,"lydia",15}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keymemberKeyNTupleListgtbool"></a><b>keymember(Key, N, TupleList) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if there is a tuple in <tt>TupleList</tt>
+          whose <tt>N</tt>th element compares equal to <tt>Key</tt>, otherwise
+          <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keymergeNTupleList1TupleList2gtTupleList3"></a><b>keymerge(N, TupleList1, TupleList2) -&gt; TupleList3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = TupleList3 = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>TupleList1</tt>
+          and <tt>TupleList2</tt>. The merge is performed on
+          the <tt>N</tt>th element of each tuple. Both <tt>TupleList1</tt> and
+          <tt>TupleList2</tt> must be key-sorted prior to evaluating this
+          function. When two tuples compare equal, the tuple from
+          <tt>TupleList1</tt> is picked before the tuple from
+          <tt>TupleList2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keyreplaceKeyNTupleList1NewTuplegtTupleList2"></a><b>keyreplace(Key, N, TupleList1, NewTuple) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>NewTuple = Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a copy of <tt>TupleList1</tt> where the first
+          occurrence of a <tt>T</tt> tuple whose <tt>N</tt>th element
+          compares equal to <tt>Key</tt> is replaced with
+          <tt>NewTuple</tt>, if there is such a tuple <tt>T</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keysearchKeyNTupleListgtvalueTuplefalse"></a><b>keysearch(Key, N, TupleList) -&gt; {value, Tuple} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList = [Tuple]</b><br/>
+        <b>Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the list of tuples <tt>TupleList</tt> for a
+          tuple whose <tt>N</tt>th element compares equal to <tt>Key</tt>.
+          Returns <tt>{value, Tuple}</tt> if such a tuple is found,
+          otherwise <tt>false</tt>.</p>
+      <note><p>This function is retained for backward compatibility.
+      The function <tt>lists:keyfind/3</tt> (introduced in R13A)
+      is in most cases more convenient.</p></note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keysortNTupleList1gtTupleList2"></a><b>keysort(N, TupleList1) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing the sorted elements of the list
+          <tt>TupleList1</tt>. Sorting is performed on the <tt>N</tt>th
+          element of the tuples.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keystoreKeyNTupleList1NewTuplegtTupleList2"></a><b>keystore(Key, N, TupleList1, NewTuple) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>NewTuple = Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a copy of <tt>TupleList1</tt> where the first
+          occurrence of a tuple <tt>T</tt> whose <tt>N</tt>th element
+          compares equal to <tt>Key</tt> is replaced with
+          <tt>NewTuple</tt>, if there is such a tuple <tt>T</tt>. If there
+          is no such tuple <tt>T</tt> a copy of <tt>TupleList1</tt> where
+          [<tt>NewTuple</tt>] has been appended to the end is
+          returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keytakeKeyNTupleList1gtvalueTupleTupleList2false"></a><b>keytake(Key, N, TupleList1) -&gt; {value, Tuple, TupleList2} 
+             | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the list of tuples <tt>TupleList1</tt> for a tuple
+          whose <tt>N</tt>th element compares equal to <tt>Key</tt>.
+          Returns <tt>{value, Tuple, TupleList2}</tt> if such a tuple is
+          found, otherwise <tt>false</tt>. <tt>TupleList2</tt> is a copy
+          of <tt>TupleList1</tt> where the first occurrence of
+          <tt>Tuple</tt> has been removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lastListgtLast"></a><b>last(List) -&gt; Last</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()], length(List) &gt; 0</b><br/>
+        <b>Last = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the last element in <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapFunList1gtList2"></a><b>map(Fun, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A) -&gt; B</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Takes a function from <tt>A</tt>s to <tt>B</tt>s, and a list of
+          <tt>A</tt>s and produces a list of <tt>B</tt>s by applying
+          the function to every element in the list. This function is
+          used to obtain the return values. The evaluation order is
+          implementation dependent.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapfoldlFunAcc0List1gtList2Acc1"></a><b>mapfoldl(Fun, Acc0, List1) -&gt; {List2, Acc1}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A, AccIn) -&gt; {B, AccOut}</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>mapfold</tt> combines the operations of <tt>map/2</tt> and
+          <tt>foldl/3</tt> into one pass. An example, summing
+          the elements in a list and double them at the same time:</p>
+        <pre>
+&gt; <input>
+<input>
+{[2,4,6,8,10],15}</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapfoldrFunAcc0List1gtList2Acc1"></a><b>mapfoldr(Fun, Acc0, List1) -&gt; {List2, Acc1}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A, AccIn) -&gt; {B, AccOut}</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>mapfold</tt> combines the operations of <tt>map/2</tt> and
+          <tt>foldr/3</tt> into one pass.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="maxListgtMax"></a><b>max(List) -&gt; Max</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()], length(List) &gt; 0</b><br/>
+        <b>Max = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the first element of <tt>List</tt> that compares
+          greater than or equal to all other elements of
+          <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memberElemListgtbool"></a><b>member(Elem, List) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Elem = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Elem</tt> matches some element of
+          <tt>List</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mergeListOfListsgtList1"></a><b>merge(ListOfLists) -&gt; List1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ListOfLists = [List]</b><br/>
+        <b>List = List1 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging all the sub-lists
+          of <tt>ListOfLists</tt>. All sub-lists must be sorted prior to
+          evaluating this function. When two elements compare equal,
+          the element from the sub-list with the lowest position in
+          <tt>ListOfLists</tt> is picked before the other element.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mergeList1List2gtList3"></a><b>merge(List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt> and
+          <tt>List2</tt>. Both <tt>List1</tt> and <tt>List2</tt> must be
+          sorted prior to evaluating this function. When two elements
+          compare equal, the element from <tt>List1</tt> is picked
+          before the element from <tt>List2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mergeFunList1List2gtList3"></a><b>merge(Fun, List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A, B) -&gt; bool()</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>List3 = [A | B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt> and
+          <tt>List2</tt>. Both <tt>List1</tt> and <tt>List2</tt> must be
+          sorted according to the <seealso marker="#ordering_function">ordering function</seealso>
+          <tt>Fun</tt> prior to evaluating this function. <tt>Fun(A,
+          B)</tt> should return <tt>true</tt> if <tt>A</tt> comes before
+          <tt>B</tt> in the ordering, <tt>false</tt> otherwise. When two
+          elements compare equal, the element from <tt>List1</tt> is
+          picked before the element from <tt>List2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="merge3List1List2List3gtList4"></a><b>merge3(List1, List2, List3) -&gt; List4</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = List4 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt>,
+          <tt>List2</tt> and <tt>List3</tt>. All of <tt>List1</tt>,
+          <tt>List2</tt> and <tt>List3</tt> must be sorted prior to
+          evaluating this function. When two elements compare equal,
+          the element from <tt>List1</tt>, if there is such an element,
+          is picked before the other element, otherwise the element
+          from <tt>List2</tt> is picked before the element from
+          <tt>List3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="minListgtMin"></a><b>min(List) -&gt; Min</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()], length(List) &gt; 0</b><br/>
+        <b>Min = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the first element of <tt>List</tt> that compares
+          less than or equal to all other elements of
+          <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nthNListgtElem"></a><b>nth(N, List) -&gt; Elem</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 1..length(List)</b><br/>
+        <b>List = [term()]</b><br/>
+        <b>Elem = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>N</tt>th element of <tt>List</tt>. For example:</p>
+        <pre>
+&gt; <input>
+c</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nthtailNList1gtTail"></a><b>nthtail(N, List1) -&gt; Tail</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 0..length(List1)</b><br/>
+        <b>List1 = Tail = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>N</tt>th tail of <tt>List</tt>, that is, the sublist of
+          <tt>List</tt> starting at <tt>N+1</tt> and continuing up to
+          the end of the list. For example:</p>
+        <pre>
+&gt; <input>
+[d,e]
+&gt; <input>
+[d,e]
+&gt; <input>
+[a,b,c,d,e]
+&gt; <input>
+[]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="partitionPredListgtSatisfyingNonSatisfying"></a><b>partition(Pred, List) -&gt; {Satisfying, NonSatisfying}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List = Satisfying = NonSatisfying = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Partitions <tt>List</tt> into two lists, where the first list
+          contains all elements for which <tt>Pred(Elem)</tt> returns
+          <tt>true</tt>, and the second list contains all elements for
+          which <tt>Pred(Elem)</tt> returns <tt>false</tt>.</p>
+        <p>Examples:</p>
+        <pre>
+&gt; <input>
+{[1,3,5,7],[2,4,6]}
+&gt; <input>
+{[a,b,c,d,e],[1,2,3,4]}</pre>
+        <p>See also <tt>splitwith/2</tt> for a different way to partition
+          a list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="prefixList1List2gtbool"></a><b>prefix(List1, List2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>List1</tt> is a prefix of
+          <tt>List2</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reverseList1gtList2"></a><b>reverse(List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with the top level elements in <tt>List1</tt>
+          in reverse order.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reverseList1TailgtList2"></a><b>reverse(List1, Tail) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = Tail = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with the top level elements in <tt>List1</tt>
+          in reverse order, with the tail <tt>Tail</tt> appended. For
+          example:</p>
+        <pre>
+&gt; <input>
+[4,3,2,1,a,b,c]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seqFromTogtSeq"></a><b>seq(From, To) -&gt; Seq<br/>seq(From, To, Incr) -&gt; Seq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>From = To = Incr = int()</b><br/>
+        <b>Seq = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a sequence of integers which starts with <tt>From</tt>
+          and contains the successive results of adding <tt>Incr</tt> to
+          the previous element, until <tt>To</tt> has been reached or
+          passed (in the latter case, <tt>To</tt> is not an element of
+          the sequence). <tt>Incr</tt> defaults to 1.</p>
+        <p>Failure: If <tt>To<From-Incr</tt> and <tt>Incr</tt>
+          is positive, or if <tt>To&gt;From-Incr</tt> and <tt>Incr</tt> is
+          negative, or if <tt>Incr==0</tt> and <tt>From/=To</tt>.</p>
+        <p>The following equalities hold for all sequences:</p>
+        <code type="none">
+length(lists:seq(From, To)) == To-From+1
+length(lists:seq(From, To, Incr)) == (To-From+Incr) div Incr</code>
+        <p>Examples:</p>
+        <pre>
+&gt; <input>
+[1,2,3,4,5,6,7,8,9,10]
+&gt; <input>
+[1,4,7,10,13,16,19]
+&gt; <input>
+[]
+&gt; <input>
+[]
+&gt; <input>
+[1]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sortList1gtList2"></a><b>sort(List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing the sorted elements of
+          <tt>List1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sortFunList1gtList2"></a><b>sort(Fun, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Elem1, Elem2) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem1 = Elem2 = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing the sorted elements of
+          <tt>List1</tt>, according to the <seealso marker="#ordering_function">ordering function</seealso>
+          <tt>Fun</tt>. <tt>Fun(A, B)</tt> should return <tt>true</tt> if
+          <tt>A</tt> comes before <tt>B</tt> in the ordering, <tt>false</tt>
+          otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="splitNList1gtList2List3"></a><b>split(N, List1) -&gt; {List2, List3}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 0..length(List1)</b><br/>
+        <b>List1 = List2 = List3 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Splits <tt>List1</tt> into <tt>List2</tt> and <tt>List3</tt>.
+          <tt>List2</tt> contains the first <tt>N</tt> elements and
+          <tt>List3</tt> the rest of the elements (the <tt>N</tt>th tail).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="splitwithPredListgtList1List2"></a><b>splitwith(Pred, List) -&gt; {List1, List2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List = List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Partitions <tt>List</tt> into two lists according to
+          <tt>Pred</tt>. <tt>splitwith/2</tt> behaves as if it is defined
+          as follows:</p>
+        <code type="none">
+splitwith(Pred, List) -&gt; 
+    {takewhile(Pred, List), dropwhile(Pred, List)}.</code>
+        <p>Examples:</p>
+        <pre>
+&gt; <input>
+{[1],[2,3,4,5,6,7]}
+&gt; <input>
+{[a,b],[1,c,d,2,3,4,e]}</pre>
+        <p>See also <tt>partition/2</tt> for a different way to partition
+          a list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sublistList1LengtList2"></a><b>sublist(List1, Len) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+        <b>Len = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sub-list of <tt>List1</tt> starting at position 1
+          and with (max) <tt>Len</tt> elements. It is not an error for
+          <tt>Len</tt> to exceed the length of the list -- in that case
+          the whole list is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sublistList1StartLengtList2"></a><b>sublist(List1, Start, Len) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+        <b>Start = 1..(length(List1)+1)</b><br/>
+        <b>Len = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sub-list of <tt>List1</tt> starting at <tt>Start</tt>
+          and with (max) <tt>Len</tt> elements. It is not an error for
+          <tt>Start+Len</tt> to exceed the length of the list.</p>
+        <pre>
+&gt; <input>
+[2,3]
+&gt; <input>
+[2,3,4]
+&gt; <input>
+[]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subtractList1List2gtList3"></a><b>subtract(List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new list <tt>List3</tt> which is a copy of
+          <tt>List1</tt>, subjected to the following procedure: for each
+          element in <tt>List2</tt>, its first occurrence in <tt>List1</tt>
+          is deleted. For example:</p>
+        <pre>
+&gt; <input>
+"312".</pre>
+        <p><tt>lists:subtract(A, B)</tt> is equivalent to <tt>A -- B</tt>.</p>
+	<warning><p>The complexity of <tt>lists:subtract(A, B)</tt> is proportional
+	to <tt>length(A)*length(B)</tt>, meaning that it will be very slow if
+	both <tt>A</tt> and <tt>B</tt> are long lists.
+	(Using ordered lists and
+	<seealso marker="ordsets#subtract/2">ordsets:subtract/2</seealso>
+	is a much better choice if both lists are long.)</p></warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="suffixList1List2gtbool"></a><b>suffix(List1, List2) -&gt; bool()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>List1</tt> is a suffix of
+          <tt>List2</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sumListgtnumber"></a><b>sum(List) -&gt; number()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [number()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sum of the elements in <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="takewhilePredList1gtList2"></a><b>takewhile(Pred, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun(Elem) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Takes elements <tt>Elem</tt> from <tt>List1</tt> while
+          <tt>Pred(Elem)</tt> returns <tt>true</tt>, that is,
+          the function returns the longest prefix of the list for which
+          all elements satisfy the predicate.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ukeymergeNTupleList1TupleList2gtTupleList3"></a><b>ukeymerge(N, TupleList1, TupleList2) -&gt; TupleList3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = TupleList3 = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>TupleList1</tt>
+          and <tt>TupleList2</tt>. The merge is performed on the
+          <tt>N</tt>th element of each tuple. Both <tt>TupleList1</tt> and
+          <tt>TupleList2</tt> must be key-sorted without duplicates
+          prior to evaluating this function. When two tuples compare
+          equal, the tuple from <tt>TupleList1</tt> is picked and the
+          one from <tt>TupleList2</tt> deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ukeysortNTupleList1gtTupleList2"></a><b>ukeysort(N, TupleList1) -&gt; TupleList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = 1..tuple_size(Tuple)</b><br/>
+        <b>TupleList1 = TupleList2 = [Tuple]</b><br/>
+        <b>&nbsp;Tuple = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing the sorted elements of the list
+          <tt>TupleList1</tt> where all but the first tuple of the
+          tuples comparing equal have been deleted. Sorting is
+          performed on the <tt>N</tt>th element of the tuples.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="umergeListOfListsgtList1"></a><b>umerge(ListOfLists) -&gt; List1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ListOfLists = [List]</b><br/>
+        <b>List = List1 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging all the sub-lists
+          of <tt>ListOfLists</tt>. All sub-lists must be sorted and
+          contain no duplicates prior to evaluating this function.
+          When two elements compare equal, the element from the
+          sub-list with the lowest position in <tt>ListOfLists</tt> is
+          picked and the other one deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="umergeList1List2gtList3"></a><b>umerge(List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt> and
+          <tt>List2</tt>. Both <tt>List1</tt> and <tt>List2</tt> must be
+          sorted and contain no duplicates prior to evaluating this
+          function. When two elements compare equal, the element from
+          <tt>List1</tt> is picked and the one from <tt>List2</tt>
+          deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="umergeFunList1List2gtList3"></a><b>umerge(Fun, List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(A, B) -&gt; bool()</b><br/>
+        <b>List1 = [A]</b><br/>
+        <b>List2 = [B]</b><br/>
+        <b>List3 = [A | B]</b><br/>
+        <b>&nbsp;A = B = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt> and
+          <tt>List2</tt>. Both <tt>List1</tt> and <tt>List2</tt> must be
+          sorted according to the <seealso marker="#ordering_function">ordering function</seealso>
+          <tt>Fun</tt> and contain no duplicates prior to evaluating
+          this function. <tt>Fun(A, B)</tt> should return <tt>true</tt> if
+          <tt>A</tt> comes before <tt>B</tt> in the ordering, <tt>false</tt>
+          otherwise. When two elements compare equal, the element from
+          <tt>List1</tt> is picked and the one from <tt>List2</tt>
+          deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="umerge3List1List2List3gtList4"></a><b>umerge3(List1, List2, List3) -&gt; List4</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = List3 = List4 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the sorted list formed by merging <tt>List1</tt>,
+          <tt>List2</tt> and <tt>List3</tt>. All of <tt>List1</tt>,
+          <tt>List2</tt> and <tt>List3</tt> must be sorted and contain no
+          duplicates prior to evaluating this function. When two
+          elements compare equal, the element from <tt>List1</tt> is
+          picked if there is such an element, otherwise the element
+          from <tt>List2</tt> is picked, and the other one deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unzipList1gtList2List3"></a><b>unzip(List1) -&gt; {List2, List3}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = [{X, Y}]</b><br/>
+        <b>List2 = [X]</b><br/>
+        <b>List3 = [Y]</b><br/>
+        <b>&nbsp;X = Y = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>"Unzips" a list of two-tuples into two lists, where the first
+          list contains the first element of each tuple, and the second
+          list contains the second element of each tuple.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unzip3List1gtList2List3List4"></a><b>unzip3(List1) -&gt; {List2, List3, List4}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = [{X, Y, Z}]</b><br/>
+        <b>List2 = [X]</b><br/>
+        <b>List3 = [Y]</b><br/>
+        <b>List4 = [Z]</b><br/>
+        <b>&nbsp;X = Y = Z = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>"Unzips" a list of three-tuples into three lists, where
+          the first list contains the first element of each tuple,
+          the second list contains the second element of each tuple, and
+          the third list contains the third element of each tuple.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="usortList1gtList2"></a><b>usort(List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing the sorted elements of
+          <tt>List1</tt> where all but the first element of the elements
+          comparing equal have been deleted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="usortFunList1gtList2"></a><b>usort(Fun, List1) -&gt; List2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Elem1, Elem2) -&gt; bool()</b><br/>
+        <b>&nbsp;Elem1 = Elem2 = term()</b><br/>
+        <b>List1 = List2 = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list which contains the sorted elements of
+          <tt>List1</tt> where all but the first element of the elements
+          comparing equal according to the <seealso marker="#ordering_function">ordering function</seealso>
+          <tt>Fun</tt> have been deleted. <tt>Fun(A, B)</tt> should return
+          <tt>true</tt> if <tt>A</tt> comes before <tt>B</tt> in the
+          ordering, <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zipList1List2gtList3"></a><b>zip(List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = [X]</b><br/>
+        <b>List2 = [Y]</b><br/>
+        <b>List3 = [{X, Y}]</b><br/>
+        <b>&nbsp;X = Y = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>"Zips" two lists of equal length into one list of two-tuples,
+          where the first element of each tuple is taken from the first
+          list and the second element is taken from corresponding
+          element in the second list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zip3List1List2List3gtList4"></a><b>zip3(List1, List2, List3) -&gt; List4</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List1 = [X]</b><br/>
+        <b>List2 = [Y]</b><br/>
+        <b>List3 = [Z]</b><br/>
+        <b>List3 = [{X, Y, Z}]</b><br/>
+        <b>&nbsp;X = Y = Z = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>"Zips" three lists of equal length into one list of
+          three-tuples, where the first element of each tuple is taken
+          from the first list, the second element is taken from
+          corresponding element in the second list, and the third
+          element is taken from the corresponding element in the third
+          list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zipwithCombineList1List2gtList3"></a><b>zipwith(Combine, List1, List2) -&gt; List3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Combine = fun(X, Y) -&gt; T</b><br/>
+        <b>List1 = [X]</b><br/>
+        <b>List2 = [Y]</b><br/>
+        <b>List3 = [T]</b><br/>
+        <b>&nbsp;X = Y = T = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Combine the elements of two lists of equal length into one
+          list. For each pair <tt>X, Y</tt> of list elements from the two
+          lists, the element in the result list will be
+          <tt>Combine(X, Y)</tt>.</p>
+        <p><tt>zipwith(fun(X, Y) -&gt; {X,Y} end, List1, List2)</tt> is
+          equivalent to <tt>zip(List1, List2)</tt>.</p>
+        <p>Example:</p>
+        <pre>
+&gt; <input>
+[5,7,9]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zipwith3CombineList1List2List3gtList4"></a><b>zipwith3(Combine, List1, List2, List3) -&gt; List4</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Combine = fun(X, Y, Z) -&gt; T</b><br/>
+        <b>List1 = [X]</b><br/>
+        <b>List2 = [Y]</b><br/>
+        <b>List3 = [Z]</b><br/>
+        <b>List4 = [T]</b><br/>
+        <b>&nbsp;X = Y = Z = T = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Combine the elements of three lists of equal length into one
+          list. For each triple <tt>X, Y, Z</tt> of list elements from
+          the three lists, the element in the result list will be
+          <tt>Combine(X, Y, Z)</tt>.</p>
+        <p><tt>zipwith3(fun(X, Y, Z) -&gt; {X,Y,Z} end, List1, List2, List3)</tt> is equivalent to <tt>zip3(List1, List2, List3)</tt>.</p>
+        <p>Examples:</p>
+        <pre>
+&gt; <input>
+[12,15,18]
+&gt; <input>
+[[a,x,1],[b,y,2],[c,z,3]]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cosNotificationApp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cosNotificationApp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module contains the functions for starting and stopping the application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_structured_eventDomainTypeEventVariableHeaderFilterableBodyBodyRemaindergtReply">create_structured_event(Domain, Type, Event, VariableHeader, FilterableBody, BodyRemainder) -&gt; Reply</a></li>
+        
+        <li><a href="#installgtReturn">install() -&gt; Return</a></li>
+        
+        <li><a href="#installSecondsgtReturn">install(Seconds) -&gt; Return</a></li>
+        
+        <li><a href="#install_eventSecondsgtReturn">install_event(Seconds) -&gt; Return</a></li>
+        
+        <li><a href="#install_eventgtReturn">install_event() -&gt; Return</a></li>
+        
+        <li><a href="#startgtReturn">start() -&gt; Return</a></li>
+        
+        <li><a href="#start_factoryOptionsgtChannelFactory">start_factory(Options) -&gt; ChannelFactory</a></li>
+        
+        <li><a href="#start_factorygtChannelFactory">start_factory() -&gt; ChannelFactory</a></li>
+        
+        <li><a href="#start_filter_factorygtFilterFactory">start_filter_factory() -&gt; FilterFactory</a></li>
+        
+        <li><a href="#start_global_factoryOptionsgtChannelFactory">start_global_factory(Options) -&gt; ChannelFactory</a></li>
+        
+        <li><a href="#start_global_factorygtChannelFactory">start_global_factory() -&gt; ChannelFactory</a></li>
+        
+        <li><a href="#stopgtReturn">stop() -&gt; Return</a></li>
+        
+        <li><a href="#stop_factoryChannelFactorygtReply">stop_factory(ChannelFactory) -&gt; Reply</a></li>
+        
+        <li><a href="#stop_filter_factoryFilterFactorygtReply">stop_filter_factory(FilterFactory) -&gt; Reply</a></li>
+        
+        <li><a href="#type_checkgtReply">type_check() -&gt; Reply</a></li>
+        
+        <li><a href="#uninstallgtReturn">uninstall() -&gt; Return</a></li>
+        
+        <li><a href="#uninstallSecondsgtReturn">uninstall(Seconds) -&gt; Return</a></li>
+        
+        <li><a href="#uninstall_eventgtReturn">uninstall_event() -&gt; Return</a></li>
+        
+        <li><a href="#uninstall_eventSecondsgtReturn">uninstall_event(Seconds) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="installgtReturn"></a><b>install() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosNotification application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="installSecondsgtReturn"></a><b>install(Seconds) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosNotification application using <tt>Seconds</tt>
+          delay between each block, currently 6, of IFR-registrations. This approach
+          spreads the IFR database access over a period of time to allow other
+          applications to run smother.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="install_eventgtReturn"></a><b>install_event() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation, which may <em>only</em> be used if it is impossible to
+          upgrade to <em>cosEvent-2.0</em> or later, installs the necessary 
+          cosEvent interfaces. If cosEvent-2.0 is available, use
+          <tt>cosEventApp:install()</tt> instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="install_eventSecondsgtReturn"></a><b>install_event(Seconds) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation, which may <em>only</em> be used if it is impossible to
+          upgrade to <em>cosEvent-2.0</em> or later, installs the necessary cosEvent
+          interfaces using <tt>Seconds</tt> delay between each block of
+          IFR-registrations.  If cosEvent-2.0 is available, use
+          <tt>cosEventApp:install()</tt> instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallgtReturn"></a><b>uninstall() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosNotification application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallSecondsgtReturn"></a><b>uninstall(Seconds) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosNotification application using <tt>Seconds</tt>
+          delay between each block, currently 6, of IFR-unregistrations. This approach
+          spreads the IFR database access over a period of time to allow other
+          applications to run smother.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstall_eventgtReturn"></a><b>uninstall_event() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the inherrited cosEvent interfaces. If cosEvent
+          is in use this function may not be used. This function may only be used if 
+          <tt>cosNotificationApp:install_event/1/2</tt> was used. If not, use
+          <tt>cosEventApp:uninstall()</tt> instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstall_eventSecondsgtReturn"></a><b>uninstall_event(Seconds) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the inherrited cosEvent interfaces, using <tt>Seconds</tt>
+          delay between each block of IFR-unregistrations.  If cosEvent
+          is in use this function may not be used.  This function may only be used if 
+          <tt>cosNotificationApp:install_event/1/2</tt> was used. If not, use
+          <tt>cosEventApp:uninstall()</tt> instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtReturn"></a><b>start() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts the cosNotification application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtReturn"></a><b>stop() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the cosNotification application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_global_factorygtChannelFactory"></a><b>start_global_factory() -&gt; ChannelFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a 
+          <seealso marker="CosNotifyChannelAdmin_EventChannelFactory">Event Channel Factory</seealso>
+          should be used for a multi-node Orber.
+          The Factory is used to create a new 
+          <seealso marker="CosNotifyChannelAdmin_EventChannel">channel</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_global_factoryOptionsgtChannelFactory"></a><b>start_global_factory(Options) -&gt; ChannelFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+        <b>Option = {pullInterval, Seconds} | {filterOp, Op} | {gcTime, Seconds} | {gcLimit, Anount} | {timeService, #objref}</b><br/>
+        <b>ChannelFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a 
+          <seealso marker="CosNotifyChannelAdmin_EventChannelFactory">Event Channel Factory</seealso> and
+          should be used for a multi-node Orber.
+          The Factory is used to create a new 
+          <seealso marker="CosNotifyChannelAdmin_EventChannel">channel</seealso>. </p>
+        <p></p>
+        <list type="bulleted">
+          <item><tt>{pullInterval, Seconds}</tt> - determine how often Proxy Pull 
+           Consumers will check for new events with the client application. The
+           default value is 20 seconds.</item>
+          <item><tt>{filterOp, OperationType}</tt> - determine which type of Administrator
+           objects should be started, i.e., <tt>'OR_OP'</tt> or <tt>'AND_OP'</tt>.
+           The default value is <tt>'OR_OP'</tt>.</item>
+          <item><tt>{timeService, TimeServiceObj | 'undefined'}</tt> - to be able to use
+           Start and/or Stop QoS this option must be used. See the function <tt>start_time_service/2</tt>
+           in the <tt>cosTime</tt> application. The default value is <tt>'undefined'</tt>.</item>
+          <item><tt>{filterOp, OperationType}</tt> - determine which type of Administrator
+           objects should be started, i.e., <tt>'OR_OP'</tt> or <tt>'AND_OP'</tt>.
+           The default value is <tt>'OR_OP'</tt>.</item>
+          <item><tt>{gcTime, Seconds}</tt> - this option determines how often, for example, proxies
+           will garbage collect expired events. The default value is 60.</item>
+          <item><tt>{gcLimit, Amount}</tt> - determines how many events will be stored before, for
+           example, proxies will garbage collect expired events. The default value is 50. This
+           option is tightly coupled with the QoS property <tt>MaxEventsPerConsumer</tt>, i.e.,
+           the <tt>gcLimit</tt> should be less than <tt>MaxEventsPerConsumer</tt> and greater than 0.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factorygtChannelFactory"></a><b>start_factory() -&gt; ChannelFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a 
+          <seealso marker="CosNotifyChannelAdmin_EventChannelFactory">Event Channel Factory</seealso>.
+          The Factory is used to create a new 
+          <seealso marker="CosNotifyChannelAdmin_EventChannel">channel</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_factoryOptionsgtChannelFactory"></a><b>start_factory(Options) -&gt; ChannelFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+        <b>Option = {pullInterval, Seconds} | {filterOp, Op} | {gcTime, Seconds} | {gcLimit, Amount} | {timeService, #objref}</b><br/>
+        <b>ChannelFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a 
+          <seealso marker="CosNotifyChannelAdmin_EventChannelFactory">Event Channel Factory</seealso>.
+          The Factory is used to create a new 
+          <seealso marker="CosNotifyChannelAdmin_EventChannel">channel</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_factoryChannelFactorygtReply"></a><b>stop_factory(ChannelFactory) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stop the target channel factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_filter_factorygtFilterFactory"></a><b>start_filter_factory() -&gt; FilterFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FilterFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a 
+          <seealso marker="CosNotifyFilter_FilterFactory">Filter Factory</seealso>.
+          The Factory is used to create a new 
+          <seealso marker="CosNotifyFilter_Filter">Filter's</seealso> and
+          <seealso marker="CosNotifyFilter_MappingFilter">MappingFilter's</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_filter_factoryFilterFactorygtReply"></a><b>stop_filter_factory(FilterFactory) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FilterFactory = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stop the target filter factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_structured_eventDomainTypeEventVariableHeaderFilterableBodyBodyRemaindergtReply"></a><b>create_structured_event(Domain, Type, Event, VariableHeader, FilterableBody, BodyRemainder) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Domain = string()</b><br/>
+        <b>Type = string()</b><br/>
+        <b>Event = string()</b><br/>
+        <b>VariableHeader = [CosNotification::Property]</b><br/>
+        <b>FilterableBody = [CosNotification::Property]</b><br/>
+        <b>BodyRemainder = #any data-type</b><br/>
+        <b>Reply = CosNotification::StructuredEvent | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>An easy way to create a structured event is to use this function.
+          Simple typechecks are performed and if one of the arguments is not
+          correct a 'BAD_PARAM' exception is thrown.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="type_checkgtReply"></a><b>type_check() -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reply = true | false</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the value of the configuration parameter 
+          <tt>type_check</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

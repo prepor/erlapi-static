@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyFilter_Filter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyFilter_Filter</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_constraint_grammarFiltergtGrammar">_get_constraint_grammar(Filter) -&gt; Grammar</a></li>
+        
+        <li><a href="#add_constraintsFilterConstraintExpSeqgtReply">add_constraints(Filter, ConstraintExpSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#attach_callbackFilterNotifySubscribegtCallbackID">attach_callback(Filter, NotifySubscribe) -&gt; CallbackID</a></li>
+        
+        <li><a href="#destroyFiltergtok">destroy(Filter) -&gt; ok</a></li>
+        
+        <li><a href="#detach_callbackFilterCallbackIDgtReply">detach_callback(Filter, CallbackID) -&gt; Reply</a></li>
+        
+        <li><a href="#get_all_constraintsFiltergtConstraintInfoSeq">get_all_constraints(Filter) -&gt; ConstraintInfoSeq</a></li>
+        
+        <li><a href="#get_callbacksFiltergtCallbackIDSeq">get_callbacks(Filter) -&gt; CallbackIDSeq</a></li>
+        
+        <li><a href="#get_constraintsFilterConstraintIDSeqgtReply">get_constraints(Filter, ConstraintIDSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#matchFilterEventgtReply">match(Filter, Event) -&gt; Reply</a></li>
+        
+        <li><a href="#match_structuredFilterEventgtReply">match_structured(Filter, Event) -&gt; Reply</a></li>
+        
+        <li><a href="#modify_constraintsFilterConstraintIDSeqConstraintInfoSeqgtReply">modify_constraints(Filter, ConstraintIDSeq, ConstraintInfoSeq) -&gt; Reply</a></li>
+        
+        <li><a href="#remove_all_constraintsFiltergtok">remove_all_constraints(Filter) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_constraint_grammarFiltergtGrammar"></a><b>_get_constraint_grammar(Filter) -&gt; Grammar</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>Grammar = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns which type of Grammar the Filter uses. Currently, only <tt>"EXTENDED_TCL"</tt> is supported.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_constraintsFilterConstraintExpSeqgtReply"></a><b>add_constraints(Filter, ConstraintExpSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>ConstraintExpSeq = [Constraint]</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+        <b>Reply = ConstraintInfoSeq | {'EXCEPTION', #'CosNotifyFilter_InvalidConstraint'{constr}}</b><br/>
+        <b>constr = ConstraintExp</b><br/>
+        <b>ConstraintInfoSeq = [ConstraintInfo]</b><br/>
+        <b>ConstraintInfo = #'CosNotifyFilter_ConstraintInfo'{constraint_expression, constraint_id}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Initially, Filters do not contain any constraints, hence, all events will be forwarded.
+          The <tt>add_constraints/2</tt> operation allow us to add constraints to the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="modify_constraintsFilterConstraintIDSeqConstraintInfoSeqgtReply"></a><b>modify_constraints(Filter, ConstraintIDSeq, ConstraintInfoSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>ConstraintIDSeq = [ConstraintID]</b><br/>
+        <b>ConstraintID = long()</b><br/>
+        <b>ConstraintInfoSeq = [ConstraintInfo]</b><br/>
+        <b>ConstraintInfo = #'CosNotifyFilter_ConstraintInfo'{constraint_expression, constraint_id}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosNotifyFilter_InvalidConstraint'{constr}} | {'EXCEPTION', #'CosNotifyFilter_ConstraintNotFound'{id}}</b><br/>
+        <b>constr = ConstraintExp</b><br/>
+        <b>id = long()</b><br/>
+        <b>ConstraintExp = #'CosNotifyFilter_ConstraintExp'{event_types, constraint_expr}</b><br/>
+        <b>event_types = #'CosNotification_EventTypeSeq'{}</b><br/>
+        <b>constraint_expr = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is invoked by a client in order to modify the constraints associated
+          with the target object. The constraints related to the Id's in the parameter sequence
+          <tt>ConstraintIDSeq</tt> will, if all values are valid, be deleted. The <tt>ConstraintInfoSeq</tt>
+          parameter contains of Id-Expression pairs and a constraint matching one of the unique
+          Id's will, if all input values are correct, be updated. If the parameters contain incorrect
+          data en exception will be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_constraintsFilterConstraintIDSeqgtReply"></a><b>get_constraints(Filter, ConstraintIDSeq) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>ConstraintIDSeq = [ConstraintID]</b><br/>
+        <b>ConstraintID = long()</b><br/>
+        <b>Reply = ConstraintInfoSeq | {'EXCEPTION', #'CosNotifyFilter_ConstraintNotFound'{id}}</b><br/>
+        <b>ConstraintInfoSeq = [ConstraintInfo]</b><br/>
+        <b>ConstraintInfo = #'CosNotifyFilter_ConstraintInfo'{constraint_expression, constraint_id}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = id = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation return a sequence of ConstraintInfo's, related to the given ConstraintID's,
+          associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_constraintsFiltergtConstraintInfoSeq"></a><b>get_all_constraints(Filter) -&gt; ConstraintInfoSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>ConstraintInfoSeq = [ConstraintInfo]</b><br/>
+        <b>ConstraintInfo = #'CosNotifyFilter_ConstraintInfo'{constraint_expression, constraint_id}</b><br/>
+        <b>constraint_expression = ConstraintExp</b><br/>
+        <b>constraint_id = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>All constraints, and their unique Id, associated with the target object will be returned by this operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_all_constraintsFiltergtok"></a><b>remove_all_constraints(Filter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>All constraints associated with the target object are removed by this operation and, since
+          the the target object no longer contain any constraints, true will always be the result of
+          any match operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyFiltergtok"></a><b>destroy(Filter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation terminates the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="matchFilterEventgtReply"></a><b>match(Filter, Event) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>Event = #any</b><br/>
+        <b>Reply = boolean() | {'EXCEPTION', #'CosNotifyFilter_UnsupportedFilterableData'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation accepts an <tt>#any{}</tt> event and returns <tt>true</tt> if it satisfies
+          at least one constraint. If the event contains data of the wrong type, e.g., should be 
+          a string() but in fact i a short(), an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="match_structuredFilterEventgtReply"></a><b>match_structured(Filter, Event) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>Event = #'CosNotification_StructuredEvent'{}</b><br/>
+        <b>Reply = boolean() | {'EXCEPTION', #'CosNotifyFilter_UnsupportedFilterableData'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is similar to the <tt>match</tt> operation but accepts structured
+          events instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="attach_callbackFilterNotifySubscribegtCallbackID"></a><b>attach_callback(Filter, NotifySubscribe) -&gt; CallbackID</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>NotifySubscribe = #objref</b><br/>
+        <b>CallbackID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects a NotifySubscribe object, which should be informed
+          when the target object's constraints are updated. A unique Id is returned
+          which must be stored if we ever want to detach the callback object in the future.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="detach_callbackFilterCallbackIDgtReply"></a><b>detach_callback(Filter, CallbackID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>CallbackID = long()</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosNotifyFilter_CallbackNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the target object has an associated callback that matches the supplied
+          Id it will be removed and longer informed of any updates. If no object 
+          with a matching Id is found an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_callbacksFiltergtCallbackIDSeq"></a><b>get_callbacks(Filter) -&gt; CallbackIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = #objref</b><br/>
+        <b>CallbackIDSeq = [CallbackID]</b><br/>
+        <b>CallbackID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a sequence of all connected NotifySubscribe object Id's.
+          If no callbacks are associated with the target object the list will be empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

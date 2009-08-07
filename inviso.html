@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>inviso</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />inviso</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>With the <tt>inviso</tt> API runtime components can be started and tracing managed across a network of distributed Erlang nodes, using a control component also started with <tt>inviso</tt> API functions.</p>
+    <p>Inviso can be used both in a distributed environment and in a non-distributed. API functions not taking a list of nodes as argument works on all started runtime components. If it is the non-distributed case, that is the local runtime component. The API functions taking a list of nodes as argument, or as part of one of the arguments, can not be used in a non-distributed environment. Return values named <tt>NodeResult</tt> refers to return values from a single Erlang node, and will therefore be the return in the non-distributed environment.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_nodeRTtaggtNodeResulterrorReason">add_node(RTtag) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#add_node_if_refRTtaggtNodeResulterrorwrong_referenceOtherTagerrorReason">add_node_if_ref(RTtag) -&gt; NodeResult | {error,{wrong_reference,OtherTag}} | {error,Reason}</a></li>
+        
+        <li><a href="#add_nodesNodesRTtaggtokNodeResultserrorReason">add_nodes(Nodes,RTtag) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#add_nodes_if_refNodesRTtaggtNodeResulterrorReason">add_nodes_if_ref(Nodes,RTtag) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#cancel_suspensiongtokNodeResultsNodeResulterrorReason">cancel_suspension() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#change_optionsOptionsgtNodeResultokNodeResultserrorReason">change_options(Options) -&gt; NodeResult | {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#cleargtokNodeResultsNodeResult">clear() -&gt; {ok,NodeResults} | NodeResult</a></li>
+        
+        <li><a href="#ctfNodesPidSpecFlagListgtokNodeResultserrorReason">ctf(Nodes,PidSpec,FlagList) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#ctf_allNodesgtokNodeResultserrorReason">ctf_all(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#ctpNodesModFuncAritygtokNodeResultserrorReason">ctp(Nodes,Mod,Func,Arity) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#ctp_allgtokNodeResultsNodeResulterrorReason">ctp_all() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctplNodesModFuncAritygtokNodeResultserrorReason">ctpl(Nodes,Mod,Func,Arity) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#ctpmModFuncAritygtokNodeResultsNodeResulterrorReason">ctpm(Mod,Func,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpm_globalnamesgtokNodeResultsNodeResulterrorReason">ctpm_globalnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpm_localnamesgtokNodeResultsNodeResulterrorReason">ctpm_localnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpm_msModFuncArityMSnamegtokNodeResultsNodeResulterrorReason">ctpm_ms(Mod,Func,Arity,MSname) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#delete_logNodesTracerDatagtokNodeResultserrorReason">delete_log(Nodes,TracerData) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#fetch_logLogSpecListDestDirPrefixgtokNodeResultserrornot_distributederrorReason">fetch_log(LogSpecList,DestDir,Prefix) -&gt; {ok,NodeResults} | {error,not_distributed} | {error,Reason} </a></li>
+        
+        <li><a href="#get_statusgtokNodeResultsNodeResulterrorReason">get_status() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#get_tracerdatagtokNodeResultsNodeResulterrorReason">get_tracerdata() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#init_tpmModFuncArityCallFuncgtokNodeResultsNodeResulterrorReason">init_tpm(Mod,Func,Arity,CallFunc) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#init_tracingTracerDatagtokNodeResultsNodeResulterrorReason">init_tracing(TracerData) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#list_logsgtokNodeResultsNodeResulterrorReason">list_logs() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#startgtokpiderrorReason">start() -&gt; {ok,pid()} | {error,Reason}</a></li>
+        
+        <li><a href="#stopgtshutdown">stop() -&gt; shutdown</a></li>
+        
+        <li><a href="#stop_allokNodeResultsNodeResult">stop_all() = {ok,NodeResults} | NodeResult</a></li>
+        
+        <li><a href="#stop_nodesgtokNodeResultsNodeResult">stop_nodes() -&gt; {ok,NodeResults} | NodeResult</a></li>
+        
+        <li><a href="#stop_tracingNodesgtokNodeResultserrorReason">stop_tracing(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#subscribegtokerrorReason">subscribe() -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#suspendSReasongtokNodeResultsNodeResulterrorReason">suspend(SReason) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tfNodesPidSpecFlagListgtokNodeResultserrorReason">tf(Nodes,PidSpec,FlagList) -&gt; {ok,NodeResults} | {error,Reason}</a></li>
+        
+        <li><a href="#tpNodesModFuncArityMatchSpecOptsgt">tp(Nodes,Mod,Func,Arity,MatchSpec,Opts) -&gt; </a></li>
+        
+        <li><a href="#tplNodesModFuncArityMatchSpecgt">tpl(Nodes,Mod,Func,Arity,MatchSpec) -&gt; </a></li>
+        
+        <li><a href="#tpmModFuncArityMSgtokNodeResultsNodeResulterrorReason">tpm(Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_globalnamesgtokNodeResultsNodeResulterrorReason">tpm_globalnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_localnamesgtokNodeResultsNodeResulterrorReason">tpm_localnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_msModFuncArityMSnameMSgtokNodeResultsNodeResulterrorReason">tpm_ms(Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_ms_tracerModFuncArityMSnameMSgtokNodeResultsNodeResulterrorReason">tpm_ms_tracer(Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_tracerModFuncArityMSgtokNodeResultsNodeResulterrorReason">tpm_tracer(Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#unsubscribegtok">unsubscribe() -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokpiderrorReason"></a><b>start() -&gt; {ok,pid()} | {error,Reason}<br/>start(Options) -&gt; {ok,pid()} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [Option]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>Options</tt> may contain both options which will be default options to a runtime component when started, and options to the control component. See <seealso marker="#add_nodes/3">add_nodes/3</seealso> for details on runtime component options. The control component recognizes the following options:</p>
+        <taglist>
+          <tag><tt>{subscribe,Pid}</tt></tag>
+          <item>
+            <p>Making the process <tt>Pid</tt> receive Inviso events from the control component.</p>
+            <p>Starts a control component process on the local node. A control component must be started before runtime components can be started manually or otherwise accessed through the <tt>inviso</tt> API.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtshutdown"></a><b>stop() -&gt; shutdown</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the control component. Runtime components are left as is. They will behave according to their dependency values.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_nodeRTtaggtNodeResulterrorReason"></a><b>add_node(RTtag) -&gt; NodeResult | {error,Reason}<br/>add_node(RTtag,Options) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RTtag = PreviousRTtag = term()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>&nbsp;Option -- see below</b><br/>
+        <b>&nbsp;Option = {dependency,Dep}</b><br/>
+        <b>&nbsp;&nbsp;Dep = int() | infinity</b><br/>
+        <d>The timeout, in milliseconds, before the runtime component will terminate if abandoned by <em>this</em>control component.</d>
+        <b>&nbsp;Option = {overload,Overload} | overload</b><br/>
+        <d>Controls how and how often overload checks shall be performed. Just <tt>overload</tt>specifies that no loadcheck shall be performed.</d>
+        <b>&nbsp;&nbsp;Overload = Interval | {LoadMF,Interval,InitMFA,RemoveMFA}</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;LoadMF = {Mod,Func} | function()/1</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;Interval = int() | infinity</b><br/>
+        <d>Interval is the time in milliseconds between overload checks.</d>
+        <b>&nbsp;&nbsp;&nbsp;InitMFA = RemoveMFA = {Mod,Func,ArgList} | void</b><br/>
+        <d>When starting up the runtime component or when changing options (see <tt>change_options/2</tt>) the overload mechanism is initialized with a call to the <tt>InitMFA</tt>function. It shall return <tt>LoadCheckData</tt>. Every time a load check is performed, <tt>LoadMF</tt>is called with <tt>LoadCheckData</tt>as its only argument. <tt>LoadMF</tt>shall return <tt>ok</tt>or <tt>{suspend,Reason}</tt>. When the runtime component is stopped or made to change options involving changing overload-check, the <tt>RemoveMFA</tt>function is called. Its return value is discarded.</d>
+        <b>NodeResult = {ok,NAns} | {error,Reason}</b><br/>
+        <b>&nbsp;NAns = new | {adopted,State,Status,PreviousRTtag} | already_added</b><br/>
+        <b>&nbsp;&nbsp;State = new | tracing | idle</b><br/>
+        <b>&nbsp;&nbsp;Status = running | {suspended,SReason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts or tries to connect to an existing runtime component at the local node, regardless if the system is distributed or not. <tt>Options</tt> will override any default options specified at start-up of the control component.</p>
+        <p>The <tt>PreviousRTtag</tt> can indicate if the incarnation of the runtime component at the node in question was started by "us" and then can be expected to do tracing according to "our" instructions or not.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_node_if_refRTtaggtNodeResulterrorwrong_referenceOtherTagerrorReason"></a><b>add_node_if_ref(RTtag) -&gt; NodeResult | {error,{wrong_reference,OtherTag}} | {error,Reason}<br/>add_node_if_ref(RTtag,Options) -&gt; NodeResult | {error,{wrong_reference,OtherRef}} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OtherRef = term()</b><br/>
+        <d>rttag of the running incarnation</d>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As <seealso marker="#add_node/1">add_node/1,2</seealso> but will only adopt the runtime component if its rttag is <tt>RTtag</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_nodesNodesRTtaggtokNodeResultserrorReason"></a><b>add_nodes(Nodes,RTtag) -&gt; {ok,NodeResults} | {error,Reason}<br/>add_nodes(Nodes,RTtag,Options) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As <seealso marker="#add_node/1">add_node/1,2</seealso> but for a distributed environment.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_nodes_if_refNodesRTtaggtNodeResulterrorReason"></a><b>add_nodes_if_ref(Nodes,RTtag) -&gt; NodeResult | {error,Reason}<br/>add_nodes_if_ref(Nodes,RTtag,Options) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As <seealso marker="#add_node_if_ref/1">add_node_if_ref/1,2</seealso> but for a distributed environment.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_nodesgtokNodeResultsNodeResult"></a><b>stop_nodes() -&gt; {ok,NodeResults} | NodeResult<br/>stop_nodes(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops runtime component on <tt>Nodes</tt>. <tt>stop_nodes/0</tt> will if the control component is running on a distributed node stop all runtime components. And if running on a non distributed node, stop the local and only runtime component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_allokNodeResultsNodeResult"></a><b>stop_all() = {ok,NodeResults} | NodeResult</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A combination of <seealso marker="#stop/0">stop/0</seealso> and <seealso marker="#stop_nodes/0">stop_nodes/0</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_optionsOptionsgtNodeResultokNodeResultserrorReason"></a><b>change_options(Options) -&gt; NodeResult | {ok,NodeResults} | {error,Reason}<br/>change_options(Nodes,Options) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the options for one or several runtime components. If for instance overload is redefined, the previous overload will be stopped and the new started. See <seealso marker="#add_node/1">add_node/1</seealso> for details on <tt>Options</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="init_tracingTracerDatagtokNodeResultsNodeResulterrorReason"></a><b>init_tracing(TracerData) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>init_tracing(TracerList) -&gt; {ok,NodeResults} | {error,Reason}<br/>init_tracing(Nodes,TracerData) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TracerData = [{trace,LogTD} [,{ti,TiTD}] }] | LogTD</b><br/>
+        <b>LogTD = {HandlerFun,Data1} | collector | {relayer,CollectingNode} | {ip,IPPortParameters} | {file,FilePortParameters}</b><br/>
+        <b>TiTD = {file,FileName} | {file,FileName,TiSpec} | {relay,Node}</b><br/>
+        <b>&nbsp;TiSpec = {InitMFA,RemoveMF,CleanMF}</b><br/>
+        <b>&nbsp;&nbsp;InitMFA = {Mi,Fi,Argsi}</b><br/>
+        <b>&nbsp;&nbsp;RemoveMF = {Mr,Fr} | void</b><br/>
+        <b>&nbsp;&nbsp;CleanMF = {Mc,Fc}</b><br/>
+        <b>&nbsp;&nbsp;Mi = Fi = Mr = Fr = Mc = Fd = atom()</b><br/>
+        <b>&nbsp;&nbsp;Argsi = [term()]</b><br/>
+        <b>TracerList = [{Node,TracerData}]</b><br/>
+        <b>IPPortParameters = Portno | {Portno,Qsize}</b><br/>
+        <b>&nbsp;Portno = tcp_portno()</b><br/>
+        <b>&nbsp;Qsize = int()</b><br/>
+        <b>FilePortParameters =  {Filename,wrap,Tail,{time,WrapTime},WrapCnt} | {FileName,wrap,Tail,WrapSize,WrapCnt} | {FileName,wrap,Tail,WrapSize} | {FileName,wrap,Tail} | FileName</b><br/>
+        <b>&nbsp;FileName = string()</b><br/>
+        <b>&nbsp;Tail = string() =/= ""</b><br/>
+        <b>&nbsp;WrapTime = WrapCnt = WrapSize = int() &gt;0</b><br/>
+        <b>TracerList = [{Node,TracerData}]</b><br/>
+        <b>Nodes = [Node]</b><br/>
+        <b>HandlerFun = function()/2;</b><br/>
+        <b>&nbsp;HandlerFun(TraceMsg,Data1) -&gt; NewData</b><br/>
+        <b>CollectingNode = pid() | node()</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,LogResults} | {error,NReason}</b><br/>
+        <b>&nbsp;LogResults = [LogResult]</b><br/>
+        <b>&nbsp;&nbsp;LogResult = {trace_log,LogRes} | {ti_log,LogRes}</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;LogRes = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the tracing at the specified nodes, meaning that the runtime components transits from the state <tt>new</tt> or <tt>idle</tt> to <tt>tracing</tt>. For trace messages to be generated, there must of course also be trace pattern and/or trace flags set. Such can not be set before tracing has been initiated with <tt>init_tracing/1,2</tt>.</p>
+        <p><tt>TracerData</tt> controls how the runtime component will handle generated trace messages. The <tt>trace</tt> tag controls how regular trace messages are handled. The <tt>ti</tt> tag controls if and how trace information will be stored and the meta tracer will be activated. That is if <tt>ti</tt> is omitted, no meta tracer will be started as part of the runtime component. It is possible to have <tt>ti</tt> without <tt>trace</tt>, but most likely not useful.</p>
+        <p>The <tt>ip</tt> and <tt>file</tt> trace tracerdata instructions results in using the built in trace ip-port and file-port respectively.  <tt>relayer</tt> will result in that all regular trace messages are forwarded to a runtime component at the specified node. Using a <tt>HandlerFun</tt> will result in that every incoming regular trace message is applied to the <tt>HandlerFun</tt>. <tt>collector</tt> can be used to use this runtime component to receive relayed trace messages and print them to the shell.
+          </p>
+        <p>The trace information can be configured to either write trace information to a plain trace information file or to relay it to another inviso meta tracer on another node. The inviso meta tracer is capable of matching function calls with their function returns (only if <tt>return_trace</tt> is activated in the meta trace match specification for the function in question). This is necessary since it may not be possible to decide what to do, if anything shall be done at all, until the return value of the function call is examined.
+          </p>
+        <p>To be able to match calls with returns a state can be saved when detecting a function call in a public loop data structure kept by the inviso meta tracer. The public loop data structure is given as argument to a handler-function called whenever a meta trace message arrives to the inviso meta tracer (both function calls and function returns). The public loop data structure is first initiated by the <tt>Mi:Fi</tt> function which takes the items in <tt>Argsi</tt> as arguments. <tt>Fi</tt> shall return the initial public loop data structure. When meta tracing is stopped, either because tracing is stopped or because tracing is suspended, the <tt>Mr:Fr(PublicLoopData)</tt> is called to offer a possibility to clean-up. Note that for every function meta-tracing is activated, a public loop data modification function can be speficied. That function will prepare the current loop data structure for this particular function.
+          </p>
+        <p>Further there is a risk that function call states becomes abandoned inside the public loop data structure. This will happen if a function call is entered into the public loop data structure, but no function return occurs. To prevent the public loop data structure from growing infinitely the clean function <tt>Fc</tt> will periodically be called with the public loop data structure as argument. Elements entered into the public loop data structure as a result of a function call must contain a timestamp for the <tt>Fc</tt> to be able to conclude if it is abandoned or not. <tt>Fc</tt> shall return a new public loop data structure.
+          </p>
+        <p>When initiating tracing involving trace information without a <tt>TiSpec</tt>, a default public loop data structure will be initiated to handle locally registered process aliases. The default public loop data structure is a two-tuple where the first element is used by the meta tracing on the BIF <tt>register/2</tt>. The second element is left for user usage.</p>
+        <p>The default public loop data structure may be extended with more element positions. The first position must be left to the implementation of registered-name translations. If the public loop data structure is changed no longer meeting this requirement, the <seealso marker="#tpm_localnames/0">tpm_localnames/0,1</seealso> and <seealso marker="#tpm_globalnames/0">tpm_globalnames/0,1</seealso> can no longer be used.</p>
+        <p>A wrap files specification is used to limit the disk space consumed by the trace. The trace is written to a limited number of files each with a limited size. The actual filenames are <tt>Filename ++ SeqCnt ++ Tail</tt>, where <tt>SeqCnt</tt> counts as a decimal string from 0 to <tt>WrapCnt</tt> and then around again from 0. When a trace message written to the current file makes it longer than <tt>WrapSize</tt>, that file is closed, if the number of files in this wrap trace is as many as <tt>WrapCnt</tt> the oldest file is deleted then a new file is opened to become the current. Thus, when a wrap trace has been stopped, there are at most <tt>WrapCnt</tt> trace files saved with a size of at least <tt>WrapSize</tt> (but not much bigger), except for the last file that might even be empty. The default values are <tt>WrapSize == 128*1024</tt> and <tt>WrapCnt == 8</tt>.</p>
+        <p>The <tt>SeqCnt</tt> values in the filenames are all in the range 0 through <tt>WrapCnt</tt> with a gap in the circular sequence. The gap is needed to find the end of the trace.</p>
+        <p>If the <tt>WrapSize</tt> is specified as <tt>{time,WrapTime}</tt>, the current file is closed when it has been open more than <tt>WrapTime</tt> milliseconds, regardless of it being empty or not.</p>
+        <p>The ip trace driver has a queue of <tt>QSize</tt> messages waiting to be delivered. If the driver cannot deliver messages as fast as they are produced by the runtime system, they are dropped. The number of dropped messages are indicated in the trace log as separate trace message.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_tracingNodesgtokNodeResultserrorReason"></a><b>stop_tracing(Nodes) -&gt; {ok,NodeResults} | {error,Reason}<br/>stop_tracing() -&gt; {ok,NodeResults} | NodeResult</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,State} | {error,Reason}</b><br/>
+        <b>&nbsp;State = new | idle</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops tracing on all or specified <tt>Nodes</tt>. Flushes the trace buffer if a trace-port is used, closes the trace-port and removes all trace flags and meta-patterns. The nodes are called in parallel.</p>
+        <p>Stopping tracing means going to state <tt>idle<c>. If the runtime component was already in state <c>new</tt>, it will of course remain in state <tt>new</tt> (then there was no tracing to stop).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cleargtokNodeResultsNodeResult"></a><b>clear() -&gt; {ok,NodeResults} | NodeResult<br/>clear(Nodes,Options) -&gt; {ok,NodeResults} | {error,Reason}<br/>clear(Options) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>&nbsp;Option = keep_trace_patterns | keep_log_files</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>&nbsp;NodeResult = {ok,{new,Status}} | {error,Reason}</b><br/>
+        <b>&nbsp;&nbsp;Status = running | {suspended,SReason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops all tracing including removing meta-trace patterns. Removes all trace patterns. If the node is <tt>tracing</tt> or <tt>idle</tt>, trace-logs belonging to the current tracerdata are removed. Hence the node is returned to state <tt>new</tt>. Note that the node can still be suspended.</p>
+        <p>Various options can make the node keep set trace patterns and log-files. The node still enters the <tt>new</tt> state.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpNodesModFuncArityMatchSpecOptsgt"></a><b>tp(Nodes,Mod,Func,Arity,MatchSpec,Opts) -&gt; <br/>tp(Nodes,Mod,Func,Arity,MatchSpec) -&gt; {ok,NodeResults} | {error,Reason}<br/>tp(Mod,Func,Arity,MatchSpec,Opts) -&gt; <br/>tp(Mod,Func,Arity,MatchSpec) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tp(Nodes,PatternList) -&gt; {ok,NodeResults} | {error,Reason}<br/>tp(PatternList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>Mod = Func = atom() | '_'</b><br/>
+        <b>Arity = int() | '_'</b><br/>
+        <b>MatchSpec = true | false | [] | matchspec()</b><br/>
+        <b>PatternList = [Pattern],</b><br/>
+        <b>&nbsp;Pattern = {Mod,Func,Arity,MatchSpec,Opts}</b><br/>
+        <b>Opts = [Opt]</b><br/>
+        <b>&nbsp;Opt = only_loaded</b><br/>
+        <b>NodeResults = [NodeResult]</b><br/>
+        <b>&nbsp;NodeResult = {ok,[Ans]} | {error,Reason}</b><br/>
+        <b>&nbsp;&nbsp;Ans = int() | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Set trace pattern (global) on specified or all nodes. The integer replied if the call was successfully describes the number of matched functions. The functions without a <tt>Nodes</tt> argument means all nodes, in a non-distributed environment it means the local node. Using wildcards follows the rules for wildcards of <tt>erlang:trace_pattern/3</tt>. It is for instance illegal to specify <tt>M == '_'</tt> while <tt>F</tt> is not <tt>'_'</tt>.</p>
+        <p>When calling several nodes, the nodes are called in parallel.</p>
+        <p>The option <tt>only_loaded</tt> will prevent modules not loaded (yet) into the runtime system to become loaded just as a result of that a trace pattern is requested to be set on it. Otherwise modules are automatically loaded if not already loaded (since the module must be present for a trace pattern to be set on it). The latter does not apply if the wildcard <tt>'_'</tt> is used as module specification.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tplNodesModFuncArityMatchSpecgt"></a><b>tpl(Nodes,Mod,Func,Arity,MatchSpec) -&gt; <br/>tpl(Nodes,Mod,Func,Arity,MatchSpec,Opts) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpl(Mod,Func,Arity,MatchSpec) -&gt; <br/>tpl(Mod,Func,Arity,MatchSpec,Opts) -&gt; {ok,NodeResults} | NodeResult| {error,Reason}<br/>tpl(Nodes,PatternList) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpl(PatternList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/6">tp/N</seealso> function above for details on arguments and return values.</p>
+        <p>Set local trace pattern on specified functions. When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpNodesModFuncAritygtokNodeResultserrorReason"></a><b>ctp(Nodes,Mod,Func,Arity) -&gt; {ok,NodeResults} | {error,Reason}<br/>ctp(Mod,Func,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/6">tp/N</seealso> for argument descriptions.</p>
+        <p>Clear global trace patterns. When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctplNodesModFuncAritygtokNodeResultserrorReason"></a><b>ctpl(Nodes,Mod,Func,Arity) -&gt; {ok,NodeResults} | {error,Reason}<br/>ctpl(Mod,Funct,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/6">tp/N</seealso> for argument description.</p>
+        <p>Clear local trace patterns. When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tfNodesPidSpecFlagListgtokNodeResultserrorReason"></a><b>tf(Nodes,PidSpec,FlagList) -&gt; {ok,NodeResults} | {error,Reason}<br/>tf(PidSpec,FlagList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tf(Nodes,TraceConfList) -&gt; {ok,NodeResults} | {error,Reason}<br/>tf(NodeTraceConfList) -&gt; {ok,NodeResults} | {error,Reason}<br/>tf(TraceConfList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeTraceConfList = [{Node,TraceConfList}]</b><br/>
+        <b>TraceConfList = [{PidSpec,FlagList}]</b><br/>
+        <b>FlagList = [Flag]</b><br/>
+        <b>PidSpec = all | new| existing | pid() | locally_registered_name()</b><br/>
+        <b>Flag -- see erlang:trace/3</b><br/>
+        <b>NodeResult = {ok,[Ans]} | {error,Reason}</b><br/>
+        <b>Ans = int() | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Set process trace flags on processes on all or specified nodes. The integer returned if the call was successful describes the matched number of processes. The functions without a <tt>Nodes</tt> argument means all nodes, in a non-distributed environment it means the local node.
+          </p>
+        <p>There are many combinations which does not make much sense. For instance specifying a certain process identifier at all nodes. Or an empty <tt>TraceConfList</tt> for all nodes.</p>
+        <p>When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctfNodesPidSpecFlagListgtokNodeResultserrorReason"></a><b>ctf(Nodes,PidSpec,FlagList) -&gt; {ok,NodeResults} | {error,Reason}<br/>ctf(PidSpec,FlagList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctf(Nodes,TraceConfList) -&gt; {ok,NodeResults} | {error,Reason}<br/>ctf(TraceConfList) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tf/3">tf/N</seealso> for arguments and return value description.</p>
+        <p>Clear process trace flags on all or specified nodes. When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctf_allNodesgtokNodeResultserrorReason"></a><b>ctf_all(Nodes) -&gt; {ok,NodeResults} | {error,Reason}<br/>ctf_all() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Clears all trace flags on all or specified nodes. Just for convenience.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="init_tpmModFuncArityCallFuncgtokNodeResultsNodeResulterrorReason"></a><b>init_tpm(Mod,Func,Arity,CallFunc) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>init_tpm(Nodes,Mod,Func,Arity,CallFunc) -&gt; {ok,NodeResults} | {error,Reason}<br/>init_tpm(Mod,Func,Arity,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>init_tpm(Nodes,Mod,Func,Arity, InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Func = atom()</b><br/>
+        <b>Arity = int()</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+        <b>InitFunc,RemoveFunc = {Module,Function} | function()/4 | void</b><br/>
+        <b>CallFunc = ReturnFunc = {Module,Function} | function()/3 | void</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Initializes <tt>Mod:Func/Arity</tt> for meta tracing without setting any meta trace patterns. This is necessary if the named match specs will be used (see <seealso marker="#tpm_ms/5">tpm_ms/5,6</seealso>). Otherwise initialization of public loop data can be done at the same time as setting meta trace patterns using <seealso marker="#tpm/8">tpm/8,9</seealso>.</p>
+        <p>Note that we can not use wildcards here (even if it is perfectly legal in Erlang). It also sets the <tt>CallFunc</tt> and <tt>ReturnFunc</tt> for the meta traced function. That is the functions which will be called when a function call and a return_trace meta trace message respectively arrives to the inviso meta tracer for <tt>Mod:Func/Arity</tt>.</p>
+        <p>This function is also available without <tt>InitFunc</tt> and <tt>RemoveFunc</tt>. That means that no initialization of the public loop data structure will be done and that <tt>CallFunc</tt> and <tt>ReturnFunc</tt> must either use already existing parts of public loop data structure or not use it at all.</p>
+        <p>The <tt>InitFunc</tt> initializes the already existing public loop data structure for use with <tt>Mod:Func/Arity. InitFunc(Mod,Func,Arity,PublLD) -&gt; {ok,NewPublLD,Output}</tt> where <tt>OutPut</tt> can be a binary which will then be written to the trace information file. If it is not a binary, no output will be done. <tt>RemoveFunc</tt> will be called when the meta tracing is cleared with <seealso marker="#ctpm/3">ctpm/3,4</seealso>. <tt>RemoveFunc(Mod,Func,Arity,PublLD) -&gt; {ok,NewPublLD}</tt>.</p>
+        <p>See <seealso marker="#tpm/4">tpm/N</seealso> for details on <tt>CallFunc</tt> and <tt>ReturnFunc</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpmModFuncArityMSgtokNodeResultsNodeResulterrorReason"></a><b>tpm(Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm(Nodes,Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpm(Mod,Func,Arity,MS,CallFunc) -&gt; {ok,NodeResults} | NodeResults | {error,Reason}<br/>tpm(Nodes,Mod,Func,Arity,MS,CallFunc) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpm(Mod,Func,Arity,MS,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | NodeResults | {error,Reason}<br/>tpm(Nodes,Mod,Func,Arity,MS, InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Func = atom()</b><br/>
+        <b>Arity = int()</b><br/>
+        <b>MS = [match_spec()]</b><br/>
+        <b>Nodes = [Node]</b><br/>
+        <b>InitFunc = RemoveFunc = {Module,Function} | function()/4 | void</b><br/>
+        <b>CallFunc = ReturnFunc = {Module,Function} | function()/3 | void</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,1} | {ok,0} | {error,Reason}1</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Activates meta-tracing in the inviso_rt_meta tracer. Except when using <tt>tpm/6</tt>, <tt>tpm/8</tt> and <tt>tpm/9</tt> the <tt>Mod:Func/Arity</tt> must first have been initiated using <seealso marker="#init_tpm/4">init_tpm/N</seealso>. When calling several nodes, the nodes are called in parallel.</p>
+        <p><tt>CallFunc</tt> will be called every time a meta trace message arrives to the inviso meta tracer because of a call to <tt>Func</tt>. <tt>CallFunc(CallingPid,ActualArgList,PublLD) -&gt; {ok,NewPrivLD,Output}</tt> where <tt>Output</tt> can be a binary or <tt>void</tt>. If it is a binary it will be written to the trace information file.</p>
+        <p><tt>ReturnFunc</tt> will be called every time a meta return_trace message arrives to the inviso meta tracer because of a return_trace of a call to <tt>Func</tt>. <tt>ReturnFunc(CallingPid,ReturnValue,PublLD) -&gt; {ok,NewPrivLD,Output}</tt>. Further the <tt>ReturnFunc</tt> must handle the fact that a return_trace message arrives for a call which was never noticed. This because the message queue of the meta tracer may have been emptied.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_tracerModFuncArityMSgtokNodeResultsNodeResulterrorReason"></a><b>tpm_tracer(Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm_tracer(Nodes,Mod,Func,Arity,MS) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpm_tracer(Mod,Func,Arity,MS,CallFunc) -&gt; {ok,NodeResults} | NodeResults | {error,Reason}<br/>tpm_tracer(Nodes,Mod,Func,Arity,MS,CallFunc) -&gt; {ok,NodeResults} | {error,Reason}<br/>tpm_tracer(Mod,Func,Arity,MS,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | NodeResults | {error,Reason}<br/>tpm_tracer(Nodes,Mod,Func,Arity,MS, InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See tpm/X for details on arguments and return values.</p>
+        <p>Same as tpm/X but all match specs in <tt>MS</tt> containing a <tt>trace</tt> action term will have a <tt>{tracer,Tracer}</tt> appended to its enable-list. <tt>Tracer</tt> will be the current output for regular trace messages as specified when tracing was initiated. This function is useful when setting a meta trace pattern on a function with the intent that its execution shall turn tracing on for the process executing the match-spec in the meta trace pattern. The reason the <tt>tracer</tt> process trace flag can not be explicitly written in the action term by the user is that it may be difficult to learn its exact value for a remote node. Further more inviso functions are made to work on several nodes at the same time, requiering different match specs to be set for different nodes.</p>
+        <p>Simple example: We want any process executing the function <tt>mymod:init(1234)</tt> (with the argument, exactly the integer 1234) to begin function-call tracing. In the example, if the process is found to be one that shall start call tracing, we also first disable <tt>all</tt> process trace flags to ensure that we have full control over what the process traces. <tt>void</tt> in the example specifies that the meta-tracer (inviso_rt_meta) will not call any function when meta trace messages for <tt>mymod:init/1</tt> arrives. There is no need for a <tt>CallFunc</tt> since the side-effect (start call-tracing) is achieved immediately with the match-spec.</p>
+        <code type="none">
+    inviso:tpm_tracer(mymod,init,1,[{[1234],[],[{trace,[all],[call]}]}],void).        </code>
+        <p>This will internally, by the meta tracer on each Erlang node, be translated to:</p>
+        <code type="none">
+    erlang:trace_pattern({mymod,init,1},[{[1234],[],[{trace,[all],[call,{{tracer,T}}]}]}],[{meta,P}]).
+        </code>
+        <p>Where <tt>T</tt> is the tracer for regular trace messages (most often a trace-port, but can be the runtime component inviso_rt process), and <tt>P</tt> is the meta tracer (the inviso_rt_meta process).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_msModFuncArityMSnameMSgtokNodeResultsNodeResulterrorReason"></a><b>tpm_ms(Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm_ms(Nodes,Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]&lt;v&gt; &lt;v&gt;Mod = Func = atom()&lt;v&gt; &lt;v&gt;Arity = int()&lt;v&gt; &lt;v&gt;MSname = term()&lt;v&gt; &lt;v&gt;MS = [match_spec()]&lt;v&gt; &lt;v&gt;NodeResults = [{Node,NodeResult}]&lt;v&gt; &lt;v&gt;NodeResult = {ok,1} | {ok,0} | {error,Reason}&lt;v&gt;</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function adds a list of match-specs to the already existing ones. It uses an internal database to keep track of existing match-specs. This set of match specs can hereafter be referred to with the name <tt>MSname</tt>. If the match-spec does not result in any meta traced functions (for whatever reason), the <tt>MS</tt> is not saved in the database. The previously known match-specs are not removed. If <tt>MSname</tt> is already in use as a name refering to a set of match-specs for this particular meta-traced function, the previous set of match-specs are replaced with <tt>MS</tt>.</p>
+        <p><tt>Mod:Func/Arity</tt> must previously have been initiated in order for this function to add a match-spec.</p>
+        <p>When calling several nodes, the nodes are called in parallel. <tt>{ok,1}</tt> indicates success.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_ms_tracerModFuncArityMSnameMSgtokNodeResultsNodeResulterrorReason"></a><b>tpm_ms_tracer(Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm_ms_tracer(Nodes,Mod,Func,Arity,MSname,MS) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See tpm_ms/X for details on arguments and return values, and tpm_tracer/X for explanations about the appending of <tt>{tracer,Tracer}</tt> process trace flag.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpm_msModFuncArityMSnamegtokNodeResultsNodeResulterrorReason"></a><b>ctpm_ms(Mod,Func,Arity,MSname) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctpm_ms(Nodes,Mod,Func,Arity,MSname) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes a named match-spec from the meta traced function. Note that it never is a fault to remove a match spec. Not even from a function which is non existent.</p>
+        <p>When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpmModFuncAritygtokNodeResultsNodeResulterrorReason"></a><b>ctpm(Mod,Func,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctpm(Nodes,Mod,Func,Arity) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the meta trace pattern for the function, means stops generating output for this function. The public loop data structure may be cleared by the previously entered <tt>RemoveFunc</tt>.</p>
+        <p>When calling several nodes, the nodes are called in parallel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_localnamesgtokNodeResultsNodeResulterrorReason"></a><b>tpm_localnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm_localnames(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {R1,R2}</b><br/>
+        <b>R1 = R2 = {ok,0} | {ok,1} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Quick version for setting meta-trace patterns on <tt>erlang:register/2</tt>. It uses a default <tt>CallFunc</tt> and <tt>ReturnFunc</tt> in the meta-tracer server. The main purpose of this function is to create ti-log entries for associations between pids and registered name aliases. The implementation uses return_trace to see if the registration was successful or not, before actually making the ti-log alias entry. Further the implementation also meta traces the BIF <tt>unregister/1</tt>.</p>
+        <p>If both <tt>N1</tt> and <tt>N2</tt> is 1, function call was successful. <tt>N1</tt> and <tt>N2</tt> represent setting meta trace pattern on <tt>register/2</tt> and <tt>unregister/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpm_localnamesgtokNodeResultsNodeResulterrorReason"></a><b>ctpm_localnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctpm_localnames(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {R1,R2}</b><br/>
+        <b>R1 = R2 = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Function for removing previously set patters by <seealso marker="#tpm_localnames/0">tpm_localnames/0</seealso>. The two results <tt>R1</tt> and <tt>R2</tt> represents that meta pattern is removed from both <tt>register/2</tt> and <tt>unregister/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_globalnamesgtokNodeResultsNodeResulterrorReason"></a><b>tpm_globalnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>tpm_globalnames(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {R1,R2}</b><br/>
+        <b>R1 = R2 = {ok,0} | {ok,1} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Quick version for setting meta-trace patterns capable of learning the association of a pid with a globally registered name (registered using <tt>global:register_name</tt>). The implementation meta-traces on <tt>global:handle_call({register,'_','_','_'},'_','_')</tt> and <tt>global:delete_global_name/2</tt>. The <tt>N1</tt> and <tt>N2</tt> represents the success of the two sub-tmp calls.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpm_globalnamesgtokNodeResultsNodeResulterrorReason"></a><b>ctpm_globalnames() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctpm_globalnames(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {R1,R2} | {error,Reason}</b><br/>
+        <b>R1 = R2 = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Function for removing previously set meta patters by <seealso marker="#tpm_globalnames/0">tpm_globalnames/0,1</seealso>. The two results <tt>R1</tt> and <tt>R2</tt> represents that meta pattern are removed from both <tt>global:handle_call/3</tt> and <tt>global:delete_global_name/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctp_allgtokNodeResultsNodeResulterrorReason"></a><b>ctp_all() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>ctp_all(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Clears all, both global and local trace patterns. Does not clear meta trace patterns. Equivalent to a call to <seealso marker="#ctp/4">ctp/3,4</seealso> and to <seealso marker="#ctpl/4">ctpl/3,4</seealso> with wildcards <tt>'_'</tt> for all modules, functions and arities.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="suspendSReasongtokNodeResultsNodeResulterrorReason"></a><b>suspend(SReason) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>suspend(Nodes,SReason) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SReason = term()</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Suspends the runtime components. <tt>SReason</tt> will become the suspend-reason replied in for instance a <seealso marker="#get_status/0">get_status/0,1</seealso> call. A runtime component that becomes suspended removes all trace flags and all meta trace patterns. In that way trace output is no longer generated. The task of reactivating a suspended runtime component is outside the scoop of inviso. It can for instance be implemented by a higher layer trace-tool "remembering" all trace flags and meta patterns set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cancel_suspensiongtokNodeResultsNodeResulterrorReason"></a><b>cancel_suspension() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>cancel_suspend(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Makes the runtime components <tt>running</tt> again (as opposite to <tt>suspended).</tt> Since reactivating previous trace flags and meta trace patterns is outside the scoop of inviso, cancelling suspension is simply making it possible to set trace flags and meta trace patterns again.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_statusgtokNodeResultsNodeResulterrorReason"></a><b>get_status() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>get_status(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,{State,Status}} | {error,Reason}</b><br/>
+        <b>State = new | idle | tracing</b><br/>
+        <b>Status = running | {suspended,SReason}</b><br/>
+        <b>SReason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finds out the state and status of a runtime component. A runtime component is in state <tt>new</tt> before it has been initiated to do any tracing the first time. There are clear-functions which can make a runtime component become <tt>new</tt> again without having to restart. A runtime component becomes <tt>idle</tt> after tracing is stopped.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_tracerdatagtokNodeResultsNodeResulterrorReason"></a><b>get_tracerdata() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>get_tracerdata(Nodes) -&gt; {ok,NodeResults} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,NResult} | {error,Reason}</b><br/>
+        <b>NResult = TracerData | no_tracerdata</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current tracerdata of a runtime component. A runtime component in state <tt>new</tt> can not have tracerdata. An <tt>idle</tt> runtime component does have tracerdata, the last active tracerdata. <tt>TracerData</tt> will be a term as specified to <tt>init_tracing</tt> when tracing was initiated for the runtime component.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_logsgtokNodeResultsNodeResulterrorReason"></a><b>list_logs() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>list_logs(Nodes) -&gt; {ok,NodeResults} | {error,Reason}<br/>list_logs(NodeTracerData) -&gt; {ok,NodeResults} | {error,Reason}<br/>list_logs(TracerData) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TracerData -- see init_tracing/1,2</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,FileList} | {ok,no_log} | {error,Reason}</b><br/>
+        <b>&nbsp;FileList = [FileType]</b><br/>
+        <b>&nbsp;&nbsp;FileType = {trace_log,Dir,Files} | {ti_log,Dir,Files}</b><br/>
+        <b>&nbsp;&nbsp;Files = [FileNameWithOutPath]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the actually existing log files associated with <tt>TracerData</tt>. If a tracerdata is not specified, current tracerdata is used for that particular runtime component. <tt>Files</tt> will be a list of one or more files should it be a wrap-set. Otherwise the it is a list of only one filename.</p>
+        <p>This function is useful to learn the name and path of all files belonging to a trace. This information can later be used to move those files for merging. Note that since it is possible to ask on other tracerdata than the current, it is possible to learn filenames of previously done traces, under the circumstances that they have not been removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fetch_logLogSpecListDestDirPrefixgtokNodeResultserrornot_distributederrorReason"></a><b>fetch_log(LogSpecList,DestDir,Prefix) -&gt; {ok,NodeResults} | {error,not_distributed} | {error,Reason} <br/>fetch_log(DestDir,Prefix) -&gt; {ok,NodeResults} | {error,not_distributed} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DestDir = string()</b><br/>
+        <b>Prefix = string()</b><br/>
+        <b>LogSpecList = [LogSpec]</b><br/>
+        <b>&nbsp;LogSpec = {Node,FileSpecList} | Node | {Node,TracerData}</b><br/>
+        <b>TracerData = see init_tracing/1,/2</b><br/>
+        <b>FileSpecList = [{trace_log,Dir,FileList},{ti_log,Dir,FileList}] | [{trace_log,Dir,FileList}]</b><br/>
+        <b>&nbsp;FileList = [RemoteFileName]</b><br/>
+        <b>NodeResult = {Conclusion,ResultFileSpec} | no_log | {error,NReason}</b><br/>
+        <b>&nbsp;NReason = own_node | Reason</b><br/>
+        <b>&nbsp;Conclusion = complete | incomplete</b><br/>
+        <b>&nbsp;ResultFileSpec = [{trace_log,FileResults},{ti_log,FileResults}]</b><br/>
+        <b>&nbsp;&nbsp;FileResults = [FileResult]</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;  FileResult = {ok,FileName} | {error,FReason}</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;FReason = {file_open,{posix(),FileName}} | {file_open,{posix(),RemoteFileName}} | {file_open,{posix(),[DestDir,Prefix,RemoteFileName]}} | {file_write,{posix(),FileName}} | {truncated,FileName} | {truncated,{Reason,FileName}}</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posix() = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Copies log files over distributed erlang to the control component node. This function can only be used in a distributed system.</p>
+        <p>The resulting transferred files will have the prefix <tt>Prefix</tt> and will be located in <tt>DestDir</tt>. The source files can either be pointed out using a <tt>FileListSpec</tt> or tracerdata. If no files are explicitly specified, current tracerdata for that node will be used. Note that if source files have the same name (on several nodes) they will overwrite each other at <tt>DestDir</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_logNodesTracerDatagtokNodeResultserrorReason"></a><b>delete_log(Nodes,TracerData) -&gt; {ok,NodeResults} | {error,Reason}<br/>delete_log(NodeSpecList) -&gt; {ok,NodeResults} | {error,Reason}<br/>delete_log(Spec) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>delete_log(TracerData) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}<br/>delete_log() -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>NodeSpecList = [{Node,Spec}]</b><br/>
+        <b>&nbsp;Spec = [AbsPathFileName] | LogSpecs</b><br/>
+        <b>&nbsp;&nbsp;LogSpecs = [LogSpec]</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;LogSpec = {trace_log,Dir,[FileNameWithoutPath]} | {ti_log,Dir,[FileNameWithoutPath]}</b><br/>
+        <b>TracerData -- see init_tracing/1,/2</b><br/>
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = {ok,no_log} | {ok,LogInfos} | {ok,FileInfos}</b><br/>
+        <b>&nbsp;LogInfos = [LogInfo]</b><br/>
+        <b>&nbsp;&nbsp;LogInfo = {trace_log,FileInfos} | {ti_log,FileInfos}</b><br/>
+        <b>&nbsp;FileInfos = [FileInfo]</b><br/>
+        <b>&nbsp;&nbsp;FileInfo = {ok,FileName} | {error,Reason} </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes listed files or files corresponding to tracerdata. If no tracerdata or list of files are specified in the call, current tracerdata at the runtime components will be used to identify files to delete. All filenames shall be strings.</p>
+        <p><tt>FileName</tt> can either be an absolute path or just a filename depending on if <tt>AbsPathFileName</tt> or a <tt>LogSpec</tt> was used to identify the file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subscribegtokerrorReason"></a><b>subscribe() -&gt; ok | {error,Reason}<br/>subscribe(Pid) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds <tt>Pid</tt> or <tt>self()</tt> if using <tt>subscribe/0</tt> to the inviso-event sending list. Note that it is possible to add a pid several times and that the <tt>Pid</tt> then will receive multiple copies of inviso-event messages.</p>
+        <p>All events will be sent to all subscribers in the event sending list.</p>
+        <code type="none">
+Event = {inviso_event,ControllerPid,erlang:localtime(),Msg}
+  Msg = {connected, Node, {RTtag, {State,Status}}}
+      | {disconnected, Node, NA}
+      | {state_change,Node,{State,Status}}
+      | {port_down,Node,Reason}
+    Node = node() | local_runtime
+        </code>
+        <p>Subscribing to inviso-event may be necessary for a higher layer trace-tool using inviso to follow the runtime components. <tt>local_runtime</tt> will be used for a runtime component running in a non-distributed environment.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unsubscribegtok"></a><b>unsubscribe() -&gt; ok<br/>unsubscribe(Pid) -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Removes <tt>Pid</tt> (once) from the subscription list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

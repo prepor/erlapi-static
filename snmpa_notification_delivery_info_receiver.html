@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_notification_delivery_info_receiver</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_notification_delivery_info_receiver</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the behaviour of the notification 
+      delivery information receiver. </p>
+    <p>A <tt>snmpa_notification_delivery_info_receiver</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="#delivery_targets">delivery_targets/3</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="#delivery_info">delivery_info/4</seealso></p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#delivery_infoTagTargetDeliveryResultExtragtvoid">delivery_info(Tag, Target, DeliveryResult, Extra) -&gt; void()</a></li>
+        
+        <li><a href="#delivery_targetsTagTargetsExtragtvoid">delivery_targets(Tag, Targets, Extra) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+address() = A 4-tuple
+    </code>
+
+     <marker id="delivery_targets"></marker>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="delivery_targetsTagTargetsExtragtvoid"></a><b>delivery_targets(Tag, Targets, Extra) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = term()</b><br/>
+        <b>Targets = [target()]</b><br/>
+        <b>target() = {Address, Port}</b><br/>
+        <b>Address = address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Extra = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inform about target addresses. </p>
+        <p>This is the first function called when a notification delivery is
+          in progress. It informs the <tt>receiver</tt> which targets will
+          get the notification. The result of the delivery will be 
+          provided via successive calls to <tt>delivery_info/4</tt> function, 
+          see below.</p>
+
+        <marker id="delivery_info"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delivery_infoTagTargetDeliveryResultExtragtvoid"></a><b>delivery_info(Tag, Target, DeliveryResult, Extra) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = term()</b><br/>
+        <b>Target = target()</b><br/>
+        <b>target() = {Address, Port}</b><br/>
+        <b>Address = address()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>DeliveryResult = delivery_result()</b><br/>
+        <b>delivery_result() = no_response | got_response</b><br/>
+        <b>Extra = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inform about delivery result.</p>
+        <p>This function is called for each target in the <tt>Targets</tt>
+          argument of the <tt>delivery_targets/3</tt> function, see above. </p>
+        <p>The purpose is to inform the <tt>receiver</tt> of the 
+          result of the delivery (was the notification acknowledged or 
+          not) for each target.</p>
+
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

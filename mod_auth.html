@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mod_auth</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mod_auth</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides for basic user authentication using
+      textual files, dets databases as well as mnesia databases. </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_group_memberGroupNameUserNameOptionsgttrueerrorReason">add_group_member(GroupName, UserName, Options) -&gt; true | {error, Reason}</a></li>
+        
+        <li><a href="#add_userUserNameOptionsgttrueerrorReason">add_user(UserName, Options) -&gt;  true| {error, Reason}</a></li>
+        
+        <li><a href="#delete_groupGroupNameOptionsgttrueerrorReasonltnamegtdelete_groupGroupNamePortDirgttrueerrorReason">delete_group(GroupName, Options) -&gt; true | {error,Reason} &lt;name&gt;delete_group(GroupName, Port, Dir) -&gt; true | {error, Reason}</a></li>
+        
+        <li><a href="#delete_group_memberGroupNameUserNameOptionsgttrueerrorReason">delete_group_member(GroupName, UserName, Options) -&gt; true | {error, Reason}</a></li>
+        
+        <li><a href="#delete_userUserNameOptionsgttrueerrorReason">delete_user(UserName,Options)  -&gt; true | {error, Reason}</a></li>
+        
+        <li><a href="#get_userUserNameOptionsgtokhttpd_usererrorReason">get_user(UserName,Options) -&gt; {ok, #httpd_user} |{error, Reason}</a></li>
+        
+        <li><a href="#list_group_membersGroupNameOptionsgtokUserserrorReason">list_group_members(GroupName, Options) -&gt; {ok, Users} | {error, Reason}</a></li>
+        
+        <li><a href="#list_groupsOptionsgtokGroupserrorReason">list_groups(Options) -&gt; {ok, Groups} | {error, Reason}</a></li>
+        
+        <li><a href="#list_usersOptionsgtokUserserrorReasonltnamegtlist_usersPortDirgtokUserserrorReason">list_users(Options) -&gt; {ok, Users} | {error, Reason} &lt;name&gt;list_users(Port, Dir) -&gt; {ok, Users} | {error, Reason}</a></li>
+        
+        <li><a href="#update_passwordPortDirOldPasswordNewPasswordNewPasswordgtokerrorReason">update_password(Port, Dir, OldPassword, NewPassword, NewPassword) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <marker id="see_also"></marker>
+    <title>SEE ALSO</title>
+    <p><seealso marker="httpd">httpd(3)</seealso>,
+      <seealso marker="mod_alias">mod_alias(3)</seealso>,</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="add_userUserNameOptionsgttrueerrorReason"></a><b>add_user(UserName, Options) -&gt;  true| {error, Reason}<br/>add_user(UserName, Password, UserData, Port, Dir) -&gt; true | {error, Reason}<br/>add_user(UserName, Password, UserData, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UserName     = string()</b><br/>
+        <b>Options     = [Option]</b><br/>
+        <b>Option      = {password,Password} | {userData,UserData} | {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Password     = string()</b><br/>
+        <b>UserData     = term()</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>AuthPassword =string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="user_api"></marker>
+        <marker id="add_user"></marker>
+        <p><tt>add_user/2, add_user/5</tt> and <tt>add_user/6</tt> adds a user to the user 
+          database. If the operation is succesful, this function returns 
+          <tt>true</tt>. If an error occurs, <tt>{error,Reason}</tt> is returned. When <tt>add_user/2</tt> 
+          is called the Password, UserData Port and Dir options is mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_userUserNameOptionsgttrueerrorReason"></a><b>delete_user(UserName,Options)  -&gt; true | {error, Reason}<br/>delete_user(UserName, Port, Dir) -&gt; true | {error, Reason}<br/>delete_user(UserName, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UserName     = string()</b><br/>
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="delete_user"></marker>
+        <p><tt>delete_user/2, delete_user/3</tt> and <tt>delete_user/4</tt> deletes a user 
+          from the user database. If the operation is succesful, this 
+          function returns <tt>true</tt>. If an error occurs, 
+          <tt>{error,Reason}</tt> is returned. When <tt>delete_user/2</tt> is
+          called the Port and Dir options are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_userUserNameOptionsgtokhttpd_usererrorReason"></a><b>get_user(UserName,Options) -&gt; {ok, #httpd_user} |{error, Reason}<br/>get_user(UserName, Port, Dir) -&gt; {ok, #httpd_user} | {error, Reason}<br/>get_user(UserName, Address, Port, Dir) -&gt; {ok, #httpd_user} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UserName     = string()</b><br/>
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="get_user"></marker>
+        <p><tt>get_user/2, get_user/3</tt> and <tt>get_user/4</tt> returns a 
+          <tt>httpd_user</tt> record containing the userdata for a 
+          specific user. If the user cannot be found, <tt>{error, Reason}</tt> 
+          is returned. When <tt>get_user/2</tt> is called the Port and Dir 
+          options are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_usersOptionsgtokUserserrorReasonltnamegtlist_usersPortDirgtokUserserrorReason"></a><b>list_users(Options) -&gt; {ok, Users} | {error, Reason} &lt;name&gt;list_users(Port, Dir) -&gt; {ok, Users} | {error, Reason}<br/>list_users(Address, Port, Dir) -&gt; {ok, Users} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>Users        = list()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="list_users"></marker>
+        <p><tt>list_users/1, list_users/2</tt> and <tt>list_users/3</tt> returns a list 
+          of users in the user database for a specific <tt>Port/Dir</tt>.
+          When <tt>list_users/1</tt> is called the Port and Dir 
+          options are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_group_memberGroupNameUserNameOptionsgttrueerrorReason"></a><b>add_group_member(GroupName, UserName, Options) -&gt; true | {error, Reason}<br/>add_group_member(GroupName, UserName, Port, Dir) -&gt; true | {error, Reason}<br/>add_group_member(GroupName, UserName, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GroupName    = string()</b><br/>
+        <b>UserName     = string()</b><br/>
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="add_group_member"></marker>
+        <p><tt>add_group_member/3, add_group_member/4</tt> and <tt>add_group_member/5</tt> 
+          adds a user to a group. If the group does not exist, it 
+          is created and the user is added to the group. Upon successful 
+          operation, this function returns <tt>true</tt>. When <tt>add_group_members/3</tt> 
+          is called the Port and Dir options are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_group_memberGroupNameUserNameOptionsgttrueerrorReason"></a><b>delete_group_member(GroupName, UserName, Options) -&gt; true | {error, Reason}<br/>delete_group_member(GroupName, UserName, Port, Dir) -&gt; true | {error, Reason}<br/>delete_group_member(GroupName, UserName, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GroupName    = string()</b><br/>
+        <b>UserName     = string()</b><br/>
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="delete_group_member"></marker>
+        <p><tt>delete_group_member/3, delete_group_member/4</tt> and <tt>delete_group_member/5</tt>  deletes a user from a group. 
+          If the group or the user does not exist, 
+          this function returns an error, otherwise it returns <tt>true</tt>.
+          When <tt>delete_group_member/3</tt> is called the Port and Dir options
+          are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_group_membersGroupNameOptionsgtokUserserrorReason"></a><b>list_group_members(GroupName, Options) -&gt; {ok, Users} | {error, Reason}<br/>list_group_members(GroupName, Port, Dir) -&gt; {ok, Users} | {error, Reason}<br/>list_group_members(GroupName, Address, Port, Dir) -&gt; {ok, Users} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GroupName    = string()</b><br/>
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>Users        = list()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="list_group_members"></marker>
+        <p><tt>list_group_members/2, list_group_members/3</tt> and <tt>list_group_members/4</tt> 
+          lists the members of a specified group. If the group does not 
+          exist or there is an error, <tt>{error, Reason}</tt> is returned.
+          When <tt>list_group_members/2</tt> is called the Port and Dir options
+          are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_groupsOptionsgtokGroupserrorReason"></a><b>list_groups(Options) -&gt; {ok, Groups} | {error, Reason}<br/>list_groups(Port, Dir) -&gt; {ok, Groups} | {error, Reason}<br/>list_groups(Address, Port, Dir) -&gt; {ok, Groups} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>Groups       = list()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="list_groups"></marker>
+        <p><tt>list_groups/1, list_groups/2</tt> and <tt>list_groups/3</tt> lists all 
+          the groups available. If there is an error, <tt>{error, Reason}</tt> 
+          is returned. When <tt>list_groups/1</tt> is called the Port and Dir options
+          are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_groupGroupNameOptionsgttrueerrorReasonltnamegtdelete_groupGroupNamePortDirgttrueerrorReason"></a><b>delete_group(GroupName, Options) -&gt; true | {error,Reason} &lt;name&gt;delete_group(GroupName, Port, Dir) -&gt; true | {error, Reason}<br/>delete_group(GroupName, Address, Port, Dir) -&gt; true | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options      = [Option]</b><br/>
+        <b>Option       = {port,Port} | {addr,Address} | {dir,Directory} | {authPassword,AuthPassword}</b><br/>
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>GroupName    = string()</b><br/>
+        <b>AuthPassword = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="delete_group"></marker>
+        <p><tt>delete_group/2, delete_group/3</tt> and <tt>delete_group/4</tt> deletes the 
+          group specified and returns <tt>true</tt>. If there is an error, 
+          <tt>{error, Reason}</tt> is returned. When <tt>delete_group/2</tt> is called the 
+          Port and Dir options are mandatory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="update_passwordPortDirOldPasswordNewPasswordNewPasswordgtokerrorReason"></a><b>update_password(Port, Dir, OldPassword, NewPassword, NewPassword) -&gt; ok | {error, Reason}<br/>update_password(Address,Port, Dir, OldPassword, NewPassword, NewPassword) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port         = integer()</b><br/>
+        <b>Address      = {A,B,C,D} | string() | undefined</b><br/>
+        <b>Dir          = string()</b><br/>
+        <b>GroupName    = string()</b><br/>
+        <b>OldPassword  = string()</b><br/>
+        <b>NewPassword  = string()</b><br/>
+        <b>Reason       = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="update_password"></marker>
+        <p><tt>update_password/5</tt> and <tt>update_password/6</tt> Updates the AuthAccessPassword
+          for the specified directory. If NewPassword is equal to "NoPassword" no password is requires to
+          change authorisation data. If NewPassword is equal to "DummyPassword" no changes can be done 
+          without changing the password first.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

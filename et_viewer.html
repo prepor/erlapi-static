@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>et_viewer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />et_viewer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#fileFileNamegtokViewerPiderrorReason">file(FileName) -&gt; {ok, ViewerPid} | {error, Reason}</a></li>
+        
+        <li><a href="#get_collector_pidViewerPidgtCollectorPid">get_collector_pid(ViewerPid) -&gt; CollectorPid</a></li>
+        
+        <li><a href="#startgtok">start() -&gt; ok</a></li>
+        
+        <li><a href="#startOptionsgtok">start(Options) -&gt; ok</a></li>
+        
+        <li><a href="#start_linkOptionsgtokViewerPiderrorReason">start_link(Options) -&gt; {ok, ViewerPid} | {error, Reason}</a></li>
+        
+        <li><a href="#stopViewerPidgtok">stop(ViewerPid) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFileNamegtokViewerPiderrorReason"></a><b>file(FileName) -&gt; {ok, ViewerPid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName() = string()</b><br/>
+        <b>ViewerPid = pid()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start a new event viewer and a corresponding collector
+          and load them with trace events from a trace file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtok"></a><b>start() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Simplified start of a sequence chart viewer with
+          global tracing activated.</p>
+        <p>Convenient to be used from the command line
+          (erl -s et_viewer).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startOptionsgtok"></a><b>start(Options) -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Start of a sequence chart viewer without linking
+          to the parent process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_linkOptionsgtokViewerPiderrorReason"></a><b>start_link(Options) -&gt; {ok, ViewerPid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [option() | collector_option()]</b><br/>
+        <b>option() = {parent_pid, extended_pid()} | {title, term()} | {detail_level, detail_level()} | {is_suspended, boolean()} | {scale, integer()} | {width, integer()} | {height, integer()} | {collector_pid, extended_pid()} | {event_order, event_order()} | {active_filter, atom()} | {max_events, extended_integer()} | {max_actors, extended_integer()} | {trace_pattern, et_collector_trace_pattern()} | {trace_port, et_collector_trace_port()} | {trace_global, et_collector_trace_global()} | {trace_client, et_collector_trace_client()} | {dict_insert, {filter, filter_name()}, event_filter_fun()} | {dict_insert, et_collector_dict_key(), et_collector_dict_val()} | {dict_delete, {filter, filter_name()}} | {dict_delete, et_collector_dict_key()} | {actors, actors()} | {first_event, first_key()} | {hide_unknown, boolean()} | {hide_actions, boolean()} | {display_mode, display_mode()}</b><br/>
+        <b>extended_pid() = pid() | undefined</b><br/>
+        <b>detail_level() = min | max | integer(X) when X &gt;=0, X =&lt; 100</b><br/>
+        <b>event_order() = trace_ts | event_ts</b><br/>
+        <b>extended_integer() = integer() | infinity</b><br/>
+        <b>display_mode() = all | {search_actors, direction(), first_key(), actors()}</b><br/>
+        <b>direction() = forward | reverse</b><br/>
+        <b>first_key() = event_key()</b><br/>
+        <b>actors() = [term()]</b><br/>
+        <b></b><br/>
+        <b>filter_name() = atom()</b><br/>
+        <b>filter_fun() =  fun(Event) -&gt; false | true | {true, NewEvent}</b><br/>
+        <b>Event = NewEvent = record(event)</b><br/>
+        <b>ViewerPid = pid()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start a sequence chart viewer for trace events
+          (messages/actions)</p>
+        <p>A filter_fun() takes an event record as sole argument
+          and returns false | true | {true, NewEvent}.</p>
+        <p>If the <tt>collector_pid</tt> is <tt>undefined</tt> a new 
+          <tt>et_collecor</tt> will be started with the following
+          parameter settings: <tt>parent_pid</tt>, <tt>event_order</tt>,
+          <tt>trace_global</tt>, <tt>trace_pattern</tt>, <tt>trace_port</tt>, <tt>trace_max_queue</tt>,
+          <tt>trace_client</tt>, <tt>dict_insert</tt> and <tt>dict_delete</tt>.
+          The new <tt>et_viewer</tt> will register itself as an <tt>et_collecor</tt> 
+          subscriber.
+          </p>
+        <p>Default values:</p>
+        <list type="bulleted">
+          <item>parent_pid - self().</item>
+          <item>title - "et_viewer".</item>
+          <item>detail_level - max.</item>
+          <item>is_suspended - false.</item>
+          <item>scale - 2.</item>
+          <item>width - 800.</item>
+          <item>height - 600.</item>
+          <item>collector_pid - undefined.</item>
+          <item>event_order - trace_ts.</item>
+          <item>active_filter - collector.</item>
+          <item>max_events - 100.</item>
+          <item>max_actors - 5.</item>
+          <item>actors - ["UNKNOWN"].</item>
+          <item>first_event - first.</item>
+          <item>hide_unknown - false.</item>
+          <item>hide_actions - false.</item>
+          <item>display_mode - all.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_collector_pidViewerPidgtCollectorPid"></a><b>get_collector_pid(ViewerPid) -&gt; CollectorPid</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ViewerPid = pid()</b><br/>
+        <b>CollectorPid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the identifier of the collector process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopViewerPidgtok"></a><b>stop(ViewerPid) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ViewerPid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops a viewer process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

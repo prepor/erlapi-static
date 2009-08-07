@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ssh</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ssh</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Interface module for the SSH application</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#closeConnectionRefgtok">close(ConnectionRef) -&gt; ok </a></li>
+        
+        <li><a href="#connectHostgt">connect(Host) -&gt;</a></li>
+        
+        <li><a href="#connection_infoConnectionRefOptiongtOptionValue">connection_info(ConnectionRef, [Option]) -&gt;[{Option, Value}] </a></li>
+        
+        <li><a href="#daemonPortgt">daemon(Port) -&gt; </a></li>
+        
+        <li><a href="#shellHostgt">shell(Host) -&gt; </a></li>
+        
+        <li><a href="#startgt">start() -&gt; </a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok </a></li>
+        
+        <li><a href="#stop_daemonDaemonRefgt"> stop_daemon(DaemonRef) -&gt; </a></li>
+        
+        <li><a href="#stop_listenerDaemonRefgt">stop_listener(DaemonRef) -&gt; </a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Type definitions that are used more than once in
+    this module:</p>
+    <p><tt>boolean() = true | false </tt></p>
+    <p><tt>string() = list of ASCII characters</tt></p>
+    <p><tt>ssh_daemon_ref() - opaque to the user
+    returned by ssh:daemon/[1,2,3]</tt></p>
+    <p><tt>ssh_connection_ref() - opaque to the user
+    returned by ssh:connect/[1,2,3]</tt></p>
+    <p><tt>ip_address() - {N1,N2,N3,N4} % IPv4 |
+    {K1,K2,K3,K4,K5,K6,K7,K8} % IPv6</tt></p>
+    <p><tt>subsystem_spec() = {subsystem_name(), {channel_callback(), channel_init_args()}} </tt></p>  
+    <p><tt>subsystem_name() = string() </tt></p>
+    <p><tt>channel_callback() = atom() - Name of the erlang module
+    implementing the subsystem using the ssh_channel behavior see</tt>
+    <seealso marker="ssh_channel">ssh_channel(3)</seealso></p>
+    <p><tt>channel_init_args() = list()</tt></p>
+ 
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="closeConnectionRefgtok"></a><b>close(ConnectionRef) -&gt; ok </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>ConnectionRef = ssh_connection_ref()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Closes a ssh connection.</p> 
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connectHostgt"></a><b>connect(Host) -&gt;<br/>connect(Host, Options) -&gt; <br/>connect(Host, Port, Options) -&gt; {ok, ssh_connection_ref()}
+      | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Host = string()</b><br/>
+	<b>Port = integer()</b><br/>
+	<d>The default is <tt>22</tt>, the registered port for SSH.</d>
+	<b>Options = [{Option, Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Connects to an SSH server. No channel is started this is done
+	by calling ssh_connect:session_cahnnel/2.</p>
+	<p>Options are:</p>
+	<taglist>
+          <tag><tt>{user_dir, String}</tt></tag>
+	  <item>
+	    <p>Sets the user directory e.i. the directory containing
+	    ssh configuration files for the user such as
+	    <tt>known_hosts</tt>, <tt>id_rsa, id_dsa</tt> and
+	    <tt>authorized_key</tt>. Defaults to the directory normally
+	    referd to as <tt>~/.ssh</tt> </p>
+	  </item>
+          <tag><tt>{silently_accept_hosts, boolean()}</tt></tag>
+	  <item>
+	    <p>When true hosts are added to the
+	    file <tt>known_hosts</tt> without asking the user.
+	    Defaults to false.
+	    </p>
+	  </item>
+	  <tag><tt>{user_interaction, boolean()}</tt></tag>
+	  <item>
+	    <p>If false disables the client to connect to the server
+	    if any user interaction is needed such as accepting that
+	    the server will be added to the <tt>known_hosts</tt> file or
+	    supplying a password. Defaults to true.
+	    Even if user interaction is allowed it can be
+	    suppressed by other options such as silently_accept_hosts and
+	    password. Do note that it may not always be desirable to use
+	    those options from a security point of view.</p>
+	  </item>
+	  <tag><tt>{public_key_alg, ssh_rsa | ssh_dsa}</tt></tag>
+	  <item>
+            <p>Sets the preferred public key algorithm to use for user
+	    authentication. If the the preferred algorithm fails of
+	    some reason, the other algorithm is tried. The  default is
+	    to try <tt>ssh_rsa</tt> first.</p>
+	  </item>
+	  <tag><tt>{connect_timeout, timeout()}</tt></tag>
+	  <item>
+	    <p>Sets a timeout on the transport layer connection. Defaults to infinity.</p>
+	  </item>
+	  <tag><tt>{user, String}</tt></tag>
+          <item>
+	    <p>Provide a user name. If this option is not given, ssh
+	    reads from the environment (<tt>LOGNAME</tt> or
+	    <tt>USER</tt> on unix,
+	    <tt>USERNAME</tt> on Windows).</p>
+          </item>
+	  <tag><tt>{password, string()}</tt></tag>
+          <item>
+	    <p>Provide a password for password authentication.  If
+	    this option is not given, the user will be asked for a
+	    password if the password authentication method is
+	    attempted.</p>
+          </item>
+          <tag><tt>{user_auth, Fun/3}</tt></tag>
+          <item>
+	    <p>Provide a fun for password authentication. The fun
+	    will be called as <tt>fun(User, Password, Opts)</tt> and
+	    should return <tt>true</tt> or <tt>false</tt>.</p>
+	  </item>
+	  <tag><tt>{key_cb, atom() = KeyCallbackModule}</tt></tag>
+	  <item>
+	    <p>Provide a special call-back module for key handling.
+	    The call-back module should be modeled after the
+	    <tt>ssh_file</tt> module. The functions that must
+	    be exported are:
+	    <tt>private_host_rsa_key/2</tt>,
+	    <tt>private_host_dsa_key/2</tt>,
+	    <tt>lookup_host_key/3</tt> and
+	    <tt>add_host_key/3</tt>. This is considered
+	    somewhat experimental and will be better documented later on.</p>
+	  </item>
+	  <tag><tt>{fd, file_descriptor()}</tt></tag>
+	  <item>
+	    <p>Allow an existing file-descriptor to be used
+	  (simply passed on to the transport protocol).</p></item>
+	</taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connection_infoConnectionRefOptiongtOptionValue"></a><b>connection_info(ConnectionRef, [Option]) -&gt;[{Option, Value}] </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Option = client_version | server_version | peer</b><br/>
+	<b>Value = term() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p> Retrieves information about a connection. 
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="daemonPortgt"></a><b>daemon(Port) -&gt; <br/>daemon(Port, Options) -&gt; <br/>daemon(HostAddress, Port, Options) -&gt; ssh_daemon_ref()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port = integer()</b><br/>
+	<b>HostAddress = ip_address() | any</b><br/>
+	<b>Options = [{Option, Value}]</b><br/>
+        <b>Option = atom()</b><br/>
+	<b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a server listening for SSH connections on the given port.</p>
+      
+        <p>Options are:</p>
+        <taglist>
+	  <tag><tt>{subsystems, [subsystem_spec()]</tt></tag>
+	  <item>
+	    Provides specifications for handling of subsystems.  The
+	    "sftp" subsystem-spec can be retrived by calling
+	    ssh_sftd:subsystem_spec/1. If the subsystems option in not present
+	    the value of <tt>[ssh_sftd:subsystem_spec([])]</tt> will be used.
+	    It is of course possible to set the option to the empty list
+	    if you do not want the daemon to run any subsystems at all.
+	  </item>
+	  <tag><tt>{shell, {Module, Function, Args} | fun(string() = User) - > pid() |
+	  fun(string() = User, ip_address() = PeerAddr) -> pid()}</tt></tag>
+	  <item>
+	    Defines the read-eval-print loop used when a shell is requested
+	    by the client. Example use the
+	    erlang shell: <tt>{shell, start, []}</tt> which is
+	    the default behavior.
+	  </item>
+	  <tag><tt>{ssh_cli,{channel_callback(), channel_init_args()}}</tt></tag>
+	  <item>
+	    Provide your own cli implementation, e.i. a channel callback
+	    module that implements a shell and command execution. Note
+	    that you may customize the shell read-eval-print loop using the
+	    option <tt>shell</tt> which is much less work than implementing
+	    your own cli channel.
+	  </item>
+          <tag><tt>{system_dir, string()}</tt></tag>
+          <item>
+            <p>Sets the system directory, containing the host files
+            that identifies the host for ssh. The default is
+            <tt>/etc/ssh</tt>, note that SSH normally
+            requires the host files there to be readable only by
+            root.</p>
+          </item>
+          <tag><tt>{user_passwords, [{string() = User, string() = Password}]}</tt></tag>
+          <item>
+	    <p>Provide passwords for password authentication.They will
+	    be used when someone tries to connect to the server and
+	    public key user authentication fails. The option provides
+	    a list of valid user names and the corresponding password.
+	    </p>
+          </item>
+          <tag><tt>{password, string()}</tt></tag>
+          <item>
+            <p>Provide a global password that will authenticate any
+              user. From a security perspective this option makes
+	      the server very vulnerable.</p>
+	  </item>
+	  <tag><tt>{pwdfun, fun/2}</tt></tag>
+	  <item>
+	    <p>Provide a function for password validation. This is called
+	      with user and password as strings, and should return
+	      <tt>true</tt> if the password is valid and
+	      <tt>false</tt> otherwise.</p>
+	  </item>
+	  <tag><tt>{fd, file_descriptor()}</tt></tag>
+	  <item>
+	    <p>Allow an existing file-descriptor to be used
+	  (simply passed on to the transport protocol).</p></item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="shellHostgt"></a><b>shell(Host) -&gt; <br/>shell(Host, Option) -&gt; <br/>shell(Host, Port, Option) -&gt; _</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b> Host = string()</b><br/>
+	<b> Port = integer()</b><br/>
+	<b> Options - see ssh:connect/[1,2,3]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts an interactive shell to an SSH server on the
+	given <tt>Host</tt>. The function waits for user input,
+	and will not return until the remote shell is ended (e.g. on
+	exit from the shell).
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgt"></a><b>start() -&gt; <br/>start(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type =  permanent | transient | temporary</b><br/>
+	<b>Reason = term() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the Ssh application. Default type
+          is temporary. See also
+          <seealso marker="kernel:application">application(3)</seealso>
+	  Requires that the crypto application has been started.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok </b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the Ssh application. See also
+          <seealso marker="kernel:application">application(3)</seealso></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_daemonDaemonRefgt"></a><b> stop_daemon(DaemonRef) -&gt; <br/> stop_daemon(Address, Port) -&gt; ok </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>DaemonRef = ssh_daemon_ref()</b><br/>
+	<b>Address = ip_address()</b><br/>
+	<b>Port = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Stops the listener and all connections started by 
+	the listener.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_listenerDaemonRefgt"></a><b>stop_listener(DaemonRef) -&gt; <br/>stop_listener(Address, Port) -&gt; ok </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>DaemonRef = ssh_daemon_ref()</b><br/>
+        <b>Address = ip_address()</b><br/>
+	<b>Port = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Stops the listener, but leaves existing connections started
+	by the listener up and running.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

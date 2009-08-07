@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa_error_report</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa_error_report</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <marker id="desc"></marker>
+    <p>This module defines the behaviour of the agent error reporting.
+      A <tt>snmpa_error_report</tt> compliant module 
+      must export the following functions: </p>
+    <list type="bulleted">
+      <item>
+        <p>config_err/2</p>
+      </item>
+      <item>
+        <p>user_err/2</p>
+      </item>
+    </list>
+    <p>The semantics of them and their exact signatures are explained
+      below. </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#config_errFormatArgsgtvoid">config_err(Format, Args) -&gt; void()</a></li>
+        
+        <li><a href="#user_errFormatArgsgtvoid">user_err(Format, Args) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="config_errFormatArgsgtvoid"></a><b>config_err(Format, Args) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = string()</b><br/>
+        <b>Args = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The function is called if an error occurs during the
+          configuration phase, for example if a syntax error is found in
+          a configuration file.
+          </p>
+        <p><tt>Format</tt> and <tt>Args</tt> are as in
+          <tt>io:format(Format, Args)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="user_errFormatArgsgtvoid"></a><b>user_err(Format, Args) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = string()</b><br/>
+        <b>Args = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The function is called if a user related error occurs at
+          run-time, for example if a user defined instrumentation
+          function returns erroneous.
+          </p>
+        <p><tt>Format</tt> and <tt>Args</tt> are as in
+          <tt>io:format(Format, Args)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>lib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />lib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <warning>
+      <p>This module is retained for compatibility. It may disappear
+        without warning in a future release.</p>
+    </warning>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#error_messageFormatArgsgtok">error_message(Format, Args) -&gt; ok</a></li>
+        
+        <li><a href="#flush_receivegtvoid">flush_receive() -&gt; void()</a></li>
+        
+        <li><a href="#nonlString1gtString2">nonl(String1) -&gt; String2</a></li>
+        
+        <li><a href="#prognamegtatom">progname() -&gt; atom()</a></li>
+        
+        <li><a href="#sendToMsg">send(To, Msg)</a></li>
+        
+        <li><a href="#sendwToMsg">sendw(To, Msg)</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="flush_receivegtvoid"></a><b>flush_receive() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Flushes the message buffer of the current process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="error_messageFormatArgsgtok"></a><b>error_message(Format, Args) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = atom() | string() | binary()</b><br/>
+        <b>Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Prints error message <tt>Args</tt> in accordance with
+          <tt>Format</tt>. Similar to <tt>io:format/2</tt>, see
+          <seealso marker="io#fwrite/1">io(3)</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="prognamegtatom"></a><b>progname() -&gt; atom()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the name of the script that started the current
+          Erlang session.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nonlString1gtString2"></a><b>nonl(String1) -&gt; String2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String1 = String2 = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the last newline character, if any, in
+          <tt>String1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendToMsg"></a><b>send(To, Msg)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>To = pid() | Name | {Name,Node}</b><br/>
+        <b>&nbsp;Name = Node = atom()</b><br/>
+        <b>Msg = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function to makes it possible to send a message using
+          the <tt>apply/3</tt> BIF.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendwToMsg"></a><b>sendw(To, Msg)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>To = pid() | Name | {Name,Node}</b><br/>
+        <b>&nbsp;Name = Node = atom()</b><br/>
+        <b>Msg = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As <tt>send/2</tt>, but waits for an answer. It is implemented
+          as follows:</p>
+        <code type="none">
+sendw(To, Msg) -&gt;
+    To ! {self(),Msg},
+    receive
+        Reply -&gt; Reply
+    end.</code>
+        <p>The message returned is not necessarily a reply to the
+          message sent.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyFilter_FilterAdmin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyFilter_FilterAdmin</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>All objects, which inherit this interface, export functions described in this module.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_filterObjectFiltergtFilterID">add_filter(Object, Filter) -&gt; FilterID</a></li>
+        
+        <li><a href="#get_all_filtersObjectgtFilterIDSeq">get_all_filters(Object) -&gt; FilterIDSeq</a></li>
+        
+        <li><a href="#get_filterObjectFilterIDgtReply">get_filter(Object, FilterID) -&gt; Reply</a></li>
+        
+        <li><a href="#remove_all_filtersObjectgtok">remove_all_filters(Object) -&gt; ok</a></li>
+        
+        <li><a href="#remove_filterObjectFilterIDgtok">remove_filter(Object, FilterID) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="add_filterObjectFiltergtFilterID"></a><b>add_filter(Object, Filter) -&gt; FilterID</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Filter = #objref</b><br/>
+        <b>FilterID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects a new <tt>Filter</tt> to the target object. This <tt>Filter</tt> will, together
+          with other associated <tt>Filters</tt>, be used to select events to forward. A unique Id is
+          returned and should be used if we no longer want to consult the given <tt>Filter</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_filterObjectFilterIDgtok"></a><b>remove_filter(Object, FilterID) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>FilterID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a certain <tt>Filter</tt> no longer should be associated with the target object
+          this operation must be used. Events will no longer be tested against the <tt>Filter</tt>
+          associated with the given Id.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_filterObjectFilterIDgtReply"></a><b>get_filter(Object, FilterID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>FilterID = long()</b><br/>
+        <b>Reply = Filter | {'EXCEPTION', #'CosNotifyFilter_FilterNotFound'{}}</b><br/>
+        <b>Filter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the target object is associated with a <tt>Filter</tt> matching the given Id the
+          reference will be returned. If no such <tt>Filter</tt> is known by the target object
+          an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_filtersObjectgtFilterIDSeq"></a><b>get_all_filters(Object) -&gt; FilterIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>FilterIDSeq = [FilterID]</b><br/>
+        <b>FilterID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Id's for all <tt>Filter</tt> objects associated with the target object is
+          returned by this operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_all_filtersObjectgtok"></a><b>remove_all_filters(Object) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If we want to remove all <tt>Filters</tt> associated with the target object we can use this function.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

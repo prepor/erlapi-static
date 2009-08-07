@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosTransactions_SubtransactionAwareResource</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosTransactions_SubtransactionAwareResource</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This interface inherits the CosTransactions::Resource interface. Hence, 
+      it must also support all operations defined in the Resource interface.</p>
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTransactions/include/CosTransactions.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#commit_subtransactionSubtransactionAwareResourceCoordinatorgtReturn">commit_subtransaction(SubtransactionAwareResource, Coordinator) -&gt; Return</a></li>
+        
+        <li><a href="#rollback_subtransactionSubtransactionAwareResourcegtReturn">rollback_subtransaction(SubtransactionAwareResource) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="commit_subtransactionSubtransactionAwareResourceCoordinatorgtReturn"></a><b>commit_subtransaction(SubtransactionAwareResource, Coordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SubtransactionAwareResource = #objref</b><br/>
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the <tt>SubtransactionAwareResource</tt> have been registered with a <em>subtransaction</em>
+          using the operation <tt>CosTransactions_Coordinator:register_subtran_aware/2</tt>,
+          it will be notified when the transaction has committed.</p>
+        <note>
+          <p>The results of a committed subtransaction are relative to the completion of its ancestor
+            transactions, that is, these results can be undone if any ancestor transaction is rolled back.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rollback_subtransactionSubtransactionAwareResourcegtReturn"></a><b>rollback_subtransaction(SubtransactionAwareResource) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SubtransactionAwareResource = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the <tt>SubtransactionAwareResource</tt> have been registered with a transactions
+          using the operation <tt>CosTransactions_Coordinator:register_subtran_aware/2</tt>
+          it will be notified when the transaction has rolled back.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

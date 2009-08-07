@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>zip</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />zip</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>zip</tt> module archives and extract files to and from a zip
+      archive. The zip format is specified by the "ZIP Appnote.txt" file
+      available on PKWare's website www.pkware.com.</p>
+    <p>The zip module supports zip archive versions up to 6.1. However,
+      password-protection and Zip64 is not supported.</p>
+    <p>By convention, the name of a zip file should end in "<tt>.zip</tt>".
+      To abide to the convention, you'll need to add "<tt>.zip</tt>" yourself
+      to the name.</p>
+    <p>Zip archives are created with the 
+      <seealso marker="#zip_2">zip/2</seealso> or the 
+      <seealso marker="#zip_2">zip/3</seealso> function. (They are
+      also available as <tt>create</tt>, to resemble the <tt>erl_tar</tt>
+      module.)</p>
+    <p>To extract files from a zip archive, use the 
+      <seealso marker="#unzip_1">unzip/1</seealso> or the 
+      <seealso marker="#unzip_2">unzip/2</seealso> function. (They are
+      also available as <tt>extract</tt>.)</p>
+    <p>To return a list of the files in a zip archive, use the 
+      <seealso marker="#list_dir_1">list_dir/1</seealso> or the
+      <seealso marker="#list_dir_2">list_dir/2</seealso> function. (They
+      are also available as <tt>table</tt>.)</p>
+    <p>To print a list of files to the Erlang shell,
+      use either the <seealso marker="#t_1">t/1</seealso> or
+      <seealso marker="#tt_1">tt/1</seealso> function.</p>
+    <p>In some cases, it is desirable to open a zip archive, and to
+      unzip files from it file by file, without having to reopen the
+      archive. The functions
+      <seealso marker="#zip_open">zip_open</seealso>,
+      <seealso marker="#zip_get">zip_get</seealso>,
+      <seealso marker="#zip_list_dir">zip_list_dir</seealso> and
+      <seealso marker="#zip_close">zip_close</seealso> do this.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">LIMITATIONS</a></li>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#list_dirArchivegtRetValue">list_dir(Archive) -&gt; RetValue</a></li>
+        
+        <li><a href="#tArchive">t(Archive)</a></li>
+        
+        <li><a href="#ttArchive">tt(Archive)</a></li>
+        
+        <li><a href="#unzipArchivegtRetValue">unzip(Archive) -&gt; RetValue</a></li>
+        
+        <li><a href="#zipNameFileListgtRetValue">zip(Name, FileList) -&gt; RetValue</a></li>
+        
+        <li><a href="#zip_closeZipHandlegtokerroreinval">zip_close(ZipHandle) -&gt; ok | {error, einval}</a></li>
+        
+        <li><a href="#zip_getZipHandlegtokResulterrorReason">zip_get(ZipHandle) -&gt; {ok, [Result]} | {error, Reason}</a></li>
+        
+        <li><a href="#zip_list_dirZipHandlegtResulterrorReason">zip_list_dir(ZipHandle) -&gt; Result | {error, Reason}</a></li>
+        
+        <li><a href="#zip_openArchivegtokZipHandleerrorReason">zip_open(Archive) -&gt; {ok, ZipHandle} | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">LIMITATIONS</div>
+    
+    <div class="description">
+        
+    <title>LIMITATIONS</title>
+    <p>Zip64 archives are not currently supported.</p>
+    <p>Password-protected and encrypted archives are not currently
+      supported</p>
+    <p>Only the DEFLATE (zlib-compression) and the STORE (uncompressed
+      data) zip methods are supported.</p>
+    <p>The size of the archive is limited to 2 G-byte (32 bits).</p>
+    <p>Comments for indivudal files is not supported when creating zip
+      archives. The zip archive comment for the whole zip archive is
+      supported.</p>
+    <p>There is currently no support for altering an existing zip archive.
+      To add or remove a file from an archive, the whole archive must be
+      recreated.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+zip_file()    </code>
+    <p>The record <tt>zip_file</tt> contains the following fields.</p>
+    <taglist>
+      <tag><tt>name = string()</tt></tag>
+      <item>
+        <p>the name of the file</p>
+      </item>
+      <tag><tt>info = file_info()</tt></tag>
+      <item>
+        <p>file info as in
+          <seealso marker="erts:file#read_file_info/1">file:read_file_info/1</seealso></p>
+      </item>
+      <tag><tt>comment = string()</tt></tag>
+      <item>
+        <p>the comment for the file in the zip archive</p>
+      </item>
+      <tag><tt>offset = integer()</tt></tag>
+      <item>
+        <p>the offset of the file in the zip archive (used internally)</p>
+      </item>
+      <tag><tt>comp_size = integer()</tt></tag>
+      <item>
+        <p>the compressed size of the file (the uncompressed size is found
+          in <tt>info</tt>)</p>
+      </item>
+    </taglist>
+    <code type="none">zip_comment</code>
+    <p>The record <tt>zip_comment</tt> just contains the archive comment for
+      a zip archive</p>
+    <taglist>
+      <tag><tt>comment = string()</tt></tag>
+      <item>
+        <p>the comment for the zip archive</p>
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="zipNameFileListgtRetValue"></a><b>zip(Name, FileList) -&gt; RetValue<br/>zip(Name, FileList, Options) -&gt; RetValue<br/>create(Name, FileList) -&gt; RetValue<br/>create(Name, FileList, Options) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+        <b>FileList = [FileSpec]</b><br/>
+        <b>FileSpec = filename() | {filename(), binary()}</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = memory | cooked | verbose | {comment, Comment} | {cwd, CWD} | {compress, What} | {uncompress, What}</b><br/>
+        <b>What = all | [Extension] | {add, [Extension]} | {del, [Extension]}</b><br/>
+        <b>Extension = string()</b><br/>
+        <b>Comment = CWD = string()</b><br/>
+        <b>RetValue = {ok, Name} | {ok, {Name, binary()}} | {error, Reason}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <marker id="zip_2"></marker><tt>zip</tt> function creates a
+          zip archive containing the files specified in <tt>FileList</tt>.</p>
+        <p>As synonyms, the functions <tt>create/2</tt> and <tt>create/3</tt>
+          are provided, to make it resemble the <tt>erl_tar</tt> module.</p>
+        <p>The file-list is a list of files, with paths relative to the
+          current directory, they will be stored with this path in the
+          archive. Files may also be specified with data in binaries,
+          to create an archive directly from data.</p>
+        <p>Files will be compressed using the DEFLATE compression, as
+          described in the Appnote.txt file. However, files will be
+          stored without compression if they already are compressed.
+          The <tt>zip/2</tt> and <tt>zip/3</tt> checks the file extension
+          to see whether the file should be stored without compression.
+          Files with the following extensions are not compressed:
+          <tt>.Z</tt>, <tt>.zip</tt>, <tt>.zoo</tt>, <tt>.arc</tt>, <tt>.lzh</tt>,
+          <tt>.arj</tt>.</p>
+        <p>It is possible to override the default behavior and
+        explicitly control what types of files that should be
+        compressed by using the <tt>{compress, What}</tt> and
+        <tt>{uncompress, What}</tt> options. It is possible to have
+        several <tt>compress</tt> and <tt>uncompress</tt> options. In
+        order to trigger compression of a file, its extension must
+        match with the
+        <tt>compress</tt> condition and must not match the
+        <tt>uncompress</tt> condition. For example if <tt>compress</tt> is
+        set to <tt>["gif", "jpg"]</tt> and <tt>uncompress</tt> is set to
+        <tt>["jpg"]</tt>, only files with <tt>"gif"</tt> as extension will
+        be compressed. No other files will be compressed.</p>
+        <p>The following options are available:</p>
+        <taglist>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the
+              zip file in <tt>raw</tt> mode, which is faster but does not allow
+              a remote (erlang) file server to be used. Adding <tt>cooked</tt>
+              to the mode list will override the default and open the zip file
+              without the <tt>raw</tt> option. The same goes for the files
+              added.</p>
+          </item>
+          <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Print an informational message about each file
+              being added.</p>
+          </item>
+          <tag><tt>memory</tt></tag>
+          <item>
+            <p>The output will not be to a file, but instead as a tuple
+              <tt>{FileName, binary()}</tt>. The binary will be a full zip
+              archive with header, and can be extracted with for instance
+              <tt>unzip/2</tt>.</p>
+          </item>
+          <tag><tt>{comment, Comment}</tt></tag>
+          <item>
+            <p>Add a comment to the zip-archive.</p>
+          </item>
+          <tag><tt>{cwd, CWD}</tt></tag>
+          <item>
+            <p>Use the given directory as current directory, it will be
+              prepended to file names when adding them, although it will not
+              be in the zip-archive. (Acting like a file:set_cwd/1, but
+              without changing the global cwd property.)</p>
+          </item>
+          <tag><tt>{compress, What}</tt></tag>
+          <item>
+            <p>Controls what types of files that will be
+            compressed. It is by default set to <tt>all</tt>. The
+            following values of <tt>What</tt> are allowed:</p>
+	      <taglist>
+	            <tag><tt>all</tt></tag>
+		    <item><p> means that all files will be compressed (as long
+		       as they pass the <tt>uncompress</tt> condition).</p></item>  
+		    <tag><tt>[Extension]</tt></tag>
+		    <item><p>means that only files with exactly these extensions
+		     will be compressed.</p></item>  
+	            <tag><tt>{add,[Extension]}</tt></tag>
+		    <item><p>adds these extensions to the list of compress
+		     extensions.</p></item>  
+	            <tag><tt>{del,[Extension]}</tt></tag>
+		    <item><p>deletes these extensions from the list of compress
+		     extensions.</p></item>  
+	      </taglist>
+	  </item>
+          <tag><tt>{uncompress, What}</tt></tag>
+          <item>
+            <p>Controls what types of files that will be uncompressed. It is by
+            default set to <tt>[".Z",".zip",".zoo",".arc",".lzh",".arj"]</tt>.
+	    The following values of <tt>What</tt> are allowed:</p>
+	      <taglist>
+	            <tag><tt>all</tt></tag>
+		    <item><p> means that no files will be compressed.</p></item>  
+		    <tag><tt>[Extension]</tt></tag>
+		    <item><p>means that files with these extensions will be
+		    uncompressed.</p></item>  
+	            <tag><tt>{add,[Extension]}</tt></tag>
+		    <item><p>adds these extensions to the list of uncompress
+		     extensions.</p></item>  
+	            <tag><tt>{del,[Extension]}</tt></tag>
+		    <item><p>deletes these extensions from the list of uncompress
+		     extensions.</p></item>  
+	      </taglist>
+	  </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unzipArchivegtRetValue"></a><b>unzip(Archive) -&gt; RetValue<br/>unzip(Archive, Options) -&gt; RetValue<br/>extract(Archive) -&gt; RetValue<br/>extract(Archive, Options) -&gt; RetValue</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Archive = filename() | binary()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = {file_list, FileList} | keep_old_files | verbose | memory | {file_filter, FileFilter} | {cwd, CWD}</b><br/>
+        <b>FileList = [filename()]</b><br/>
+        <b>FileBinList = [{filename(),binary()}]</b><br/>
+        <b>FileFilter = fun(ZipFile) -&gt; true | false</b><br/>
+        <b>CWD = string()</b><br/>
+        <b>ZipFile = zip_file()</b><br/>
+        <b>RetValue = {ok,FileList} | {ok,FileBinList} | {error, Reason} | {error, {Name, Reason}}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="unzip_1"></marker>
+<tt>unzip/1</tt> function extracts
+          all files from a zip archive. The
+                    <marker id="unzip_2"></marker>
+<tt>unzip/2</tt> function provides options
+          to extract some files, and more.</p>
+        <p>If the <tt>Archive</tt> argument is given as a binary,
+          the contents of the binary is assumed to be a zip archive,
+          otherwise it should be a filename.</p>
+        <p>The following options are available:</p>
+        <taglist>
+          <tag><tt>{file_list, FileList}</tt></tag>
+          <item>
+            <p>By default, all files will be extracted from the zip
+              archive. With the <tt>{file_list,FileList}</tt> option,
+              the <tt>unzip/2</tt> function will only extract the files
+              whose names are included in <tt>FileList</tt>. The full
+              paths, including the names of all sub directories within
+              the zip archive, must be specified.</p>  
+          </item>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the
+              zip file in <tt>raw</tt> mode, which is faster but does not allow
+              a remote (erlang) file server to be used. Adding <tt>cooked</tt>
+              to the mode list will override the default and open zip file
+              without the <tt>raw</tt> option. The same goes for the files
+              extracted.</p>
+          </item>
+          <tag><tt>keep_old_files</tt></tag>
+          <item>
+            <p>By default, all existing files with the same name as file in
+              the zip archive will be overwritten. With the <tt>keep_old_files</tt>
+              option, the <tt>unzip/2</tt> function will not overwrite any existing
+              files. Not that even with the <tt>memory</tt> option given, which
+              means that no files will be overwritten, files existing will be
+              excluded from the result.</p>
+          </item>
+          <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Print an informational message as each file is being
+              extracted.</p>
+          </item>
+          <tag><tt>memory</tt></tag>
+          <item>
+            <p>Instead of extracting to the current directory, the
+              <tt>memory</tt> option will give the result as a list of tuples
+              <tt>{Filename, Binary}</tt>, where <tt>Binary</tt> is a binary
+              containing the extracted data of the file named <tt>Filename</tt>
+              in the zip archive.</p>
+          </item>
+          <tag><tt>{cwd, CWD}</tt></tag>
+          <item>
+            <p>Use the given directory as current directory, it will be
+              prepended to file names when extracting them from the
+              zip-archive. (Acting like a file:set_cwd/1, but without
+              changing the global cwd property.)</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_dirArchivegtRetValue"></a><b>list_dir(Archive) -&gt; RetValue<br/>list_dir(Archive, Options)<br/>table(Archive) -&gt; RetValue<br/>table(Archive, Options)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Archive = filename() | binary()</b><br/>
+        <b>RetValue = {ok, [Comment, Files]} | {error, Reason}</b><br/>
+        <b>Comment = zip_comment()</b><br/>
+        <b>Files = [zip_file()]</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = cooked</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="list_dir_1"></marker>
+<tt>list_dir/1</tt> function retrieves
+          the names of all files in the zip archive <tt>Archive</tt>. The
+                    <marker id="list_dir_2"></marker>
+<tt>list_dir/2</tt> function provides options.</p>
+        <p>As synonyms, the functions <tt>table/2</tt> and <tt>table/3</tt>
+          are provided, to make it resemble the <tt>erl_tar</tt> module.</p>
+        <p>The result value is the tuple <tt>{ok, List}</tt>, where <tt>List</tt>
+          contains the zip archive comment as the first element.</p>
+        <p>The following options are available:</p>
+        <taglist>
+          <tag><tt>cooked</tt></tag>
+          <item>
+            <p>By default, the <tt>open/2</tt> function will open the
+              zip file in <tt>raw</tt> mode, which is faster but does not allow
+              a remote (erlang) file server to be used. Adding <tt>cooked</tt>
+              to the mode list will override the default and open zip file
+              without the <tt>raw</tt> option.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tArchive"></a><b>t(Archive)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Archive = filename() | binary() | ZipHandle</b><br/>
+        <b>ZipHandle = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="t_1"></marker>
+<tt>t/1</tt> function prints the names
+          of all files in the zip archive <tt>Archive</tt> to the Erlang shell.
+          (Similar to "<tt>tar&nbsp;t</tt>".)</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ttArchive"></a><b>tt(Archive)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Archive = filename() | binary()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="tt_1"></marker>
+<tt>tt/1</tt> function prints names and
+          information about all files in the zip archive <tt>Archive</tt> to
+          the Erlang shell. (Similar to "<tt>tar tv</tt>".)</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zip_openArchivegtokZipHandleerrorReason"></a><b>zip_open(Archive) -&gt; {ok, ZipHandle} | {error, Reason}<br/>zip_open(Archive, Options) -&gt; {ok, ZipHandle} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Archive = filename() | binary()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Options = cooked | memory | {cwd, CWD}</b><br/>
+        <b>CWD = string()</b><br/>
+        <b>ZipHandle = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="zip_open"></marker>
+<tt>zip_open</tt> function opens a
+          zip archive, and reads and saves its directory. This
+          means that subsequently reading files from the archive will be
+          faster than unzipping files one at a time with <tt>unzip</tt>.</p>
+        <p>The archive must be closed with <tt>zip_close/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zip_list_dirZipHandlegtResulterrorReason"></a><b>zip_list_dir(ZipHandle) -&gt; Result | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [ZipComment, ZipFile...]</b><br/>
+        <b>ZipComment = #zip_comment{}</b><br/>
+        <b>ZipFile = #zip_file{}</b><br/>
+        <b>ZipHandle = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="zip_list_dir"></marker>
+<tt>zip_list_dir/1</tt> function
+          returns the file list of an open zip archive.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zip_getZipHandlegtokResulterrorReason"></a><b>zip_get(ZipHandle) -&gt; {ok, [Result]} | {error, Reason}<br/>zip_get(FileName, ZipHandle) -&gt; {ok, Result} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = filename()</b><br/>
+        <b>ZipHandle = pid()</b><br/>
+        <b>Result = filename() | {filename(), binary()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="zip_get"></marker>
+<tt>zip_get</tt> function extracts
+          one or all files from an open archive.</p>
+        <p>The files will be unzipped to memory or to file, depending on
+          the options given to the <tt>zip_open</tt> function when the
+          archive was opened.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="zip_closeZipHandlegtokerroreinval"></a><b>zip_close(ZipHandle) -&gt; ok | {error, einval}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ZipHandle = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The           <marker id="zip_close"></marker>
+<tt>zip_close/1</tt> function closes
+          a zip archive, previously opened with <tt>zip_open</tt>. All
+          resources are closed, and the handle should not be used after
+          closing.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

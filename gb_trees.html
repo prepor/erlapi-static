@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>gb_trees</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />gb_trees</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>An efficient implementation of Prof. Arne Andersson's General
+      Balanced Trees. These have no storage overhead compared to
+      unbalaced binary trees, and their performance is in general
+      better than AVL trees.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Data structure</a></li>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#balanceTree1gtTree2">balance(Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#deleteKeyTree1gtTree2">delete(Key, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#delete_anyKeyTree1gtTree2">delete_any(Key, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#emptygtTree">empty() -&gt; Tree</a></li>
+        
+        <li><a href="#enterKeyValTree1gtTree2">enter(Key, Val, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#from_orddictListgtTree">from_orddict(List) -&gt; Tree</a></li>
+        
+        <li><a href="#getKeyTreegtVal">get(Key, Tree) -&gt; Val</a></li>
+        
+        <li><a href="#insertKeyValTree1gtTree2">insert(Key, Val, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#is_definedKeyTreegtbool">is_defined(Key, Tree) -&gt; bool()</a></li>
+        
+        <li><a href="#is_emptyTreegtbool">is_empty(Tree) -&gt; bool()</a></li>
+        
+        <li><a href="#iteratorTreegtIter">iterator(Tree) -&gt; Iter</a></li>
+        
+        <li><a href="#keysTreegtKey">keys(Tree) -&gt; [Key]</a></li>
+        
+        <li><a href="#largestTreegtKeyVal">largest(Tree) -&gt; {Key, Val}</a></li>
+        
+        <li><a href="#lookupKeyTreegtvalueValnone">lookup(Key, Tree) -&gt; {value, Val} | none</a></li>
+        
+        <li><a href="#mapFunctionTree1gtTree2">map(Function, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#nextIter1gtKeyValIter2none">next(Iter1) -&gt; {Key, Val, Iter2} | none</a></li>
+        
+        <li><a href="#sizeTreegtint">size(Tree) -&gt; int()</a></li>
+        
+        <li><a href="#smallestTreegtKeyVal">smallest(Tree) -&gt; {Key, Val}</a></li>
+        
+        <li><a href="#take_largestTree1gtKeyValTree2">take_largest(Tree1) -&gt; {Key, Val, Tree2}</a></li>
+        
+        <li><a href="#take_smallestTree1gtKeyValTree2">take_smallest(Tree1) -&gt; {Key, Val, Tree2}</a></li>
+        
+        <li><a href="#to_listTreegtKeyVal">to_list(Tree) -&gt; [{Key, Val}]</a></li>
+        
+        <li><a href="#updateKeyValTree1gtTree2">update(Key, Val, Tree1) -&gt; Tree2</a></li>
+        
+        <li><a href="#valuesTreegtVal">values(Tree) -&gt; [Val]</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Data structure</div>
+    
+    <div class="description">
+        
+    <title>Data structure</title>
+    <p>Data structure:</p>
+    <code type="none">
+      
+- {Size, Tree}, where `Tree' is composed of nodes of the form:
+  - {Key, Value, Smaller, Bigger}, and the "empty tree" node:
+  - nil.</code>
+    <p>There is no attempt to balance trees after deletions. Since
+      deletions do not increase the height of a tree, this should be OK.</p>
+    <p>Original balance condition <em>h(T) &lt;= ceil(c * log(|T|))</em>
+      has been changed to the similar (but not quite equivalent)
+      condition <em>2 ^ h(T) &lt;= |T| ^ c</em>. This should also be OK.</p>
+    <p>Performance is comparable to the AVL trees in the Erlang book
+      (and faster in general due to less overhead); the difference is
+      that deletion works for these trees, but not for the book's
+      trees. Behaviour is logaritmic (as it should be).</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+gb_tree() = a GB tree</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="gb_sets">gb_sets(3)</seealso>, 
+      <seealso marker="dict">dict(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="balanceTree1gtTree2"></a><b>balance(Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Rebalances <tt>Tree1</tt>. Note that this is rarely necessary,
+          but may be motivated when a large number of nodes have been
+          deleted from the tree without further insertions. Rebalancing
+          could then be forced in order to minimise lookup times, since
+          deletion only does not rebalance the tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteKeyTree1gtTree2"></a><b>delete(Key, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the node with key <tt>Key</tt> from <tt>Tree1</tt>;
+          returns new tree. Assumes that the key is present in the tree,
+          crashes otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_anyKeyTree1gtTree2"></a><b>delete_any(Key, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the node with key <tt>Key</tt> from <tt>Tree1</tt> if
+          the key is present in the tree, otherwise does nothing;
+          returns new tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="emptygtTree"></a><b>empty() -&gt; Tree</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new empty tree</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enterKeyValTree1gtTree2"></a><b>enter(Key, Val, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Val = term()</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Key</tt> with value <tt>Val</tt> into <tt>Tree1</tt> if
+          the key is not present in the tree, otherwise updates
+          <tt>Key</tt> to value <tt>Val</tt> in <tt>Tree1</tt>. Returns the
+          new tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_orddictListgtTree"></a><b>from_orddict(List) -&gt; Tree</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [{Key, Val}]</b><br/>
+        <b>&nbsp;Key = Val = term()</b><br/>
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Turns an ordered list <tt>List</tt> of key-value tuples into a
+          tree. The list must not contain duplicate keys.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getKeyTreegtVal"></a><b>get(Key, Tree) -&gt; Val</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Val = term()</b><br/>
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieves the value stored with <tt>Key</tt> in <tt>Tree</tt>.
+          Assumes that the key is present in the tree, crashes
+          otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookupKeyTreegtvalueValnone"></a><b>lookup(Key, Tree) -&gt; {value, Val} | none</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Val = term()</b><br/>
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Looks up <tt>Key</tt> in <tt>Tree</tt>; returns
+          <tt>{value, Val}</tt>, or <tt>none</tt> if <tt>Key</tt> is not
+          present.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="insertKeyValTree1gtTree2"></a><b>insert(Key, Val, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Val = term()</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Key</tt> with value <tt>Val</tt> into <tt>Tree1</tt>;
+          returns the new tree. Assumes that the key is not present in
+          the tree, crashes otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_definedKeyTreegtbool"></a><b>is_defined(Key, Tree) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Key</tt> is present in <tt>Tree</tt>,
+          otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_emptyTreegtbool"></a><b>is_empty(Tree) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Tree</tt> is an empty tree, and
+          <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iteratorTreegtIter"></a><b>iterator(Tree) -&gt; Iter</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Iter = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an iterator that can be used for traversing the
+          entries of <tt>Tree</tt>; see <tt>next/1</tt>. The implementation
+          of this is very efficient; traversing the whole tree using
+          <tt>next/1</tt> is only slightly slower than getting the list
+          of all elements using <tt>to_list/1</tt> and traversing that.
+          The main advantage of the iterator approach is that it does
+          not require the complete list of all elements to be built in
+          memory at one time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="keysTreegtKey"></a><b>keys(Tree) -&gt; [Key]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Key = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the keys in <tt>Tree</tt> as an ordered list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="largestTreegtKeyVal"></a><b>largest(Tree) -&gt; {Key, Val}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Key, Val}</tt>, where <tt>Key</tt> is the largest
+          key in <tt>Tree</tt>, and <tt>Val</tt> is the value associated
+          with this key. Assumes that the tree is nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapFunctionTree1gtTree2"></a><b>map(Function, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = fun(K, V1) -&gt; V2</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>maps the function F(K, V1) -&gt; V2 to all key-value pairs
+	    of the tree Tree1 and returns a new tree Tree2 with the same set of keys
+	    as Tree1 and the new set of values V2.</p>
+         
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nextIter1gtKeyValIter2none"></a><b>next(Iter1) -&gt; {Key, Val, Iter2} | none</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Iter1 = Iter2 = Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Key, Val, Iter2}</tt> where <tt>Key</tt> is the
+          smallest key referred to by the iterator <tt>Iter1</tt>, and
+          <tt>Iter2</tt> is the new iterator to be used for
+          traversing the remaining nodes, or the atom <tt>none</tt> if no
+          nodes remain.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeTreegtint"></a><b>size(Tree) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of nodes in <tt>Tree</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="smallestTreegtKeyVal"></a><b>smallest(Tree) -&gt; {Key, Val}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Key, Val}</tt>, where <tt>Key</tt> is the smallest
+          key in <tt>Tree</tt>, and <tt>Val</tt> is the value associated
+          with this key. Assumes that the tree is nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="take_largestTree1gtKeyValTree2"></a><b>take_largest(Tree1) -&gt; {Key, Val, Tree2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+        <b>Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Key, Val, Tree2}</tt>, where <tt>Key</tt> is the
+          largest key in <tt>Tree1</tt>, <tt>Val</tt> is the value
+          associated with this key, and <tt>Tree2</tt> is this tree with
+          the corresponding node deleted. Assumes that the tree is
+          nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="take_smallestTree1gtKeyValTree2"></a><b>take_smallest(Tree1) -&gt; {Key, Val, Tree2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+        <b>Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Key, Val, Tree2}</tt>, where <tt>Key</tt> is the
+          smallest key in <tt>Tree1</tt>, <tt>Val</tt> is the value
+          associated with this key, and <tt>Tree2</tt> is this tree with
+          the corresponding node deleted. Assumes that the tree is
+          nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listTreegtKeyVal"></a><b>to_list(Tree) -&gt; [{Key, Val}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Key = Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a tree into an ordered list of key-value tuples.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="updateKeyValTree1gtTree2"></a><b>update(Key, Val, Tree1) -&gt; Tree2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = Val = term()</b><br/>
+        <b>Tree1 = Tree2 = gb_tree()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Updates <tt>Key</tt> to value <tt>Val</tt> in <tt>Tree1</tt>;
+          returns the new tree. Assumes that the key is present in the
+          tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="valuesTreegtVal"></a><b>values(Tree) -&gt; [Val]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tree = gb_tree()</b><br/>
+        <b>Val = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the values in <tt>Tree</tt> as an ordered list, sorted
+          by their corresponding keys. Duplicates are not removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

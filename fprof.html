@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>fprof</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />fprof</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module is used to profile a program
+      to find out how the execution time is used.
+      Trace to file is used to minimize 
+      runtime performance impact. 
+      </p>
+    <p>The <tt>fprof</tt> module uses tracing to collect profiling data, 
+      hence there is no need for special compilation of any module to
+      be profiled. When it starts tracing, <tt>fprof</tt> will erase all 
+      previous tracing in the node and set the necessary trace flags
+      on the profiling target processes as well as local call trace on
+      all functions in all loaded modules and all modules to be loaded.
+      <tt>fprof</tt> erases all tracing in the node when it stops tracing.
+      </p>
+    <p><tt>fprof</tt> presents both <em>own time</em> i.e how much time a
+      function has used for its own execution, and 
+      <em>accumulated time</em> i.e including called functions. 
+      All presented times are
+      collected using trace timestamps. <tt>fprof</tt> tries to collect
+      cpu time timestamps, if the host machine OS supports it. 
+      Therefore the times may be wallclock times and OS scheduling will 
+      randomly strike all called functions in a presumably fair way.
+      </p>
+    <p>If, however, the profiling time is short, and the host machine
+      OS does not support high resolution cpu time measurements, some
+      few OS schedulings may show up as ridicously long execution
+      times for functions doing practically nothing. An example of a
+      function more or less just composing a tuple in about 100 times
+      the normal execution time has been seen, and when the tracing
+      was repeated, the execution time became normal.
+      </p>
+    <p>Profiling is essentially done in 3 steps:</p>
+    <taglist>
+      <tag><tt>1</tt></tag>
+      <item>Tracing; to file, as mentioned in the previous
+       paragraph. The trace contains entries for function calls,
+       returns to function, process scheduling, other process related
+       (spawn, etc) events, and garbage collection. All trace entries
+       are timestamped.</item>
+      <tag><tt>2</tt></tag>
+      <item>Profiling; the trace file is read, the execution call
+       stack is simulated, and raw profile data is calculated from
+       the simulated call stack and the trace timestamps. The profile
+       data is stored in the <tt>fprof</tt> server state. During this
+       step the trace data may be dumped in text format to file or
+       console. </item>
+      <tag><tt>3</tt></tag>
+      <item>Analysing; the raw profile data is sorted, filtered and
+       dumped in text format either to file or console. The text
+       format intended to be both readable for a human reader, as
+       well as parsable with the standard erlang parsing tools.</item>
+    </taglist>
+    <p>Since <tt>fprof</tt> uses trace to file, the runtime performance
+      degradation is minimized, but still far from negligible,
+      especially for programs that use the filesystem heavily by
+      themselves. Where you place the trace file is also important,
+      e.g on Solaris <tt>/tmp</tt> is usually a good choice since it is
+      essentially a RAM disk, while any NFS (network) mounted disk is
+      a bad idea.
+      </p>
+    <p><tt>fprof</tt> can also skip the file step and trace to a tracer
+      process that does the profiling in runtime.
+            <marker id="start"></marker>
+</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Analysis format</a></li>
+        
+        <li><a href="#">Notes</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#analyseOptiongtokerrorReasonEXITServerPidReason">analyse([Option]) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#analyseOptionNameOptionValuegtokerrorReasonEXITServerPidReason">analyse({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#analyseOptionNamegtokerrorReasonEXITServerPidReason">analyse(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#analysegtokerrorReasonEXITServerPidReason">analyse() -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#analyseOptionNameOptionValuegtokerrorReasonEXITServerPidReason">analyse(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#applyFuncArgsOptionListgtterm">apply(Func, Args, OptionList) -&gt; term()</a></li>
+        
+        <li><a href="#applyModuleFunctionArgsOptionListgtterm">apply(Module, Function, Args, OptionList) -&gt; term()</a></li>
+        
+        <li><a href="#applyModuleFunctionArgsgtterm">apply(Module, Function, Args) -&gt; term()</a></li>
+        
+        <li><a href="#applyFuncArgsgtterm">apply(Func, Args) -&gt; term()</a></li>
+        
+        <li><a href="#profileOptiongtokokTracererrorReasonEXITServerPidReason">profile([Option]) -&gt; ok | {ok, Tracer} | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#profileOptionNameOptionValuegtokerrorReasonEXITServerPidReason">profile({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#profileOptionNamegtokerrorReasonEXITServerPidReason">profile(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#profilegtokerrorReasonEXITServerPidReason">profile() -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#profileOptionNameOptionValuegtokerrorReasonEXITServerPidReason">profile(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#startgtokPiderroralready_startedPid">start() -&gt; {ok, Pid} | {error, {already_started, Pid}}</a></li>
+        
+        <li><a href="#stopReasongtok">stop(Reason) -&gt; ok</a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok</a></li>
+        
+        <li><a href="#traceverboseFilenamegtokerrorReasonEXITServerPidReason">trace(verbose, Filename) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#traceOptionNameOptionValuegtokerrorReasonEXITServerPidReason">trace(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#traceverbosegtokerrorReasonEXITServerPidReason">trace(verbose) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#tracestartFilenamegtokerrorReasonEXITServerPidReason">trace(start, Filename) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#traceOptiongtokerrorReasonEXITServerPidReason">trace([Option]) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#traceOptionNamegtokerrorReasonEXITServerPidReason">trace(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+        <li><a href="#traceOptionNameOptionValuegtokerrorReasonEXITServerPidReason">trace({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Analysis format</div>
+    
+    <div class="description">
+        
+    <marker id="analysis"></marker>
+    <title>Analysis format</title>
+    <p>This section describes the output format of the analyse
+      command. See <seealso marker="#analyse">analyse/0</seealso>.
+      </p>
+    <p>The format is parsable with the standard Erlang parsing tools
+      <tt>erl_scan</tt> and <tt>erl_parse</tt>, <tt>file:consult/1</tt> or
+      <tt>io:read/2</tt>. The parse format is not explained here - it
+      should be easy for the interested to try it out. Note that some
+      flags to <tt>analyse/1</tt> will affect the format. 
+      </p>
+    <p>The following example was run on OTP/R8 on Solaris 8, all OTP
+      internals in this example are very version dependent.
+      </p>
+    <p>As an example, we will use the following function, that you may
+      recogise as a slightly modified benchmark function from the
+      manpage file(3):</p>
+    <code type="none">
+-module(foo).
+-export([create_file_slow/2]).
+
+create_file_slow(Name, N) when integer(N), N >= 0 ->
+    {ok, FD} = 
+        file:open(Name, [raw, write, delayed_write, binary]),
+    if N > 256 ->
+            ok = file:write(FD, 
+                            lists:map(fun (X) -> <<X:32/unsigned>> end,
+                            lists:seq(0, 255))),
+            ok = create_file_slow(FD, 256, N);
+       true ->
+            ok = create_file_slow(FD, 0, N)
+    end,
+    ok = file:close(FD).
+
+create_file_slow(FD, M, M) ->
+    ok;
+create_file_slow(FD, M, N) ->
+    ok = file:write(FD, <<M:32/unsigned>>),
+    create_file_slow(FD, M+1, N).</code>
+    <p>Let us have a look at the printout after running:</p>
+    <pre>
+1&gt; <input>
+2&gt; <input>
+3&gt; <input></pre>
+    <p>The printout starts with:</p>
+    <pre>
+%% Analysis results:
+{  analysis_options,
+ [{callers, true},
+  {sort, acc},
+  {totals, false},
+  {details, true}]}.
+
+%                                       CNT       ACC       OWN        
+[{ totals,                             9627, 1691.119, 1659.074}].  %%%</pre>
+    <p>The CNT column shows the total number of function calls that
+      was found in the trace. In the ACC column is the total time of
+      the trace from first timestamp to last. And in the OWN
+      column is the sum of the execution time in functions found in the
+      trace, not including called functions. In this case it is very
+      close to the ACC time since the emulator had practically nothing
+      else to do than to execute our test program.
+      </p>
+    <p>All time values in the printout are in milliseconds.
+      </p>
+    <p>The printout continues:</p>
+    <pre>
+%                                       CNT       ACC       OWN        
+[{ "&lt;0.28.0&gt;",                         9627,undefined, 1659.074}].   %%</pre>
+    <p>This is the printout header of one process. The printout
+      contains only this one process since we did <tt>fprof:apply/3</tt>
+      which traces only the current process. Therefore the CNT and
+      OWN columns perfectly matches the totals above. The ACC column is
+      undefined since summing the ACC times of all calls in the process
+      makes no sense - you would get something like the ACC value from
+      totals above multiplied by the average depth of the call stack,
+      or something.
+      </p>
+    <p>All paragraphs up to the next process header only concerns
+      function calls within this process.
+      </p>
+    <p>Now we come to something more interesting:</p>
+    <pre>
+{[{undefined,                             0, 1691.076,    0.030}],     
+ { {fprof,apply_start_stop,4},            0, 1691.076,    0.030},     %
+ [{{foo,create_file_slow,2},              1, 1691.046,    0.103},      
+  {suspend,                               1,    0.000,    0.000}]}.    
+
+{[{{fprof,apply_start_stop,4},            1, 1691.046,    0.103}],     
+ { {foo,create_file_slow,2},              1, 1691.046,    0.103},     %
+ [{{file,close,1},                        1, 1398.873,    0.019},      
+  {{foo,create_file_slow,3},              1,  249.678,    0.029},      
+  {{file,open,2},                         1,   20.778,    0.055},      
+  {{lists,map,2},                         1,   16.590,    0.043},      
+  {{lists,seq,2},                         1,    4.708,    0.017},      
+  {{file,write,2},                        1,    0.316,    0.021}]}.    </pre>
+    <p>The printout consists of one paragraph per called function. The
+      function <em>marked</em> with '%' is the one the paragraph
+      concerns - <tt>foo:create_file_slow/2</tt>. Above the marked
+      function are the <em>calling</em> functions -  those that has
+      called the marked, and below are those <em>called</em> by the
+      marked function. 
+      </p>
+    <p>The paragraphs are per default sorted in decreasing order of
+      the ACC column for the marked function. The calling list and
+      called list within one paragraph are also per default sorted in
+      decreasing order of their ACC column.
+      </p>
+    <p>The columns are: CNT - the number of times the funcion
+      has been called, ACC - the time spent in the
+      function including called functions, and OWN - the
+      time spent in the function not including called
+      functions. 
+      </p>
+    <p>The rows for the <em>calling</em> functions contain statistics
+      for the <em>marked</em> function with the constraint that only
+      the occasions when a call was made from the <em>row's</em>
+      function to the <em>marked</em> function are accounted for.
+      </p>
+    <p>The row for the <em>marked</em> function simply contains the
+      sum of all <em>calling</em> rows.  
+      </p>
+    <p>The rows for the <em>called</em> functions contains statistics
+      for the <em>row's</em> function with the constraint that only the
+      occasions when a call was made from the <em>marked</em> to the
+      <em>row's</em> function are accounted for.
+      </p>
+    <p>So, we see that <tt>foo:create_file_slow/2</tt> used very little
+      time for its own execution. It spent most of its time in
+      <tt>file:close/1</tt>. The function <tt>foo:create_file_slow/3</tt>
+      that writes 3/4 of the file contents is the second biggest time
+      thief. 
+      </p>
+    <p>We also see that the call to <tt>file:write/2</tt> that writes
+      1/4 of the file contents takes very little time in itself. What
+      takes time is to build the data (<tt>lists:seq/2</tt> and
+      <tt>lists:map/2</tt>).
+      </p>
+    <p>The function 'undefined' that has called
+      <tt>fprof:apply_start_stop/4</tt> is an unknown function because that
+      call was not recorded in the trace. It was only recorded
+      that the execution returned from
+      <tt>fprof:apply_start_stop/4</tt> to some other function above in
+      the call stack, or that the process exited from there.
+      </p>
+    <p>Let us continue down the printout to find:</p>
+    <pre>
+{[{{foo,create_file_slow,2},              1,  249.678,    0.029},      
+  {{foo,create_file_slow,3},            768,    0.000,   23.294}],     
+ { {foo,create_file_slow,3},            769,  249.678,   23.323},     %
+ [{{file,write,2},                      768,  220.314,   14.539},      
+  {suspend,                              57,    6.041,    0.000},      
+  {{foo,create_file_slow,3},            768,    0.000,   23.294}]}.    </pre>
+    <p>If you compare with the code you will see there also that
+      <tt>foo:create_file_slow/3</tt> was called only from
+      <tt>foo:create_file_slow/2</tt> and itself, and called only
+      <tt>file:write/2</tt>, note the number of calls to
+      <tt>file:write/2</tt>. But here we see that <tt>suspend</tt> was
+      called a few times. This is a pseudo function that indicates
+      that the process was suspended while executing in
+      <tt>foo:create_file_slow/3</tt>, and since there is no
+      <tt>receive</tt> or <tt>erlang:yield/0</tt> in the code, it must be
+      Erlang scheduling suspensions, or the trace file driver
+      compensating for large file write operations (these are regarded
+      as a shedule out followed by a shedule in to the same process).
+      </p>
+    <p></p>
+    <p>Let us find the <tt>suspend</tt> entry:</p>
+    <pre>
+{[{{file,write,2},                       53,    6.281,    0.000},      
+  {{foo,create_file_slow,3},             57,    6.041,    0.000},      
+  {{prim_file,drv_command,4},            50,    4.582,    0.000},      
+  {{prim_file,drv_get_response,1},       34,    2.986,    0.000},      
+  {{lists,map,2},                        10,    2.104,    0.000},      
+  {{prim_file,write,2},                  17,    1.852,    0.000},      
+  {{erlang,port_command,2},              15,    1.713,    0.000},      
+  {{prim_file,drv_command,2},            22,    1.482,    0.000},      
+  {{prim_file,translate_response,2},     11,    1.441,    0.000},      
+  {{prim_file,'-drv_command/2-fun-0-',1},  15,    1.340,    0.000},      
+  {{lists,seq,4},                         3,    0.880,    0.000},      
+  {{foo,'-create_file_slow/2-fun-0-',1},   5,    0.523,    0.000},      
+  {{erlang,bump_reductions,1},            4,    0.503,    0.000},      
+  {{prim_file,open_int_setopts,3},        1,    0.165,    0.000},      
+  {{prim_file,i32,4},                     1,    0.109,    0.000},      
+  {{fprof,apply_start_stop,4},            1,    0.000,    0.000}],     
+ { suspend,                             299,   32.002,    0.000},     %
+ [ ]}.</pre>
+    <p>We find no particulary long suspend times, so no function seems
+      to have waited in a receive statement. Actually,
+      <tt>prim_file:drv_command/4</tt> contains a receive statement, but
+      in this test program, the message lies in the process receive
+      buffer when the receive statement is entered. We also see that
+      the total suspend time for the test run is small.
+      </p>
+    <p>The <tt>suspend</tt> pseudo function has got an OWN time of
+      zero. This is to prevent the process total OWN time from
+      including time in suspension. Whether suspend time is really ACC
+      or OWN time is more of a philosophical question.
+      </p>
+    <p>Now we look at another interesting pesudo function,
+      <tt>garbage_collect</tt>:</p>
+    <pre>
+{[{{prim_file,drv_command,4},            25,    0.873,    0.873},      
+  {{prim_file,write,2},                  16,    0.692,    0.692},      
+  {{lists,map,2},                         2,    0.195,    0.195}],     
+ { garbage_collect,                      43,    1.760,    1.760},     %
+ [ ]}.</pre>
+    <p>Here we see that no function distinguishes itself considerably,
+      which is very normal.
+      </p>
+    <p>The <tt>garbage_collect</tt> pseudo function has not got an OWN
+      time of zero like <tt>suspend</tt>, instead it is equal to the ACC
+      time. 
+      </p>
+    <p>Garbage collect often occurs while a process is suspended, but
+      <tt>fprof</tt> hides this fact by pretending that the suspended
+      function was first unsuspended and then garbage
+      collected. Otherwise the printout would show
+      <tt>garbage_collect</tt> being called from <tt>suspend</tt> but not
+      not which function that might have caused the garbage
+      collection. 
+      </p>
+    <p>Let us now get back to the test code:</p>
+    <pre>
+{[{{foo,create_file_slow,3},            768,  220.314,   14.539},      
+  {{foo,create_file_slow,2},              1,    0.316,    0.021}],     
+ { {file,write,2},                      769,  220.630,   14.560},     %
+ [{{prim_file,write,2},                 769,  199.789,   22.573},      
+  {suspend,                              53,    6.281,    0.000}]}.    </pre>
+    <p>Not unexpectedly, we see that <tt>file:write/2</tt> was called
+      from <tt>foo:create_file_slow/3</tt> and
+      <tt>foo:create_file_slow/2</tt>. The number of calls in each case as
+      well as the used time are also just confirms the previous results.
+      </p>
+    <p>We see that <tt>file:write/2</tt> only calls
+      <tt>prim_file:write/2</tt>, but let us refrain from digging into the
+      internals of the kernel application.
+      </p>
+    <p>But, if we nevertheless <em>do</em> dig down we find
+      the call to the linked in driver that does the file operations
+      towards the host operating system:</p>
+    <pre>
+{[{{prim_file,drv_command,4},           772, 1458.356, 1456.643}],     
+ { {erlang,port_command,2},             772, 1458.356, 1456.643},     %
+ [{suspend,                              15,    1.713,    0.000}]}.    </pre>
+    <p>This is 86 % of the total run time, and as we saw before it
+      is the close operation the absolutely biggest contributor. We
+      find a comparision ratio a little bit up in the call stack:</p>
+    <pre>
+{[{{prim_file,close,1},                   1, 1398.748,    0.024},      
+  {{prim_file,write,2},                 769,  174.672,   12.810},      
+  {{prim_file,open_int,4},                1,   19.755,    0.017},      
+  {{prim_file,open_int_setopts,3},        1,    0.147,    0.016}],     
+ { {prim_file,drv_command,2},           772, 1593.322,   12.867},     %
+ [{{prim_file,drv_command,4},           772, 1578.973,   27.265},      
+  {suspend,                              22,    1.482,    0.000}]}.    </pre>
+    <p>The time for file operations in the linked in driver
+      distributes itself as 1 % for open, 11 % for write and 87 % for
+      close. All data is probably buffered in the operating system
+      until the close.
+      </p>
+    <p>The unsleeping reader may notice that the ACC times for 
+      <tt>prim_file:drv_command/2</tt> and
+      <tt>prim_file:drv_command/4</tt> is not equal between the
+      paragraphs above, even though it is easy to beleive that
+      <tt>prim_file:drv_command/2</tt> is just a passthrough function.
+      </p>
+    <p>The missing time can be found in the paragraph
+      for <tt>prim_file:drv_command/4</tt> where it is evident that not
+      only <tt>prim_file:drv_command/2</tt> is called but also a fun:
+      </p>
+    <pre>
+{[{{prim_file,drv_command,2},           772, 1578.973,   27.265}],     
+ { {prim_file,drv_command,4},           772, 1578.973,   27.265},     %
+ [{{erlang,port_command,2},             772, 1458.356, 1456.643},      
+  {{prim_file,'-drv_command/2-fun-0-',1}, 772,   87.897,   12.736},      
+  {suspend,                              50,    4.582,    0.000},      
+  {garbage_collect,                      25,    0.873,    0.873}]}.    </pre>
+    <p>And some more missing time can be explained by the fact that
+      <tt>prim_file:open_int/4</tt> both calls
+      <tt>prim_file:drv_command/2</tt> directly as well as through
+      <tt>prim_file:open_int_setopts/3</tt>, which complicates the
+      picture. 
+      </p>
+    <pre>
+{[{{prim_file,open,2},                    1,   20.309,    0.029},      
+  {{prim_file,open_int,4},                1,    0.000,    0.057}],     
+ { {prim_file,open_int,4},                2,   20.309,    0.086},     %
+ [{{prim_file,drv_command,2},             1,   19.755,    0.017},      
+  {{prim_file,open_int_setopts,3},        1,    0.360,    0.032},      
+  {{prim_file,drv_open,2},                1,    0.071,    0.030},      
+  {{erlang,list_to_binary,1},             1,    0.020,    0.020},      
+  {{prim_file,i32,1},                     1,    0.017,    0.017},      
+  {{prim_file,open_int,4},                1,    0.000,    0.057}]}.    
+.
+.
+.
+{[{{prim_file,open_int,4},                1,    0.360,    0.032},      
+  {{prim_file,open_int_setopts,3},        1,    0.000,    0.016}],     
+ { {prim_file,open_int_setopts,3},        2,    0.360,    0.048},     %
+ [{suspend,                               1,    0.165,    0.000},      
+  {{prim_file,drv_command,2},             1,    0.147,    0.016},      
+  {{prim_file,open_int_setopts,3},        1,    0.000,    0.016}]}.    </pre>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Notes</div>
+    
+    <div class="description">
+        
+    <title>Notes</title>
+    <p>The actual supervision of execution times is in itself a
+      CPU intensive activity. A message is written on the trace file
+      for every function call that is made by the profiled code.
+      </p>
+    <p>The ACC time calculation is sometimes difficult to make
+      correct, since it is difficult to define. This happens
+      especially when a function occurs in several instances in the
+      call stack, for example by calling itself perhaps through other
+      functions and perhaps even non-tail recursively.
+      </p>
+    <p>To produce sensible results, <tt>fprof</tt> tries not to charge
+      any function more than once for ACC time. The instance highest
+      up (with longest duration) in the call stack is chosen.
+      </p>
+    <p>Sometimes a function may unexpectedly waste a lot (some 10 ms
+      or more depending on host machine OS) of OWN (and ACC) time, even
+      functions that does practically nothing at all. The problem may
+      be that the OS has chosen to schedule out the
+      Erlang runtime system process for a while, and if the OS does
+      not support high resolution cpu time measurements
+      <tt>fprof</tt> will use wallclock time for its calculations, and
+      it will appear as functions randomly burn virtual machine time.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>dbg(3), <seealso marker="eprof">eprof</seealso>(3), erlang(3), 
+      io(3), 
+      <seealso marker="fprof_chapter">Tools User's Guide</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokPiderroralready_startedPid"></a><b>start() -&gt; {ok, Pid} | {error, {already_started, Pid}}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the <tt>fprof</tt>&nbsp;server. 
+          </p>
+        <p>Note that it seldom
+          needs to be started explicitly since it is automatically
+          started by the functions that need a running server.
+                    <marker id="stop"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Same as <tt>stop(normal)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopReasongtok"></a><b>stop(Reason) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops the <tt>fprof</tt>&nbsp;server.
+          </p>
+        <p>The supplied <tt>Reason</tt> becomes the exit reason for the
+          server process. Default Any
+          <tt>Reason</tt> other than <tt>kill</tt> sends a request to the
+          server and waits for it to clean up, reply and exit. If
+          <tt>Reason</tt> is <tt>kill</tt>, the server is bluntly killed.
+          </p>
+        <p>If the <tt>fprof</tt>&nbsp;server is not running, this
+          function returns immediately with the same return value.
+          </p>
+        <note>
+          <p>When the <tt>fprof</tt>&nbsp;server is stopped the
+            collected raw profile data is lost.</p>
+        </note>
+        <marker id="apply"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="applyFuncArgsgtterm"></a><b>apply(Func, Args) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Func = function() | {Module, Function}</b><br/>
+        <b>Args = [term()]</b><br/>
+        <b>Module = atom()</b><br/>
+        <b>Function = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>apply(Func, Args, [])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="applyModuleFunctionArgsgtterm"></a><b>apply(Module, Function, Args) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Args = [term()]</b><br/>
+        <b>Module = atom()</b><br/>
+        <b>Function = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>apply({Module, Function}, Args, [])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="applyFuncArgsOptionListgtterm"></a><b>apply(Func, Args, OptionList) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Func = function() | {Module, Function}</b><br/>
+        <b>Args = [term()]</b><br/>
+        <b>OptionList = [Option]</b><br/>
+        <b>Module = atom()</b><br/>
+        <b>Function = atom()</b><br/>
+        <b>Option = continue | start | {procs, PidList} | TraceStartOption</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calls <tt>erlang:apply(Func, Args)</tt> surrounded by
+          <tt>trace([start, ...])</tt> and
+          <tt>trace(stop)</tt>.
+          </p>
+        <p>Some effort is made to keep the trace clean from unnecessary
+          trace messages; tracing is started and stopped from a spawned
+          process while the <tt>erlang:apply/2</tt> call is made in the
+          current process, only surrounded by <tt>receive</tt> and
+          <tt>send</tt> statements towards the trace starting
+          process. The trace starting process exits when not needed
+          any more.
+          </p>
+        <p>The <tt>TraceStartOption</tt> is any option allowed for 
+          <tt>trace/1</tt>. The options 
+          <tt>[start, {procs, [self() | PidList]} | OptList]</tt> 
+          are given to <tt>trace/1</tt>, where <tt>OptList</tt> is 
+          <tt>OptionList</tt> with <tt>continue</tt>, <tt>start</tt> 
+          and <tt>{procs, _}</tt> options removed.
+          </p>
+        <p>The <tt>continue</tt> option inhibits the call to
+          <tt>trace(stop)</tt> and leaves it up to the caller to stop
+          tracing at a suitable time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="applyModuleFunctionArgsOptionListgtterm"></a><b>apply(Module, Function, Args, OptionList) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>Function = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>apply({Module, Function}, Args, OptionList)</tt>.
+          </p>
+        <p><tt>OptionList</tt> is an option list allowed for 
+          <tt>apply/3</tt>.
+                    <marker id="trace"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tracestartFilenamegtokerrorReasonEXITServerPidReason"></a><b>trace(start, Filename) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>trace([start, {file, Filename}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceverboseFilenamegtokerrorReasonEXITServerPidReason"></a><b>trace(verbose, Filename) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>trace([start, verbose, {file, Filename}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>trace(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>trace([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceverbosegtokerrorReasonEXITServerPidReason"></a><b>trace(verbose) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>trace([start, verbose])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceOptionNamegtokerrorReasonEXITServerPidReason"></a><b>trace(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>trace([OptionName])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>trace({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>trace([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="traceOptiongtokerrorReasonEXITServerPidReason"></a><b>trace([Option]) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Option = start | stop | {procs, PidSpec} | {procs, [PidSpec]} | verbose | {verbose, bool()} |  file | {file, Filename} | {tracer, Tracer}</b><br/>
+        <b>PidSpec = pid() | atom()</b><br/>
+        <b>Tracer = pid() | port()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts or stops tracing.
+          </p>
+        <p><tt>PidSpec</tt> and <tt>Tracer</tt> are used in calls to
+          <tt>erlang:trace(PidSpec, true, [{tracer, Tracer} | Flags])</tt>, and <tt>Filename</tt> is used to call 
+          <tt>dbg:trace_port(file, Filename)</tt>. Please see the
+          appropriate documentation.</p>
+        <p>Option description:</p>
+        <taglist>
+          <tag><tt>stop</tt></tag>
+          <item>Stops a running <tt>fprof</tt> trace and clears all tracing
+           from the node. Either option <tt>stop</tt> or <tt>start</tt> must be
+           specified, but not both.</item>
+          <tag><tt>start</tt></tag>
+          <item>Clears all tracing from the node and starts a new
+          <tt>fprof</tt> trace. Either option <tt>start</tt> or
+          <tt>stop</tt> must be specified, but not both.</item>
+          <tag><tt>verbose</tt>| <tt>{verbose, bool()}</tt></tag>
+          <item>The options <tt>verbose</tt> or <tt>{verbose, true}</tt>
+           adds some trace flags that <tt>fprof</tt> does not need, but
+           that may be interesting for general debugging
+           purposes. This option is only
+           allowed with the <tt>start</tt> option.</item>
+          <tag><tt>cpu_time</tt>| <tt>{cpu_time, bool()}</tt></tag>
+          <item>The options <tt>cpu_time</tt> or <tt>{cpu_time, true&gt;</tt>
+           makes the timestamps in the trace be in CPU time instead
+           of wallclock time which is the default. This option is
+           only allowed with the <tt>start</tt> option.</item>
+          <tag><tt>{procs, PidSpec}</tt>| <tt>{procs, [PidSpec]}</tt></tag>
+          <item>Specifies which processes that shall be traced. If
+           this option is not given, the calling process is
+           traced. All processes spawned by the traced processes are
+           also traced.
+           This option is only allowed with the <tt>start</tt> option.</item>
+          <tag><tt>file</tt>| <tt>{file, Filename}</tt></tag>
+          <item>Specifies the filename of the trace. 
+           If the option <tt>file</tt> is given, or none of these
+           options are given, the file <tt>"fprof.trace"</tt> is used.
+           This option is only allowed with the <tt>start</tt> option,
+           but not with the <tt>{tracer, Tracer}</tt> option.</item>
+          <tag><tt>{tracer, Tracer}</tt></tag>
+          <item>Specifies that trace to process or port shall be done
+           instead of trace to file.
+           This option is only allowed with the <tt>start</tt> option,
+           but not with the <tt>{file, Filename}</tt> option.</item>
+        </taglist>
+        <marker id="profile"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profilegtokerrorReasonEXITServerPidReason"></a><b>profile() -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>profile([])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profileOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>profile(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>profile([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profileOptionNamegtokerrorReasonEXITServerPidReason"></a><b>profile(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>profile([OptionName])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profileOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>profile({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>profile([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="profileOptiongtokokTracererrorReasonEXITServerPidReason"></a><b>profile([Option]) -&gt; ok | {ok, Tracer} | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Option = file | {file, Filename} | dump | {dump, Dump} |  append | start | stop</b><br/>
+        <b>Dump = pid() | Dumpfile | []</b><br/>
+        <b>Tracer = pid()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles a trace into raw profile data held by the 
+          <tt>fprof</tt>&nbsp;server.
+          </p>
+        <p><tt>Dumpfile</tt> is used to call <tt>file:open/2</tt>, 
+          and <tt>Filename</tt> is used to call 
+          <tt>dbg:trace_port(file, Filename)</tt>. Please see the
+          appropriate documentation.</p>
+        <p>Option description:</p>
+        <taglist>
+          <tag><tt>file</tt>| <tt>{file, Filename}</tt></tag>
+          <item>Reads the file <tt>Filename</tt> and creates raw
+           profile data that is stored in RAM by the
+          <tt>fprof</tt>&nbsp;server. If the option <tt>file</tt> is
+           given, or none of these options are given, the file
+          <tt>"fprof.trace"</tt> is read. The call will return when
+           the whole trace has been
+           read with the return value <tt>ok</tt> if successful.
+           This option is not allowed with the <tt>start</tt> or
+          <tt>stop</tt> options.</item>
+          <tag><tt>dump</tt>| <tt>{dump, Dump}</tt></tag>
+          <item>Specifies the destination for the trace text dump. If
+           this option is not given, no dump is generated, if it is
+          <tt>dump</tt> the destination will be the
+           caller's group leader, otherwise the destination
+          <tt>Dump</tt> is either the pid of an I/O device or
+           a filename. And, finally, if the filename is <tt>[]</tt> -
+          <tt>"fprof.dump"</tt> is used instead.
+           This option is not allowed with the <tt>stop</tt> option.</item>
+          <tag><tt>append</tt></tag>
+          <item>Causes the trace text dump to be appended to the
+           destination file.
+           This option is only allowed with the  
+          <tt>{dump, Dumpfile}</tt> option.</item>
+          <tag><tt>start</tt></tag>
+          <item>Starts a tracer process that profiles trace data in
+           runtime. The call will return immediately with the return
+           value <tt>{ok, Tracer}</tt> if successful.
+           This option is not allowed with the <tt>stop</tt>,
+          <tt>file</tt> or  <tt>{file, Filename}</tt> options.</item>
+          <tag><tt>stop</tt></tag>
+          <item>Stops the tracer process that profiles trace data in
+           runtime. The return value will be value <tt>ok</tt> if successful.
+           This option is not allowed with the <tt>start</tt>,
+          <tt>file</tt> or <tt>{file, Filename}</tt> options.</item>
+        </taglist>
+        <marker id="analyse"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analysegtokerrorReasonEXITServerPidReason"></a><b>analyse() -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>analyse([])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyseOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>analyse(OptionName, OptionValue) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>analyse([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyseOptionNamegtokerrorReasonEXITServerPidReason"></a><b>analyse(OptionName) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>analyse([OptionName])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyseOptionNameOptionValuegtokerrorReasonEXITServerPidReason"></a><b>analyse({OptionName, OptionValue}) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OptionName = atom()</b><br/>
+        <b>OptionValue = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as 
+          <tt>analyse([{OptionName, OptionValue}])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyseOptiongtokerrorReasonEXITServerPidReason"></a><b>analyse([Option]) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Option = dest | {dest, Dest} | append | {cols, Cols} |  callers | {callers, bool()} | no_callers | {sort, SortSpec} | totals | {totals, bool()} |  details | {details, bool()} | no_details</b><br/>
+        <b>Dest = pid() | Destfile</b><br/>
+        <b>Cols = integer() &gt;= 80</b><br/>
+        <b>SortSpec = acc | own</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Analyses raw profile data in the
+          <tt>fprof</tt>&nbsp;server. If called while there is no raw
+          profile data available, <tt>{error, no_profile}</tt> is
+          returned. 
+          </p>
+        <p><tt>Destfile</tt> is used to call <tt>file:open/2</tt>. 
+          Please see the appropriate documentation.</p>
+        <p>Option description:</p>
+        <taglist>
+          <tag><tt>dest</tt>| <tt>{dest, Dest}</tt></tag>
+          <item>Specifies the destination for the analysis. If
+           this option is not given or it is <tt>dest</tt>, 
+           the destination will be the caller's group leader, 
+           otherwise the destination <tt>Dest</tt> is either 
+           the <tt>pid()</tt> of an I/O device or a filename. 
+           And, finally, if the filename is <tt>[]</tt> -
+          <tt>"fprof.analysis"</tt> is used instead.</item>
+          <tag><tt>append</tt></tag>
+          <item>Causes the analysis to be appended to the
+           destination file.
+           This option is only allowed with the  
+          <tt>{dest, Destfile}</tt> option.</item>
+          <tag><tt>{cols, Cols}</tt></tag>
+          <item>Specifies the number of columns in the analysis text.
+           If this option is not given the number of columns is set
+           to 80.</item>
+          <tag><tt>callers</tt>| <tt>{callers, true}</tt></tag>
+          <item>Prints callers and called information in the
+           analysis. This is the default.</item>
+          <tag><tt>{callers, false}</tt>| <tt>no_callers</tt></tag>
+          <item>Suppresses the printing of callers and called
+           information in the analysis.</item>
+          <tag><tt>{sort, SortSpec}</tt></tag>
+          <item>Specifies if the analysis should be sorted according
+           to the ACC column, which is the default, or the OWN
+           column. See 
+          <seealso marker="#analysis">Analysis Format</seealso> below.</item>
+          <tag><tt>totals</tt>| <tt>{totals, true}</tt></tag>
+          <item>Includes a section containing call statistics
+           for all calls regardless of process, in the analysis.</item>
+          <tag><tt>{totals, false}</tt></tag>
+          <item>Supresses the totals section in the analysis, which is
+           the default.</item>
+          <tag><tt>details</tt>| <tt>{details, true}</tt></tag>
+          <item>Prints call statistics for each process in the
+           analysis. This is the default.</item>
+          <tag><tt>{details, false}</tt>| <tt>no_details</tt></tag>
+          <item>Suppresses the call statistics for each process from
+           the analysis.</item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

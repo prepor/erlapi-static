@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>math</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />math</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides an interface to a number of mathematical
+      functions.</p>
+    <note>
+      <p>Not all functions are implemented on all platforms. In particular,
+        the <tt>erf/1</tt> and <tt>erfc/1</tt> functions are not implemented on Windows.</p>
+    </note>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Bugs</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#erfXgtfloat">erf(X) -&gt; float()</a></li>
+        
+        <li><a href="#erfcXgtfloat">erfc(X) -&gt; float()</a></li>
+        
+        <li><a href="#pigtfloat">pi() -&gt; float()</a></li>
+        
+        <li><a href="#sinX">sin(X)</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Bugs</div>
+    
+    <div class="description">
+        
+    <title>Bugs</title>
+    <p>As these are the C library, the bugs are the same.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="pigtfloat"></a><b>pi() -&gt; float()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>A useful number.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sinX"></a><b>sin(X)<br/>cos(X)<br/>tan(X)<br/>asin(X)<br/>acos(X)<br/>atan(X)<br/>atan2(Y, X)<br/>sinh(X)<br/>cosh(X)<br/>tanh(X)<br/>asinh(X)<br/>acosh(X)<br/>atanh(X)<br/>exp(X)<br/>log(X)<br/>log10(X)<br/>pow(X, Y)<br/>sqrt(X)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>X = Y = number()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A collection of math functions which return floats. Arguments
+          are numbers. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="erfXgtfloat"></a><b>erf(X) -&gt; float()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>X = number()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the error function of <tt>X</tt>, where</p>
+        <pre>
+erf(X) = 2/sqrt(pi)*integral from 0 to X of exp(-t*t) dt.        </pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="erfcXgtfloat"></a><b>erfc(X) -&gt; float()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>X = number()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>erfc(X)</tt> returns  <tt>1.0 - erf(X)</tt>, computed  by
+          methods that avoid cancellation for large <tt>X</tt>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

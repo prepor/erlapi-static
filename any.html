@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>any</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />any</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions that gives an interface to the CORBA any type.</p>
+    <p>Note that the <tt>any</tt> interface in orber does not contain a destroy 
+      function because the any type is represented as an Erlang record and 
+      therefor will be removed by the garbage collector when not in use.</p>
+    <p>The type <tt>TC</tt> used below describes an IDL type and is a tuple according 
+      to the to the Erlang language mapping.</p>
+    <p>The type <tt>Any</tt> used below is defined as:</p>
+    <code type="none">
+      -record(any, {typecode, value}).
+    </code>
+    <p>where <tt>typecode</tt> is a TC tuple and <tt>value</tt> is an Erlang term of 
+      the type defined by the typecode field.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#creategtResult">create() -&gt; Result</a></li>
+        
+        <li><a href="#get_typecodeAgtResult">get_typecode(A) -&gt; Result</a></li>
+        
+        <li><a href="#get_valueAgtResult">get_value(A) -&gt; Result</a></li>
+        
+        <li><a href="#set_typecodeATypecodegtResult">set_typecode(A, Typecode) -&gt; Result</a></li>
+        
+        <li><a href="#set_valueAValuegtResult">set_value(A, Value) -&gt; Result</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="creategtResult"></a><b>create() -&gt; Result<br/>create(Typecode, Value) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Typecode = TC</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Result = Any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The create/0 function creates an empty any record and the create/2 
+          function creates an initialized record.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_typecodeATypecodegtResult"></a><b>set_typecode(A, Typecode) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A = Any</b><br/>
+        <b>Typecode = TC</b><br/>
+        <b>Result = Any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the typecode of <em>A</em> and returns a 
+          new any record.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_typecodeAgtResult"></a><b>get_typecode(A) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A = Any</b><br/>
+        <b>Result = TC</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the typecode of <em>A</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_valueAValuegtResult"></a><b>set_value(A, Value) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A = Any</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Result = Any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function sets the value of <em>A</em> and returns a 
+          new any record.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_valueAgtResult"></a><b>get_value(A) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A = Any</b><br/>
+        <b>Result = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the value of <em>A</em>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>reltool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />reltool</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This is an interface module for the Reltool application</p>
+
+    <p><em>Reltool</em> is a release management tool. It analyses a
+    given Erlang/OTP installation and determines various dependencies
+    between applications. The <tt>graphical</tt> frontend depicts the
+    dependencies and enables interactive customization of a target
+    system. The backend provides a <tt>batch</tt> interface for
+    generation of customized target systems.</p>
+
+    <p>The tool uses an installed Erlang/OTP system as input.
+    <tt>root_dir</tt> is the root directory of the analysed system and
+    it defaults to the system executing <tt>reltool</tt>. Applications
+    may also be located outside <tt>root_dir</tt>. <tt>lib_dirs</tt>
+    defines additional library directories where applications
+    additional may reside and it defaults to the the directories
+    listed by the operating system environment variable
+    <tt>ERL_LIBS</tt>. See the module <tt>code</tt> for more info.
+    Finally single modules and entire applications may be read from
+    Escripts. The names of the Escripts are given in the configuration
+    parameter <tt>escripts</tt>. By default, no Escripts are
+    included.</p>
+
+    <p>Some configuration parameters control the behavior of Reltool on system
+    (<tt>sys</tt>) level. Others provide control on application (<tt>app</tt>)
+    level and yet others are on module (<tt>mod</tt>) level. Module level
+    parameters overrides application level parameters and application level
+    parameters overrides system level parameters.</p>
+
+    <p>The following top level <tt>options</tt> are supported:</p>
+
+    <taglist>
+      <tag><tt>config</tt></tag>
+      <item>
+        <p>This is the main option and it controls the configuration
+           of <tt>reltool</tt>.  It can either be a <tt>sys</tt> tuple or
+           a name of a <tt>file</tt> containing a sys tuple.</p>
+      </item>
+      <tag><tt>trap_exit</tt></tag>
+      <item>
+        <p>This option controls the error handling behavior of
+           <tt>reltool</tt>.  By default the window processes traps
+           exit, but this behavior can altered by setting
+           <tt>trap_exit</tt> to <tt>false</tt>.</p>
+      </item>
+      <tag><tt>wx_debug</tt></tag>
+      <item>
+        <p>This option controls the debug level of <tt>wx</tt>. As its
+           name indicates it is only useful for debugging. See
+           <tt>wx:debug/1</tt> for more info.</p>
+      </item>
+    </taglist>
+
+    <p>Besides the already mentioned source parameters <tt>root_dir</tt>,
+       <tt>lib_dirs</tt> and <tt>escripts</tt>, the following system 
+       (<tt>sys</tt>) level options are supported:</p>
+
+    <taglist>
+      <tag><tt>erts</tt></tag>
+      <item>
+        <p>Erts specific configuration. See application level options
+        below.</p>
+      </item>
+      <tag><tt>app</tt></tag>
+      <item>
+        <p>Application specific configuration. An application has a
+        mandatory name and application level options that are
+        described below.</p>
+      </item>
+      <tag><tt>mod_cond</tt></tag>
+      <item>
+        <p>This parameter controls the module inclusion policy. It
+        defaults to <tt>all</tt> which means that if an application is
+        included (either explicitly or implicitly) all modules in that
+        application will be included. This implies that both modules
+        that exists on the <tt>ebin</tt> directory of the application,
+        as well as modules that are named in the <tt>app</tt> file will
+        be included. If the parameter is set to <tt>ebin</tt>, both
+        modules on the <tt>ebin</tt> directory and derived modules are
+        included. If the parameter is set to <tt>app</tt>, both modules
+        in the <tt>app</tt> file and derived modules are included.
+        <tt>derived</tt> means that only modules that are used by other
+        included modules are included. The <tt>mod_cond</tt> setting on
+        system level is used as default for all applications.</p>
+      </item>
+      <tag><tt>incl_cond</tt></tag>
+      <item>
+	<p>This parameter controls the application inclusion policy.
+	It defaults to <tt>derived</tt> which means that the
+	applications that not have any explicit <tt>incl_cond</tt>
+	setting, will only be included if any other (explicitly or
+	implicitly included) application uses it. The value
+	<tt>include</tt> implies that all applications that that not
+	have any explicit <tt>incl_cond</tt> setting will be included.
+	<tt>exclude</tt> implies that all applications that that not
+	have any explicit <tt>incl_cond</tt> setting will be
+	excluded.</p>
+      </item>
+      <tag><tt>boot_rel</tt></tag>
+      <item>
+        <p>A target system may have several releases but the one given
+        as <tt>boot_rel</tt> will be used as default when the system is
+        booting up.</p>
+      </item>
+      <tag><tt>rel</tt></tag>
+      <item>
+        <p>Release specific configuration. Each release maps to a
+        <tt>rel</tt>, <tt>script</tt> and <tt>boot </tt> file. See the
+        module <tt>systools</tt> for more info about the details. Each
+        release has a name, a version and a set of applications with a
+        few release specific parameters such as type and included
+        applications.</p>
+      </item>
+      <tag><tt>app_file</tt></tag>
+      <item>
+        <p>This parameter controls the default handling of the
+        <tt>app</tt> files when a target system is generated. It
+        defaults to <tt>keep</tt> which means that <tt>app</tt> files are
+        copied to the target system and their contents are kept as
+        they are. <tt>strip</tt> means that a new <tt>app</tt> file is
+        generated from the contents of the original <tt>app</tt> file
+        where the non included modules are removed from the
+        file. <tt>all</tt> does also imply that a new <tt>app</tt> file is
+        generated from the contents of the original <tt>app</tt> file,
+        with the difference that all included modules are added to the
+        file. If the application does not have any <tt>app</tt> file a
+        file will be created for <tt>all</tt> but not for <tt>keep</tt>
+        and <tt>strip</tt>.</p>
+      </item>
+      <tag><tt>debug_info</tt></tag>
+      <item>
+        <p>The <tt>debug_info</tt> parameter controls whether the debug
+        information in the beam file should be kept (<tt>keep</tt>) or
+        stripped <tt>strip</tt> when the file is copied to the target
+        system.</p>
+      </item>
+      <tag><tt>incl_erts_dirs</tt></tag>
+      <item>
+        <p>By default only the <tt>bin</tt> directory is copied to the
+        target system for erts. This parameter controls if other
+        directories should be copied. erts may optionally have an
+        application directory containing <tt>erl</tt> and <tt>beam</tt>
+        files for preloaded code. Which application directories that
+        shall be copied are controlled with <tt>incl_app_dirs</tt> and
+        <tt>excl_app_dirs</tt>.</p>
+      </item>
+      <tag><tt>excl_erts_dirs</tt></tag>
+      <item>
+        <p>This parameter controls which erts directories that not
+        should be copied to the target system. In order to be copied,
+        a directory must be included in <tt>incl_erts_dirs</tt> and NOT
+        be included in <tt>excl_erts_dirs</tt>.</p>
+      </item>
+      <tag><tt>incl_app_dirs</tt></tag>
+      <item>
+        <p>By default only the application directories <tt>ebin</tt> and
+        <tt>priv</tt> are copied to the target system. This parameter
+        controls if other directories should be copied.</p>
+      </item>
+      <tag><tt>excl_app_dirs</tt></tag>
+      <item>
+        <p>This parameter controls which applications directories that
+        not should be copied to the target system. In order to be
+        copied, a directory must be included in <tt>incl_app_dirs</tt>
+        and NOT be included in <tt>excl_app_dirs</tt>.</p>
+      </item>
+    </taglist>
+
+    <p>On application (<tt>app</tt>) level,the following options are
+       supported:</p>
+
+   <taglist>
+      <tag><tt>vsn</tt></tag>
+      <item>
+        <p>The version of the application. In an installed system there may
+        exist several versions of an application. The <tt>vsn</tt> parameter
+        controls which version of the application that will be choosen. If it
+        is omitted, the latest version will be choosen.</p>
+      </item>
+      <tag><tt>mod</tt></tag>
+      <item>
+        <p>Module specific configuration. A module has a mandatory
+        name and module level options that are described below.</p>
+      </item>
+      <tag><tt>mod_cond</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+      <tag><tt>incl_cond</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+      <tag><tt>app_file</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+      <tag><tt>debug_info</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+      <tag><tt>incl_app_dirs</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+      <tag><tt>excl_app_dirs</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with the
+        same name on system level.</p>
+      </item>
+    </taglist>
+
+     <p>On module (<tt>mod</tt>) level,the following options are
+       supported:</p>
+
+   <taglist>
+      <tag><tt>incl_cond</tt></tag>
+      <item>
+	<p>This parameter controls whether the module is included or not. By
+	default the <tt>mod_incl</tt> parameter on application and system level
+	will be used to control whether the module is included or not. The
+	value of <tt>incl_cond</tt> overrides the module inclusion policy.
+	<tt>include</tt> implies that the module is included, while
+	<tt>exclude</tt> implies that the module not is included.
+	<tt>derived</tt> implies that the is included if any included uses the
+	module.</p>
+      </item>
+      <tag><tt>debug_info</tt></tag>
+      <item>
+        <p>The value of this parameter overrides the parameter with
+        the same name on application level.</p>
+      </item>
+    </taglist>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_targetServerTargetDirgtokerrorReason">create_target(Server, TargetDir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#get_configServergtokConfigerrorReason">get_config(Server) -&gt; {ok, Config} | {error, Reason}</a></li>
+        
+        <li><a href="#get_relServerRelnamegtokRelFileerrorReason">get_rel(Server, Relname) -&gt; {ok, RelFile} | {error, Reason}</a></li>
+        
+        <li><a href="#get_scriptServerRelnamegtokScriptFileerrorReason">get_script(Server, Relname) -&gt; {ok, ScriptFile | {error, Reason}</a></li>
+        
+        <li><a href="#installServerTargetDirgtokerrorReason">install(Server, TargetDir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#startOptionsgtokWindowPiderrorReason">start(Options) -&gt; {ok, WindowPid} | {error, Reason}</a></li>
+        
+        <li><a href="#start_serverOptionsgtokServerPiderrorReason">start_server(Options) -&gt; {ok, ServerPid} | {error, Reason}</a></li>
+        
+        <li><a href="#stopPidgtokerrorReason">stop(Pid) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+options()        = [option()]
+option()         = {config, config() | file()}
+                 | {trap_exit, bool()}
+                 | {wx_debug, term()} 
+config()         = {sys, [sys()]}
+sys()            = {root_dir, root_dir()}
+                 | {lib_dirs, [lib_dir()]}
+                 | {escripts, [escript()]}
+                 | {erts, app()}
+                 | {app, app_name(), [app()]}
+                 | {mod_cond, mod_cond()} 
+                 | {incl_cond, incl_cond()}
+                 | {boot_rel, boot_rel()}
+                 | {rel, rel_name(), rel_vsn(), [rel_app()]}
+                 | {app_file, app_file()}
+                 | {debug_info, debug_info()}
+                 | {incl_erts_dirs, [incl_erts_dir()]}
+                 | {excl_erts_dirs, [excl_erts_dir()]}
+                 | {incl_app_dirs, [incl_app_dir()]}
+                 | {excl_app_dirs, [excl_app_dir()]}
+app()            = {vsn, app_vsn()}
+                 | {mod, mod_name(), mod()}
+                 | {mod_cond, mod_cond()}
+                 | {incl_cond, incl_cond()}
+                 | {debug_info, debug_info()}
+                 | {app_file, app_file()}
+                 | {incl_app_dirs, [incl_app_dir()]}
+                 | {excl_app_dirs, [excl_app_dir()]}
+mod()            = {vsn, app_vsn()}
+                 | {incl_cond, incl_cond()}
+                 | {debug_info, debug_info()}
+rel_app()        = app_name()
+                 | {app_name(), app_type()} 
+                 | {app_name(), [incl_app()]}
+                 | {app_name(), app_type(), [incl_app()]}
+app_name()       = atom()
+app_type()       = permanent | transient | temporary | load | none
+app_vsn()        = string()
+boot_rel()       = rel_name()
+app_file()       = keep | strip | all
+debug_info()     = keep | strip
+dir()            = string()
+escript()        = file()
+escript_arg()    = string()
+excl_app_dir()   = dir()
+excl_erts_dir()  = dir()
+file()           = string()
+incl_app()       = app_name()
+incl_app_dir()   = dir()
+incl_cond()      = include | exclude | derived
+incl_erts_dir()  = dir()
+lib_dir()        = dir()
+mod_cond()       = all | app | ebin | derived | none
+mod_name()       = atom()
+reason()         = string()
+rel_file()       = term()
+rel_name()       = string()
+rel_vsn()        = string()
+root_dir()       = dir()
+script_file()    = term()
+server()         = server_pid() | options()
+server_pid()     = pid()
+window_pid()     = pid()</code>
+
+    <marker id="start"></marker>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_targetServerTargetDirgtokerrorReason"></a><b>create_target(Server, TargetDir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server     = server()</b><br/>
+        <b>TargetDir  = dir()</b><br/>
+        <b>Reason     = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Create a target system. In order to be able to run the target
+      system, it must be installed first.</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_configServergtokConfigerrorReason"></a><b>get_config(Server) -&gt; {ok, Config} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server  = server()</b><br/>
+        <b>Config  = config()</b><br/>
+        <b>Reason  = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Get reltool configuration. Only configuration parameters with
+      values that differs from their defaults are returned.</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_relServerRelnamegtokRelFileerrorReason"></a><b>get_rel(Server, Relname) -&gt; {ok, RelFile} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server  = server()</b><br/>
+        <b>RelName = rel_name()</b><br/>
+        <b>RelFile = rel_file()</b><br/>
+        <b>Reason  = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Get contents of a release file. See <tt>rel(4)</tt> for more
+      details.</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_scriptServerRelnamegtokScriptFileerrorReason"></a><b>get_script(Server, Relname) -&gt; {ok, ScriptFile | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server     = server()</b><br/>
+        <b>RelName    = rel_name()</b><br/>
+        <b>ScriptFile = script_file()</b><br/>
+        <b>Reason     = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Get contents of a boot script file. See <tt>script(4)</tt> for
+      more details.</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="installServerTargetDirgtokerrorReason"></a><b>install(Server, TargetDir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Server     = server()</b><br/>
+        <b>TargetDir  = dir()</b><br/>
+        <b>Reason     = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Install a created target system</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startOptionsgtokWindowPiderrorReason"></a><b>start(Options) -&gt; {ok, WindowPid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options     = options()</b><br/>
+        <b>WindowPid   = window_pid()</b><br/>
+        <b>Reason      = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Start a main window process with options</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_serverOptionsgtokServerPiderrorReason"></a><b>start_server(Options) -&gt; {ok, ServerPid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options     = options()</b><br/>
+        <b>ServerPid   = server_pid()</b><br/>
+        <b>Reason      = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Start a server process with options. The server process
+      identity can be given as argument to several other functions in the
+      API.</p>
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopPidgtokerrorReason"></a><b>stop(Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid     = server_pid() | window_pid()()</b><br/>
+        <b>Reason  = reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <p>Stop a server or window process</p>
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cpu_sup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cpu_sup</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>cpu_sup</tt> is a process which supervises the CPU load
+      and CPU utilization. It is part of the OS_Mon application, see
+      <seealso marker="os_mon">os_mon(6)</seealso>. Available for Unix,
+      although CPU utilization values (<tt>util/0,1</tt>) are only
+      available for Solaris and Linux.</p>
+    <p>The load values are proportional to how long time a runnable
+      Unix process has to spend in the run queue before it is scheduled.
+      Accordingly, higher values mean more system load. The returned
+      value divided by 256 produces the figure displayed by <tt>rup</tt>
+      and <tt>top</tt>. What is displayed as 2.00 in <tt>rup</tt>, is
+      displayed as load up to the second mark in <tt>xload</tt>.</p>
+    <p>For example, <tt>rup</tt> displays a load of 128 as 0.50, and
+      512 as 2.00.</p>
+    <p>If the user wants to view load values as percentage of machine
+      capacity, then this way of measuring presents a problem, because
+      the load values are not restricted to a fixed interval. In this
+      case, the following simple mathematical transformation can
+      produce the load value as a percentage:</p>
+    <code type="none">
+      PercentLoad = 100 * (1 - D/(D + Load))
+    </code>
+    <p><tt>D</tt> determines which load value should be associated with
+      which percentage. Choosing <tt>D</tt> = 50 means that 128 is 60% 
+      load, 256 is 80%, 512 is 90%, and so on.</p>
+    <p>Another way of measuring system load is to divide the number of
+      busy CPU cycles by the total number of CPU cycles. This produces 
+      values in the 0-100 range immediately. However, this method hides 
+      the fact that a machine can be more or less saturated. CPU
+      utilization is therefore a better name than system load for this
+      measure.</p>
+    <p>A server which receives just enough requests to never become
+      idle will score a CPU utilization of 100%. If the server receives
+      50% more requests, it will still scores 100%. When the system load
+      is calculated with the percentage formula shown previously,
+      the load will increase from 80% to 87%.</p>
+    <p>The <tt>avg1/0</tt>, <tt>avg5/0</tt>, and <tt>avg15/0</tt> functions
+      can be used for retrieving system load values, and
+      the <tt>util/0</tt> and <tt>util/1</tt> functions can be used for
+      retrieving CPU utilization values.</p>
+    <p>When run on Linux, <tt>cpu_sup</tt> assumes that the <tt>/proc</tt>
+      file system is present and accessible by <tt>cpu_sup</tt>. If it is
+      not, <tt>cpu_sup</tt> will terminate.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#avg1gtSystemLoaderrorReason">avg1() -&gt; SystemLoad | {error, Reason}</a></li>
+        
+        <li><a href="#avg15gtSystemLoaderrorReason">avg15() -&gt; SystemLoad | {error, Reason}</a></li>
+        
+        <li><a href="#avg5gtSystemLoaderrorReason">avg5() -&gt; SystemLoad | {error, Reason}</a></li>
+        
+        <li><a href="#nprocsgtUnixProcesseserrorReason">nprocs() -&gt; UnixProcesses | {error, Reason}</a></li>
+        
+        <li><a href="#utilgtCpuUtilerrorReason">util() -&gt; CpuUtil | {error, Reason}</a></li>
+        
+        <li><a href="#utilOptsgtUtilSpecerrorReason">util(Opts) -&gt; UtilSpec | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="os_mon">os_mon(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="nprocsgtUnixProcesseserrorReason"></a><b>nprocs() -&gt; UnixProcesses | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UnixProcesses = int()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of UNIX processes running on this machine.
+          This is a crude way of measuring the system load, but it may
+          be of interest in some cases.</p>
+        <p>Returns 0 if <tt>cpu_sup</tt> is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="avg1gtSystemLoaderrorReason"></a><b>avg1() -&gt; SystemLoad | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SystemLoad = int()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the average system load in the last minute, as
+          described above. 0 represents no load, 256 represents the load
+          reported as 1.00 by <tt>rup</tt>.</p>
+        <p>Returns 0 if <tt>cpu_sup</tt> is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="avg5gtSystemLoaderrorReason"></a><b>avg5() -&gt; SystemLoad | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SystemLoad = int()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the average system load in the last five minutes, as
+          described above. 0 represents no load, 256 represents the load
+          reported as 1.00 by <tt>rup</tt>.</p>
+        <p>Returns 0 if <tt>cpu_sup</tt> is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="avg15gtSystemLoaderrorReason"></a><b>avg15() -&gt; SystemLoad | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SystemLoad = int()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the average system load in the last 15 minutes, as
+          described above. 0 represents no load, 256 represents the load
+          reported as 1.00 by <tt>rup</tt>.</p>
+        <p>Returns 0 if <tt>cpu_sup</tt> is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="utilgtCpuUtilerrorReason"></a><b>util() -&gt; CpuUtil | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>CpuUtil = float()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns CPU utilization since the last call to
+          <tt>util/0</tt> or <tt>util/1</tt> by the calling process.</p>
+        <note>
+          <p>The returned value of the first call to <tt>util/0</tt> or
+            <tt>util/1</tt> by a process will on most systems be the CPU
+            utilization since system boot, but this is not guaranteed
+            and the value should therefore be regarded as garbage. This
+            also applies to the first call after a restart of
+            <tt>cpu_sup</tt>.</p>
+        </note>
+        <p>The CPU utilization is defined as the sum of the percentage
+          shares of the CPU cycles spent in all busy processor states
+          (see <tt>util/1</tt> below) in average on all CPUs.</p>
+        <p>Returns 0 if <tt>cpu_sup</tt> is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="utilOptsgtUtilSpecerrorReason"></a><b>util(Opts) -&gt; UtilSpec | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Opts = [detailed | per_cpu]</b><br/>
+        <b>UtilSpec = UtilDesc | [UtilDesc]</b><br/>
+        <b>&nbsp;UtilDesc = {Cpus, Busy, NonBusy, Misc}</b><br/>
+        <b>&nbsp;&nbsp;Cpus = all | int() | [int()]()</b><br/>
+        <b>&nbsp;&nbsp;Busy = NonBusy = {State, Share} | Share</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;State = user | nice_user | kernel</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;| wait | idle | atom()</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;Share = float()</b><br/>
+        <b>&nbsp;&nbsp;Misc = []</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns CPU utilization since the last call to
+          <tt>util/0</tt> or <tt>util/1</tt> by the calling process, in
+          more detail than <tt>util/0</tt>.</p>
+        <note>
+          <p>The returned value of the first call to <tt>util/0</tt> or
+            <tt>util/1</tt> by a process will on most systems be the CPU
+            utilization since system boot, but this is not guaranteed
+            and the value should therefore be regarded as garbage. This
+            also applies to the first call after a restart of
+            <tt>cpu_sup</tt>.</p>
+        </note>
+        <p>Currently recognized options:</p>
+        <taglist>
+          <tag><tt>detailed</tt></tag>
+          <item>
+            <p>The returned <tt>UtilDesc</tt>(s) will be even more
+              detailed.</p>
+          </item>
+          <tag><tt>per_cpu</tt></tag>
+          <item>
+            <p>Each CPU will be specified separately (assuming this
+              information can be retrieved from the operating system),
+              that is, a list with one <tt>UtilDesc</tt> per CPU will be
+              returned.</p>
+          </item>
+        </taglist>
+        <p>Description of <tt>UtilDesc = {Cpus, Busy, NonBusy, Misc}</tt>:</p>
+        <taglist>
+          <tag><tt>Cpus</tt></tag>
+          <item>
+            <p>If the <tt>detailed</tt> and/or <tt>per_cpu</tt> option is
+              given, this is the CPU number, or a list of the CPU
+              numbers.</p>
+            <p>If not, this is the atom <tt>all</tt> which implies that
+              the <tt>UtilDesc</tt> contains information about all CPUs.</p>
+          </item>
+          <tag><tt>Busy</tt></tag>
+          <item>
+            <p>If the <tt>detailed</tt> option is given, this is a list
+              of <tt>{State, Share}</tt> tuples, where each tuple
+              contains information about a processor state that has
+              been identified as a busy processor state (see below).
+              The atom <tt>State</tt> is the name of the state, and
+              the float <tt>Share</tt> represents the percentage share of
+              the CPU cycles spent in this state since the last call to
+              <tt>util/0</tt> or <tt>util/1</tt>.</p>
+            <p>If not, this is the sum of the percentage shares of
+              the CPU cycles spent in all states identified as busy.</p>
+            <p>If the <tt>per_cpu</tt> is not given, the value(s)
+              presented are the average of all CPUs.</p>
+          </item>
+          <tag><tt>NonBusy</tt></tag>
+          <item>
+            <p>Similar to <tt>Busy</tt>, but for processor states that
+              have been identified as non-busy (see below).</p>
+          </item>
+          <tag><tt>Misc</tt></tag>
+          <item>
+            <p>Currently unused; reserved for future use.</p>
+          </item>
+        </taglist>
+        <p>Currently these processor states are identified as busy:</p>
+        <taglist>
+          <tag><tt>user</tt></tag>
+          <item>
+            <p>Executing code in user mode.</p>
+          </item>
+          <tag><tt>nice_user</tt></tag>
+          <item>
+            <p>Executing code in low priority (nice) user mode.
+              This state is currently only identified on Linux.</p>
+          </item>
+          <tag><tt>kernel</tt></tag>
+          <item>
+            <p>Executing code in kernel mode.</p>
+          </item>
+        </taglist>
+        <p>Currently these processor states are identified as non-busy:</p>
+        <taglist>
+          <tag><tt>wait</tt></tag>
+          <item>
+            <p>Waiting. This state is currently only identified on
+              Solaris.</p>
+          </item>
+          <tag><tt>idle</tt></tag>
+          <item>
+            <p>Idle.</p>
+          </item>
+        </taglist>
+        <note>
+          <p>Identified processor states may be different on different
+            operating systems and may change between different versions
+            of <tt>cpu_sup</tt> on the same operating system. The sum of
+            the percentage shares of the CPU cycles spent in all busy
+            and all non-busy processor states will always add up to
+            100%, though.</p>
+        </note>
+        <p>Returns <tt>{all,0,0,[]}</tt> if <tt>cpu_sup</tt> is not
+          available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

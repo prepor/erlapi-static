@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_SequenceProxyPullConsumer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_SequenceProxyPullConsumer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotifyComm_NotifyPublish">CosNotifyComm_NotifyPublish</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyFilter_FilterAdmin">CosNotifyFilter_FilterAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyChannelAdmin_ProxyConsumer">CosNotifyChannelAdmin_ProxyConsumer</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_sequence_pull_supplierSequenceProxyPullConsumerPullSuppliergtReply">connect_sequence_pull_supplier(SequenceProxyPullConsumer, PullSupplier) -&gt; Reply</a></li>
+        
+        <li><a href="#disconnect_sequence_pull_consumerSequenceProxyPullConsumergtok">disconnect_sequence_pull_consumer(SequenceProxyPullConsumer) -&gt; ok</a></li>
+        
+        <li><a href="#resume_connectionSequenceProxyPullConsumergtReply">resume_connection(SequenceProxyPullConsumer) -&gt; Reply</a></li>
+        
+        <li><a href="#suspend_connectionSequenceProxyPullConsumergtReply">suspend_connection(SequenceProxyPullConsumer) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_supplierSequenceProxyPullConsumerPullSuppliergtReply"></a><b>connect_sequence_pull_supplier(SequenceProxyPullConsumer, PullSupplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullConsumer = #objref</b><br/>
+        <b>PullSupplier = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosEventChannelAdmin_AlreadyConnected'{}} | {'EXCEPTION', #'CosEventChannelAdmin_TypeError'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects a <tt>PullSupplier</tt> to the target object. If a 
+          connection already exists or the supplied client does not support the functions
+          <tt>pull_structured_events</tt> and <tt>try_pull_structured_events</tt> an exception
+          is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="suspend_connectionSequenceProxyPullConsumergtReply"></a><b>suspend_connection(SequenceProxyPullConsumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullConsumer = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosNotifyChannelAdmin_ConnectionAlreadyInactive'{}} | {'EXCEPTION', #'CosNotifyChannelAdmin_NotConnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a connection exist, invoking this operation will suspend the connection
+          until instructed otherwise. Otherwise, no client have been connected or this operation
+          already have been invoked an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resume_connectionSequenceProxyPullConsumergtReply"></a><b>resume_connection(SequenceProxyPullConsumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullConsumer = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosNotifyChannelAdmin_ConnectionAlreadyInactive'{}} | {'EXCEPTION', #'CosNotifyChannelAdmin_NotConnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If an connection have been suspended this operation must be used to resume the
+          connection. If the connection already is active or no client have been connected an
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_sequence_pull_consumerSequenceProxyPullConsumergtok"></a><b>disconnect_sequence_pull_consumer(SequenceProxyPullConsumer) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullConsumer = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation close the connection to the client and terminates the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

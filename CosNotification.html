@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotification</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to all definitions include necessary <tt>hrl</tt> files by using:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#EventReliabilitygtstring">'EventReliability'() -&gt; string()</a></li>
+        
+        <li><a href="#BestEffortgtshort">'BestEffort'() -&gt; short()</a></li>
+        
+        <li><a href="#Persistentgtshort">'Persistent'() -&gt; short()</a></li>
+        
+        <li><a href="#ConnectionReliabilitygtstring">'ConnectionReliability'() -&gt; string()</a></li>
+        
+        <li><a href="#Prioritygtstring">'Priority'() -&gt; string()</a></li>
+        
+        <li><a href="#LowestPrioritygtshort">'LowestPriority'() -&gt; short()</a></li>
+        
+        <li><a href="#HighestPrioritygtshort">'HighestPriority'() -&gt; short()</a></li>
+        
+        <li><a href="#DefaultPrioritygtshort">'DefaultPriority'() -&gt; short()</a></li>
+        
+        <li><a href="#StartTimegtstring">'StartTime'() -&gt; string()</a></li>
+        
+        <li><a href="#StopTimegtstring">'StopTime'() -&gt; string()</a></li>
+        
+        <li><a href="#Timeoutgtstring">'Timeout'() -&gt; string()</a></li>
+        
+        <li><a href="#OrderPolicygtstring">'OrderPolicy'() -&gt; string()</a></li>
+        
+        <li><a href="#AnyOrdergtshort">'AnyOrder'() -&gt; short()</a></li>
+        
+        <li><a href="#FifoOrdergtshort">'FifoOrder'() -&gt; short()</a></li>
+        
+        <li><a href="#PriorityOrdergtshort">'PriorityOrder'() -&gt; short()</a></li>
+        
+        <li><a href="#DeadlineOrdergtshort">'DeadlineOrder'() -&gt; short()</a></li>
+        
+        <li><a href="#DiscardPolicygtstring">'DiscardPolicy'() -&gt; string()</a></li>
+        
+        <li><a href="#LifoOrdergtshort">'LifoOrder'() -&gt; short()</a></li>
+        
+        <li><a href="#RejectNewEventsgtshort">'RejectNewEvents'() -&gt; short()</a></li>
+        
+        <li><a href="#MaximumBatchSizegtstring">'MaximumBatchSize'() -&gt; string()</a></li>
+        
+        <li><a href="#PacingIntervalgtstring">'PacingInterval'() -&gt; string()</a></li>
+        
+        <li><a href="#StartTimeSupportedgtstring">'StartTimeSupported'() -&gt; string()</a></li>
+        
+        <li><a href="#StopTimeSupportedgtstring">'StopTimeSupported'() -&gt; string()</a></li>
+        
+        <li><a href="#MaxEventsPerConsumergtstring">'MaxEventsPerConsumer'() -&gt; string()</a></li>
+        
+        <li><a href="#MaxQueueLengthgtstring">'MaxQueueLength'() -&gt; string()</a></li>
+        
+        <li><a href="#MaxConsumersgtstring">'MaxConsumers'() -&gt; string()</a></li>
+        
+        <li><a href="#MaxSuppliersgtstring">'MaxSuppliers'() -&gt; string()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="EventReliabilitygtstring"></a><b>'EventReliability'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the EventReliability QoS identifier</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="BestEffortgtshort"></a><b>'BestEffort'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the BestEffort QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Persistentgtshort"></a><b>'Persistent'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the Persistent QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ConnectionReliabilitygtstring"></a><b>'ConnectionReliability'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the ConnectionReliability QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Prioritygtstring"></a><b>'Priority'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the Priority QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="LowestPrioritygtshort"></a><b>'LowestPriority'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the LowestPriority QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="HighestPrioritygtshort"></a><b>'HighestPriority'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the HighestPriority QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="DefaultPrioritygtshort"></a><b>'DefaultPriority'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the DefaultPriority QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="StartTimegtstring"></a><b>'StartTime'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the StartTime QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="StopTimegtstring"></a><b>'StopTime'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the StopTime QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Timeoutgtstring"></a><b>'Timeout'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the Timeout QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="OrderPolicygtstring"></a><b>'OrderPolicy'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the OrderPolicy QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="AnyOrdergtshort"></a><b>'AnyOrder'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the AnyOrder QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="FifoOrdergtshort"></a><b>'FifoOrder'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the FifoOrder QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="PriorityOrdergtshort"></a><b>'PriorityOrder'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the PriorityOrder QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="DeadlineOrdergtshort"></a><b>'DeadlineOrder'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the DeadlineOrder QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="DiscardPolicygtstring"></a><b>'DiscardPolicy'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the DiscardPolicy QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="LifoOrdergtshort"></a><b>'LifoOrder'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the LifoOrder QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="RejectNewEventsgtshort"></a><b>'RejectNewEvents'() -&gt; short()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the RejectNewEvents QoS value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="MaximumBatchSizegtstring"></a><b>'MaximumBatchSize'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the MaximumBatchSize QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="PacingIntervalgtstring"></a><b>'PacingInterval'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the PacingInterval QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="StartTimeSupportedgtstring"></a><b>'StartTimeSupported'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the StartTimeSupported QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="StopTimeSupportedgtstring"></a><b>'StopTimeSupported'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the StopTimeSupported QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="MaxEventsPerConsumergtstring"></a><b>'MaxEventsPerConsumer'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the MaxEventsPerConsumer QoS identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="MaxQueueLengthgtstring"></a><b>'MaxQueueLength'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the MaxQueueLength Admin identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="MaxConsumersgtstring"></a><b>'MaxConsumers'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the MaxConsumers Admin identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="MaxSuppliersgtstring"></a><b>'MaxSuppliers'() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the MaxSuppliers Admin identifier.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventChannelAdmin_ProxyPushSupplier</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventChannelAdmin_ProxyPushSupplier</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The ProxyPushSupplier interface defines the second step for connecting push
+      consumers to the event channel. A proxy supplier is similar to a normal supplier,
+      but includes an additional method for connecting a consumer to the proxy
+      supplier.</p>
+    <p>To get access to all definitions, e.g., exceptions,
+      include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+    <p>Any object that possesses an object reference that supports the ProxyPushSupplier
+      interface can perform the following operations:</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_push_consumerObjectPushConsumergtReturn">connect_push_consumer(Object, PushConsumer) -&gt; Return</a></li>
+        
+        <li><a href="#disconnect_push_supplierObjectgtReturn">disconnect_push_supplier(Object) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_consumerObjectPushConsumergtReturn"></a><b>connect_push_consumer(Object, PushConsumer) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object       = #objref</b><br/>
+        <b>PushConsumer = #objref of PushConsumer type</b><br/>
+        <b>Return       = ok | {'EXCEPTION', E}</b><br/>
+        <b>E = #'CosEventChannelAdmin_AlreadyConnected'{} | #'CosEventChannelAdmin_TypeError'{}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects PushConsumer object to the ProxyPushSupplier object.
+          If a nil object reference is passed CORBA standard <tt>BAD_PARAM</tt> exception 
+          is raised. If the ProxyPushSupplier is already connected to a PushConsumer,
+          then the <tt>CosEventChannelAdmin_AlreadyConnected</tt> exception is raised.
+          Implementations of ProxyPushSuppliers may require additional interface
+          functionality; if these requirements are not met the 
+          <tt>CosEventChannelAdmin_TypeError</tt> exception will be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_push_supplierObjectgtReturn"></a><b>disconnect_push_supplier(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation disconnects proxy push supplier from the event channel and
+          sends a notification about the loss of the connection to the push consumer
+          attached to it.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

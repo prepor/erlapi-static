@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>docb_gen</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />docb_gen</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>docb_gen</tt> contains functions for generating XML
+      documentation source code according to the <tt>erlref</tt> or
+      <tt>chapter</tt> DTD from
+      <seealso marker="edoc:chapter">EDoc</seealso> comments in Erlang
+      source code or an <tt>overview.edoc</tt> file, using EDoc.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Options</a></li>
+        
+        <li><a href="#">Limitations</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#moduleFilegtokerrorReason">module(File) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#users_guideFilegtokerrorReason">users_guide(File) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Options</div>
+    
+    <div class="description">
+        
+    <title>Options</title>
+    <taglist>
+      <tag><tt>{def, [{Name,Text}]}</tt></tag>
+      <item>Specifies EDoc macro definitions. See
+	<seealso marker="edoc:edoc">edoc:get_doc/2</seealso>.</item>
+
+      <tag><tt>{includes, [Dir]}</tt></tag>
+      <item>Specifies directories where EDoc should search for include
+	files. See
+	<seealso marker="edoc:edoc">edoc:read_source/2</seealso>.</item>
+
+      <tag><tt>{preprocess, true|false}</tt></tag>
+      <item>Specifies if EDoc should read the source file via the Erlang
+	preprocessor. Default is <tt>false</tt>. See
+	<seealso marker="edoc:edoc">edoc:read_source/2</seealso>.</item>
+
+      <tag><tt>{sort_functions, true|false}</tt></tag>
+      <item>Specifies if the functions in the resulting XML file should
+	be sorted alphabetically. Default is <tt>true</tt>.</item>
+    </taglist>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Limitations</div>
+    
+    <div class="description">
+        
+    <title>Limitations</title>
+    <p>The mapping from the EDoc XHTML output to valid Erlang/OTP XML
+       is not complete. An attempt has been made to cover the most
+       commonly used XHTML constructs, but there will still be cases
+       where XML generation fails or where the resulting XML is
+       inadequate. This is especially true for <tt>users_guide/1,2</tt>.
+    </p>
+
+    <p>Known limitations for some XHTML tags:</p>
+    <taglist>
+      <tag><tt><a></tt></tag>
+      <item>
+        <p>All attributes except the first <tt>href</tt> or <tt>name</tt>
+	  attribute are ignored.</p>
+        <p>A <tt>href</tt> attribute means the <tt><a></tt> tag
+	  will be transformed to a <tt><seealso></tt> or
+	  <tt><url></tt> tag and an attempt is made to
+	  resolve the reference if necessary.</p>
+
+	<p>A <tt>name</tt> attribute means the <tt><a></tt> tag
+	  will be transformed to a <tt><marker></tt> tag.</p>
+      </item>
+
+      <tag><tt><b>, <em>, <pre></tt></tag>
+      <item>Cannot contain other tags in Erlang/OTP XML, content is
+	converted to plain text.
+      </item>
+
+      <tag><tt><center></tt></tag>
+      <item>No corresponding Erlang/OTP XML tag, converted to plain
+	text.
+      </item>
+
+      <tag><tt><font></tt></tag>
+      <item>No corresponding Erlang/OTP XML tag, converted to plain
+	text.
+      </item>
+
+      <tag><tt><h1>, <h2>, ...</tt></tag>
+      <item>There is no tag corresponding to a header in Erlang/OTP XML,
+	so these are converted to plain text instead, with
+	the exception of <tt><h3></tt> and
+	<tt><h4></tt> tags within <tt>overview.edoc</tt>, see
+	part about "<tt>chapter</tt> DTD" below.
+      </item>
+
+      <tag><tt><sup></tt></tag>
+      <item>There is no tag corresponding to superscript in Erlang/OTP
+	XML, so this is converted to plain text within brackets "(..)".
+      </item>
+
+      <tag>References</tag>
+      <item>The markers automatically inserted by EDoc at each heading
+	and function will override the markers automatically inserted
+	by DocBuilder, with the unfortunate result that the links in
+	the left-hand frame of the User's Guide will not work, and
+	also that cross referencing a function in a module the usual
+	Erlang/OTP way
+	"<tt><seealso marker="edoc:edoc#run/3...></tt>" does
+	not work. (But
+	"<tt><seealso marker="edoc:edoc#run-3...></tt>" does.)
+      </item>
+    </taglist>
+
+    <p><em>erlref DTD</em></p>
+    <taglist>
+      <tag>Tables</tag>
+      <item>Tables are not allowed. The contents of a table is
+	converted to text instead, each row corresponding to one line
+	of text.
+      </item>
+    </taglist>
+
+    <p><em>chapter DTD</em></p>
+    <taglist>
+      <tag>Sections</tag>
+      <item>Only two levels of sections. <tt><h3></tt>
+	(equivalent to EDoc headings "<tt>== Heading ==</tt>") is
+	interpreted as start of top-level section, or if there is no
+	<tt><h3></tt> tag, the entire document is made into
+	one top-level section. <tt><h4></tt> (equivalent to
+	EDoc sub-headings ("<tt>=== Sub-heading ===</tt>") is
+	interpreted as start of second-level section.
+      </item>
+
+      <tag>Tables</tag>
+      <item>Tables without borders are converted to text in the same
+	manner as for the <tt>erlref</tt> DTD.
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="moduleFilegtokerrorReason"></a><b>module(File) -&gt; ok | {error, Reason}<br/>module(File, Options) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>File = string()</b><br/>
+	<b>Options = [Opt]</b><br/>
+	<b>Opt = {def,Defs} | {includes,Dirs} | {preprocess,Bool}
+	  | {sort_functions,Bool}</b><br/>
+	<b>Defs = [{atom(),string()}]</b><br/>
+	<b>Dirs = [string()]</b><br/>
+	<b>Bool = bool()</b><br/>
+	<b>Reason = badfile | {badopt,term()} | term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates XML documentation source code according to
+	  the <tt>erlref</tt> DTD from EDoc comments <tt>File</tt>, using
+	  the EDoc application.</p>
+
+        <p><tt>File</tt> is an Erlang source file, given with or without
+	  the <tt>.erl</tt> extension as <tt>Name.erl</tt> or <tt>Name</tt>.
+	  The resulting XML file is created in the current working
+	  directory and named <tt>Name.xml</tt>.</p>
+
+	<p><tt>Options</tt> is a list of options, see below.</p>
+
+	<p>Returns <tt>ok</tt> if successful, and an error tuple
+	  otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="users_guideFilegtokerrorReason"></a><b>users_guide(File) -&gt; ok | {error, Reason}<br/>users_guide(File, Options) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>File -- see module/1,2</b><br/>
+	<b>Options -- see module/1,2</b><br/>
+	<b>Reason -- see module/1,2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Like <tt>module/1,2</tt> but generates XML source code
+	  according to the <tt>chapter</tt> DTD from an
+	  <tt>overview.edoc</tt> or similar file.</p>
+
+	<p>The resulting file is named <tt>chapter.xml</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>c</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />c</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>c</tt> module enables users to enter the short form of
+      some commonly used commands.</p>
+    <note>
+      <p>These functions are are intended for interactive use in
+        the Erlang shell only. The module prefix may be omitted.</p>
+    </note>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#btPidgtvoid">bt(Pid) -&gt; void()</a></li>
+        
+        <li><a href="#cFilegtokModuleerror">c(File) -&gt; {ok, Module} | error</a></li>
+        
+        <li><a href="#cdDirgtvoid">cd(Dir) -&gt; void()</a></li>
+        
+        <li><a href="#flushgtvoid">flush() -&gt; void()</a></li>
+        
+        <li><a href="#helpgtvoid">help() -&gt; void()</a></li>
+        
+        <li><a href="#igtvoid">i() -&gt; void()</a></li>
+        
+        <li><a href="#iXYZgtvoid">i(X, Y, Z) -&gt; void()</a></li>
+        
+        <li><a href="#lModulegtvoid">l(Module) -&gt; void()</a></li>
+        
+        <li><a href="#lcFilesgtok">lc(Files) -&gt; ok</a></li>
+        
+        <li><a href="#lsDirgtvoid">ls(Dir) -&gt; void()</a></li>
+        
+        <li><a href="#lsgtvoid">ls() -&gt; void()</a></li>
+        
+        <li><a href="#mgtvoid">m() -&gt; void()</a></li>
+        
+        <li><a href="#mModulegtvoid">m(Module) -&gt; void()</a></li>
+        
+        <li><a href="#memorygtTypeSize">memory() -&gt; [{Type, Size}]</a></li>
+        
+        <li><a href="#memoryTypegtSize">memory(Type) -&gt; Size</a></li>
+        
+        <li><a href="#ncFilegtokModuleerror">nc(File) -&gt; {ok, Module} | error</a></li>
+        
+        <li><a href="#nlModulegtvoid">nl(Module) -&gt; void()</a></li>
+        
+        <li><a href="#pidXYZgtpid">pid(X, Y, Z) -&gt; pid()</a></li>
+        
+        <li><a href="#pwdgtvoid">pwd() -&gt; void()</a></li>
+        
+        <li><a href="#qgtvoid">q() -&gt; void()</a></li>
+        
+        <li><a href="#regsgtvoid">regs() -&gt; void()</a></li>
+        
+        <li><a href="#xmModSpecgtvoid">xm(ModSpec) -&gt; void()</a></li>
+        
+        <li><a href="#yFilegtYeccRet">y(File) -&gt; YeccRet</a></li>
+        
+        <li><a href="#yFileOptionsgtYeccRet">y(File, Options) -&gt; YeccRet</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="compiler:compile">compile(3)</seealso>,
+      <seealso marker="filename">filename(3)</seealso>, 
+      <seealso marker="erts:erlang">erlang(3)</seealso>, 
+      <seealso marker="parsetools:yecc">yecc(3)</seealso>,
+      <seealso marker="tools:xref">xref(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="btPidgtvoid"></a><b>bt(Pid) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stack backtrace for a process. Equivalent to
+          <tt>erlang:process_display(Pid, backtrace)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cFilegtokModuleerror"></a><b>c(File) -&gt; {ok, Module} | error<br/>c(File, Options) -&gt; {ok, Module} | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = name() -- see filename(3)</b><br/>
+        <b>Options = [Opt] -- see compile:file/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>c/1,2</tt> compiles and then purges and loads the code for
+          a file. <tt>Options</tt> defaults to []. Compilation is
+          equivalent to:</p>
+        <code type="none">
+compile:file(File, Options ++ [report_errors, report_warnings])</code>
+        <p>Note that purging the code means that any processes
+          lingering in old code for the module are killed without
+          warning. See <tt>code/3</tt> for more information.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cdDirgtvoid"></a><b>cd(Dir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name() -- see filename(3)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes working directory to <tt>Dir</tt>, which may be a
+          relative name, and then prints the name of the new working
+          directory.</p>
+        <pre>
+2&gt; <input>
+/home/ron/erlang</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flushgtvoid"></a><b>flush() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Flushes any messages sent to the shell.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="helpgtvoid"></a><b>help() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Displays help information: all valid shell internal commands,
+          and commands in this module.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="igtvoid"></a><b>i() -&gt; void()<br/>ni() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p><tt>i/0</tt> displays information about the system, listing
+          information about all processes. <tt>ni/0</tt> does the same,
+          but for all nodes the network.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iXYZgtvoid"></a><b>i(X, Y, Z) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>X = Y = Z = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Displays information about a process, Equivalent to
+          <tt>process_info(pid(X, Y, Z))</tt>, but location transparent.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lModulegtvoid"></a><b>l(Module) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Purges and loads, or reloads, a module by calling
+          <tt>code:purge(Module)</tt> followed by
+          <tt>code:load_file(Module)</tt>.</p>
+        <p>Note that purging the code means that any processes
+          lingering in old code for the module are killed without
+          warning. See <tt>code/3</tt> for more information.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lcFilesgtok"></a><b>lc(Files) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Files = [File]</b><br/>
+        <b>&nbsp;File = name() -- see filename(3)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles a list of files by calling <tt>compile:file(File, [report_errors, report_warnings])</tt> for each <tt>File</tt>
+          in <tt>Files</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lsgtvoid"></a><b>ls() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Lists files in the current directory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lsDirgtvoid"></a><b>ls(Dir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name() -- see filename(3)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Lists files in directory <tt>Dir</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mgtvoid"></a><b>m() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Displays information about the loaded modules, including
+          the files from which they have been loaded.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mModulegtvoid"></a><b>m(Module) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Displays information about <tt>Module</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memorygtTypeSize"></a><b>memory() -&gt; [{Type, Size}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type, Size -- see erlang:memory/0</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Memory allocation information. Equivalent to
+          <tt>erlang:memory/0</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memoryTypegtSize"></a><b>memory(Type) -&gt; Size<br/>memory([Type]) -&gt; [{Type, Size}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type, Size -- see erlang:memory/0</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Memory allocation information. Equivalent to
+          <tt>erlang:memory/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ncFilegtokModuleerror"></a><b>nc(File) -&gt; {ok, Module} | error<br/>nc(File, Options) -&gt; {ok, Module} | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = name() -- see filename(3)</b><br/>
+        <b>Options = [Opt] -- see compile:file/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles and then loads the code for a file on all nodes.
+          <tt>Options</tt> defaults to []. Compilation is equivalent to:</p>
+        <code type="none">
+compile:file(File, Opts ++ [report_errors, report_warnings])</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nlModulegtvoid"></a><b>nl(Module) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Loads <tt>Module</tt> on all nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pidXYZgtpid"></a><b>pid(X, Y, Z) -&gt; pid()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>X = Y = Z = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt> to the pid
+          <tt><X.Y.Z></tt>. This function should only be used when
+          debugging.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pwdgtvoid"></a><b>pwd() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Prints the name of the working directory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="qgtvoid"></a><b>q() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function is shorthand for <tt>init:stop()</tt>, that is,
+          it causes the node to stop in a controlled fashion.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="regsgtvoid"></a><b>regs() -&gt; void()<br/>nregs() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p><tt>regs/0</tt> displays information about all registered
+          processes. <tt>nregs/0</tt> does the same, but for all nodes
+          in the network.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="xmModSpecgtvoid"></a><b>xm(ModSpec) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ModSpec = Module | Filename</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+        <b>&nbsp;Filename = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function finds undefined functions, unused functions,
+          and calls to deprecated functions in a module by calling
+          <tt>xref:m/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="yFilegtYeccRet"></a><b>y(File) -&gt; YeccRet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = name() -- see filename(3)</b><br/>
+        <b>YeccRet = -- see yecc:file/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates an LALR-1 parser. Equivalent to:</p>
+        <code type="none">
+yecc:file(File)</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="yFileOptionsgtYeccRet"></a><b>y(File, Options) -&gt; YeccRet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = name() -- see filename(3)</b><br/>
+        <b>Options, YeccRet = -- see yecc:file/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates an LALR-1 parser. Equivalent to:</p>
+        <code type="none">
+yecc:file(File, Options)</code>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

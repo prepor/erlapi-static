@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_internal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_internal</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines Erlang BIFs, guard tests and operators.
+      This module is only of interest to programmers who
+      manipulate Erlang code.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#arith_opOpNameAritygtbool">arith_op(OpName, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#bifNameAritygtbool">bif(Name, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#bool_opOpNameAritygtbool">bool_op(OpName, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#comp_opOpNameAritygtbool">comp_op(OpName, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#guard_bifNameAritygtbool">guard_bif(Name, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#list_opOpNameAritygtbool">list_op(OpName, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#op_typeOpNameAritygtType">op_type(OpName, Arity) -&gt; Type</a></li>
+        
+        <li><a href="#send_opOpNameAritygtbool">send_op(OpName, Arity) -&gt; bool()</a></li>
+        
+        <li><a href="#type_testNameAritygtbool">type_test(Name, Arity) -&gt; bool()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="bifNameAritygtbool"></a><b>bif(Name, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Name/Arity</tt> is an Erlang BIF
+          which is automatically recognized by the compiler, otherwise
+          <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="guard_bifNameAritygtbool"></a><b>guard_bif(Name, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Name/Arity</tt> is an Erlang BIF
+          which is allowed in guards, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="type_testNameAritygtbool"></a><b>type_test(Name, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Name/Arity</tt> is a valid Erlang
+          type test, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="arith_opOpNameAritygtbool"></a><b>arith_op(OpName, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>OpName/Arity</tt> is an arithmetic
+          operator, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bool_opOpNameAritygtbool"></a><b>bool_op(OpName, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>OpName/Arity</tt> is a Boolean
+          operator, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="comp_opOpNameAritygtbool"></a><b>comp_op(OpName, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>OpName/Arity</tt> is a comparison
+          operator, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_opOpNameAritygtbool"></a><b>list_op(OpName, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>OpName/Arity</tt> is a list
+          operator, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_opOpNameAritygtbool"></a><b>send_op(OpName, Arity) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>OpName/Arity</tt> is a send
+          operator, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="op_typeOpNameAritygtType"></a><b>op_type(OpName, Arity) -&gt; Type</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OpName = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>Type = arith | bool | comp | list | send</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>Type</tt> of operator that <tt>OpName/Arity</tt> 
+          belongs to, 
+          or generates a <tt>function_clause</tt> error if it is not an 
+          operator at all.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>array</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />array</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+<p>Functional, extendible arrays. Arrays can have fixed size, or  
+can grow automatically as needed. A default value is used for entries  
+that have not been explicitly set.</p>
+ 
+  <p>Arrays uses <em>zero</em> based indexing. This is a deliberate design  
+choice and differs from other erlang datastructures, e.g. tuples.</p>
+ 
+  <p>Unless specified by the user when the array is created, the default
+  value is the atom <tt>undefined</tt>. There is no difference between an
+  unset entry and an entry which has been explicitly set to the same
+  value as the default one (cf. <seealso marker="#reset-2">reset/2</seealso>). If you need to  
+differentiate between unset and set entries, you must make sure that  
+the default value cannot be confused with the values of set entries.</p>
+ 
+  <p>The array never shrinks automatically; if an index <tt>I</tt> has been used
+  successfully to set an entry, all indices in the range [0,<tt>I</tt>] will
+  stay accessible unless the array size is explicitly changed by
+  calling <seealso marker="#resize-2">resize/2</seealso>.</p>
+ 
+  <p>Examples:
+  </p>
+<pre>  %% Create a fixed-size array with entries 0-9 set to 'undefined'
+  A0 = array:new(10).
+  10 = array:size(A0).
+ 
+  %% Create an extendible array and set entry 17 to 'true',
+  %% causing the array to grow automatically
+  A1 = array:set(17, true, array:new()).
+  18 = array:size(A1).
+ 
+  %% Read back a stored value
+  true = array:get(17, A1).
+ 
+  %% Accessing an unset entry returns the default value
+  undefined = array:get(3, A1).
+ 
+  %% Accessing an entry beyond the last set entry also returns the
+  %% default value, if the array does not have fixed size
+  undefined = array:get(18, A1).
+ 
+  %% "sparse" functions ignore default-valued entries
+  A2 = array:set(4, false, A1).
+  [{4, false}, {17, true}] = array:sparse_to_orddict(A2).
+ 
+  %% An extendible array can be made fixed-size later
+  A3 = array:fix(A2).
+ 
+  %% A fixed-size array does not grow automatically and does not
+  %% allow accesses beyond the last set entry
+  {'EXIT',{badarg,_}} = (catch array:set(18, true, A3)).
+  {'EXIT',{badarg,_}} = (catch array:get(18, A3)).</pre></div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#defaultArrayarraygtterm">default(Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#fixArrayarraygtarray">fix(Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#foldlFunctionInitialAcctermArrayarraygtterm">foldl(Function, InitialAcc::term(), Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#foldrFunctionInitialAcctermArrayarraygtterm">foldr(Function, InitialAcc::term(), Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#from_listListlistgtarray">from_list(List::list()) -&gt; array()</a></li>
+        
+        <li><a href="#from_listListlistDefaulttermgtarray">from_list(List::list(), Default::term()) -&gt; array()</a></li>
+        
+        <li><a href="#from_orddictOrddictlistgtarray">from_orddict(Orddict::list()) -&gt; array()</a></li>
+        
+        <li><a href="#from_orddictListlistDefaulttermgtarray">from_orddict(List::list(), Default::term()) -&gt; array()</a></li>
+        
+        <li><a href="#getIintegerArrayarraygtterm">get(I::integer(), Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#is_arrayXtermgtbool">is_array(X::term()) -&gt; bool()</a></li>
+        
+        <li><a href="#is_fixArrayarraygtbool">is_fix(Array::array()) -&gt; bool()</a></li>
+        
+        <li><a href="#mapFunctionArrayarraygtarray">map(Function, Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#newgtarray">new() -&gt; array()</a></li>
+        
+        <li><a href="#newOptionstermgtarray">new(Options::term()) -&gt; array()</a></li>
+        
+        <li><a href="#newSizeintegerOptionstermgtarray">new(Size::integer(), Options::term()) -&gt; array()</a></li>
+        
+        <li><a href="#relaxArrayarraygtarray">relax(Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#resetIintegerArrayarraygtarray">reset(I::integer(), Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#resizeArrayarraygtarray">resize(Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#resizeSizeintegerArrayarraygtarray">resize(Size::integer(), Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#setIintegerValuetermArrayarraygtarray">set(I::integer(), Value::term(), Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#sizeArrayarraygtinteger">size(Array::array()) -&gt; integer()</a></li>
+        
+        <li><a href="#sparse_foldlFunctionInitialAcctermArrayarraygtterm">sparse_foldl(Function, InitialAcc::term(), Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#sparse_foldrFunctionInitialAcctermArrayarraygtterm">sparse_foldr(Function, InitialAcc::term(), Array::array()) -&gt; term()</a></li>
+        
+        <li><a href="#sparse_mapFunctionArrayarraygtarray">sparse_map(Function, Array::array()) -&gt; array()</a></li>
+        
+        <li><a href="#sparse_sizeAarraygtinteger">sparse_size(A::array()) -&gt; integer()</a></li>
+        
+        <li><a href="#sparse_to_listArrayarraygtlist">sparse_to_list(Array::array()) -&gt; list()</a></li>
+        
+        <li><a href="#sparse_to_orddictArrayarraygtIndexintegerValueterm">sparse_to_orddict(Array::array()) -&gt; [{Index::integer(), Value::term()}]</a></li>
+        
+        <li><a href="#to_listArrayarraygtlist">to_list(Array::array()) -&gt; list()</a></li>
+        
+        <li><a href="#to_orddictArrayarraygtIndexintegerValueterm">to_orddict(Array::array()) -&gt; [{Index::integer(), Value::term()}]</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        <title>DATA TYPES</title>
+<marker id="types"></marker>
+
+<taglist>
+<tag><tt>array()</tt></tag>
+<item><marker id="type-array"></marker>
+<p>A functional, extendible array. The representation is
+  not documented and is subject to change without notice. Note that
+  arrays cannot be directly compared for equality.</p>
+</item>
+</taglist>
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="defaultArrayarraygtterm"></a><b>default(Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="default-1"></marker>
+
+<p>Get the value used for uninitialized entries.
+ </p>
+<p><em>See also:</em> <seealso marker="#new-2">new/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fixArrayarraygtarray"></a><b>fix(Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="fix-1"></marker>
+
+<p>Fix the size of the array. This prevents it from growing
+  automatically upon insertion; see also <seealso marker="#set-3">set/3</seealso>.</p>
+<p><em>See also:</em> <seealso marker="#relax-1">relax/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldlFunctionInitialAcctermArrayarraygtterm"></a><b>foldl(Function, InitialAcc::term(), Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term(), Acc::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="foldl-3"></marker>
+
+<p>Fold the elements of the array using the given function and
+  initial accumulator value. The elements are visited in order from the
+  lowest index to the highest. If <tt>Function</tt> is not a function, the
+  call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#foldr-3">foldr/3</seealso>, <seealso marker="#map-2">map/2</seealso>, <seealso marker="#sparse_foldl-3">sparse_foldl/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldrFunctionInitialAcctermArrayarraygtterm"></a><b>foldr(Function, InitialAcc::term(), Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term(), Acc::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="foldr-3"></marker>
+
+<p>Fold the elements of the array right-to-left using the given
+  function and initial accumulator value. The elements are visited in
+  order from the highest index to the lowest. If <tt>Function</tt> is not a
+  function, the call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#foldl-3">foldl/3</seealso>, <seealso marker="#map-2">map/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListlistgtarray"></a><b>from_list(List::list()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="from_list-1"></marker>
+<p>Equivalent to <seealso marker="#from_list-2">from_list(List, undefined)</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListlistDefaulttermgtarray"></a><b>from_list(List::list(), Default::term()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="from_list-2"></marker>
+
+<p>Convert a list to an extendible array. <tt>Default</tt> is used as the value
+  for uninitialized entries of the array. If <tt>List</tt> is not a proper list,
+  the call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#new-2">new/2</seealso>, <seealso marker="#to_list-1">to_list/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_orddictOrddictlistgtarray"></a><b>from_orddict(Orddict::list()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="from_orddict-1"></marker>
+<p>Equivalent to <seealso marker="#from_orddict-2">from_orddict(Orddict, undefined)</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_orddictListlistDefaulttermgtarray"></a><b>from_orddict(List::list(), Default::term()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="from_orddict-2"></marker>
+
+<p>Convert an ordered list of pairs <tt>{Index, Value}</tt> to a
+  corresponding extendible array. <tt>Default</tt> is used as the value for
+  uninitialized entries of the array. If <tt>List</tt> is not a proper,
+  ordered list of pairs whose first elements are nonnegative
+  integers, the call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#new-2">new/2</seealso>, <seealso marker="#to_orddict-1">to_orddict/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getIintegerArrayarraygtterm"></a><b>get(I::integer(), Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="get-2"></marker>
+
+<p>Get the value of entry <tt>I</tt>. If <tt>I</tt> is not a nonnegative
+  integer, or if the array has fixed size and <tt>I</tt> is larger than the
+  maximum index, the call fails with reason <tt>badarg</tt>.</p>
+ 
+  <p>If the array does not have fixed size, this function will return the
+  default value for any index <tt>I</tt> greater than <tt>size(Array)-1</tt>.</p>
+<p><em>See also:</em> <seealso marker="#set-3">set/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_arrayXtermgtbool"></a><b>is_array(X::term()) -&gt; bool()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="is_array-1"></marker>
+
+<p>Returns <tt>true</tt> if <tt>X</tt> appears to be an array, otherwise <tt>false</tt>.
+  Note that the check is only shallow; there is no guarantee that <tt>X</tt>
+  is a well-formed array representation even if this function returns
+  <tt>true</tt>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_fixArrayarraygtbool"></a><b>is_fix(Array::array()) -&gt; bool()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="is_fix-1"></marker>
+
+<p>Check if the array has fixed size.
+  Returns <tt>true</tt> if the array is fixed, otherwise <tt>false</tt>.</p>
+<p><em>See also:</em> <seealso marker="#fix-1">fix/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mapFunctionArrayarraygtarray"></a><b>map(Function, Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="map-2"></marker>
+
+<p>Map the given function onto each element of the array. The
+  elements are visited in order from the lowest index to the highest.
+  If <tt>Function</tt> is not a function, the call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#foldl-3">foldl/3</seealso>, <seealso marker="#foldr-3">foldr/3</seealso>, <seealso marker="#sparse_map-2">sparse_map/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="newgtarray"></a><b>new() -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="new-0"></marker>
+
+<p>Create a new, extendible array with initial size zero.</p>
+<p><em>See also:</em> <seealso marker="#new-1">new/1</seealso>, <seealso marker="#new-2">new/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="newOptionstermgtarray"></a><b>new(Options::term()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="new-1"></marker>
+
+<p>Create a new array according to the given options. By default,  
+the array is extendible and has initial size zero. Array indices  
+start at 0.</p>
+ 
+  <p><tt>Options</tt> is a single term or a list of terms, selected from the
+  following:
+  </p>
+<taglist>
+    <tag><tt>N::integer()</tt> or <tt>{size, N::integer()}</tt></tag>
+    <item><p>Specifies the initial size of the array; this also implies
+    <tt>{fixed, true}</tt>. If <tt>N</tt> is not a nonnegative integer, the call
+    fails with reason <tt>badarg</tt>.</p></item>
+    <tag><tt>fixed</tt> or <tt>{fixed, true}</tt></tag>
+    <item><p>Creates a fixed-size array; see also <seealso marker="#fix-1">fix/1</seealso>.</p></item>
+    <tag><tt>{fixed, false}</tt></tag>
+    <item><p>Creates an extendible (non fixed-size) array.</p></item>
+    <tag><tt>{default, Value}</tt></tag>
+    <item><p>Sets the default value for the array to <tt>Value</tt>.</p></item>
+  </taglist><p>  
+Options are processed in the order they occur in the list, i.e.,  
+later options have higher precedence.</p>
+ 
+  <p>The default value is used as the value of uninitialized entries, and  
+cannot be changed once the array has been created.</p>
+ 
+  <p>Examples:
+  </p>
+<pre>     array:new(100)</pre>
+<p> creates a fixed-size array of size 100.
+  </p>
+<pre>     array:new({default,0})</pre>
+<p> creates an empty, extendible array
+  whose default value is 0.
+  </p>
+<pre>     array:new([{size,10},{fixed,false},{default,-1}])</pre>
+<p> creates an
+  extendible array with initial size 10 whose default value is -1.
+ </p>
+<p><em>See also:</em> <seealso marker="#fix-1">fix/1</seealso>, <seealso marker="#from_list-2">from_list/2</seealso>, <seealso marker="#get-2">get/2</seealso>, <seealso marker="#new-0">new/0</seealso>, <seealso marker="#new-2">new/2</seealso>, <seealso marker="#set-3">set/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="newSizeintegerOptionstermgtarray"></a><b>new(Size::integer(), Options::term()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="new-2"></marker>
+
+<p>Create a new array according to the given size and options. If
+  <tt>Size</tt> is not a nonnegative integer, the call fails with reason
+  <tt>badarg</tt>. By default, the array has fixed size. Note that any size
+  specifications in <tt>Options</tt> will override the <tt>Size</tt> parameter.</p>
+ 
+  <p>If <tt>Options</tt> is a list, this is simply equivalent to <tt>new([{size,
+  Size} | Options]</tt>, otherwise it is equivalent to <tt>new([{size, Size} |
+  [Options]]</tt>. However, using this function directly is more efficient.</p>
+ 
+  <p>Example:
+  </p>
+<pre>     array:new(100, {default,0})</pre>
+<p> creates a fixed-size array of size
+  100, whose default value is 0.
+ </p>
+<p><em>See also:</em> <seealso marker="#new-1">new/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relaxArrayarraygtarray"></a><b>relax(Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="relax-1"></marker>
+
+<p>Make the array resizable. (Reverses the effects of <seealso marker="#fix-1">fix/1</seealso>.)</p>
+<p><em>See also:</em> <seealso marker="#fix-1">fix/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resetIintegerArrayarraygtarray"></a><b>reset(I::integer(), Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="reset-2"></marker>
+
+<p>Reset entry <tt>I</tt> to the default value for the array. This is
+  equivalent to <tt>set(I, default(Array), Array)</tt>, and hence may cause
+  the array to grow in size, but will not shrink it. Shrinking can be
+  done explicitly by calling <seealso marker="#resize-2">resize/2</seealso>.</p>
+ 
+  <p>If <tt>I</tt> is not a nonnegative integer, or if the array has fixed size
+  and <tt>I</tt> is larger than the maximum index, the call fails with reason
+  <tt>badarg</tt>; cf. <seealso marker="#set-3">set/3</seealso>
+ </p>
+<p><em>See also:</em> <seealso marker="#new-2">new/2</seealso>, <seealso marker="#set-3">set/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resizeArrayarraygtarray"></a><b>resize(Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="resize-1"></marker>
+
+<p>Change the size of the array to that reported by <seealso marker="#sparse_size-1">sparse_size/1</seealso>. If the given array has fixed size, the resulting
+  array will also have fixed size.</p>
+<p><em>See also:</em> <seealso marker="#resize-2">resize/2</seealso>, <seealso marker="#sparse_size-1">sparse_size/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resizeSizeintegerArrayarraygtarray"></a><b>resize(Size::integer(), Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="resize-2"></marker>
+
+<p>Change the size of the array. If <tt>Size</tt> is not a nonnegative
+  integer, the call fails with reason <tt>badarg</tt>. If the given array has
+  fixed size, the resulting array will also have fixed size.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="setIintegerValuetermArrayarraygtarray"></a><b>set(I::integer(), Value::term(), Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="set-3"></marker>
+
+<p>Set entry <tt>I</tt> of the array to <tt>Value</tt>. If <tt>I</tt> is not a
+  nonnegative integer, or if the array has fixed size and <tt>I</tt> is larger
+  than the maximum index, the call fails with reason <tt>badarg</tt>.</p>
+ 
+  <p>If the array does not have fixed size, and <tt>I</tt> is greater than
+  <tt>size(Array)-1</tt>, the array will grow to size <tt>I+1</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#get-2">get/2</seealso>, <seealso marker="#reset-2">reset/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeArrayarraygtinteger"></a><b>size(Array::array()) -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="size-1"></marker>
+
+<p>Get the number of entries in the array. Entries are numbered
+  from 0 to <tt>size(Array)-1</tt>; hence, this is also the index of the first
+  entry that is guaranteed to not have been previously set.</p>
+<p><em>See also:</em> <seealso marker="#set-3">set/3</seealso>, <seealso marker="#sparse_size-1">sparse_size/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_foldlFunctionInitialAcctermArrayarraygtterm"></a><b>sparse_foldl(Function, InitialAcc::term(), Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term(), Acc::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="sparse_foldl-3"></marker>
+
+<p>Fold the elements of the array using the given function and
+  initial accumulator value, skipping default-valued entries. The
+  elements are visited in order from the lowest index to the highest.
+  If <tt>Function</tt> is not a function, the call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#foldl-3">foldl/3</seealso>, <seealso marker="#sparse_foldr-3">sparse_foldr/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_foldrFunctionInitialAcctermArrayarraygtterm"></a><b>sparse_foldr(Function, InitialAcc::term(), Array::array()) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term(), Acc::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="sparse_foldr-3"></marker>
+
+<p>Fold the elements of the array right-to-left using the given
+  function and initial accumulator value, skipping default-valued
+  entries. The elements are visited in order from the highest index to
+  the lowest. If <tt>Function</tt> is not a function, the call fails with
+  reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#foldr-3">foldr/3</seealso>, <seealso marker="#sparse_foldl-3">sparse_foldl/3</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_mapFunctionArrayarraygtarray"></a><b>sparse_map(Function, Array::array()) -&gt; array()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+<b>Function = (Index::integer(), Value::term()) -&gt; term()</b><br/>
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  <marker id="sparse_map-2"></marker>
+
+<p>Map the given function onto each element of the array, skipping
+  default-valued entries. The elements are visited in order from the
+  lowest index to the highest. If <tt>Function</tt> is not a function, the
+  call fails with reason <tt>badarg</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#map-2">map/2</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_sizeAarraygtinteger"></a><b>sparse_size(A::array()) -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="sparse_size-1"></marker>
+
+<p>Get the number of entries in the array up until the last
+  non-default valued entry. In other words, returns <tt>I+1</tt> if <tt>I</tt> is the
+  last non-default valued entry in the array, or zero if no such entry
+  exists.</p>
+<p><em>See also:</em> <seealso marker="#resize-1">resize/1</seealso>, <seealso marker="#size-1">size/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_to_listArrayarraygtlist"></a><b>sparse_to_list(Array::array()) -&gt; list()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="sparse_to_list-1"></marker>
+
+<p>Converts the array to a list, skipping default-valued entries.
+ </p>
+<p><em>See also:</em> <seealso marker="#to_list-1">to_list/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sparse_to_orddictArrayarraygtIndexintegerValueterm"></a><b>sparse_to_orddict(Array::array()) -&gt; [{Index::integer(), Value::term()}]</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="sparse_to_orddict-1"></marker>
+
+<p>Convert the array to an ordered list of pairs <tt>{Index, Value}</tt>,
+  skipping default-valued entries.
+ </p>
+<p><em>See also:</em> <seealso marker="#to_orddict-1">to_orddict/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listArrayarraygtlist"></a><b>to_list(Array::array()) -&gt; list()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="to_list-1"></marker>
+
+<p>Converts the array to a list.
+ </p>
+<p><em>See also:</em> <seealso marker="#from_list-2">from_list/2</seealso>, <seealso marker="#sparse_to_list-1">sparse_to_list/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_orddictArrayarraygtIndexintegerValueterm"></a><b>to_orddict(Array::array()) -&gt; [{Index::integer(), Value::term()}]</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  <marker id="to_orddict-1"></marker>
+
+<p>Convert the array to an ordered list of pairs <tt>{Index, Value}</tt>.
+ </p>
+<p><em>See also:</em> <seealso marker="#from_orddict-2">from_orddict/2</seealso>, <seealso marker="#sparse_to_orddict-1">sparse_to_orddict/1</seealso>.</p>
+
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

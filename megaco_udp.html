@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_udp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_udp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains the public interface to the UDP/IP version
+      transport protocol for Megaco/H.248.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#blockHandlegtok">block(Handle) -&gt; ok</a></li>
+        
+        <li><a href="#closeHandleMsggtok">close(Handle, Msg) -&gt; ok</a></li>
+        
+        <li><a href="#create_send_handleHandleHostPortgtsend_handle">create_send_handle(Handle, Host, Port) -&gt; send_handle()</a></li>
+        
+        <li><a href="#get_statsgtokTotalStatserrorReason">get_stats() -&gt; {ok, TotalStats} | {error, Reason}</a></li>
+        
+        <li><a href="#openTransportRefOptionListgtokHandleControlPiderrorReason">open(TransportRef, OptionList) -&gt;  {ok, Handle, ControlPid} |  {error, Reason}</a></li>
+        
+        <li><a href="#reset_statsgtvoid">reset_stats() -&gt; void()</a></li>
+        
+        <li><a href="#send_messageSendHandleMsggtok">send_message(SendHandle, Msg) -&gt; ok</a></li>
+        
+        <li><a href="#socketHandlegtSocket">socket(Handle) -&gt; Socket</a></li>
+        
+        <li><a href="#start_transportgtokTransportRef">start_transport() -&gt; {ok, TransportRef}</a></li>
+        
+        <li><a href="#unblockHandlegtok">unblock(Handle) -&gt; ok</a></li>
+        
+        <li><a href="#upgrade_receive_handleControlPidNewHandlegtok">upgrade_receive_handle(ControlPid, NewHandle) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_transportgtokTransportRef"></a><b>start_transport() -&gt; {ok, TransportRef}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TransportRef = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for starting the UDP/IP transport service.
+          Use exit(TransportRef, Reason) to stop the transport service.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="openTransportRefOptionListgtokHandleControlPiderrorReason"></a><b>open(TransportRef, OptionList) -&gt;  {ok, Handle, ControlPid} |  {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TransportRef = pid() | regname()</b><br/>
+        <b>OptionList = [option()]</b><br/>
+        <b>option() = {port, integer()} |{options, list()} |{receive_handle, receive_handle()} |{module, atom()}</b><br/>
+        <b>Handle = socket_handle()</b><br/>
+        <b>receive_handle() = term()</b><br/>
+        <b>ControlPid = pid()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to open an UDP/IP socket.</p>
+        <p>The <tt>module</tt> option makes it possible for the user to provide
+          their own callback module. The functions <tt>receive_message/4</tt> or
+          <tt>process_received_message/4</tt> of this module is called when a new 
+          message is received (which one depends on the size of the message; 
+          small - receive_message, large - process_received_message). 
+          Default value is <em>megaco</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeHandleMsggtok"></a><b>close(Handle, Msg) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+        <b>Msg</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for closing an active UDP socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="socketHandlegtSocket"></a><b>socket(Handle) -&gt; Socket</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+        <b>Socket = inet_socket()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to convert a socket_handle() to
+          a inet_socket(). inet_socket() is a plain socket,
+          see the inet module for more info.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_send_handleHandleHostPortgtsend_handle"></a><b>create_send_handle(Handle, Host, Port) -&gt; send_handle()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+        <b>Host = {A,B,C,D} | string()</b><br/>
+        <b>Port = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a send handle from a transport handle.  The send
+          handle is intended to be used by megaco_udp:send_message/2.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_messageSendHandleMsggtok"></a><b>send_message(SendHandle, Msg) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SendHandle = send_handle()</b><br/>
+        <b>Message = binary() | iolist()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a message on a socket. The send handle is obtained by
+          megaco_udp:create_send_handle/3. Increments the NumOutMessages
+          and NumOutOctets counters if message successfully sent. In case
+          of a failure to send, the NumErrors counter is <em>not</em>
+          inremented. This is done elsewhere in the megaco app.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="blockHandlegtok"></a><b>block(Handle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stop receiving incoming messages on the socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unblockHandlegtok"></a><b>unblock(Handle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starting to receive incoming messages from the socket again.</p>
+        <marker id="upgrade_receive_handle"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="upgrade_receive_handleControlPidNewHandlegtok"></a><b>upgrade_receive_handle(ControlPid, NewHandle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ControlPid = pid()</b><br/>
+        <b>NewHandle = receive_handle()</b><br/>
+        <b>receive_handle() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Update the receive handle of the control process (e.g. after
+          having changed protocol version).</p>
+        <marker id="stats"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_statsgtokTotalStatserrorReason"></a><b>get_stats() -&gt; {ok, TotalStats} | {error, Reason}<br/>get_stats(SendHandle) -&gt; {ok, SendHandleStats} | {error, Reason}<br/>get_stats(SendHandle, Counter) -&gt; {ok, CounterStats} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TotalStats = [total_stats()]</b><br/>
+        <b>total_stats() = {send_handle(), [stats()]}</b><br/>
+        <b>SendHandle = send_handle()</b><br/>
+        <b>SendHandleStats = [stats()]</b><br/>
+        <b>Counter = udp_stats_counter()</b><br/>
+        <b>CounterStats = integer()</b><br/>
+        <b>stats() = {udp_stats_counter(), integer()}</b><br/>
+        <b>tcp_stats_counter() = medGwyGatewayNumInMessages |  medGwyGatewayNumInOctets | medGwyGatewayNumOutMessages | medGwyGatewayNumOutOctets | medGwyGatewayNumErrors</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retreive the UDP related (SNMP) statistics counters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reset_statsgtvoid"></a><b>reset_stats() -&gt; void()<br/>reset_stats(SendHandle) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SendHandle = send_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reset all TCP related (SNMP) statistics counters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

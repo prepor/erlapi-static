@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_edist_compress</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_edist_compress</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The following functions should be exported from a 
+      <tt>megaco_edist_compress</tt> callback module:</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ModuledecodeTVersiongtR">Module:decode(T, Version) -&gt; R</a></li>
+        
+        <li><a href="#ModuleencodeRVersiongtT">Module:encode(R, Version) -&gt; T</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="ModuleencodeRVersiongtT"></a><b>Module:encode(R, Version) -&gt; T</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>R = megaco_message() | transaction() | action_reply() | action_request() | command_request()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>T = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compress a megaco component. The erlang dist encoder makes no 
+          assumption on the how or even if the component is compressed. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ModuledecodeTVersiongtR"></a><b>Module:decode(T, Version) -&gt; R</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>T = term()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>R = megaco_message() | transaction() | action_reply() | action_request() | command_request()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decompress a megaco component. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

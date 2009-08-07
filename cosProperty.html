@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cosProperty</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cosProperty</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosProperty/include/*.hrl").</tt></p>
+    <p>This module contains the functions for starting and stopping the application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#installgtReturn">install() -&gt; Return</a></li>
+        
+        <li><a href="#install_dbgtReturn">install_db() -&gt; Return</a></li>
+        
+        <li><a href="#startgtReturn">start() -&gt; Return</a></li>
+        
+        <li><a href="#start_SetDefFactorygtReturn">start_SetDefFactory() -&gt; Return</a></li>
+        
+        <li><a href="#start_SetFactorygtReturn">start_SetFactory() -&gt; Return</a></li>
+        
+        <li><a href="#stopgtReturn">stop() -&gt; Return</a></li>
+        
+        <li><a href="#stop_SetDefFactoryFactorygtReturn">stop_SetDefFactory(Factory) -&gt; Return</a></li>
+        
+        <li><a href="#stop_SetFactoryFactorygtReturn">stop_SetFactory(Factory) -&gt; Return</a></li>
+        
+        <li><a href="#uninstallgtReturn">uninstall() -&gt; Return</a></li>
+        
+        <li><a href="#uninstall_dbgtReturn">uninstall_db() -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="installgtReturn"></a><b>install() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosProperty application in the IFR.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="install_dbgtReturn"></a><b>install_db() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs data in mnesia necessary for running the 
+          cosProperty application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallgtReturn"></a><b>uninstall() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation removes all data in the IFR related to the cosProperty 
+          application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstall_dbgtReturn"></a><b>uninstall_db() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation removes all data from mnesia related to the cosProperty
+          application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtReturn"></a><b>start() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts the cosProperty application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_SetDefFactorygtReturn"></a><b>start_SetDefFactory() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = Factory | {'EXCEPTION', E}</b><br/>
+        <b>Factory = CosPropertyService::PropertySetDefFactory reference.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts a PropertySetDef Factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_SetFactorygtReturn"></a><b>start_SetFactory() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = Factory | {'EXCEPTION', E}</b><br/>
+        <b>Factory = CosPropertyService::PropertySetDefFactory reference.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts a PropertySet Factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_SetDefFactoryFactorygtReturn"></a><b>stop_SetDefFactory(Factory) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = CosPropertyService::PropertySetDefFactory reference.</b><br/>
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the supplied PropertySetDef Factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_SetFactoryFactorygtReturn"></a><b>stop_SetFactory(Factory) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = CosPropertyService::PropertySetFactory reference.</b><br/>
+        <b>Return = ok | {'EXCEPTION', E}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the supplied PropertySet Factory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtReturn"></a><b>stop() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the cosProperty application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

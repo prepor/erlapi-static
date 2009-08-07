@@ -1,0 +1,2277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>orber_ifr</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />orber_ifr</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions for managing the Interface
+      Repository (IFR). This documentation should be used in conjunction
+      with the documentation in chapter 6 of <term id="CORBA"></term>2.3.
+      Whenever the term IFR object is used in this manual page, it
+      refers to a pseudo object used only for interaction with the IFR
+      rather than a CORBA object.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Initialization of the IFR</a></li>
+        
+        <li><a href="#">General methods</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#contentsObjrefLimit_typeExclude_inheritedgtReturn">contents(Objref,Limit_type,Exclude_inherited) -&gt; Return</a></li>
+        
+        <li><a href="#create_aliasObjrefIdNameVersionOriginal_typegtReturn">create_alias(Objref,Id,Name,Version,Original_type) -&gt; Return</a></li>
+        
+        <li><a href="#create_arrayObjrefLengthElement_typegtReturn">create_array(Objref,Length,Element_type) -&gt; Return</a></li>
+        
+        <li><a href="#create_attributeObjrefIdNameVersionTypeModegtReturn">create_attribute(Objref,Id,Name,Version,Type,Mode) -&gt; Return</a></li>
+        
+        <li><a href="#create_constantObjrefIdNameVersionTypeValuegtReturn">create_constant(Objref,Id,Name,Version,Type,Value) -&gt; Return</a></li>
+        
+        <li><a href="#create_enumObjrefIdNameVersionMembersgtReturn">create_enum(Objref,Id,Name,Version,Members) -&gt; Return</a></li>
+        
+        <li><a href="#create_exceptionObjrefIdNameVersionMembersgtReturn">create_exception(Objref,Id,Name,Version,Members) -&gt; Return</a></li>
+        
+        <li><a href="#create_fixedObjrefDigitsScalegtReturn">create_fixed(Objref,Digits,Scale) -&gt; Return</a></li>
+        
+        <li><a href="#create_idltypeObjrefTypecodegtReturn">create_idltype(Objref,Typecode) -&gt; Return</a></li>
+        
+        <li><a href="#create_interfaceObjrefIdNameVersionBase_interfacesgtReturn">create_interface(Objref,Id,Name,Version,Base_interfaces) -&gt; Return</a></li>
+        
+        <li><a href="#create_moduleObjrefIdNameVersiongtReturn">create_module(Objref,Id,Name,Version) -&gt; Return</a></li>
+        
+        <li><a href="#create_operationObjrefIdNameVersionResultModeParamsExceptionsContextsgtReturn">create_operation(Objref,Id,Name,Version,Result,Mode,Params, Exceptions,Contexts) -&gt; Return</a></li>
+        
+        <li><a href="#create_sequenceObjrefBoundElement_typegtReturn">create_sequence(Objref,Bound,Element_type) -&gt; Return</a></li>
+        
+        <li><a href="#create_stringObjrefBoundgtReturn">create_string(Objref,Bound) -&gt; Return</a></li>
+        
+        <li><a href="#create_structObjrefIdNameVersionMembersgtReturn">create_struct(Objref,Id,Name,Version,Members) -&gt; Return</a></li>
+        
+        <li><a href="#create_unionObjrefIdNameVersionDiscriminator_typeMembersgtReturn">create_union(Objref,Id,Name,Version,Discriminator_type,Members) -&gt; Return</a></li>
+        
+        <li><a href="#create_wstringObjrefBoundgtReturn">create_wstring(Objref,Bound) -&gt; Return</a></li>
+        
+        <li><a href="#describeObjrefgtReturn">describe(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#describe_contentsObjrefLimit_typeExclude_inheritedMax_returned_objsgtReturn">describe_contents(Objref,Limit_type,Exclude_inherited,Max_returned_objs) -&gt; Return</a></li>
+        
+        <li><a href="#describe_interfaceObjrefgtReturn">describe_interface(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#destroyObjrefgtReturn">destroy(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#find_repositorygtIFR_Repository_objref">find_repository() -&gt; #IFR_Repository_objref</a></li>
+        
+        <li><a href="#get_absolute_nameObjrefgtReturn">get_absolute_name(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_base_interfacesObjrefgtReturn">get_base_interfaces(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_boundObjrefgtReturn">get_bound(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_containing_repositoryObjrefgtReturn">get_containing_repository(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_contextsObjrefgtReturn">get_contexts(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_def_kindObjrefgtReturn">get_def_kind(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_defined_inObjrefgtReturn">get_defined_in(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_discriminator_typeObjrefgtReturn">get_discriminator_type(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_discriminator_type_defObjrefgtReturn">get_discriminator_type_def(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_element_typeObjrefgtReturn">get_element_type(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_element_type_defObjrefgtReturn">get_element_type_def(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_exceptionsObjrefgtReturn">get_exceptions(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_idObjrefgtReturn">get_id(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_kindObjrefgtReturn">get_kind(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_lengthObjrefgtReturn">get_length(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_membersObjrefgtReturn">get_members(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_modeObjrefgtReturn">get_mode(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_nameObjrefgtReturn">get_name(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_original_type_defObjrefgtReturn">get_original_type_def(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_paramsObjrefgtReturn">get_params(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_primitiveObjrefKindgtReturn">get_primitive(Objref,Kind) -&gt; Return</a></li>
+        
+        <li><a href="#get_resultObjrefgtReturn">get_result(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_result_defObjrefgtReturn">get_result_def(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_typeObjrefgtReturn">get_type(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_type_defObjrefgtReturn">get_type_def(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_valueObjrefgtReturn">get_value(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#get_versionObjrefgtReturn">get_version(Objref) -&gt; Return</a></li>
+        
+        <li><a href="#initNodesTimeoutgtok">init(Nodes,Timeout) -&gt; ok</a></li>
+        
+        <li><a href="#is_aObjrefInterface_idgtReturn">is_a(Objref,Interface_id) -&gt; Return</a></li>
+        
+        <li><a href="#lookupObjrefSearch_namegtReturn">lookup(Objref,Search_name) -&gt; Return</a></li>
+        
+        <li><a href="#lookup_idObjrefSearch_idgtReturn">lookup_id(Objref,Search_id) -&gt; Return</a></li>
+        
+        <li><a href="#lookup_nameObjrefSearch_nameLevels_to_searchLimit_typeExclude_inheritedgtReturn">lookup_name(Objref,Search_name,Levels_to_search, Limit_type, Exclude_inherited) -&gt; Return</a></li>
+        
+        <li><a href="#moveObjrefNew_containerNew_nameNew_versiongtReturn">move(Objref,New_container,New_name,New_version) -&gt; Return</a></li>
+        
+        <li><a href="#set_base_interfacesObjrefBaseInterfacesgtReturn">set_base_interfaces(Objref,BaseInterfaces) -&gt; Return</a></li>
+        
+        <li><a href="#set_boundObjrefBoundgtReturn">set_bound(Objref,Bound) -&gt; Return</a></li>
+        
+        <li><a href="#set_contextsObjrefContextsgtReturn">set_contexts(Objref,Contexts) -&gt; Return</a></li>
+        
+        <li><a href="#set_discriminator_type_defObjrefTypeDefgtReturn">set_discriminator_type_def(Objref,TypeDef) -&gt;  Return</a></li>
+        
+        <li><a href="#set_element_type_defObjrefTypeDefgtReturn">set_element_type_def(Objref,TypeDef) -&gt; Return</a></li>
+        
+        <li><a href="#set_exceptionsObjrefExceptionsgtReturn">set_exceptions(Objref,Exceptions) -&gt; Return</a></li>
+        
+        <li><a href="#set_idObjrefIdgtok">set_id(Objref,Id) -&gt; ok</a></li>
+        
+        <li><a href="#set_lengthObjrefLengthgtReturn">set_length(Objref,Length) -&gt; Return</a></li>
+        
+        <li><a href="#set_membersObjrefMembersgtReturn">set_members(Objref,Members) -&gt; Return</a></li>
+        
+        <li><a href="#set_modeObjrefModegtReturn">set_mode(Objref,Mode) -&gt; Return</a></li>
+        
+        <li><a href="#set_nameObjrefNamegtok">set_name(Objref,Name) -&gt; ok</a></li>
+        
+        <li><a href="#set_original_type_defObjrefTypeDefgtReturn">set_original_type_def(Objref,TypeDef) -&gt; Return</a></li>
+        
+        <li><a href="#set_paramsObjrefParamsgtReturn">set_params(Objref,Params) -&gt; Return</a></li>
+        
+        <li><a href="#set_result_defObjrefResultDefgtReturn">set_result_def(Objref,ResultDef) -&gt; Return</a></li>
+        
+        <li><a href="#set_type_defObjrefTypeDefgtReturn">set_type_def(Objref,TypeDef) -&gt; Return</a></li>
+        
+        <li><a href="#set_valueObjrefValuegtReturn">set_value(Objref,Value) -&gt; Return</a></li>
+        
+        <li><a href="#set_versionObjrefVersiongtok">set_version(Objref,Version) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Initialization of the IFR</div>
+    
+    <div class="description">
+        
+    <title>Initialization of the IFR</title>
+    <p>The following functions are used to initialize the Interface
+      Repository and to obtain the initial reference to the
+      repository.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">General methods</div>
+    
+    <div class="description">
+        
+    <title>General methods</title>
+    <p>The following functions are the methods of the IFR. The first
+      argument is always an #IFR_objref, i.e. the IFR (pseudo)object
+      on which to apply this method. These functions are useful when
+      the type of IFR object is not know, but they are somewhat slower
+      than the specific functions listed below which only accept a
+      particular type of IFR object as the first argument.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="initNodesTimeoutgtok"></a><b>init(Nodes,Timeout) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = list()</b><br/>
+        <b>Timeout = integer() | infinity</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function should be called to initialize the IFR. It
+          creates the necessary mnesia-tables. A mnesia schema should
+          exist, and mnesia must be running.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="find_repositorygtIFR_Repository_objref"></a><b>find_repository() -&gt; #IFR_Repository_objref</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Find the IFR object reference for the Repository. This
+          reference should be used when adding objects to the IFR, and
+          when extracting information from the IFR.
+          The first time this function is called, it will create the
+          repository and all the primitive definitions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_def_kindObjrefgtReturn"></a><b>get_def_kind(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = atom() (one of dk_none, dk_all, dk_Attribute, dk_Constant, dk_Exception, dk_Interface, dk_Module, dk_Operation, dk_Typedef, dk_Alias, dk_Struct, dk_Union, dk_Enum, dk_Primitive, dk_String, dk_Wstring, dk_Fixed, dk_Sequence, dk_Array, dk_Repository)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind. Returns the definition
+          kind of the IFR object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyObjrefgtReturn"></a><b>destroy(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind except IRObject,
+          Contained and Container. Destroys that object and its
+          contents (if any). Returns whatever mnesia:transaction
+          returns.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_idObjrefgtReturn"></a><b>get_id(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the repository id of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_idObjrefIdgtok"></a><b>set_id(Objref,Id) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Id = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Sets the repository id of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_nameObjrefgtReturn"></a><b>get_name(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the name of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_nameObjrefNamegtok"></a><b>set_name(Objref,Name) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Name = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Sets the name of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_versionObjrefgtReturn"></a><b>get_version(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the version of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_versionObjrefVersiongtok"></a><b>set_version(Objref,Version) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Version = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Sets the version of that object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_defined_inObjrefgtReturn"></a><b>get_defined_in(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = #IFR_Container_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the Container object that the object is
+          defined in.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_absolute_nameObjrefgtReturn"></a><b>get_absolute_name(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the absolute (scoped) name of that
+          object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_containing_repositoryObjrefgtReturn"></a><b>get_containing_repository(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = #IFR_Repository_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns the Repository that is eventually reached
+          by recursively following the object's defined_in attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="describeObjrefgtReturn"></a><b>describe(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_object</b><br/>
+        <b>Return = tuple() (a contained_description record) | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. Returns a tuple describing the object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="moveObjrefNew_containerNew_nameNew_versiongtReturn"></a><b>move(Objref,New_container,New_name,New_version) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>New_container = #IFR_Container_objref</b><br/>
+        <b>New_name = string()</b><br/>
+        <b>New_version = string()</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Contained. New_container is an IFR object of any kind that
+          inherits from Container. Removes Objref from its current 
+          Container, and adds it to New_container. The name attribute
+          is changed to New_name and the version attribute is changed
+          to New_version.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookupObjrefSearch_namegtReturn"></a><b>lookup(Objref,Search_name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Search_name = string()</b><br/>
+        <b>Return =  #IFR_object</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Returns an IFR object identified by search_name
+          (a scoped name).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="contentsObjrefLimit_typeExclude_inheritedgtReturn"></a><b>contents(Objref,Limit_type,Exclude_inherited) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Limit_type = atom() (one of dk_none, dk_all, dk_Attribute, dk_Constant, dk_Exception, dk_Interface, dk_Module, dk_Operation, dk_Typedef, dk_Alias, dk_Struct, dk_Union, dk_Enum, dk_Primitive, dk_String, dk_Wstring, dk_Fixed, dk_Sequence, dk_Array, dk_Repository)</b><br/>
+        <b>Exclude_inherited = atom() (true or false)</b><br/>
+        <b>Return = list() (a list of IFR#_objects)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Returns the contents of that IFR object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookup_nameObjrefSearch_nameLevels_to_searchLimit_typeExclude_inheritedgtReturn"></a><b>lookup_name(Objref,Search_name,Levels_to_search, Limit_type, Exclude_inherited) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Search_name = string()</b><br/>
+        <b>Levels_to_search = integer()</b><br/>
+        <b>Limit_type = atom() (one of dk_none, dk_all, dk_Attribute, dk_Constant, dk_Exception, dk_Interface, dk_Module, dk_Operation, dk_Typedef, dk_Alias, dk_Struct, dk_Union, dk_Enum, dk_Primitive, dk_String, dk_Wstring, dk_Fixed, dk_Sequence,  dk_Array, dk_Repository)</b><br/>
+        <b>Exclude_inherited = atom() (true or false)</b><br/>
+        <b>Return = list() (a list of #IFR_objects)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Returns a list of #IFR_objects with an id
+          matching Search_name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="describe_contentsObjrefLimit_typeExclude_inheritedMax_returned_objsgtReturn"></a><b>describe_contents(Objref,Limit_type,Exclude_inherited,Max_returned_objs) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Limit_type = atom() (one of dk_none, dk_all, dk_Attribute, dk_Constant, dk_Exception, dk_Interface, dk_Module, dk_Operation, dk_Typedef, dk_Alias, dk_Struct, dk_Union, dk_Enum, dk_Primitive, dk_String, dk_Wstring, dk_Fixed, dk_Sequence, dk_Array, dk_Repository)</b><br/>
+        <b>Exclude_inherited = atom() (true or false)</b><br/>
+        <b>Return = list() (a list of tuples (contained_description records) | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Returns a list of descriptions of the IFR objects
+          in this Container's contents.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_moduleObjrefIdNameVersiongtReturn"></a><b>create_module(Objref,Id,Name,Version) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Return = #IFR_ModuleDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type ModuleDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_constantObjrefIdNameVersionTypeValuegtReturn"></a><b>create_constant(Objref,Id,Name,Version,Type,Value) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Type = #IFR_IDLType_objref</b><br/>
+        <b>Value = any()</b><br/>
+        <b>Return = #IFR_ConstantDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type ConstantDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_structObjrefIdNameVersionMembersgtReturn"></a><b>create_struct(Objref,Id,Name,Version,Members) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Members = list() (list of structmember records)</b><br/>
+        <b>Return = #IFR_StructDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type StructDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_unionObjrefIdNameVersionDiscriminator_typeMembersgtReturn"></a><b>create_union(Objref,Id,Name,Version,Discriminator_type,Members) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Discriminator_type = #IFR_IDLType_Objref</b><br/>
+        <b>Members = list() (list of unionmember records)</b><br/>
+        <b>Return = #IFR_UnionDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type UnionDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_enumObjrefIdNameVersionMembersgtReturn"></a><b>create_enum(Objref,Id,Name,Version,Members) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Members = list() (list of strings)</b><br/>
+        <b>Return = #IFR_EnumDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type EnumDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_aliasObjrefIdNameVersionOriginal_typegtReturn"></a><b>create_alias(Objref,Id,Name,Version,Original_type) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Original_type = #IFR_IDLType_Objref</b><br/>
+        <b>Return = #IFR_AliasDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type AliasDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_interfaceObjrefIdNameVersionBase_interfacesgtReturn"></a><b>create_interface(Objref,Id,Name,Version,Base_interfaces) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Base_interfaces = list() (a list of IFR_InterfaceDef_objrefs that this interface inherits from</b><br/>
+        <b>Return = #IFR_InterfaceDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type InterfaceDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_exceptionObjrefIdNameVersionMembersgtReturn"></a><b>create_exception(Objref,Id,Name,Version,Members) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Members = list() (list of structmember records)</b><br/>
+        <b>Return = #IFR_ExceptionDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          Container. Creates an IFR object of the type ExceptionDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_typeObjrefgtReturn"></a><b>get_type(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = tuple() (a typecode tuple)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of any kind that inherits from
+          IDLType or an IFR object of the kind ConstantDef,
+          ExceptionDef or AttributeDef. Returns the typecode of the
+          IFR object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookup_idObjrefSearch_idgtReturn"></a><b>lookup_id(Objref,Search_id) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Search_id = string()</b><br/>
+        <b>Return = #IFR_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an IFR object matching the Search_id.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_primitiveObjrefKindgtReturn"></a><b>get_primitive(Objref,Kind) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Kind = atom() (one of pk_null, pk_void, pk_short, pk_long, pk_ushort, pk_ulong, pk_float, pk_double, pk_boolean, pk_char, pk_octet, pk_any, pk_TypeCode, pk_Principal, pk_string, pk_wstring, pk_fixed, pk_objref)</b><br/>
+        <b>Return = #IFR_PrimitiveDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a PrimitiveDef of the specified kind.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_stringObjrefBoundgtReturn"></a><b>create_string(Objref,Bound) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Bound = integer() (unsigned long /= 0)</b><br/>
+        <b>Return = #IFR_StringDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type StringDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_wstringObjrefBoundgtReturn"></a><b>create_wstring(Objref,Bound) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Bound = integer() (unsigned long /= 0)</b><br/>
+        <b>Return = #IFR_WstringDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type WstringDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_fixedObjrefDigitsScalegtReturn"></a><b>create_fixed(Objref,Digits,Scale) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Digits = Scale = integer()</b><br/>
+        <b>Return = #IFR_FixedDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type FixedDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_sequenceObjrefBoundElement_typegtReturn"></a><b>create_sequence(Objref,Bound,Element_type) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Bound = integer() (unsigned long)</b><br/>
+        <b>Element_type = #IFR_IDLType_objref</b><br/>
+        <b>Return = #IFR_SequenceDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type SequenceDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_arrayObjrefLengthElement_typegtReturn"></a><b>create_array(Objref,Length,Element_type) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Bound = integer() (unsigned long)</b><br/>
+        <b>Element_type = #IFR_IDLType_objref</b><br/>
+        <b>Return = #IFR_ArrayDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type ArrayDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_idltypeObjrefTypecodegtReturn"></a><b>create_idltype(Objref,Typecode) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_Repository_objref</b><br/>
+        <b>Typecode = tuple() (a typecode tuple)</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR objref of the type IDLType.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_type_defObjrefgtReturn"></a><b>get_type_def(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of the kind ConstantDef or
+          AttributeDef. Returns an IFR object of the type IDLType
+          describing the type of the IFR object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_type_defObjrefTypeDefgtReturn"></a><b>set_type_def(Objref,TypeDef) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>TypeDef = #IFR_IDLType_objref</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object of the kind ConstantDef or
+          AttributeDef. Sets the type_def of the IFR Object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_valueObjrefgtReturn"></a><b>get_value(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_ConstantDef_objref</b><br/>
+        <b>Return = any()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the value attribute of an IFR Object of the type ConstantDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_valueObjrefValuegtReturn"></a><b>set_value(Objref,Value) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_ConstantDef_objref</b><br/>
+        <b>Value = any()</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the value attribute of an IFR Object of the type ConstantDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_membersObjrefgtReturn"></a><b>get_members(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind StructDef, UnionDef,
+          EnumDef or ExceptionDef.
+          For StructDef, UnionDef and ExceptionDef: Returns a list of
+          structmember records that are the constituent parts of the
+          object.
+          For EnumDef: Returns a list of strings describing the
+          enumerations.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_membersObjrefMembersgtReturn"></a><b>set_members(Objref,Members) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Members = list()</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind StructDef, UnionDef,
+          EnumDef or ExceptionDef.
+          For StructDef, UnionDef and ExceptionDef: Members is a list
+          of structmember records.
+          For EnumDef: Members is a list of strings describing the
+          enumerations.
+          Sets the members attribute, which are the constituent parts of the
+          exception.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_discriminator_typeObjrefgtReturn"></a><b>get_discriminator_type(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_UnionDef_objref</b><br/>
+        <b>Return = tuple() (a typecode tuple)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the discriminator typecode of an IFR object of the type
+          UnionDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_discriminator_type_defObjrefgtReturn"></a><b>get_discriminator_type_def(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_UnionDef_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an IFR object of the type IDLType describing the
+          discriminator type of an IFR object of the type UnionDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_discriminator_type_defObjrefTypeDefgtReturn"></a><b>set_discriminator_type_def(Objref,TypeDef) -&gt;  Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_UnionDef_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the attribute discriminator_type_def, an IFR object of
+          the type IDLType describing the discriminator type of an IFR
+          object of the type UnionDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_original_type_defObjrefgtReturn"></a><b>get_original_type_def(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_AliasDef_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an IFR object of the type IDLType describing the
+          original type.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_original_type_defObjrefTypeDefgtReturn"></a><b>set_original_type_def(Objref,TypeDef) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_AliasDef_objref</b><br/>
+        <b>Typedef = #IFR_IDLType_objref</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the original_type_def attribute which describes the
+          original type.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_kindObjrefgtReturn"></a><b>get_kind(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_PrimitiveDef_objref</b><br/>
+        <b>Return = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an atom describing the primitive type (See CORBA 2.0
+          p 6-21).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_boundObjrefgtReturn"></a><b>get_bound(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = integer (unsigned long)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind StringDef or SequenceDef.
+          For StringDef: returns the maximum number of characters in
+          the string.
+          For SequenceDef: Returns the maximum number of elements in
+          the sequence. Zero indicates an unbounded sequence.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_boundObjrefBoundgtReturn"></a><b>set_bound(Objref,Bound) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Bound = integer (unsigned long)</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind StringDef or SequenceDef.
+          For StringDef: Sets the maximum number of characters in the
+          string. Bound must not be zero.
+          For SequenceDef: Sets the maximum number of elements in the
+          sequence. Zero indicates an unbounded sequence.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_element_typeObjrefgtReturn"></a><b>get_element_type(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = tuple() (a typecode tuple)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind SequenceDef or ArrayDef.
+          Returns the typecode of the elements in the IFR object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_element_type_defObjrefgtReturn"></a><b>get_element_type_def(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind SequenceDef or ArrayDef.
+          Returns an IFR object of the type IDLType describing the
+          type of the elements in Objref.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_element_type_defObjrefTypeDefgtReturn"></a><b>set_element_type_def(Objref,TypeDef) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>TypeDef = #IFR_IDLType_objref</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind SequenceDef or ArrayDef.
+          Sets the element_type_def attribute, an IFR object of the
+          type IDLType describing the type of the elements in Objref.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_lengthObjrefgtReturn"></a><b>get_length(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_ArrayDef_objref</b><br/>
+        <b>Return = integer() (unsigned long)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements in the array.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_lengthObjrefLengthgtReturn"></a><b>set_length(Objref,Length) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_ArrayDef_objref</b><br/>
+        <b>Length = integer() (unsigned long)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the number of elements in the array.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_modeObjrefgtReturn"></a><b>get_mode(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Return = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind AttributeDef or OperationDef.
+          For AttributeDef: Return is an atom ('ATTR_NORMAL' or
+          'ATTR_READONLY') specifying the read/write access for this
+          attribute.
+          For OperationDef: Return is an atom ('OP_NORMAL' or
+          'OP_ONEWAY') specifying the mode of the operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_modeObjrefModegtReturn"></a><b>set_mode(Objref,Mode) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_objref</b><br/>
+        <b>Mode = atom()</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Objref is an IFR object the kind AttributeDef or OperationDef.
+          For AttributeDef: Sets the read/write access for this
+          attribute. Mode is an atom ('ATTR_NORMAL' or
+          'ATTR_READONLY').
+          For OperationDef: Sets the mode of the operation. Mode is an
+          atom ('OP_NORMAL' or 'OP_ONEWAY').</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_resultObjrefgtReturn"></a><b>get_result(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Return = tuple() (a typecode tuple)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a typecode describing the type of the value returned by the
+          operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_result_defObjrefgtReturn"></a><b>get_result_def(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Return = #IFR_IDLType_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an IFR object of the type IDLType describing the type of the
+          result.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_result_defObjrefResultDefgtReturn"></a><b>set_result_def(Objref,ResultDef) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>ResultDef = #IFR_IDLType_objref</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the type_def attribute, an IFR Object of the type IDLType
+          describing the result.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_paramsObjrefgtReturn"></a><b>get_params(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Return = list() (list of parameter description records)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of parameter description records, which describes the
+          parameters of the OperationDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_paramsObjrefParamsgtReturn"></a><b>set_params(Objref,Params) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Params = list() (list of parameter description records)</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the params attribute, a list of parameter description records.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_contextsObjrefgtReturn"></a><b>get_contexts(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Return = list() (list of strings)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of context identifiers for the operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_contextsObjrefContextsgtReturn"></a><b>set_contexts(Objref,Contexts) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Contexts = list() (list of strings)</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the context attribute for the operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_exceptionsObjrefgtReturn"></a><b>get_exceptions(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Return = list() (list of #IFR_ExceptionDef_objrefs)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of exception types that can be raised by this
+          operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_exceptionsObjrefExceptionsgtReturn"></a><b>set_exceptions(Objref,Exceptions) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_OperationDef_objref</b><br/>
+        <b>Exceptions = list() (list of #IFR_ExceptionDef_objrefs)</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the exceptions attribute for this operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_base_interfacesObjrefgtReturn"></a><b>get_base_interfaces(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>Return = list() (list of #IFR_InterfaceDef_objrefs)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of InterfaceDefs from which this InterfaceDef inherits.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_base_interfacesObjrefBaseInterfacesgtReturn"></a><b>set_base_interfaces(Objref,BaseInterfaces) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>BaseInterfaces = list() (list of #IFR_InterfaceDef_objrefs)</b><br/>
+        <b>Return = ok | {exception, _}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the BaseInterfaces attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_aObjrefInterface_idgtReturn"></a><b>is_a(Objref,Interface_id) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>Interface_id = #IFR_InterfaceDef_objref</b><br/>
+        <b>Return = atom() (true or false)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns true if the InterfaceDef either is identical to or
+          inherits from Interface_id.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="describe_interfaceObjrefgtReturn"></a><b>describe_interface(Objref) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>Return = tuple() (a fullinterfacedescription record)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a full inter face description record describing the InterfaceDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_attributeObjrefIdNameVersionTypeModegtReturn"></a><b>create_attribute(Objref,Id,Name,Version,Type,Mode) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Type = #IFR_IDLType_objref</b><br/>
+        <b>Mode = atom() ('ATTR_NORMAL' or 'ATTR_READONLY')</b><br/>
+        <b>Return = #IFR_AttributeDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR object of the type AttributeDef contained in this
+          InterfaceDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_operationObjrefIdNameVersionResultModeParamsExceptionsContextsgtReturn"></a><b>create_operation(Objref,Id,Name,Version,Result,Mode,Params, Exceptions,Contexts) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Objref = #IFR_InterfaceDef_objref</b><br/>
+        <b>Id = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Version = string()</b><br/>
+        <b>Result = #IFR_IDLType_objref</b><br/>
+        <b>Mode = atom() ('OP_NORMAL' or 'OP_ONEWAY')</b><br/>
+        <b>Params = list() (list of parameter description records)</b><br/>
+        <b>Exceptions = list() (list of #IFR_ExceptionDef_objrefs)</b><br/>
+        <b>Contexts = list() (list of strings)</b><br/>
+        <b>Return = #IFR_OperationDef_objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an IFR object of the type OperationDef contained in this
+          InterfaceDef.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

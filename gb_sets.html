@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>gb_sets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />gb_sets</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>An implementation of ordered sets using Prof. Arne Andersson's
+      General Balanced Trees. This can be much more efficient than
+      using ordered lists, for larger sets, but depends on the
+      application.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Complexity note</a></li>
+        
+        <li><a href="#">Compatibility</a></li>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#addElementSet1gtSet2">add(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#balanceSet1gtSet2">balance(Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#deleteElementSet1gtSet2">delete(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#delete_anyElementSet1gtSet2">delete_any(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#differenceSet1Set2gtSet3">difference(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#emptygtSet">empty() -&gt; Set</a></li>
+        
+        <li><a href="#filterPredSet1gtSet2">filter(Pred, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#foldFunctionAcc0SetgtAcc1">fold(Function, Acc0, Set) -&gt; Acc1</a></li>
+        
+        <li><a href="#from_listListgtSet">from_list(List) -&gt; Set</a></li>
+        
+        <li><a href="#from_ordsetListgtSet">from_ordset(List) -&gt; Set</a></li>
+        
+        <li><a href="#insertElementSet1gtSet2">insert(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#intersectionSetListgtSet">intersection(SetList) -&gt; Set</a></li>
+        
+        <li><a href="#intersectionSet1Set2gtSet3">intersection(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#is_disjointSet1Set2gtbool">is_disjoint(Set1, Set2) -&gt; bool()</a></li>
+        
+        <li><a href="#is_emptySetgtbool">is_empty(Set) -&gt; bool()</a></li>
+        
+        <li><a href="#is_memberElementSetgtbool">is_member(Element, Set) -&gt; bool()</a></li>
+        
+        <li><a href="#is_setTermgtbool">is_set(Term) -&gt; bool()</a></li>
+        
+        <li><a href="#is_subsetSet1Set2gtbool">is_subset(Set1, Set2) -&gt; bool()</a></li>
+        
+        <li><a href="#iteratorSetgtIter">iterator(Set) -&gt; Iter</a></li>
+        
+        <li><a href="#largestSetgtterm">largest(Set) -&gt; term()</a></li>
+        
+        <li><a href="#nextIter1gtElementIter2none">next(Iter1) -&gt; {Element, Iter2} | none</a></li>
+        
+        <li><a href="#singletonElementgtgb_set">singleton(Element) -&gt; gb_set()</a></li>
+        
+        <li><a href="#sizeSetgtint">size(Set) -&gt; int()</a></li>
+        
+        <li><a href="#smallestSetgtterm">smallest(Set) -&gt; term()</a></li>
+        
+        <li><a href="#take_largestSet1gtElementSet2">take_largest(Set1) -&gt; {Element, Set2}</a></li>
+        
+        <li><a href="#take_smallestSet1gtElementSet2">take_smallest(Set1) -&gt; {Element, Set2}</a></li>
+        
+        <li><a href="#to_listSetgtList">to_list(Set) -&gt; List</a></li>
+        
+        <li><a href="#unionSet1Set2gtSet3">union(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#unionSetListgtSet">union(SetList) -&gt; Set</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Complexity note</div>
+    
+    <div class="description">
+        
+    <title>Complexity note</title>
+    <p>The complexity on set operations is bounded by either O(|S|) or
+      O(|T| * log(|S|)), where S is the largest given set, depending
+      on which is fastest for any particular function call. For
+      operating on sets of almost equal size, this implementation is
+      about 3 times slower than using ordered-list sets directly. For
+      sets of very different sizes, however, this solution can be
+      arbitrarily much faster; in practical cases, often between 10
+      and 100 times. This implementation is particularly suited for
+      accumulating elements a few at a time, building up a large set
+      (more than 100-200 elements), and repeatedly testing for
+      membership in the current set.</p>
+    <p>As with normal tree structures, lookup (membership testing),
+      insertion and deletion have logarithmic complexity.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Compatibility</div>
+    
+    <div class="description">
+        
+    <title>Compatibility</title>
+    <p>All of the following functions in this module also exist
+      and do the same thing in the <tt>sets</tt> and <tt>ordsets</tt>
+      modules. That is, by only changing the module name for each call,
+      you can try out different set representations.</p>
+    <p></p>
+    <list type="bulleted">
+      <item>
+        <p><tt>add_element/2</tt></p>
+      </item>
+      <item>
+        <p><tt>del_element/2</tt></p>
+      </item>
+      <item>
+        <p><tt>filter/2</tt></p>
+      </item>
+      <item>
+        <p><tt>fold/3</tt></p>
+      </item>
+      <item>
+        <p><tt>from_list/1</tt></p>
+      </item>
+      <item>
+        <p><tt>intersection/1</tt></p>
+      </item>
+      <item>
+        <p><tt>intersection/2</tt></p>
+      </item>
+      <item>
+        <p><tt>is_element/2</tt></p>
+      </item>
+      <item>
+        <p><tt>is_set/1</tt></p>
+      </item>
+      <item>
+        <p><tt>is_subset/2</tt></p>
+      </item>
+      <item>
+        <p><tt>new/0</tt></p>
+      </item>
+      <item>
+        <p><tt>size/1</tt></p>
+      </item>
+      <item>
+        <p><tt>subtract/2</tt></p>
+      </item>
+      <item>
+        <p><tt>to_list/1</tt></p>
+      </item>
+      <item>
+        <p><tt>union/1</tt></p>
+      </item>
+      <item>
+        <p><tt>union/2</tt></p>
+      </item>
+    </list>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+gb_set() = a GB set</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="gb_trees">gb_trees(3)</seealso>, 
+      <seealso marker="ordsets">ordsets(3)</seealso>, 
+      <seealso marker="sets">sets(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="addElementSet1gtSet2"></a><b>add(Element, Set1) -&gt; Set2<br/>add_element(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new gb_set formed from <tt>Set1</tt> with
+          <tt>Element</tt> inserted. If <tt>Element</tt> is already an
+          element in <tt>Set1</tt>, nothing is changed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="balanceSet1gtSet2"></a><b>balance(Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Rebalances the tree representation of <tt>Set1</tt>. Note that
+          this is rarely necessary, but may be motivated when a large
+          number of elements have been deleted from the tree without
+          further insertions. Rebalancing could then be forced in order
+          to minimise lookup times, since deletion only does not
+          rebalance the tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteElementSet1gtSet2"></a><b>delete(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new gb_set formed from <tt>Set1</tt> with
+          <tt>Element</tt> removed. Assumes that <tt>Element</tt> is present
+          in <tt>Set1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_anyElementSet1gtSet2"></a><b>delete_any(Element, Set1) -&gt; Set2<br/>del_element(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new gb_set formed from <tt>Set1</tt> with
+          <tt>Element</tt> removed. If <tt>Element</tt> is not an element
+          in <tt>Set1</tt>, nothing is changed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="differenceSet1Set2gtSet3"></a><b>difference(Set1, Set2) -&gt; Set3<br/>subtract(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns only the elements of <tt>Set1</tt> which are not also
+          elements of <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="emptygtSet"></a><b>empty() -&gt; Set<br/>new() -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new empty gb_set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterPredSet1gtSet2"></a><b>filter(Pred, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun (E) -&gt; bool()</b><br/>
+        <b>&nbsp;E = term()</b><br/>
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Filters elements in <tt>Set1</tt> using predicate function
+          <tt>Pred</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldFunctionAcc0SetgtAcc1"></a><b>fold(Function, Acc0, Set) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = fun (E, AccIn) -&gt; AccOut</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>&nbsp;E = term()</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Folds <tt>Function</tt> over every element in <tt>Set</tt>
+          returning the final value of the accumulator.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListgtSet"></a><b>from_list(List) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a gb_set of the elements in <tt>List</tt>, where
+          <tt>List</tt> may be unordered and contain duplicates.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_ordsetListgtSet"></a><b>from_ordset(List) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Turns an ordered-set list <tt>List</tt> into a gb_set. The list
+          must not contain duplicates.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="insertElementSet1gtSet2"></a><b>insert(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new gb_set formed from <tt>Set1</tt> with
+          <tt>Element</tt> inserted. Assumes that <tt>Element</tt> is not
+          present in <tt>Set1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSet1Set2gtSet3"></a><b>intersection(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of <tt>Set1</tt> and <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSetListgtSet"></a><b>intersection(SetList) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetList = [gb_set()]</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of the non-empty list of gb_sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_disjointSet1Set2gtbool"></a><b>is_disjoint(Set1, Set2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Set1</tt> and
+          <tt>Set2</tt> are disjoint (have no elements in common),
+	  and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_emptySetgtbool"></a><b>is_empty(Set) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Set</tt> is an empty set, and
+          <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_memberElementSetgtbool"></a><b>is_member(Element, Set) -&gt; bool()<br/>is_element(Element, Set) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Element</tt> is an element of
+          <tt>Set</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_setTermgtbool"></a><b>is_set(Term) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Set</tt> appears to be a gb_set,
+          otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_subsetSet1Set2gtbool"></a><b>is_subset(Set1, Set2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> when every element of <tt>Set1</tt> is
+          also a member of <tt>Set2</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iteratorSetgtIter"></a><b>iterator(Set) -&gt; Iter</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+        <b>Iter = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an iterator that can be used for traversing the
+          entries of <tt>Set</tt>; see <tt>next/1</tt>. The implementation
+          of this is very efficient; traversing the whole set using
+          <tt>next/1</tt> is only slightly slower than getting the list
+          of all elements using <tt>to_list/1</tt> and traversing that.
+          The main advantage of the iterator approach is that it does
+          not require the complete list of all elements to be built in
+          memory at one time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="largestSetgtterm"></a><b>largest(Set) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the largest element in <tt>Set</tt>. Assumes that
+          <tt>Set</tt> is nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nextIter1gtElementIter2none"></a><b>next(Iter1) -&gt; {Element, Iter2} | none</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Iter1 = Iter2 = Element = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Element, Iter2}</tt> where <tt>Element</tt> is the
+          smallest element referred to by the iterator <tt>Iter1</tt>,
+          and <tt>Iter2</tt> is the new iterator to be used for
+          traversing the remaining elements, or the atom <tt>none</tt> if
+          no elements remain.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="singletonElementgtgb_set"></a><b>singleton(Element) -&gt; gb_set()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a gb_set containing only the element <tt>Element</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeSetgtint"></a><b>size(Set) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements in <tt>Set</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="smallestSetgtterm"></a><b>smallest(Set) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the smallest element in <tt>Set</tt>. Assumes that
+          <tt>Set</tt> is nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="take_largestSet1gtElementSet2"></a><b>take_largest(Set1) -&gt; {Element, Set2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = gb_set()</b><br/>
+        <b>Element = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Element, Set2}</tt>, where <tt>Element</tt> is the
+          largest element in <tt>Set1</tt>, and <tt>Set2</tt> is this set
+          with <tt>Element</tt> deleted. Assumes that <tt>Set1</tt> is
+          nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="take_smallestSet1gtElementSet2"></a><b>take_smallest(Set1) -&gt; {Element, Set2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = gb_set()</b><br/>
+        <b>Element = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{Element, Set2}</tt>, where <tt>Element</tt> is the
+          smallest element in <tt>Set1</tt>, and <tt>Set2</tt> is this set
+          with <tt>Element</tt> deleted. Assumes that <tt>Set1</tt> is
+          nonempty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listSetgtList"></a><b>to_list(Set) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = gb_set()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the elements of <tt>Set</tt> as a list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSet1Set2gtSet3"></a><b>union(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) gb_set of <tt>Set1</tt> and
+          <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSetListgtSet"></a><b>union(SetList) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetList = [gb_set()]</b><br/>
+        <b>Set = gb_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) gb_set of the list of gb_sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

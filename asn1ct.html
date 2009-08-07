@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>asn1ct</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />asn1ct</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The ASN.1 compiler takes an ASN.1 module as input and genarates a 
+      corresponding Erlang module which can encode and decode the datatypes
+      specified. Alternatively the compiler takes a specification module 
+      (se below) specifying all input modules and generates one module with 
+      encode/decode functions. There are also some generic functions which
+      can be used in during development of applications which handles ASN.1
+      data (encoded as BER or PER).</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#compileAsn1modulegtokerrorReason">compile(Asn1module) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#decodeModuleTypeBytesgtokValueerrorReason">decode(Module,Type,Bytes) -&gt; {ok,Value}|{error,Reason}</a></li>
+        
+        <li><a href="#encodeModuleTypeValuegtokByteserrorReason">encode(Module,Type,Value)-&gt; {ok,Bytes} | {error,Reason}</a></li>
+        
+        <li><a href="#testModulegtokerrorReason">test(Module) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#validateModuleTypeValuegtokerrorReason">validate(Module,Type,Value) -&gt;  ok | {error,Reason}</a></li>
+        
+        <li><a href="#valueModuleTypegtokValueerrorReason">value(Module ,Type) -&gt; {ok,Value} | {error,Reason}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="compileAsn1modulegtokerrorReason"></a><b>compile(Asn1module) -&gt; ok | {error,Reason}<br/>compile(Asn1module , Options) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Asn1module = atom() | string()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = ber | per | ber_bin | per_bin | uper_bin | der | compact_bit_string | noobj | {outdir,Dir} | {i,IncludeDir} | optimize | driver | asn1config | undec_rest | {inline,OutputName} | inline</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles the ASN.1 module <tt>Asn1module</tt> and generates an 
+          Erlang module <tt>Asn1module.erl</tt> with encode and decode 
+          functions for the types defined in <tt>Asn1module</tt>. For each 
+          ASN.1 value defined in the module an Erlang function which 
+          returns the value in Erlang representation is generated.</p>
+        <p>If <tt>Asn1module</tt> is a filename without extension first
+          <tt>".asn1"</tt> is assumed, then <tt>".asn"</tt> and finally
+          <tt>".py"</tt> (to be compatible with the old ASN.1 compiler).
+          Of course <tt>Asn1module</tt> can be a full pathname (relative or
+          absolute) including filename with (or without) extension.
+                    <marker id="asn1set"></marker>
+</p>
+        <p>If one wishes to compile a set of Asn1 modules into one
+          Erlang file with encode/decode functions one has to list all
+          involved files in a configuration file. This configuration
+          file must have a double extension ".set.asn", (".asn" can
+          alternatively be ".asn1" or ".py"). The input files' names
+          must be listed, within qoutation marks (""), one at each row
+          in the file. If the input files are <tt>File1.asn</tt>,
+          <tt>File2.asn</tt> and <tt>File3.asn</tt> the configuration file
+          shall look like:</p>
+        <pre>
+File1.asn
+File2.asn
+File3.asn        </pre>
+        <p>The output files will in this case get their names from the
+          configuration file. If the configuration file has the name
+          <tt>SetOfFiles.set.asn</tt> the name of the output files will be
+          <tt>SetOfFiles.hrl, SetOfFiles.hrl and SetOfFiles.asn1db</tt>.</p>
+        <p>Sometimes in a system of ASN.1 modules there are different
+          default tag modes, e.g. AUTOMATIC, IMPLICIT or EXPLICIT. The
+          multi file compilation resolves the default tagging as if
+          the modules were compiled separetely.</p>
+        <p>Another unwanted effect that may occure in multi file compilation
+          is name collisions. The compiler solves this problem in two
+          ways: If the definitions are identical then the output module
+          keeps only one definition with the original name. But if
+          definitions only have same name and differs in the definition, 
+          then they will be renamed. The new names will be the definition
+          name and the original module name concatenated.</p>
+        <p>If any name collision have occured the compiler reports a 
+          "NOTICE: ..." message that tells if a definition was renamed,
+          and the new name that must be used to encode/decode data.</p>
+        <p><tt>Options</tt> is a list with options specific for the asn1
+        compiler and options that are applied to the Erlang compiler.
+        The latter are those that not is recognized as asn1 specific.
+        For <em>preferred option use</em> see <seealso marker="asn1_ug#preferred option use">Preferred Option Use
+        section in users guide</seealso>. Available options are:</p>
+        <taglist>
+          <tag><tt>ber | ber_bin | per | per_bin | uper_bin</tt></tag>
+          <item>
+            <p>The encoding rule to be used. EncodingRule is BER or
+            PER with the variants <tt>aligned</tt> or
+            <tt>unaligned</tt>. If this option is omitted <tt>ber</tt> is
+            the default. The <tt>per</tt> option means the aligned
+            variant. To use the unaligned variant the <tt>uper_bin</tt>
+            option has to be used.</p>
+	    <p>The generated Erlang module always gets the same name
+	    as the ASN.1 module and as a consequence of this only one
+	    encoding rule per ASN.1 module can be used at runtime.</p>
+            <p>The <tt>ber_bin</tt> and <tt>per_bin</tt> options are
+            equivalent with the <tt>ber</tt> and <tt>per</tt> options with
+            the difference that the generated encoding/decoding
+            functions take advantage of the bit syntax, which in most
+            cases increases the performance considerably. The result
+            from encoding is a binary or a list (mayby nested) with
+            Erlang terms, including binaries.</p>
+          </item>
+          <tag><tt>der</tt></tag>
+          <item>
+            <p>By this option the Distinguished Encoding Rule (DER) is chosed.
+              DER is regarded as a specialized variant of the BER encoding 
+              rule, therefore the <tt>der</tt> option only makes sense when
+              the <tt>ber</tt> or <tt>ber_bin</tt> option is used. This option
+              sometimes adds sorting and value checks when encoding, which
+              implies a slower encoding. The decoding rutines are the same
+              as for <tt>ber</tt>.</p>
+          </item>
+          <tag><tt>compact_bit_string</tt></tag>
+          <item>
+            <p>Makes it possible to use a compact notation for values
+              of the BIT STRING type in Erlang. The notation: </p>
+            <pre>
+BitString = {Unused,Binary},
+Unused = integer(),
+Binary = binary()            </pre>
+            <p><tt>Unused</tt> must be a number in the range 0 to 7. It
+              tells how many bits in the least significant byte in
+              <tt>Binary</tt> that is unused. For details see <seealso marker="asn1_ug#BIT STRING">BIT STRING type section in users guide</seealso>.</p>
+          </item>
+          <tag><tt>{i,IncludeDir}</tt></tag>
+          <item>
+            <p>Adds <tt>IncludeDir</tt> to the search-path for
+              <tt>.asn1db</tt> and asn1 source files. The compiler tries
+              to open a <tt>.asn1db</tt> file when a module imports
+              definitions from another ASN.1 module. If no
+              <tt>.asn1db</tt> file is found the asn1 source file is
+              parsed.  Several <tt>{i,IncludeDir}</tt> can be given.
+              </p>
+          </item>
+          <tag><tt>noobj</tt></tag>
+          <item>
+            <p>Do not compile (i.e do not produce object code) the generated 
+              <tt>.erl</tt> file. If this option is omitted the generated Erlang module
+              will be compiled.</p>
+          </item>
+          <tag><tt>{outdir,Dir}</tt></tag>
+          <item>
+            <p>Specifies the directory <tt>Dir</tt> where all generated files 
+              shall be placed. If omitted the files are placed in the 
+              current directory.</p>
+          </item>
+          <tag><tt>optimize</tt></tag>
+          <item>
+            <p>This option is only valid together with one of the
+              <tt>per_bin</tt> 
+              or <tt>ber_bin</tt> option. It gives time optimized code 
+              generated and it uses another runtime module and 
+              in the <tt>per_bin</tt> case a linked-in driver. The result 
+              in the <tt>per_bin</tt> case from an encode when compiled
+              with this option will be a binary.</p>
+          </item>
+          <tag><tt>driver</tt></tag>
+          <item>
+            <p>Option valid together with <tt>ber_bin</tt> and <tt>optimize</tt>
+              options. It enables the use of a linked-in driver that gives
+              considerable faster decode. In <tt>ber_bin</tt> the driver is
+              enabled only by explicit use of the option <tt>driver</tt>.</p>
+          </item>
+          <tag><tt>asn1config</tt></tag>
+          <item>
+            <p>When one of the specialized decodes, exclusive or
+              selective decode, is wanted one has to give instructions in
+              a configuration file. The option <tt>asn1config</tt> enables
+              specialized decodes and takes the configuration file, which
+              has the same name as the ASN.1 spec but with extension
+              <tt>.asn1config</tt>, in concern.
+              </p>
+            <p>The instructions for exclusive decode must follow the
+              <seealso marker="asn1_spec#Exclusive Instruction">instruction and grammar in the User's Guide</seealso>.
+              </p>
+            <p>You can also find the instructions for selective decode
+              in the
+              <seealso marker="asn1_spec#Selective Instruction">User's Guide</seealso>.
+              </p>
+          </item>
+          <tag><tt>undec_rest</tt></tag>
+          <item>
+            <p>A buffer that holds a message, beeing decoded may
+              also have some following bytes. Now it is possible to get
+              those following bytes returned together with the decoded
+              value. If an asn1 spec is compiled with this option a tuple
+              <tt>{ok,Value,Rest}</tt> is returned. <tt>Rest</tt> may be a
+              list or a binary. Earlier versions of the compiler ignored
+              those following bytes.</p>
+          </item>
+          <tag><tt>{inline,OutputName}</tt></tag>
+          <item>
+            <p>Compiling with this option gives one output module
+              containing all asn1 run-time functionality. The asn1 specs
+              are provided in a target module Module.set.asn as described
+              <seealso marker="#asn1set">above</seealso>. The name of the
+              resulting module containing generated encode/decode functions
+              and inlined run-time functions will be
+              <tt>OutputName.erl</tt>. The merging/inlining of code is done
+              by the <tt>igor</tt> module of <tt>syntax_tools</tt>. By default
+              the functions generated from the first asn1 spec in the
+              <tt>.set.asn</tt> are exported, unless a
+              <tt>{export,[atom()]}</tt> or <tt>{export_all,true}</tt> option
+              are provided. The list of atoms are names of choosen asn1
+              specs from the <tt>.set.asn</tt> file.</p>
+          </item>
+          <tag><tt>inline</tt></tag>
+          <item>
+            <p>It is also possible to use the sole argument <tt>inline</tt>.
+              It is as <tt>{inline,OutputName}</tt>, but the output file gets the
+              default name of the source <tt>.set.asn</tt> file.</p>
+          </item>
+        </taglist>
+        <p>Any additional option that is applied will be passed to
+          the final step when the generated .erl file is compiled.
+          </p>
+        <p>The compiler generates the following files:</p>
+        <list type="bulleted">
+          <item>
+            <p><tt>Asn1module.hrl</tt> (if any SET or SEQUENCE is defined)</p>
+          </item>
+          <item>
+            <p><tt>Asn1module.erl</tt> the Erlang module with encode, decode and value functions.</p>
+          </item>
+          <item>
+            <p><tt>Asn1module.asn1db</tt> intermediate format used by the compiler when modules IMPORTS
+              definitions from each other.</p>
+          </item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="encodeModuleTypeValuegtokByteserrorReason"></a><b>encode(Module,Type,Value)-&gt; {ok,Bytes} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Bytes = [Int] when integer(Int), Int &gt;= 0, Int =&lt; 255</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes <tt>Value</tt> of <tt>Type</tt> defined in the ASN.1 module 
+          <tt>Module</tt>. Returns a list of bytes if successful. To get as fast execution as 
+          possible the 
+          encode function only performs rudimentary tests that the input 
+          <tt>Value</tt>
+          is a correct instance of <tt>Type</tt>. The length of strings is for example
+          not always checked. Returns <tt>{ok,Bytes}</tt> if successful or 
+          <tt>{error,Reason}</tt> if an error occured.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="decodeModuleTypeBytesgtokValueerrorReason"></a><b>decode(Module,Type,Bytes) -&gt; {ok,Value}|{error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = Reason = term()</b><br/>
+        <b>Bytes = [Int] when integer(Int), Int &gt;= 0, Int =&lt; 255</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes <tt>Type</tt> from <tt>Module</tt> from the list of bytes 
+          <tt>Bytes</tt>. Returns <tt>{ok,Value}</tt> if successful.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="validateModuleTypeValuegtokerrorReason"></a><b>validate(Module,Type,Value) -&gt;  ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Validates that <tt>Value</tt> conforms  to <tt>Type</tt> 
+          from <tt>Module</tt>. <em>Not implemented in this version of the ASN.1 application.</em></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="valueModuleTypegtokValueerrorReason"></a><b>value(Module ,Type) -&gt; {ok,Value} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Type = atom()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an Erlang term which is an example of a valid Erlang 
+          representation of a value of the ASN.1 type <tt>Type</tt>. The value
+          is a random value and subsequent calls to this function will for most
+          types return different values.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="testModulegtokerrorReason"></a><b>test(Module) -&gt; ok | {error,Reason}<br/>test(Module,Type) -&gt; ok | {error,Reason}<br/>test(Module,Type,Value) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Performs a test of encode and decode of all types in <tt>Module</tt>. 
+          The generated functions are called by this function.
+          This function is useful during test to secure that the generated
+          encode and decode functions and the general runtime support work 
+          as expected.          <br>
+<tt>test/1</tt> iterates over all types in <tt>Module</tt>.          <br>
+<tt>test/2</tt> tests type <tt>Type</tt> with a random value.          <br>
+<tt>test/3 tests type <c>Type</tt> with <tt>Value</tt>.          <br>
+
+          Schematically the following happens for each type in the module.</p>
+        <p></p>
+        <code type="none">
+{ok,Value} = asn1ct:value(Module,Type),
+{ok,Bytes} = asn1ct:encode(Module,Type,Value),
+{ok,Value} = asn1:decode(Module,Type,Bytes).         </code>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

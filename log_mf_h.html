@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>log_mf_h</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />log_mf_h</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>log_mf_h</tt> is a <tt>gen_event</tt> handler module which
+      can be installed in any <tt>gen_event</tt> process. It logs onto disk all events
+      which are sent to an event manager. Each event is written as a
+      binary which makes the logging very fast. However, a tool such as the <tt>Report Browser</tt> (<tt>rb</tt>) must be used in order to read the files. The events are written to multiple files. When all files have been used, the first one is re-used and overwritten. The directory location, the number of files, and the size of each file are configurable. The directory will include one file called <tt>index</tt>, and
+      report files <tt>1, 2, ....</tt>.
+      </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#initDirMaxBytesMaxFiles">init(Dir, MaxBytes, MaxFiles)</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="gen_event">gen_event(3)</seealso>, rb(3) </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="initDirMaxBytesMaxFiles"></a><b>init(Dir, MaxBytes, MaxFiles)<br/>init(Dir, MaxBytes, MaxFiles, Pred) -&gt; Args</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>MaxBytes = integer()</b><br/>
+        <b>MaxFiles = 0 &lt; integer() &lt; 256</b><br/>
+        <b>Pred = fun(Event) -&gt; boolean()</b><br/>
+        <b>Event = term()</b><br/>
+        <b>Args = args()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Initiates the event handler. This function returns
+          <tt>Args</tt>, which should be used in a call to
+          <tt>gen_event:add_handler(EventMgr, log_mf_h, Args)</tt>.
+          </p>
+        <p><tt>Dir</tt> specifies which directory to use for the log
+          files. <tt>MaxBytes</tt> specifies the size of each individual
+          file. <tt>MaxFiles</tt> specifies how many files are
+          used. <tt>Pred</tt> is a predicate function used to filter the
+          events. If no predicate function is specified, all events are
+          logged.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

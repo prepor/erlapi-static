@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_transport</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_transport</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The following functions should be exported from a 
+      <tt>megaco_transport</tt> callback module:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="#send_message">send_message/2</seealso> [<tt>mandatory</tt>]</p>
+      </item>
+      <item>
+        <p><seealso marker="#send_message">send_message/3</seealso> [<tt>optional</tt>]</p> 
+      </item>
+      <item>
+        <p><seealso marker="#resend_message">resend_message/2</seealso> [<tt>optional</tt>]</p>
+      </item>
+      <item>
+      </item>
+    </list>
+    <marker id="send_message"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#Moduleresend_messageHandleMsggtokcancelReasonError">Module:resend_message(Handle, Msg) -&gt; ok | {cancel, Reason} | Error</a></li>
+        
+        <li><a href="#Modulesend_messageHandleMsggtokcancelReasonError">Module:send_message(Handle, Msg) -&gt; ok | {cancel, Reason} | Error</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="Modulesend_messageHandleMsggtokcancelReasonError"></a><b>Module:send_message(Handle, Msg) -&gt; ok | {cancel, Reason} | Error<br/>Module:send_message(Handle, Msg, Resend) -&gt; ok | {cancel, Reason} | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = term()</b><br/>
+        <b>Msg = binary() | iolist()</b><br/>
+        <b>Resend = boolean()</b><br/>
+        <b>Reason = term()</b><br/>
+        <b>Error = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Send a megaco message. </p>
+        <p>If the function returns <tt>{cancel, Reason}</tt>, 
+          this means the transport module decided not to send the message. 
+          This is <em>not</em> an error. No error messages will be issued 
+          and no error counters incremented. 
+          What actions this will result in depends on what kind of
+          message was sent. 
+          </p>
+        <p>In the case of requests, megaco will cancel the message in much 
+          the same way as if <tt>megaco:cancel</tt> had been called 
+          (after a successfull send). The information will be propagated
+          back to the user differently dependning on how the request(s) where
+          issued: For requests issued using 
+          <seealso marker="megaco#call">megaco:call</seealso>, the info
+          will be delivered in the return value. For requests issued 
+          using <tt>megaco:cast</tt> the info will be delivered 
+          via a call to the callback function 
+          <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso>. </p>
+        <p>In the case of reply, megaco will cancel the reply and information
+          of this will be returned to the user via a call to the 
+          callback function 
+          <seealso marker="megaco_user#trans_ack">handle_trans_ack</seealso>. </p>
+
+        <p>The function <tt>send_message/3</tt> will only be called if the 
+          <seealso marker="megaco#ui_resend_indication">resend_indication</seealso>
+          config option has been set to the value <tt>flag</tt>. The third 
+          argument, <tt>Resend</tt> then indicates if the message send is 
+          a resend or not. </p>
+
+        <marker id="resend_message"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleresend_messageHandleMsggtokcancelReasonError"></a><b>Module:resend_message(Handle, Msg) -&gt; ok | {cancel, Reason} | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = term()</b><br/>
+        <b>Msg = binary() | iolist()</b><br/>
+        <b>Reason = term()</b><br/>
+        <b>Error = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Re-send a megaco message. </p>
+        <p>Note that this function will only be called if the user has set the 
+          <seealso marker="megaco#ui_resend_indication">resend_indication</seealso> 
+          config option to <tt>true</tt><em>and</em> it is infact a message 
+          resend. If not <em>both</em> of these condition's are meet, 
+          <tt>send_message</tt> will be called. </p>
+        <p>If the function returns <tt>{cancel, Reason}</tt>, this means the 
+          transport module decided not to send the message. 
+          This is <em>not</em> an error. No error messages will be issued 
+          and no error counters incremented. 
+          What actions this will result in depends on what kind of
+          message was sent. </p>
+        <p>In the case of requests, megaco will cancel the message in much 
+          the same way as if <tt>megaco:cancel</tt> had been called 
+          (after a successfull send). The information will be propagated
+          back to the user differently dependning on how the request(s) where
+          issued: For requests issued using 
+          <seealso marker="megaco#call">megaco:call</seealso>, the info
+          will be delivered in the return value. For requests issued 
+          using <tt>megaco:cast</tt> the info will be delivered via a call
+          to the callback function 
+          <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso>. </p>
+        <p>In the case of reply, megaco will cancel the reply and information
+          of this will be returned to the user via a call to the 
+          callback function 
+          <seealso marker="megaco_user#trans_ack">handle_trans_ack</seealso>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

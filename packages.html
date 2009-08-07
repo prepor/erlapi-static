@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>packages</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />packages</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <warning><p>
+      Packages has since it was introduced more than 5 years ago been an 
+      experimental feature. Use it at your own risk, we do not
+      actively maintain and develop this feature. It might however be 
+      supported some 
+      day.
+      </p>
+      <p>
+	In spite of this packages work quite well, but there are some 
+	known issues in tools and other parts where packages don't work well.
+    </p>
+    </warning>
+    <p><em>Introduction</em></p>
+    <p>Packages are simply namespaces for modules. 
+      All old Erlang modules automatically belong to the top level 
+      ("empty-string") namespace, and do not need any changes.</p>
+    <p>The full name of a packaged module is written as e.g. 
+      "<tt>fee.fie.foe.foo</tt>",
+      i.e., as atoms separated by periods, 
+      where the package name is the part up to
+      but not including the last period; 
+      in this case "<tt>fee.fie.foe</tt>".
+      A more concrete example is the module <tt>erl.lang.term</tt>, 
+      which is in the
+      package <tt>erl.lang</tt>. 
+      Package names can have any number of segments, as in 
+      <tt>erl.lang.list.sort</tt>.
+      The atoms in the name can be quoted, as in <tt>foo.'Bar'.baz</tt>, 
+      or even the
+      whole name, as in <tt>'foo.bar.baz'</tt> but the concatenation of 
+      atoms and
+      periods must not contain two consecutive period characters or 
+      end with a period,
+      as in <tt>'foo..bar'</tt>, <tt>foo.'.bar'</tt>, or <tt>foo.'bar.'</tt>. 
+      The periods must not be followed by whitespace.</p>
+    <p>The code loader maps module names onto the file system directory 
+      structure.
+      E.g., the module <tt>erl.lang.term</tt> corresponds to a file 
+      <tt>.../erl/lang/term.beam</tt>
+      in the search path. 
+      Note that the name of the actual object file corresponds to
+      the last part only of the full module name. 
+      (Thus, old existing modules such as <tt>lists</tt>
+      simply map to <tt>.../lists.beam</tt>, exactly as before.)</p>
+    <p>A packaged module in a file "<tt>foo/bar/fred.erl</tt>" is declared
+      as:</p>
+    <code type="none">
+-module(foo.bar.fred).</code>
+    <p>This can be compiled and loaded from the Erlang shell using 
+      <tt>c(fred)</tt>, if
+      your current directory is the same as that of the file. 
+      The object file will be named <tt>fred.beam</tt>.</p>
+    <p>The Erlang search path works exactly as before, 
+      except that the package segments will be appended to each 
+      directory in the path in order to find the
+      file. E.g., assume the path is <tt>["/usr/lib/erl", "/usr/local/lib/otp/legacy/ebin", "/home/barney/erl"]</tt>.
+      Then, the code for a module named <tt>foo.bar.fred</tt> will be 
+      searched for
+      first as <tt>"/usr/lib/erl/foo/bar/fred.beam"</tt>, then 
+      <tt>"/usr/local/lib/otp/legacy/ebin/foo/bar/fred.beam"</tt>
+      and lastly <tt>"/home/barney/erl/foo/bar/fred.beam"</tt>. 
+      A module
+      like <tt>lists</tt>, which is in the top-level package, 
+      will be looked for as <tt>"/usr/lib/erl/lists.beam"</tt>,
+      <tt>"/usr/local/lib/otp/legacy/ebin/lists.beam"</tt> and 
+      <tt>"/home/barney/erl/lists.beam"</tt>.</p>
+    <p><em>Programming</em></p>
+    <p>Normally, if a call is made from one module to another, 
+      it is assumed that the
+      called module belongs to the same package as the source module. 
+      The compiler
+      automatically expands such calls. E.g., in:</p>
+    <code type="none">
+-module(foo.bar.m1).
+-export([f/1]).
+
+f(X) -&gt; m2:g(X).</code>
+    <p><tt>m2:g(X)</tt> becomes a call to <tt>foo.bar.m2</tt>
+      If this is not what was intended, the call can be written 
+      explicitly, as in</p>
+    <code type="none">
+-module(foo.bar.m1).
+-export([f/1]).
+
+f(X) -&gt; fee.fie.foe.m2:g(X).</code>
+    <p>Because the called module is given with an explicit package name, 
+      no expansion is done in this case.</p>
+    <p>If a module from another package is used repeatedly in a module, 
+      an import declaration can make life easier:</p>
+    <code type="none">
+-module(foo.bar.m1).
+-export([f/1, g/1]).
+-import(fee.fie.foe.m2).
+
+f(X) -&gt; m2:g(X).
+g(X) -&gt; m2:h(X).</code>
+    <p>will make the calls to <tt>m2</tt> refer to <tt>fee.fie.foe.m2</tt>. 
+      More generally, a declaration <tt>-import(Package.Module).</tt> 
+      will cause calls to <tt>Module</tt>
+      to be expanded to <tt>Package.Module</tt>.</p>
+    <p>Old-style function imports work as normal (but full module 
+      names must be
+      used); e.g.:</p>
+    <code type="none">
+-import(fee.fie.foe.m2, [g/1, h/1]).</code>
+    <p>however, it is probably better to avoid this form of import 
+      altogether in new
+      code, since it makes it hard to see what calls are really "remote".</p>
+    <p>If it is necessary to call a module in the top-level package 
+      from within a
+      named package, the module name can be written either with an 
+      initial period as
+      in e.g. "<tt>.lists</tt>", or with an empty initial atom, as in 
+      "<tt>''.lists</tt>".
+      However, the best way is to use an import declaration - 
+      this is most obvious to
+      the eye, and makes sure we don't forget adding a period somewhere:</p>
+    <code type="none">
+-module(foo.bar.fred).
+-export([f/1]).
+-import(lists).
+
+f(X) -&gt; lists:reverse(X).</code>
+    <p>The dot-syntax for module names can be used in any expression. 
+      All segments must
+      be constant atoms, and the result must be a well-formed 
+      package/module name.
+      E.g.:</p>
+    <code type="none">
+spawn(foo.bar.fred, f, [X])</code>
+    <p>is equivalent to <tt>spawn('foo.bar.fred', f, [X])</tt>.</p>
+    <p><em>The Erlang Shell</em></p>
+    <p>The shell also automatically expands remote calls, 
+      however currently no
+      expansions are made by default. 
+      The user can change the behaviour by using the <tt>import/1</tt>
+      shell command (or its abbreviation <tt>use/1</tt>). E.g.:</p>
+    <pre>
+1&gt; <input>
+ok
+2&gt; <input></pre>
+    <p>will evaluate <tt>foo.bar.m:f()</tt>. 
+      If a new import is made of the same name,
+      this overrides any previous import. 
+      (It is likely that in the future, some
+      system packages will be pre-imported.)</p>
+    <p>In addition, the shell command <tt>import_all/1</tt> 
+      (and its alias <tt>use_all/1</tt>)
+      imports all modules currently found in the path for a given 
+      package name. E.g.,
+      assuming the files "<tt>.../foo/bar/fred.beam</tt>", 
+      "<tt>.../foo/bar/barney.beam</tt>"
+      and "<tt>.../foo/bar/bambam.beam</tt>" can be found from our current
+      path,</p>
+    <pre>
+1&gt; <input></pre>
+    <p>will make <tt>fred</tt>, <tt>barney</tt> and <tt>bambam</tt> 
+      expand to <tt>foo.bar.fred</tt>,
+      <tt>foo.bar.barney</tt> and <tt>foo.bar.bambam</tt>, respectively.</p>
+    <p>Note: The compiler does not have an "import all" directive, for the
+      reason that Erlang has no compile time type checking. 
+      E.g. if the wrong search
+      path is used at compile time, a call <tt>m:f(...)</tt> 
+      could be expanded to <tt>foo.bar.m:f(...)</tt>
+      without any warning, instead of the intended 
+      <tt>frob.ozz.m:f(...)</tt>, if
+      package <tt>foo.bar</tt> happens to be found first in the path. 
+      Explicitly
+      declaring each use of a module makes for safe code.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

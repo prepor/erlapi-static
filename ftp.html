@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ftp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ftp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+
+    <p>The <tt>ftp</tt> module implements a client for file transfer
+      according to a subset of the File Transfer Protocol (see <term id="RFC"></term>959). Starting from inets version 4.4.1 the ftp
+      client will always try to use passive ftp mode and only resort
+      to active ftp mode if this fails. There is a start option mode
+      where this default behavior may be changed.</p>
+
+    <p>For a simple example of an ftp session see <seealso marker="ftp_client">Inets User's Guide.</seealso></p>
+
+    <p>In addition to the ordinary functions for receiving and sending
+    files (see <tt>recv/2</tt>, <tt>recv/3</tt>, <tt>send/2</tt> and
+    <tt>send/3</tt>) there are functions for receiving remote files as
+    binaries (see <tt>recv_bin/2</tt>) and for sending binaries to to be
+    stored as remote files (see <tt>send_bin/3</tt>).</p>
+
+    <p>There is also a set of functions for sending and receiving
+    contiguous parts of a file to be stored in a remote file (for send
+    see <tt>send_chunk_start/2</tt>, <tt>send_chunk/2</tt> and
+    <tt>send_chunk_end/1</tt> and for receive see
+    <tt>recv_chunk_start/2</tt> and <tt>recv_chunk/</tt>).</p>
+
+    <p>The particular return values of the functions below depend very
+    much on the implementation of the FTP server at the remote
+    host. In particular the results from <tt>ls</tt> and <tt>nlist</tt>
+    varies. Often real errors are not reported as errors by <tt>ls</tt>,
+    even if for instance a file or directory does not
+    exist. <tt>nlist</tt> is usually more strict, but some
+    implementations have the peculiar behaviour of responding with an
+    error, if the request is a listing of the contents of directory
+    which exists but is empty.</p>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">FTP CLIENT SERVICE START/STOP </a></li>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+        <li><a href="#">ERRORS</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#accountPidAccountgtokerrorReason">account(Pid, Account) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#appendPidLocalFilegt">append(Pid, LocalFile) -&gt; </a></li>
+        
+        <li><a href="#append_binPidBinRemoteFilegtokerrorReason">append_bin(Pid, Bin, RemoteFile) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#append_chunkPidBingtokerrorReason">append_chunk(Pid, Bin) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#append_chunk_endPidgtokerrorReason">append_chunk_end(Pid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#append_chunk_startPidFilegtokerrorReason">append_chunk_start(Pid, File) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#cdPidDirgtokerrorReason">cd(Pid, Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#deletePidFilegtokerrorReason">delete(Pid, File) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#formaterrorTaggtstring">formaterror(Tag) -&gt; string()</a></li>
+        
+        <li><a href="#lcdPidDirgtokerrorReason">lcd(Pid, Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#lpwdPidgtokDir">lpwd(Pid) -&gt; {ok, Dir}</a></li>
+        
+        <li><a href="#lsPidgt">ls(Pid) -&gt; </a></li>
+        
+        <li><a href="#mkdirPidDirgtokerrorReason">mkdir(Pid, Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#nlistPidgt">nlist(Pid) -&gt; </a></li>
+        
+        <li><a href="#pwdPidgtokDirerrorReason">pwd(Pid) -&gt; {ok, Dir} | {error, Reason}</a></li>
+        
+        <li><a href="#quotePidCommandgtFTPLine">quote(Pid, Command) -&gt; [FTPLine]</a></li>
+        
+        <li><a href="#recvPidRemoteFilegt">recv(Pid, RemoteFile) -&gt; </a></li>
+        
+        <li><a href="#recv_binPidRemoteFilegtokBinerrorReason">recv_bin(Pid, RemoteFile) -&gt; {ok, Bin} | {error, Reason}</a></li>
+        
+        <li><a href="#recv_chunkPidgtokokBinerrorReason">recv_chunk(Pid) -&gt; ok | {ok, Bin} | {error, Reason}</a></li>
+        
+        <li><a href="#recv_chunk_startPidRemoteFilegtokerrorReason">recv_chunk_start(Pid, RemoteFile) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#renamePidOldNewgtokerrorReason">rename(Pid, Old, New) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#rmdirPidDirgtokerrorReason">rmdir(Pid, Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#sendPidLocalFilegt">send(Pid, LocalFile) -&gt;</a></li>
+        
+        <li><a href="#send_binPidBinRemoteFilegtokerrorReason">send_bin(Pid, Bin, RemoteFile) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#send_chunkPidBingtokerrorReason">send_chunk(Pid, Bin) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#send_chunk_endPidgtokerrorReason">send_chunk_end(Pid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#send_chunk_startPidFilegtokerrorReason">send_chunk_start(Pid, File) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#typePidTypegtokerrorReason">type(Pid, Type) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#userPidUserPasswordAccountgtokerrorReason">user(Pid, User, Password,Account) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#userPidUserPasswordgtokerrorReason">user(Pid, User, Password) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">FTP CLIENT SERVICE START/STOP </div>
+    
+    <div class="description">
+        
+    <title>FTP CLIENT SERVICE START/STOP </title>
+    
+    <p>The FTP client can be started and stopped dynamically in runtime by
+      calling the Inets application API <tt>inets:start(ftpc, ServiceConfig)</tt>,
+      or <tt>inets:start(ftpc, ServiceConfig, How)</tt>, and
+      <tt>inets:stop(ftpc, Pid)</tt>
+      see <seealso marker="inets">inets(3)</seealso>
+      Below follows a description of
+      the available configuration options.</p>
+    
+    <taglist>
+      <tag>{host, Host}</tag>
+      <item>Host = string() | ip_address()</item>
+      <tag>{port, Port}</tag>
+      <item>Port = integer() - default is 21</item>
+      <tag>{mode, Mode}</tag>
+      <item>Mode = active | passive - Passive is default. </item>
+      <tag>{flags, Flags}</tag>
+      <item>Flags = [Flag], Flag = verbose | debug | ip_v6_disabled,
+      </item>
+      <tag>{timeout, Timeout}</tag>
+      <item>Timeout = integer() - default is 60000 milliseconds.</item>
+      <tag>{progress, ProgressOption}</tag>
+      <item>ProgressOption = ignore | {CBModule, CBFunction, InitProgress}
+	CallBackModule = atom(), CallBackFunction = atom(),
+	InitProgress = term() </item>  
+    </taglist>
+  
+    <p>The progress option is intended to be used by applications that
+      want create some type of progress report such as a progress bar in
+      a GUI.  The default value for the progress option is ignore
+      e.i. the option is not used.  When the progress option is
+      specified the following will happen when ftp:send/[3,4] or
+      ftp:recv/[3,4] are called.</p>
+    
+    <list type="bulleted">
+      <item>
+	<p>Before a file is transfered the following call will
+	  be made to indicate the start of the file transfer and how big
+	  the file is. The return value of the callback function
+	  should be a new value for the UserProgressTerm that will
+	  bu used as input next time the callback function is
+	  called.</p>
+	<br>
+	<p><tt>
+	  CBModule:CBFunction(InitProgress, File, {file_size, FileSize})
+	</tt></p>
+	<br>
+      </item>
+      
+      <item>
+	<p>Every time a chunk of bytes is transfered the
+	  following call will be made:</p>
+	<br>
+	<p><tt>
+	    CBModule:CBFunction(UserProgressTerm, File, {transfer_size, TransferSize})             </tt></p>
+	<br>
+      </item>
+
+      <item>
+	<p>At the end of the file the following call will be
+	  made to indicate the end of the transfer.</p>
+	<br>
+	<p><tt>
+	    CBModule:CBFunction(UserProgressTerm, File, {transfer_size, 0})             </tt></p>
+	<br>
+      </item>
+    </list>
+    
+    <p>The callback function should be defined as </p>
+
+    <p><tt>
+	CBModule:CBFunction(UserProgressTerm, File, Size) -&gt; UserProgressTerm        </tt></p>
+    
+    <p><tt>
+	CBModule = CBFunction = atom()
+      </tt></p>
+
+    <p><tt>
+	UserProgressTerm = term()
+      </tt></p>
+
+    <p><tt>
+	File = string()
+      </tt></p>
+
+    <p><tt>
+	Size = {transfer_size, integer()} | {file_size, integer()} | {file_size, unknown}        </tt></p>
+    
+    <p>Alas for remote files it is not possible for ftp to determine the
+      file size in a platform independent way. In this case the size
+      will be <tt>unknown</tt> and it is left to the application to find
+      out the size. </p>
+    
+    <note>
+      <p>The callback is made by a middleman process, hence the
+	file transfer will not be affected by the code in the progress
+	callback function. If the callback should crash this will be
+	detected by the ftp connection process that will print an
+	info-report and then go one as if the progress option was set
+	to ignore. </p>
+    </note>
+    
+    <p>The file transfer type is set to the default of the FTP server
+      when the session is opened. This is usually ASCCI-mode.
+    </p>
+    
+    <p>The current local working directory (cf. <tt>lpwd/1</tt>) is set to
+      the value reported by <tt>file:get_cwd/1</tt>. the wanted
+      local directory.
+    </p>
+    
+    <p>The return value <tt>Pid</tt> is used as a reference to the
+      newly created ftp client in all other functions, and they should
+      be called by the process that created the connection. The ftp
+      client process monitors the process that created it and
+      will terminate if that process terminates.</p>   
+  
+    </div>
+    
+    
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Here follows type definitions that are used by more than one
+      function in the FTP client API. </p>
+    <p><tt> pid() - identifier of an ftp connection.</tt></p>
+    <p><tt> string() = list of ASCII characters.</tt></p>
+    <p><tt> shortage_reason() = etnospc | epnospc</tt></p>
+    <p><tt> restriction_reason() = epath | efnamena | elogin | enotbinary
+      - note not all restrictions may always relevant to all functions
+    </tt></p>
+    <p><tt>common_reason() = econn | eclosed | term() - some kind of
+      explanation of what went wrong.</tt></p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">ERRORS</div>
+    
+    <div class="description">
+        
+    <title>ERRORS</title>
+    <p>The possible error reasons and the corresponding diagnostic strings 
+      returned by <tt>formaterror/1</tt> are as follows:
+      </p>
+    <taglist>
+      <tag><tt>echunk</tt></tag>
+      <item>
+        <p>Synchronisation error during chunk sending. 
+          </p>
+        <p>A call has been made to <tt>send_chunk/2</tt> or
+          <tt>send_chunk_end/1</tt>, before a call to
+          <tt>send_chunk_start/2</tt>; or a call has been made to another
+          transfer function during chunk sending, i.e. before a call
+          to <tt>send_chunk_end/1</tt>.</p>
+      </item>
+      <tag><tt>eclosed</tt></tag>
+      <item>
+        <p>The session has been closed.</p>
+      </item>
+      <tag><tt>econn</tt></tag>
+      <item>
+        <p>Connection to remote server prematurely closed.</p>
+      </item>
+      <tag><tt>ehost</tt></tag>
+      <item>
+        <p>Host not found, FTP server not found, or connection rejected
+          by FTP server.</p>
+      </item>
+      <tag><tt>elogin</tt></tag>
+      <item>
+        <p>User not logged in.</p>
+      </item>
+      <tag><tt>enotbinary</tt></tag>
+      <item>
+        <p>Term is not a binary.</p>
+      </item>
+      <tag><tt>epath</tt></tag>
+      <item>
+        <p>No such file or directory, or directory already exists, or
+          permission denied.</p>
+      </item>
+      <tag><tt>etype</tt></tag>
+      <item>
+        <p>No such type.</p>
+      </item>
+      <tag><tt>euser</tt></tag>
+      <item>
+        <p>User name or password not valid.</p>
+      </item>
+      <tag><tt>etnospc</tt></tag>
+      <item>
+        <p>Insufficient storage space in system [452].</p>
+      </item>
+      <tag><tt>epnospc</tt></tag>
+      <item>
+        <p>Exceeded storage allocation (for current directory or
+          dataset) [552].</p>
+      </item>
+      <tag><tt>efnamena</tt></tag>
+      <item>
+        <p>File name not allowed [553].</p>
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p>file, filename, J. Postel and J. Reynolds: File Transfer Protocol
+      (RFC 959).
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="accountPidAccountgtokerrorReason"></a><b>account(Pid, Account) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Account = string()</b><br/>
+        <b>Reason = eacct | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If an account is needed for an operation set the account
+          with this operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="appendPidLocalFilegt"></a><b>append(Pid, LocalFile) -&gt; <br/>append(Pid, LocalFile, RemoteFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>LocalFile = RemoteFile = string()</b><br/>
+        <b>Reason = epath | elogin | etnospc | epnospc | efnamena | common_reason</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfers the file <tt>LocalFile</tt> to the remote server. If 
+          <tt>RemoteFile</tt> is specified, the name of the remote file that the
+          file will be appended to is set to <tt>RemoteFile</tt>; otherwise 
+          the name is set to <tt>LocalFile</tt> If the file does not exists the
+          file will be created.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_binPidBinRemoteFilegtokerrorReason"></a><b>append_bin(Pid, Bin, RemoteFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()()</b><br/>
+        <b>RemoteFile = string()</b><br/>
+        <b>Reason =  restriction_reason()| shortage_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfers the binary <tt>Bin</tt> to the remote server and append 
+          it to the file <tt>RemoteFile</tt>. If the file does not exists it 
+          will be created.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_chunkPidBingtokerrorReason"></a><b>append_chunk(Pid, Bin) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Reason = echunk | restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfer the chunk <tt>Bin</tt> to the remote server, which 
+          append it into the file specified in the call to 
+          <tt>append_chunk_start/2</tt>. </p>
+        <p>Note that for some errors, e.g. file system full, it is 
+          neccessery to to call <tt>append_chunk_end</tt> to get the 
+          proper reason.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_chunk_startPidFilegtokerrorReason"></a><b>append_chunk_start(Pid, File) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>File = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start the transfer of chunks for appending to the file 
+          <tt>File</tt> at the remote server. If the file does not exists 
+          it will be created.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_chunk_endPidgtokerrorReason"></a><b>append_chunk_end(Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Reason = echunk | restriction_reason() | shortage_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops transfer of chunks for appending to the remote server. 
+          The file at the remote server, specified in the call to 
+          <tt>append_chunk_start/2</tt> is closed by the server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cdPidDirgtokerrorReason"></a><b>cd(Pid, Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the working directory at the remote server to <tt>Dir</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deletePidFilegtokerrorReason"></a><b>delete(Pid, File) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>File = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes the file <tt>File</tt> at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="formaterrorTaggtstring"></a><b>formaterror(Tag) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = {error, atom()} | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Given an error return value <tt>{error, AtomReason}</tt>,
+          this function returns a readable string describing the error.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lcdPidDirgtokerrorReason"></a><b>lcd(Pid, Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Reason = restriction_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the working directory to <tt>Dir</tt> for the local client. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lpwdPidgtokDir"></a><b>lpwd(Pid) -&gt; {ok, Dir}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current working directory at the local client.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lsPidgt"></a><b>ls(Pid) -&gt; <br/>ls(Pid, Dir) -&gt; {ok, Listing} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Listing = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a listing of the contents of the remote current directory
+          (<tt>ls/1</tt>) or the specified directory (<tt>ls/2</tt>). The format
+          of <tt>Listing</tt> is operating system dependent (on UNIX it is 
+          typically produced from the output of the <tt>ls -l</tt> shell command).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mkdirPidDirgtokerrorReason"></a><b>mkdir(Pid, Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates the directory <tt>Dir</tt> at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nlistPidgt"></a><b>nlist(Pid) -&gt; <br/>nlist(Pid, Dir) -&gt; {ok, Listing} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Listing = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a listing of the contents of the remote current directory
+          (<tt>nlist/1</tt>) or the specified directory
+          (<tt>nlist/2</tt>). The format of <tt>Listing</tt> is a stream of
+          file names, where each name is separated by &lt;CRLF&gt; or
+          &lt;NL&gt;. Contrary to the <tt>ls</tt> function, the purpose of
+          <tt>nlist</tt> is to make it possible for a program to
+          automatically process file name information.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pwdPidgtokDirerrorReason"></a><b>pwd(Pid) -&gt; {ok, Dir} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current working directory at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recvPidRemoteFilegt"></a><b>recv(Pid, RemoteFile) -&gt; <br/>recv(Pid, RemoteFile, LocalFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>RemoteFile = LocalFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() | file_write_error_reason() </b><br/>
+        <b>file_write_error_reason() = see file:write/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfer the file <tt>RemoteFile</tt> from the remote server
+          to the the file system of the local client. If
+          <tt>LocalFile</tt> is specified, the local file will be
+          <tt>LocalFile</tt>; otherwise it will be
+          <tt>RemoteFile</tt>.</p>
+        <p>If the file write failes
+          (e.g. enospc), then the command is aborted and <tt>{error, file_write_error_reason()}</tt> is returned. The file is
+          however <em>not</em> removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recv_binPidRemoteFilegtokBinerrorReason"></a><b>recv_bin(Pid, RemoteFile) -&gt; {ok, Bin} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>RemoteFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfers the file <tt>RemoteFile</tt> from the remote server and 
+          receives it as a binary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recv_chunk_startPidRemoteFilegtokerrorReason"></a><b>recv_chunk_start(Pid, RemoteFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>RemoteFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start transfer of the file <tt>RemoteFile</tt> from the
+          remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recv_chunkPidgtokokBinerrorReason"></a><b>recv_chunk(Pid) -&gt; ok | {ok, Bin} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Receive a chunk of the remote file (<tt>RemoteFile</tt> of 
+          <tt>recv_chunk_start</tt>). The return values has the following 
+          meaning:</p>
+        <list type="bulleted">
+          <item><tt>ok</tt> the transfer is complete.</item>
+          <item><tt>{ok, Bin}</tt> just another chunk of the file.</item>
+          <item><tt>{error, Reason}</tt> transfer failed.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="renamePidOldNewgtokerrorReason"></a><b>rename(Pid, Old, New) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>CurrFile = NewFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Renames <tt>Old</tt> to <tt>New</tt> at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rmdirPidDirgtokerrorReason"></a><b>rmdir(Pid, Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes directory <tt>Dir</tt> at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendPidLocalFilegt"></a><b>send(Pid, LocalFile) -&gt;<br/>send(Pid, LocalFile, RemoteFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>LocalFile = RemoteFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() | shortage_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfers the file <tt>LocalFile</tt> to the remote server. If 
+          <tt>RemoteFile</tt> is specified, the name of the remote file is set
+          to <tt>RemoteFile</tt>; otherwise the name is set to <tt>LocalFile</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_binPidBinRemoteFilegtokerrorReason"></a><b>send_bin(Pid, Bin, RemoteFile) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()()</b><br/>
+        <b>RemoteFile = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() | shortage_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfers the binary <tt>Bin</tt> into the file <tt>RemoteFile</tt> 
+          at the remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_chunkPidBingtokerrorReason"></a><b>send_chunk(Pid, Bin) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Reason = echunk | restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transfer the chunk <tt>Bin</tt> to the remote server, which 
+          writes it into the file specified in the call to 
+          <tt>send_chunk_start/2</tt>. </p>
+        <p>Note that for some errors, e.g. file system full, it is 
+          neccessery to to call <tt>send_chunk_end</tt> to get the 
+          proper reason.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_chunk_startPidFilegtokerrorReason"></a><b>send_chunk_start(Pid, File) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>File = string()</b><br/>
+        <b>Reason = restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start transfer of chunks into the file <tt>File</tt> at the 
+          remote server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_chunk_endPidgtokerrorReason"></a><b>send_chunk_end(Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Reason = restriction_reason() | common_reason() | shortage_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops transfer of chunks to the remote server. The file at the
+          remote server, specified in the call to <tt>send_chunk_start/2</tt> 
+          is closed by the server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="typePidTypegtokerrorReason"></a><b>type(Pid, Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Type = ascii | binary</b><br/>
+        <b>Reason = etype | restriction_reason() | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the file transfer type to <tt>ascii</tt> or <tt>binary</tt>. When
+          an ftp session is opened, the default transfer type of the
+          server is used, most often <tt>ascii</tt>, which is the default
+          according to RFC 959.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="userPidUserPasswordgtokerrorReason"></a><b>user(Pid, User, Password) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>User = Password = string()</b><br/>
+        <b>Reason = euser | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs login of <tt>User</tt> with <tt>Password</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="userPidUserPasswordAccountgtokerrorReason"></a><b>user(Pid, User, Password,Account) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>User = Password = string()</b><br/>
+        <b>Reason = euser | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs login of <tt>User</tt> with <tt>Password</tt>to the acccount 
+          specified by <tt>Account</tt> .</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="quotePidCommandgtFTPLine"></a><b>quote(Pid, Command) -&gt; [FTPLine]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Command = string()</b><br/>
+        <b>FTPLine = string() - Note the telnet end of line characters, from the ftp protocol definition, CRLF e.g. "\\r\ " has been removed.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends an arbitrary FTP command and returns verbatimly a list
+          of the lines sent back by the FTP server. This functions is
+          intended to give an application accesses to FTP commands
+          that are server specific or that may not be provided by
+          this FTP client. </p>
+        <note>
+          <p>FTP commands that require a data connection can not be
+            successfully issued with this function. </p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

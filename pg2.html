@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>pg2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />pg2</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module implements process groups. The groups in this
+      module differ from the groups in the module <tt>pg</tt> in several
+      ways. In <tt>pg</tt>, each message is sent to all members in the
+      group. In this module, each message may be sent to one, some, or
+      all members.
+      </p>
+    <p>A group of processes can be accessed by a common name. For
+      example, if there is a group named <tt>foobar</tt>, there can be a
+      set of processes (which can be located on different nodes) which
+      are all members of the group <tt>foobar</tt>. There is no special
+      functions for sending a message to the group. Instead, client
+      functions should be written with the functions
+      <tt>get_members/1</tt> and <tt>get_local_members/1</tt> to find out
+      which processes are members of the group. Then the message can be
+      sent to one or more members of the group.
+      </p>
+    <p>If a member terminates, it is automatically removed from the
+      group.
+      </p>
+    <warning>
+      <p>This module is used by the <tt>disk_log</tt> module for
+        managing distributed disk logs. The disk log names are used as
+        group names, which means that some action may need to be taken
+        to avoid name clashes.</p>
+    </warning>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#createNamegtvoid">create(Name) -&gt; void()</a></li>
+        
+        <li><a href="#deleteNamegtvoid">delete(Name) -&gt; void()</a></li>
+        
+        <li><a href="#get_closest_pidNamegtPiderrorReason">get_closest_pid(Name) -&gt; Pid | {error, Reason}</a></li>
+        
+        <li><a href="#get_local_membersNamegtPiderrorReason">get_local_members(Name) -&gt; [Pid] | {error, Reason}</a></li>
+        
+        <li><a href="#get_membersNamegtPiderrorReason">get_members(Name) -&gt; [Pid] | {error, Reason}</a></li>
+        
+        <li><a href="#joinNamePidgtokerrorReason">join(Name, Pid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#leaveNamePidgtokerrorReason">leave(Name, Pid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#start">start()</a></li>
+        
+        <li><a href="#which_groupsgtName">which_groups() -&gt; [Name]</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="kernel_app">kernel(6)</seealso>, 
+       <seealso marker="stdlib:filename">pg(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="createNamegtvoid"></a><b>create(Name) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a new, empty process group. The group is globally
+          visible on all nodes. If the group exists, nothing happens.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteNamegtvoid"></a><b>delete(Name) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes a process group.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_closest_pidNamegtPiderrorReason"></a><b>get_closest_pid(Name) -&gt; Pid | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+	<b>Pid = pid()</b><br/>
+	<b>Reason = {no_process, Name} | {no_such_group, Name}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is a useful dispatch function which can be used from
+          client functions. It returns a process on the local node, if
+          such a process exist. Otherwise, it chooses one randomly.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_membersNamegtPiderrorReason"></a><b>get_members(Name) -&gt; [Pid] | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+	<b>Pid = pid()</b><br/>
+	<b>Reason = {no_such_group, Name}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns all processes in the group <tt>Name</tt>. This
+          function should be used from within a client function that
+          accesses the group. It is therefore optimized for speed.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_local_membersNamegtPiderrorReason"></a><b>get_local_members(Name) -&gt; [Pid] | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+	<b>Pid = pid()</b><br/>
+	<b>Reason = {no_such_group, Name}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns all processes running on the local node in the
+          group <tt>Name</tt>. This function should to be used from
+          within a client function that accesses the group. It is therefore
+          optimized for speed.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinNamePidgtokerrorReason"></a><b>join(Name, Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+	<b>Pid = pid()</b><br/>
+	<b>Reason = {no_such_group, Name}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Joins the process <tt>Pid</tt> to the group <tt>Name</tt>.
+	  A process can join a group several times; it must then
+	  leave the group the same number of times.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="leaveNamePidgtokerrorReason"></a><b>leave(Name, Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+	<b>Pid = pid()</b><br/>
+	<b>Reason = {no_such_group, Name}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Makes the process <tt>Pid</tt> leave the group <tt>Name</tt>.
+	  If the process is not a member of the group, <tt>ok</tt> is
+	  returned.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_groupsgtName"></a><b>which_groups() -&gt; [Name]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of all known groups.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start"></a><b>start()<br/>start_link() -&gt; {ok, Pid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Pid = pid()</b><br/>
+	<b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the pg2 server. Normally, the server does not need
+          to be started explicitly, as it is started dynamically if it
+          is needed. This is useful during development, but in a
+          target system the server should be started explicitly. Use
+          configuration parameters for <tt>kernel</tt> for this.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

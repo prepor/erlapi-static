@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>auth</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />auth</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module is deprecated. For a description of the Magic
+      Cookie system, refer to
+      <seealso marker="doc/reference_manual:distributed">Distributed Erlang</seealso> in the Erlang Reference Manual.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#cookieTheCookiegttrue">cookie(TheCookie) -&gt; true</a></li>
+        
+        <li><a href="#cookiegtCookie">cookie() -&gt; Cookie</a></li>
+        
+        <li><a href="#is_authNodegtyesno">is_auth(Node) -&gt; yes | no</a></li>
+        
+        <li><a href="#node_cookieNodeCookiegtyesno">node_cookie([Node, Cookie]) -&gt; yes | no</a></li>
+        
+        <li><a href="#node_cookieNodeCookiegtyesno">node_cookie(Node, Cookie) -&gt; yes | no</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="is_authNodegtyesno"></a><b>is_auth(Node) -&gt; yes | no</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>yes</tt> if communication with <tt>Node</tt> is
+          authorized. Note that a connection to <tt>Node</tt> will
+          be established in this case. Returns <tt>no</tt> if <tt>Node</tt>
+          does not exist or communication is not authorized (it has
+          another cookie than <tt>auth</tt> thinks it has).</p>
+        <p>Use <seealso marker="net_adm#ping/1">net_adm:ping(Node)</seealso>
+          instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cookiegtCookie"></a><b>cookie() -&gt; Cookie</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Cookie = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Use
+          <seealso marker="erts:erlang#erlang:get_cookie/0">erlang:get_cookie()</seealso>
+          instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cookieTheCookiegttrue"></a><b>cookie(TheCookie) -&gt; true</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TheCookie = Cookie | [Cookie]</b><br/>
+        <d>The cookie may also be given as a list with a single atom element</d>
+        <b>&nbsp;Cookie = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Use
+          <seealso marker="erts:erlang#erlang:set_cookie/2">erlang:set_cookie(node(), Cookie)</seealso>
+          instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="node_cookieNodeCookiegtyesno"></a><b>node_cookie([Node, Cookie]) -&gt; yes | no</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+        <b>Cookie = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Equivalent to
+          <seealso marker="#node_cookie/2">node_cookie(Node, Cookie)</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="node_cookieNodeCookiegtyesno"></a><b>node_cookie(Node, Cookie) -&gt; yes | no</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+        <b>Cookie = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the magic cookie of <tt>Node</tt> to <tt>Cookie</tt>, and
+          verifies the status of the authorization.
+          Equivalent to calling
+          <seealso marker="erts:erlang#erlang:set_cookie/2">erlang:set_cookie(Node, Cookie)</seealso>, followed by
+          <seealso marker="#is_auth/1">auth:is_auth(Node)</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_parse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_parse</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module is the basic Erlang parser which converts tokens into
+      the abstract form of either forms (i.e., top-level constructs),
+      expressions, or terms. The Abstract Format is described in the ERTS
+      User's Guide.
+      Note that a token list must end with the <em>dot</em> token in order
+      to be acceptable to the parse functions (see erl_scan).</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Error Information</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#abstractDatagtAbsTerm">abstract(Data) -&gt; AbsTerm</a></li>
+        
+        <li><a href="#format_errorErrorDescriptorgtChars">format_error(ErrorDescriptor) -&gt; Chars</a></li>
+        
+        <li><a href="#normaliseAbsTermgtData">normalise(AbsTerm) -&gt; Data</a></li>
+        
+        <li><a href="#parse_exprsTokensgtokExpr_listerrorErrorInfo">parse_exprs(Tokens) -&gt; {ok, Expr_list} | {error, ErrorInfo}</a></li>
+        
+        <li><a href="#parse_formTokensgtokAbsFormerrorErrorInfo">parse_form(Tokens) -&gt; {ok, AbsForm} | {error, ErrorInfo}</a></li>
+        
+        <li><a href="#parse_termTokensgtokTermerrorErrorInfo">parse_term(Tokens) -&gt; {ok, Term} | {error, ErrorInfo}</a></li>
+        
+        <li><a href="#tokensAbsTermgtTokens">tokens(AbsTerm) -&gt; Tokens</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Error Information</div>
+    
+    <div class="description">
+        
+    <title>Error Information</title>
+    <p>The <tt>ErrorInfo</tt> mentioned above is the standard
+      <tt>ErrorInfo</tt> structure which is returned from all IO
+      modules. It has the format:
+      </p>
+    <code type="none">
+    {ErrorLine, Module, ErrorDescriptor}    </code>
+    <p>A string which describes the error is obtained with the following call:
+      </p>
+    <code type="none">
+apply(Module, format_error, ErrorDescriptor)    </code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="io">io(3)</seealso>,
+      <seealso marker="erl_scan">erl_scan(3)</seealso>,
+      ERTS User's Guide</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="parse_formTokensgtokAbsFormerrorErrorInfo"></a><b>parse_form(Tokens) -&gt; {ok, AbsForm} | {error, ErrorInfo}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tokens = [Token]</b><br/>
+        <b>Token = {Tag,Line} | {Tag,Line,term()}</b><br/>
+        <b>Tag = atom()</b><br/>
+        <b>AbsForm = term()</b><br/>
+        <b>ErrorInfo = see section Error Information below.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function parses <tt>Tokens</tt> as if it were a form. It returns:</p>
+        <taglist>
+          <tag><tt>{ok, AbsForm}</tt></tag>
+          <item>
+            <p>The parsing was successful. <tt>AbsForm</tt> is the
+              abstract form of the parsed form.</p>
+          </item>
+          <tag><tt>{error, ErrorInfo}</tt></tag>
+          <item>
+            <p>An error occurred.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="parse_exprsTokensgtokExpr_listerrorErrorInfo"></a><b>parse_exprs(Tokens) -&gt; {ok, Expr_list} | {error, ErrorInfo}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tokens = [Token]</b><br/>
+        <b>Token = {Tag,Line} | {Tag,Line,term()}</b><br/>
+        <b>Tag = atom()</b><br/>
+        <b>Expr_list = [AbsExpr]</b><br/>
+        <b>AbsExpr = term()</b><br/>
+        <b>ErrorInfo = see section Error Information below.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function parses <tt>Tokens</tt> as if it were a list of expressions. It returns:</p>
+        <taglist>
+          <tag><tt>{ok, Expr_list}</tt></tag>
+          <item>
+            <p>The parsing was successful. <tt>Expr_list</tt> is a
+              list of the abstract forms of the parsed expressions.</p>
+          </item>
+          <tag><tt>{error, ErrorInfo}</tt></tag>
+          <item>
+            <p>An error occurred.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="parse_termTokensgtokTermerrorErrorInfo"></a><b>parse_term(Tokens) -&gt; {ok, Term} | {error, ErrorInfo}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tokens = [Token]</b><br/>
+        <b>Token = {Tag,Line} | {Tag,Line,term()}</b><br/>
+        <b>Tag = atom()</b><br/>
+        <b>Term = term()</b><br/>
+        <b>ErrorInfo = see section Error Information below.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function parses <tt>Tokens</tt> as if it were a term. It returns:</p>
+        <taglist>
+          <tag><tt>{ok, Term}</tt></tag>
+          <item>
+            <p>The parsing was successful. <tt>Term</tt> is
+              the Erlang term corresponding to the token list.</p>
+          </item>
+          <tag><tt>{error, ErrorInfo}</tt></tag>
+          <item>
+            <p>An error occurred.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorErrorDescriptorgtChars"></a><b>format_error(ErrorDescriptor) -&gt; Chars</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ErrorDescriptor = errordesc()</b><br/>
+        <b>Chars = [char() | Chars]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Uses an <tt>ErrorDescriptor</tt> and returns a string
+          which describes the error. This function is usually called
+          implicitly when an <tt>ErrorInfo</tt> structure is processed
+          (see below).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tokensAbsTermgtTokens"></a><b>tokens(AbsTerm) -&gt; Tokens<br/>tokens(AbsTerm, MoreTokens) -&gt; Tokens</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tokens = MoreTokens = [Token]</b><br/>
+        <b>Token = {Tag,Line} | {Tag,Line,term()}</b><br/>
+        <b>Tag = atom()</b><br/>
+        <b>AbsTerm = term()</b><br/>
+        <b>ErrorInfo = see section Error Information below.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function generates a list of tokens representing the abstract
+          form <tt>AbsTerm</tt> of an expression. Optionally, it appends
+          <tt>Moretokens</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="normaliseAbsTermgtData"></a><b>normalise(AbsTerm) -&gt; Data</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AbsTerm = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts the abstract form <tt>AbsTerm</tt> of a term into a
+          conventional Erlang data structure (i.e., the term itself).
+          This is the inverse of <tt>abstract/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="abstractDatagtAbsTerm"></a><b>abstract(Data) -&gt; AbsTerm</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = AbsTerm = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts the Erlang data structure <tt>Data</tt> into an
+          abstract form of type <tt>AbsTerm</tt>. This is the inverse of
+          <tt>normalise/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

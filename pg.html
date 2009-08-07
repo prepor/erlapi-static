@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>pg</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />pg</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This (experimental) module implements process groups. A process
+      group is a group of processes that can be accessed by a common
+      name. For example, a group named <tt>foobar</tt> can include a set
+      of processes as members of this group and they can be located on
+      different nodes.</p>
+    <p>When messages are sent to the named group, all members of
+      the group receive the message. The messages are serialized. If
+      the process <tt>P1</tt> sends the message <tt>M1</tt> to the group,
+      and process <tt>P2</tt> simultaneously sends message <tt>M2</tt>, then
+      all members of the group receive the two messages in the same
+      order. If members of a group terminate, they are automatically 
+      removed from the group.</p>
+    <p>This module is not complete. The module is inspired by the ISIS
+      system and the causal order protocol of the ISIS system should 
+      also be implemented. At the moment, all messages are serialized
+      by sending them through a group master process.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#createPgNamegtokerrorReason">create(PgName) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#createPgNameNodegtokerrorReason">create(PgName, Node) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#esendPgNameMsggtvoid">esend(PgName, Msg) -&gt; void()</a></li>
+        
+        <li><a href="#joinPgNamePidgtMembers">join(PgName, Pid) -&gt; Members</a></li>
+        
+        <li><a href="#membersPgNamegtMembers">members(PgName) -&gt; Members</a></li>
+        
+        <li><a href="#sendPgNameMsggtvoid">send(PgName, Msg) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="createPgNamegtokerrorReason"></a><b>create(PgName) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = term()</b><br/>
+        <b>Reason = already_created | term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an empty group named <tt>PgName</tt> on the current
+          node.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="createPgNameNodegtokerrorReason"></a><b>create(PgName, Node) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = term()</b><br/>
+        <b>Node = node()</b><br/>
+        <b>Reason = already_created | term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an empty group named <tt>PgName</tt> on the node
+          <tt>Node</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinPgNamePidgtMembers"></a><b>join(PgName, Pid) -&gt; Members</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = term()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>Members = [pid()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Joins the pid <tt>Pid</tt> to the process group <tt>PgName</tt>.
+          Returns a list of all old members of the group.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendPgNameMsggtvoid"></a><b>send(PgName, Msg) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = Msg = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends the tuple <tt>{pg_message, From, PgName, Msg}</tt> to
+          all members of the process group <tt>PgName</tt>.</p>
+        <p>Failure: <tt>{badarg, {PgName, Msg}}</tt> if <tt>PgName</tt> is
+          not a process group (a globally registered name).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="esendPgNameMsggtvoid"></a><b>esend(PgName, Msg) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = Msg = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends the tuple <tt>{pg_message, From, PgName, Msg}</tt> to
+          all members of the process group <tt>PgName</tt>, except
+          ourselves.</p>
+        <p>Failure: <tt>{badarg, {PgName, Msg}}</tt> if <tt>PgName</tt> is
+          not a process group (a globally registered name).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="membersPgNamegtMembers"></a><b>members(PgName) -&gt; Members</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PgName = term()</b><br/>
+        <b>Members = [pid()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of all members of the process group
+          <tt>PgName</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

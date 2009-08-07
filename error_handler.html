@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>error_handler</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />error_handler</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The error handler module defines what happens when certain types
+      of errors occur.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Notes</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#undefined_functionModuleFunctionArgsgtterm">undefined_function(Module, Function, Args) -&gt; term()</a></li>
+        
+        <li><a href="#undefined_lambdaModuleFunArgsgtterm">undefined_lambda(Module, Fun, Args) -&gt; term()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Notes</div>
+    
+    <div class="description">
+        
+    <title>Notes</title>
+    <p>The code in <tt>error_handler</tt> is complex and should not be
+      changed without fully understanding the interaction between
+      the error handler, the <tt>init</tt> process of the code server,
+      and the I/O mechanism of the code.</p>
+    <p>Changes in the code which may seem small can cause a deadlock
+      as unforeseen consequences may occur. The use of <tt>input</tt> is
+      dangerous in this type of code.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="undefined_functionModuleFunctionArgsgtterm"></a><b>undefined_function(Module, Function, Args) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Function = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+        <d>A (possibly empty) list of arguments <tt>Arg1,..,ArgN</tt></d>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is evaluated if a call is made to
+          <tt>Module:Function(Arg1,.., ArgN)</tt> and
+          <tt>Module:Function/N</tt> is undefined. Note that
+          <tt>undefined_function/3</tt> is evaluated inside the process
+          making the original call.</p>
+        <p>If <tt>Module</tt> is interpreted, the interpreter is invoked
+          and the return value of the interpreted
+          <tt>Function(Arg1,.., ArgN)</tt> call is returned.</p>
+        <p>Otherwise, it returns, if possible, the value of
+          <tt>apply(Module, Function, Args)</tt> after an attempt has been
+          made to autoload <tt>Module</tt>. If this is not possible, the
+          call to <tt>Module:Function(Arg1,.., ArgN)</tt> fails with
+          exit reason <tt>undef</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="undefined_lambdaModuleFunArgsgtterm"></a><b>undefined_lambda(Module, Fun, Args) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Function = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+        <d>A (possibly empty) list of arguments <tt>Arg1,..,ArgN</tt></d>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is evaluated if a call is made to
+          <tt>Fun(Arg1,.., ArgN)</tt> when the module defining the fun is
+          not loaded. The function is evaluated inside the process
+          making the original call.</p>
+        <p>If <tt>Module</tt> is interpreted, the interpreter is invoked
+          and the return value of the interpreted
+          <tt>Fun(Arg1,.., ArgN)</tt> call is returned.</p>
+        <p>Otherwise, it returns, if possible, the value of
+          <tt>apply(Fun, Args)</tt> after an attempt has been made to
+          autoload <tt>Module</tt>. If this is not possible, the call
+          fails with exit reason <tt>undef</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

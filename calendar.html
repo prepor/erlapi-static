@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>calendar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />calendar</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides computation of local and universal time,
+      day-of-the-week, and several time conversion functions.</p>
+    <p>Time is local when it is adjusted in accordance with the current
+      time zone and daylight saving. Time is universal when it reflects
+      the time at longitude zero, without any adjustment for daylight
+      saving. Universal Coordinated Time (UTC) time is also called
+      Greenwich Mean Time (GMT).</p>
+    <p>The time functions <tt>local_time/0</tt> and
+      <tt>universal_time/0</tt> provided in this module both return date
+      and time. The reason for this is that separate functions for date
+      and time may result in a date/time combination which is displaced
+      by 24 hours. This happens if one of the functions is called
+      before midnight, and the other after midnight. This problem also
+      applies to the Erlang BIFs <tt>date/0</tt> and <tt>time/0</tt>, and
+      their use is strongly discouraged if a reliable date/time stamp
+      is required.</p>
+    <p>All dates conform to the Gregorian calendar. This calendar was
+      introduced by Pope Gregory XIII in 1582 and was used in all
+      Catholic countries from this year. Protestant parts of Germany
+      and the Netherlands adopted it in 1698, England followed in 1752,
+      and Russia in 1918 (the October revolution of 1917 took place in
+      November according to the Gregorian calendar).</p>
+    <p>The Gregorian calendar in this module is extended back to year 0.
+      For a given date, the <em>gregorian days</em> is the number of
+      days up to and including the date specified. Similarly,
+      the <em>gregorian seconds</em> for a given date and time, is
+      the the number of seconds up to and including the specified date
+      and time.</p>
+    <p>For computing differences between epochs in time, use
+      the functions counting gregorian days or seconds. If epochs are
+      given as local time, they must be converted to universal time, in
+      order to get the correct value of the elapsed time between epochs.
+      Use of the function <tt>time_difference/2</tt> is discouraged.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">Leap Years</a></li>
+        
+        <li><a href="#">Date and Time Source</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#date_to_gregorian_daysDategtDays">date_to_gregorian_days(Date) -&gt; Days</a></li>
+        
+        <li><a href="#datetime_to_gregorian_secondsDateTimegtSeconds">datetime_to_gregorian_seconds({Date, Time}) -&gt; Seconds</a></li>
+        
+        <li><a href="#day_of_the_weekDategtDayNumber">day_of_the_week(Date) -&gt; DayNumber</a></li>
+        
+        <li><a href="#gregorian_days_to_dateDaysgtDate">gregorian_days_to_date(Days) -&gt; Date</a></li>
+        
+        <li><a href="#gregorian_seconds_to_datetimeSecondsgtDateTime">gregorian_seconds_to_datetime(Seconds) -&gt; {Date, Time}</a></li>
+        
+        <li><a href="#is_leap_yearYeargtbool">is_leap_year(Year) -&gt; bool()</a></li>
+        
+        <li><a href="#last_day_of_the_monthYearMonthgtint">last_day_of_the_month(Year, Month) -&gt; int()</a></li>
+        
+        <li><a href="#local_timegtDateTime">local_time() -&gt; {Date, Time}</a></li>
+        
+        <li><a href="#local_time_to_universal_timeDate1Time1gtDate2Time2">local_time_to_universal_time({Date1, Time1}) -&gt; {Date2, Time2}</a></li>
+        
+        <li><a href="#local_time_to_universal_time_dstDate1Time1gtDateTime">local_time_to_universal_time_dst({Date1, Time1}) -&gt; [{Date, Time}]</a></li>
+        
+        <li><a href="#now_to_local_timeNowgtDateTime">now_to_local_time(Now) -&gt; {Date, Time}</a></li>
+        
+        <li><a href="#now_to_universal_timeNowgtDateTime">now_to_universal_time(Now) -&gt; {Date, Time}</a></li>
+        
+        <li><a href="#seconds_to_daystimeSecondsgtDaysTime">seconds_to_daystime(Seconds) -&gt; {Days, Time}</a></li>
+        
+        <li><a href="#seconds_to_timeSecondsgtTime">seconds_to_time(Seconds) -&gt; Time</a></li>
+        
+        <li><a href="#time_differenceT1T2gtDaysTime">time_difference(T1, T2) -&gt; {Days, Time}</a></li>
+        
+        <li><a href="#time_to_secondsTimegtSeconds">time_to_seconds(Time) -&gt; Seconds</a></li>
+        
+        <li><a href="#universal_timegtDateTime">universal_time() -&gt; {Date, Time}</a></li>
+        
+        <li><a href="#universal_time_to_local_timeDate1Time1gtDate2Time2">universal_time_to_local_time({Date1, Time1}) -&gt; {Date2, Time2}</a></li>
+        
+        <li><a href="#valid_dateDategtbool">valid_date(Date) -&gt; bool()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+date() = {Year, Month, Day}
+  Year = int()
+  Month = 1..12
+  Day = 1..31
+Year cannot be abbreviated. Example: 93 denotes year 93, not 1993.
+Valid range depends on the underlying OS.
+The date tuple must denote a valid date.
+
+time() = {Hour, Minute, Second}
+  Hour = 0..23
+  Minute = Second = 0..59</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Leap Years</div>
+    
+    <div class="description">
+        
+    <title>Leap Years</title>
+    <p>The notion that every fourth year is a leap year is not
+      completely true. By the Gregorian rule, a year Y is a leap year if
+      either of the following rules is valid:</p>
+    <list type="bulleted">
+      <item>
+        <p>Y is divisible by 4, but not by 100; or</p>
+      </item>
+      <item>
+        <p>Y is divisible by 400.</p>
+      </item>
+    </list>
+    <p>Accordingly, 1996 is a leap year, 1900 is not, but 2000 is.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Date and Time Source</div>
+    
+    <div class="description">
+        
+    <title>Date and Time Source</title>
+    <p>Local time is obtained from the Erlang BIF <tt>localtime/0</tt>.
+      Universal time is computed from the BIF <tt>universaltime/0</tt>.</p>
+    <p>The following facts apply:</p>
+    <list type="bulleted">
+      <item>there are 86400 seconds in a day</item>
+      <item>there are 365 days in an ordinary  year</item>
+      <item>there are 366 days in a leap year</item>
+      <item>there are 1461 days in a 4 year period</item>
+      <item>there are 36524 days in a 100 year period</item>
+      <item>there are 146097 days in a 400 year period</item>
+      <item>there are 719528 days between Jan 1, 0 and Jan 1, 1970.</item>
+    </list>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="date_to_gregorian_daysDategtDays"></a><b>date_to_gregorian_days(Date) -&gt; Days<br/>date_to_gregorian_days(Year, Month, Day) -&gt; Days</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+        <b>Days = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the number of gregorian days starting
+          with year 0 and ending at the given date.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="datetime_to_gregorian_secondsDateTimegtSeconds"></a><b>datetime_to_gregorian_seconds({Date, Time}) -&gt; Seconds</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+        <b>Seconds = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the number of gregorian seconds
+          starting with year 0 and ending at the given date and time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="day_of_the_weekDategtDayNumber"></a><b>day_of_the_week(Date) -&gt; DayNumber<br/>day_of_the_week(Year, Month, Day) -&gt; DayNumber</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+        <b>DayNumber = 1..7</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the day of the week given <tt>Year</tt>,
+          <tt>Month</tt> and <tt>Day</tt>. The return value denotes the day
+          of the week as <tt>1</tt>: Monday, <tt>2</tt>: Tuesday, and so on.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="gregorian_days_to_dateDaysgtDate"></a><b>gregorian_days_to_date(Days) -&gt; Date</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Days = int()</b><br/>
+        <b>Date = date()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the date given the number of
+          gregorian days.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="gregorian_seconds_to_datetimeSecondsgtDateTime"></a><b>gregorian_seconds_to_datetime(Seconds) -&gt; {Date, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Seconds = int()</b><br/>
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the date and time from the given
+          number of gregorian seconds.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_leap_yearYeargtbool"></a><b>is_leap_year(Year) -&gt; bool()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function checks if a year is a leap year.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="last_day_of_the_monthYearMonthgtint"></a><b>last_day_of_the_month(Year, Month) -&gt; int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function computes the number of days in a month.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="local_timegtDateTime"></a><b>local_time() -&gt; {Date, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the local time reported by
+          the underlying operating system.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="local_time_to_universal_timeDate1Time1gtDate2Time2"></a><b>local_time_to_universal_time({Date1, Time1}) -&gt; {Date2, Time2}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function converts from local time to Universal 
+          Coordinated Time (UTC). <tt>Date1</tt> must refer to a local
+          date after Jan 1, 1970.</p>
+        <warning>
+          <p>This function is deprecated. Use
+            <tt>local_time_to_universal_time_dst/1</tt> instead, as it
+            gives a more correct and complete result. Especially for
+            the period that does not exist since it gets skipped during
+            the switch <em>to</em> daylight saving time, this function
+            still returns a result.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="local_time_to_universal_time_dstDate1Time1gtDateTime"></a><b>local_time_to_universal_time_dst({Date1, Time1}) -&gt; [{Date, Time}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date1 = Date = date()</b><br/>
+        <b>Time1 = Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function converts from local time to Universal
+          Coordinated Time (UTC). <tt>Date1</tt> must refer to a local
+          date after Jan 1, 1970.</p>
+        <p>The return value is a list of 0, 1 or 2 possible UTC times:</p>
+        <taglist>
+          <tag><tt>[]</tt></tag>
+          <item>
+            <p>For a local <tt>{Date1, Time1}</tt> during the period that
+              is skipped when switching <em>to</em> daylight saving
+              time, there is no corresponding UTC since the local time
+              is illegal - it has never happened.</p>
+          </item>
+          <tag><tt>[DstDateTimeUTC, DateTimeUTC]</tt></tag>
+          <item>
+            <p>For a local <tt>{Date1, Time1}</tt> during the period that
+              is repeated when switching <em>from</em> daylight saving
+              time, there are two corresponding UTCs. One for the first
+              instance of the period when daylight saving time is still
+              active, and one for the second instance.</p>
+          </item>
+          <tag><tt>[DateTimeUTC]</tt></tag>
+          <item>
+            <p>For all other local times there is only one
+              corresponding UTC.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="now_to_local_timeNowgtDateTime"></a><b>now_to_local_time(Now) -&gt; {Date, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Now -- see erlang:now/0</b><br/>
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns local date and time converted from
+          the return value from <tt>erlang:now()</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="now_to_universal_timeNowgtDateTime"></a><b>now_to_universal_time(Now) -&gt; {Date, Time}<br/>now_to_datetime(Now) -&gt; {Date, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Now -- see erlang:now/0</b><br/>
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns Universal Coordinated Time (UTC)
+          converted from the return value from <tt>erlang:now()</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seconds_to_daystimeSecondsgtDaysTime"></a><b>seconds_to_daystime(Seconds) -&gt; {Days, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Seconds = Days = int()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function transforms a given number of seconds into days,
+          hours, minutes, and seconds. The <tt>Time</tt> part is always
+          non-negative, but <tt>Days</tt> is negative if the argument
+          <tt>Seconds</tt> is.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seconds_to_timeSecondsgtTime"></a><b>seconds_to_time(Seconds) -&gt; Time</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Seconds = int() &lt; 86400</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the time from the given number of
+          seconds. <tt>Seconds</tt> must be less than the number of
+          seconds per day (86400).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="time_differenceT1T2gtDaysTime"></a><b>time_difference(T1, T2) -&gt; {Days, Time}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the difference between two <tt>{Date, Time}</tt> tuples. <tt>T2</tt> should refer to an epoch later
+          than <tt>T1</tt>.</p>
+        <warning>
+          <p>This function is obsolete. Use the conversion functions for
+            gregorian days and seconds instead.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="time_to_secondsTimegtSeconds"></a><b>time_to_seconds(Time) -&gt; Seconds</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = time()</b><br/>
+        <b>Seconds = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function computes the number of seconds since midnight
+          up to the specified time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="universal_timegtDateTime"></a><b>universal_time() -&gt; {Date, Time}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+        <b>Time = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the Universal Coordinated Time (UTC)
+          reported by the underlying operating system. Local time is
+          returned if universal time is not available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="universal_time_to_local_timeDate1Time1gtDate2Time2"></a><b>universal_time_to_local_time({Date1, Time1}) -&gt; {Date2, Time2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date1 = Date2 = date()</b><br/>
+        <b>Time1 = Time2 = time()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function converts from Universal Coordinated Time (UTC)
+          to local time. <tt>Date1</tt> must refer to a date after Jan 1, 
+          1970.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="valid_dateDategtbool"></a><b>valid_date(Date) -&gt; bool()<br/>valid_date(Year, Month, Day) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Date = date()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function checks if a date is a valid.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

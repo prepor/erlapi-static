@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNaming_BindingIterator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNaming_BindingIterator</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This interface allows a client to iterate over the Bindinglist it has been
+      initiated with.</p>
+    <p>The type <tt>NameComponent</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_NameComponent', {id, kind=""}).
+    </code>
+    <p><tt>id</tt> and <tt>kind</tt> are strings. </p>
+    <p>The type <tt>Binding</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_Binding', {binding_name, binding_type}).
+    </code>
+    <p><tt>binding_name</tt> is a <tt>Name = [NameComponent]</tt> and
+      <tt>binding_type</tt> is an enum which 
+      has the values <tt>nobject</tt> and <tt>ncontext</tt>.</p>
+    <p>Both these records are defined in the file <tt>CosNaming.hrl</tt> and it 
+      is included with:</p>
+    <code type="none">
+      -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
+    </code>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#destroyBindingIteratorgtReturn">destroy(BindingIterator) -&gt; Return</a></li>
+        
+        <li><a href="#next_nBindinIteratorHowManygtReturn">next_n(BindinIterator, HowMany) -&gt; Return</a></li>
+        
+        <li><a href="#next_oneBindinIteratorgtReturn">next_one(BindinIterator) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="next_oneBindinIteratorgtReturn"></a><b>next_one(BindinIterator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BindingIterator = #objref</b><br/>
+        <b>Return = {bool(), Binding}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the next binding and a boolean. The latter
+          is set to true if the binding is valid otherwise false. If the boolean
+          is false there are no more bindings to retrieve.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="next_nBindinIteratorHowManygtReturn"></a><b>next_n(BindinIterator, HowMany) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BindingIterator = #objref</b><br/>
+        <b>HowMany = int()</b><br/>
+        <b>BindingList = [Binding]</b><br/>
+        <b>Return = {bool(), BindingList}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a binding list with at most HowMany bindings.
+          If there are no more bindings it returns false otherwise true.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyBindingIteratorgtReturn"></a><b>destroy(BindingIterator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BindingIterator = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation destroys the binding iterator.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

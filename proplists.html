@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>proplists</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />proplists</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Property lists are ordinary lists containing entries in the form
+      of either tuples, whose first elements are keys used for lookup and
+      insertion, or atoms, which work as shorthand for tuples <tt>{Atom, true}</tt>. (Other terms are allowed in the lists, but are ignored
+      by this module.) If there is more than one entry in a list for a
+      certain key, the first occurrence normally overrides any later
+      (irrespective of the arity of the tuples).</p>
+    <p>Property lists are useful for representing inherited properties,
+      such as options passed to a function where a user may specify options
+      overriding the default settings, object properties, annotations,
+      etc.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#append_valuesKeyListgtList">append_values(Key, List) -&gt; List</a></li>
+        
+        <li><a href="#compactListgtList">compact(List) -&gt; List</a></li>
+        
+        <li><a href="#deleteKeyListgtList">delete(Key, List) -&gt; List</a></li>
+        
+        <li><a href="#expandExpansionsListgtList">expand(Expansions, List) -&gt; List</a></li>
+        
+        <li><a href="#get_all_valuesKeyListgtterm">get_all_values(Key, List) -&gt; [term()]</a></li>
+        
+        <li><a href="#get_boolKeyListgtbool">get_bool(Key, List) -&gt; bool()</a></li>
+        
+        <li><a href="#get_keysListgtterm">get_keys(List) -&gt; [term()]</a></li>
+        
+        <li><a href="#get_valueKeyListgtterm">get_value(Key, List) -&gt; term()</a></li>
+        
+        <li><a href="#get_valueKeyListDefaultgtterm">get_value(Key, List, Default) -&gt; term()</a></li>
+        
+        <li><a href="#is_definedKeyListgtbool">is_defined(Key, List) -&gt; bool()</a></li>
+        
+        <li><a href="#lookupKeyListgtnonetuple">lookup(Key, List) -&gt; none | tuple()</a></li>
+        
+        <li><a href="#lookup_allKeyListgttuple">lookup_all(Key, List) -&gt; [tuple()]</a></li>
+        
+        <li><a href="#normalizeListStagesgtList">normalize(List, Stages) -&gt; List</a></li>
+        
+        <li><a href="#propertyPropertygtProperty">property(Property) -&gt; Property</a></li>
+        
+        <li><a href="#propertyKeyValuegtProperty">property(Key, Value) -&gt; Property</a></li>
+        
+        <li><a href="#splitListKeysgtListsRest">split(List, Keys) -&gt; {Lists, Rest}</a></li>
+        
+        <li><a href="#substitute_aliasesAliasesListgtList">substitute_aliases(Aliases, List) -&gt; List</a></li>
+        
+        <li><a href="#substitute_negationsNegationsListgtList">substitute_negations(Negations, List) -&gt; List</a></li>
+        
+        <li><a href="#unfoldListgtList">unfold(List) -&gt; List</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="append_valuesKeyListgtList"></a><b>append_values(Key, List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Similar to <tt>get_all_values/2</tt>, but each value is
+          wrapped in a list unless it is already itself a list, and the
+          resulting list of lists is concatenated. This is often useful for
+          "incremental" options; e.g., <tt>append_values(a, [{a, [1,2]}, {b, 0}, {a, 3}, {c, -1}, {a, [4]}])</tt> will return the list
+          <tt>[1,2,3,4]</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compactListgtList"></a><b>compact(List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Minimizes the representation of all entries in the list. This is
+          equivalent to <tt>[property(P) || P <- List]</tt>.</p>
+        <p>See also: <tt>property/1</tt>, <tt>unfold/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteKeyListgtList"></a><b>delete(Key, List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes all entries associated with <tt>Key</tt> from
+          <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="expandExpansionsListgtList"></a><b>expand(Expansions, List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Expansions = [{Property,[term()]}]</b><br/>
+        <b>Property = atom() | tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Expands particular properties to corresponding sets of
+          properties (or other terms). For each pair <tt>{Property, Expansion}</tt> in <tt>Expansions</tt>, if <tt>E</tt> is
+          the first entry in <tt>List</tt> with the same key as
+          <tt>Property</tt>, and <tt>E</tt> and <tt>Property</tt>
+          have equivalent normal forms, then <tt>E</tt> is replaced with
+          the terms in <tt>Expansion</tt>, and any following entries with
+          the same key are deleted from <tt>List</tt>.</p>
+        <p>For example, the following expressions all return <tt>[fie, bar, baz, fum]</tt>:</p>
+        <code type="none">
+\011  expand([{foo, [bar, baz]}],
+\011  [fie, foo, fum])
+\011  expand([{{foo, true}, [bar, baz]}],
+\011  [fie, foo, fum])
+\011  expand([{{foo, false}, [bar, baz]}],
+\011  [fie, {foo, false}, fum])</code>
+        <p>However, no expansion is done in the following call:</p>
+        <code type="none">
+\011  expand([{{foo, true}, [bar, baz]}],
+\011  [{foo, false}, fie, foo, fum])</code>
+        <p>because <tt>{foo, false}</tt> shadows <tt>foo</tt>.</p>
+        <p>Note that if the original property term is to be preserved in the
+          result when expanded, it must be included in the expansion list. The
+          inserted terms are not expanded recursively. If
+          <tt>Expansions</tt> contains more than one property with the same
+          key, only the first occurrance is used.</p>
+        <p>See also: <tt>normalize/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_valuesKeyListgtterm"></a><b>get_all_values(Key, List) -&gt; [term()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Similar to <tt>get_value/2</tt>, but returns the list of
+          values for <em>all</em> entries <tt>{Key, Value}</tt> in
+          <tt>List</tt>. If no such entry exists, the result is the empty
+          list.</p>
+        <p>See also: <tt>get_value/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_boolKeyListgtbool"></a><b>get_bool(Key, List) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the value of a boolean key/value option. If
+          <tt>lookup(Key, List)</tt> would yield <tt>{Key, true}</tt>,
+          this function returns <tt>true</tt>; otherwise <tt>false</tt>
+          is returned.</p>
+        <p>See also: <tt>get_value/2</tt>, <tt>lookup/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_keysListgtterm"></a><b>get_keys(List) -&gt; [term()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an unordered list of the keys used in <tt>List</tt>,
+          not containing duplicates.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_valueKeyListgtterm"></a><b>get_value(Key, List) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Equivalent to <tt>get_value(Key, List, undefined)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_valueKeyListDefaultgtterm"></a><b>get_value(Key, List, Default) -&gt; term()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Default = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the value of a simple key/value property in
+          <tt>List</tt>. If <tt>lookup(Key, List)</tt> would yield
+          <tt>{Key, Value}</tt>, this function returns the corresponding
+          <tt>Value</tt>, otherwise <tt>Default</tt> is returned.</p>
+        <p>See also: <tt>get_all_values/2</tt>, <tt>get_bool/2</tt>,
+          <tt>get_value/2</tt>, <tt>lookup/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_definedKeyListgtbool"></a><b>is_defined(Key, List) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>List</tt> contains at least
+          one entry associated with <tt>Key</tt>, otherwise
+          <tt>false</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookupKeyListgtnonetuple"></a><b>lookup(Key, List) -&gt; none | tuple()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the first entry associated with <tt>Key</tt> in
+          <tt>List</tt>, if one exists, otherwise returns
+          <tt>none</tt>. For an atom <tt>A</tt> in the list, the tuple
+          <tt>{A, true}</tt> is the entry associated with <tt>A</tt>.</p>
+        <p>See also: <tt>get_bool/2</tt>, <tt>get_value/2</tt>,
+          <tt>lookup_all/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lookup_allKeyListgttuple"></a><b>lookup_all(Key, List) -&gt; [tuple()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the list of all entries associated with <tt>Key</tt>
+          in <tt>List</tt>. If no such entry exists, the result is the
+          empty list.</p>
+        <p>See also: <tt>lookup/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="normalizeListStagesgtList"></a><b>normalize(List, Stages) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Stages = [Operation]</b><br/>
+        <b>Operation = {aliases, Aliases} | {negations, Negations} |  {expand, Expansions}</b><br/>
+        <b>Aliases = [{Key, Key}]</b><br/>
+        <b>Negations = [{Key, Key}]</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Expansions = [{Property, [term()]}]</b><br/>
+        <b>Property = atom() | tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Passes <tt>List</tt> through a sequence of
+          substitution/expansion stages. For an <tt>aliases</tt> operation,
+          the function <tt>substitute_aliases/2</tt> is applied using the
+          given list of aliases; for a <tt>negations</tt> operation,
+          <tt>substitute_negations/2</tt> is applied using the given
+          negation list; for an <tt>expand</tt> operation, the function
+          <tt>expand/2</tt> is applied using the given list of expansions.
+          The final result is automatically compacted (cf.
+          <tt>compact/1</tt>).</p>
+        <p>Typically you want to substitute negations first, then aliases,
+          then perform one or more expansions (sometimes you want to pre-expand
+          particular entries before doing the main expansion). You might want
+          to substitute negations and/or aliases repeatedly, to allow such
+          forms in the right-hand side of aliases and expansion lists.</p>
+        <p>See also: <tt>compact/1</tt>, <tt>expand/2</tt>,
+          <tt>substitute_aliases/2</tt>, <tt>substitute_negations/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="propertyPropertygtProperty"></a><b>property(Property) -&gt; Property</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Property = atom() | tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a normal form (minimal) representation of a property. If
+          <tt>Property</tt> is <tt>{Key, true}</tt> where <tt>Key</tt> is
+          an atom, this returns <tt>Key</tt>, otherwise the whole term
+          <tt>Property</tt> is returned.</p>
+        <p>See also: <tt>property/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="propertyKeyValuegtProperty"></a><b>property(Key, Value) -&gt; Property</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Property = atom() | tuple()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a normal form (minimal) representation of a simple
+          key/value property. Returns <tt>Key</tt> if <tt>Value</tt> is
+          <tt>true</tt> and <tt>Key</tt> is an atom, otherwise a tuple
+          <tt>{Key, Value}</tt> is returned.</p>
+        <p>See also: <tt>property/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="splitListKeysgtListsRest"></a><b>split(List, Keys) -&gt; {Lists, Rest}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Keys = [term()]</b><br/>
+        <b>Lists = [[term()]]</b><br/>
+        <b>Rest = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Partitions <tt>List</tt> into a list of sublists and a
+          remainder. <tt>Lists</tt> contains one sublist for each key in
+          <tt>Keys</tt>, in the corresponding order. The relative order of
+          the elements in each sublist is preserved from the original
+          <tt>List</tt>. <tt>Rest</tt> contains the elements in
+          <tt>List</tt> that are not associated with any of the given keys,
+          also with their original relative order preserved.</p>
+        <p>Example:
+          split([{c, 2}, {e, 1}, a, {c, 3, 4}, d, {b, 5}, b], [a, b, c])</p>
+        <p>returns</p>
+        <p>{[[a], [{b, 5}, b],[{c, 2}, {c, 3, 4}]], [{e, 1}, d]}</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="substitute_aliasesAliasesListgtList"></a><b>substitute_aliases(Aliases, List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Aliases = [{Key, Key}]</b><br/>
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Substitutes keys of properties. For each entry in
+          <tt>List</tt>, if it is associated with some key <tt>K1</tt>
+          such that <tt>{K1, K2}</tt> occurs in <tt>Aliases</tt>, the
+          key of the entry is changed to <tt>Key2</tt>. If the same
+          <tt>K1</tt> occurs more than once in <tt>Aliases</tt>, only
+          the first occurrence is used.</p>
+        <p>Example: <tt>substitute_aliases([{color, colour}], L)</tt>
+          will replace all tuples <tt>{color, ...}</tt> in <tt>L</tt>
+          with <tt>{colour, ...}</tt>, and all atoms <tt>color</tt>
+          with <tt>colour</tt>.</p>
+        <p>See also: <tt>normalize/2</tt>, <tt>substitute_negations/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="substitute_negationsNegationsListgtList"></a><b>substitute_negations(Negations, List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Negations = [{Key, Key}]</b><br/>
+        <b>Key = term()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Substitutes keys of boolean-valued properties and
+          simultaneously negates their values. For each entry in
+          <tt>List</tt>, if it is associated with some key <tt>K1</tt>
+          such that <tt>{K1, K2}</tt> occurs in <tt>Negations</tt>, then
+          if the entry was <tt>{K1, true}</tt> it will be replaced with
+          <tt>{K2, false}</tt>, otherwise it will be replaced with
+          <tt>{K2, true}</tt>, thus changing the name of the option and
+          simultaneously negating the value given by
+          <tt>get_bool(List)</tt>. If the same <tt>K1</tt> occurs more
+          than once in <tt>Negations</tt>, only the first occurrence is
+          used.</p>
+        <p>Example: <tt>substitute_negations([{no_foo, foo}], L)</tt>
+          will replace any atom <tt>no_foo</tt> or tuple
+          <tt>{no_foo, true}</tt> in <tt>L</tt> with <tt>{foo, false}</tt>,
+          and any other tuple <tt>{no_foo, ...}</tt> with 
+          <tt>{foo, true}</tt>.</p>
+        <p>See also: <tt>get_bool/2</tt>, <tt>normalize/2</tt>,
+          <tt>substitute_aliases/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unfoldListgtList"></a><b>unfold(List) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unfolds all occurences of atoms in <tt>List</tt> to tuples
+          <tt>{Atom, true}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

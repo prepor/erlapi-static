@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>shell_default</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />shell_default</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The functions in <tt>shell_default</tt> are called when no module
+      name is given in a shell command.
+      </p>
+    <p>Consider the following shell dialogue:</p>
+    <pre>
+1 &gt; <input>
+"cba"
+2 &gt; <input>
+{ok, foo}    </pre>
+    <p>In command one, the module <tt>lists</tt> is called. In command
+      two, no module name is specified. The shell searches the modules
+      <tt>user_default</tt> followed by <tt>shell_default</tt> for the
+      function <tt>foo/1</tt>.
+      </p>
+    <p><tt>shell_default</tt> is intended for "system wide"
+      customizations to the shell. <tt>user_default</tt> is intended for
+      "local" or individual user customizations.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Hint</a></li>
+        
+    </ul>
+    
+
+    
+    
+
+     
+    <div class="sectiontitle">Hint</div>
+    
+    <div class="description">
+        
+    <title>Hint</title>
+    <p>To add your own commands to the shell, create a module called
+      <tt>user_default</tt> and add the commands you want. Then add the
+      following line as the <em>first</em> line in your <tt>.erlang</tt> file in your
+      home directory. </p>
+    <pre>
+code:load_abs("$PATH/user_default").    </pre>
+    <p><tt>$PATH</tt> is the directory where your
+      <tt>user_default</tt> module can be found.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

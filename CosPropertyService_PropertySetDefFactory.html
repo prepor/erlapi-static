@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosPropertyService_PropertySetDefFactory</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosPropertyService_PropertySetDefFactory</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosProperty/include/CosPropertyService.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_constrained_propertysetdefFactoryPropertyTypesPropertyDefsgtReply">create_constrained_propertysetdef(Factory, PropertyTypes, PropertyDefs) -&gt; Reply</a></li>
+        
+        <li><a href="#create_initial_propertysetdefFactoryPropertyDefsgtReply">create_initial_propertysetdef(Factory, PropertyDefs) -&gt; Reply</a></li>
+        
+        <li><a href="#create_propertysetdefFactorygt">create_propertysetdef(Factory) -&gt; </a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_propertysetdefFactorygt"></a><b>create_propertysetdef(Factory) -&gt; </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = PropertySetDef = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new <tt>PropertySetDef</tt> with no predefined 
+          settings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_constrained_propertysetdefFactoryPropertyTypesPropertyDefsgtReply"></a><b>create_constrained_propertysetdef(Factory, PropertyTypes, PropertyDefs) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = PropertySetDef = #objref</b><br/>
+        <b>PropertyTypes = [CORBA::TypeCode]</b><br/>
+        <b>PropertyDefs = [#'CosPropertyService_PropertyDef'{property_name = Name, property_value = Value, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = {'EXCEPTION', #CosPropertyService_ConstraintNotSupported{}} | PropertySetDef</b><br/>
+        <b>PropertySetDef = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new <tt>PropertySetDef</tt> with specific 
+          constraints. PropertyTypes states allowed TypeCode's and PropertyDefs valid 
+          <tt>CosPropertyService::PropertyDef</tt> data.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_initial_propertysetdefFactoryPropertyDefsgtReply"></a><b>create_initial_propertysetdef(Factory, PropertyDefs) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory = PropertySetDef = #objref</b><br/>
+        <b>PropertyDefs = [#'CosPropertyService_PropertyDef'{property_name = Name, property_value = Value, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = {'EXCEPTION', #CosPropertyService_MultipleExceptions{exceptions = Excs}} | PropertySetDef</b><br/>
+        <b>Excs = [#'CosPropertyService_PropertyException{reason = Reason, failing_property_name = Name}]</b><br/>
+        <b>Reason = invalid_property_name | conflicting_property | property_not_found | unsupported_type_code | unsupported_property | unsupported_mode | fixed_property | read_only_property</b><br/>
+        <b>PropertySetDef = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new <tt>PropertySetDef</tt> with specific 
+          initial properties.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

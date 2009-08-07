@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosTransactions_Coordinator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosTransactions_Coordinator</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTransactions/include/CosTransactions.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_subtransactionCoordinatorgtControl">create_subtransaction(Coordinator) -&gt; Control</a></li>
+        
+        <li><a href="#get_parent_statusCoordinatorgtStatus">get_parent_status(Coordinator) -&gt; Status</a></li>
+        
+        <li><a href="#get_statusCoordinatorgtStatus">get_status(Coordinator) -&gt; Status</a></li>
+        
+        <li><a href="#get_top_level_statusCoordinatorgtStatus">get_top_level_status(Coordinator) -&gt; Status</a></li>
+        
+        <li><a href="#get_transaction_nameCoordinatorgtName">get_transaction_name(Coordinator) -&gt; Name</a></li>
+        
+        <li><a href="#hash_top_level_tranCoordinatorgtReturn">hash_top_level_tran(Coordinator) -&gt; Return</a></li>
+        
+        <li><a href="#hash_transactionCoordinatorgtReturn">hash_transaction(Coordinator) -&gt; Return</a></li>
+        
+        <li><a href="#is_descendant_transactionCoordinatorOtherCoordinatorgtReturn">is_descendant_transaction(Coordinator, OtherCoordinator) -&gt; Return</a></li>
+        
+        <li><a href="#is_same_transactionCoordinatorOtherCoordinatorgtReturn">is_same_transaction(Coordinator, OtherCoordinator) -&gt; Return</a></li>
+        
+        <li><a href="#is_top_level_transactionCoordinatorgtReturn">is_top_level_transaction(Coordinator) -&gt; Return</a></li>
+        
+        <li><a href="#register_resourceCoordinatorResourcegtRecoveryCoordinator">register_resource(Coordinator, Resource) -&gt; RecoveryCoordinator</a></li>
+        
+        <li><a href="#register_subtran_awareCoordinatorSubtransactionAwareResourcegtReturn">register_subtran_aware(Coordinator, SubtransactionAwareResource) -&gt; Return</a></li>
+        
+        <li><a href="#rollback_onlyCoordinatorgtReturn">rollback_only(Coordinator) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_subtransactionCoordinatorgtControl"></a><b>create_subtransaction(Coordinator) -&gt; Control</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Control = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A new subtransaction is created whose parent is the Coordinator argument.</p>
+        <p>Raises exception:</p>
+        <list type="bulleted">
+          <item>'SubtransactionsUnavailable' - if nested transactions are not supported.</item>
+          <item>'Inactive' - if target transaction has already been prepared.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_transaction_nameCoordinatorgtName"></a><b>get_transaction_name(Coordinator) -&gt; Name</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Name = string() of type "oe_name@machine_type_timestamp"</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a printable string, which describe the transaction. The main purpose is to support debugging.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_parent_statusCoordinatorgtStatus"></a><b>get_parent_status(Coordinator) -&gt; Status</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Status = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the status of the parent transaction
+          associated with the target object. If the target object is a top-level
+          transaction this operation is equivalent to <tt>get_status/1</tt> operation. </p>
+        <p>Possible Status replies:</p>
+        <list type="bulleted">
+          <item>'StatusCommitted'</item>
+          <item>'StatusCommitting'</item>
+          <item>'StatusMarkedRollback'</item>
+          <item>'StatusRollingBack'</item>
+          <item>'StatusRolledBack'</item>
+          <item>'StatusActive'</item>
+          <item>'StatusPrepared'</item>
+          <item>'StatusUnknown'</item>
+          <item>'StatusNoTransaction'</item>
+          <item>'StatusPreparing'</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_statusCoordinatorgtStatus"></a><b>get_status(Coordinator) -&gt; Status</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Status = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the status of the transaction associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_top_level_statusCoordinatorgtStatus"></a><b>get_top_level_status(Coordinator) -&gt; Status</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Status = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the status of the top-level transaction associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="hash_top_level_tranCoordinatorgtReturn"></a><b>hash_top_level_tran(Coordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a hash code for the top-level transaction 
+          associated with the target object. Equals the operation
+          <tt>hash_transaction/1</tt> if the target object is a top-level transaction.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="hash_transactionCoordinatorgtReturn"></a><b>hash_transaction(Coordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a hash code for the transaction associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_descendant_transactionCoordinatorOtherCoordinatorgtReturn"></a><b>is_descendant_transaction(Coordinator, OtherCoordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>OtherCoordinator = #objref</b><br/>
+        <b>Return = Boolean</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns true if the transaction associated with the target object is a 
+          descendant of the transaction associated with the parameter object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_same_transactionCoordinatorOtherCoordinatorgtReturn"></a><b>is_same_transaction(Coordinator, OtherCoordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>OtherCoordinator = #objref</b><br/>
+        <b>Return = Boolean</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns true if the transaction associated with the target object is 
+          related to the transaction associated with the parameter object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_top_level_transactionCoordinatorgtReturn"></a><b>is_top_level_transaction(Coordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = Boolean</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns true if the transaction associated with the target object is 
+          a top-level transaction.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="register_resourceCoordinatorResourcegtRecoveryCoordinator"></a><b>register_resource(Coordinator, Resource) -&gt; RecoveryCoordinator</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Resource = #objref</b><br/>
+        <b>RecoveryCoordinator = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation registers the parameter <tt>Resource</tt> object as a participant in the
+          transaction associated with the target object. The <tt>RecoveryCoordinator</tt> returned
+          by this operation can be used by this Resource during recovery.</p>
+        <note>
+          <p>The Resources will be called in FIFO-order when preparing or committing.
+            Hence, be sure to register the Resources in the correct order.</p>
+        </note>
+        <p>Raises exception:</p>
+        <list type="bulleted">
+          <item>'Inactive' - if target transaction has already been prepared.</item>
+        </list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="register_subtran_awareCoordinatorSubtransactionAwareResourcegtReturn"></a><b>register_subtran_aware(Coordinator, SubtransactionAwareResource) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation registers the parameter <tt>SubtransactionAwareResource</tt> object such that
+          it will be notified when the transaction, associated wit the target object, 
+          has committed or rolled back.</p>
+        <note>
+          <p>The Resources will be called in FIFO-order.
+            Hence, be sure to register the Resources in the correct order.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rollback_onlyCoordinatorgtReturn"></a><b>rollback_only(Coordinator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Coordinator = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The transaction associated with the target object is modified so the only
+          possible outcome is to rollback the transaction.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

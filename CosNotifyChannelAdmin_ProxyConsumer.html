@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_ProxyConsumer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_ProxyConsumer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyFilter_FilterAdmin">CosNotifyFilter_FilterAdmin</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_MyAdminProxyConsumergtAdminObject">_get_MyAdmin(ProxyConsumer) -&gt; AdminObject</a></li>
+        
+        <li><a href="#_get_MyTypeProxyConsumergtProxyType">_get_MyType(ProxyConsumer) -&gt; ProxyType</a></li>
+        
+        <li><a href="#obtain_subscription_typesProxyConsumerObtainInfoModegtEventTypeSeq">obtain_subscription_types(ProxyConsumer, ObtainInfoMode) -&gt; EventTypeSeq</a></li>
+        
+        <li><a href="#validate_event_qosProxyConsumerQoSPropertiesgtReply">validate_event_qos(ProxyConsumer, QoSProperties) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyTypeProxyConsumergtProxyType"></a><b>_get_MyType(ProxyConsumer) -&gt; ProxyType</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ProxyConsumer = #objref</b><br/>
+        <b>ProxyType = 'PUSH_ANY' | 'PULL_ANY' | 'PUSH_STRUCTURED' |  'PULL_STRUCTURED' | 'PUSH_SEQUENCE' | 'PULL_SEQUENCE'</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the enumerant describing the which type the target object 
+          is. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyAdminProxyConsumergtAdminObject"></a><b>_get_MyAdmin(ProxyConsumer) -&gt; AdminObject</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ProxyConsumer = AdminObject = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the admin's reference which created the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="obtain_subscription_typesProxyConsumerObtainInfoModegtEventTypeSeq"></a><b>obtain_subscription_types(ProxyConsumer, ObtainInfoMode) -&gt; EventTypeSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ProxyConsumer = #objref</b><br/>
+        <b>ObtainInfoMode = 'ALL_NOW_UPDATES_OFF' | 'ALL_NOW_UPDATES_ON' |  'NONE_NOW_UPDATES_OFF' | 'NONE_NOW_UPDATES_ON'</b><br/>
+        <b>EventTypeSeq = [EventType]</b><br/>
+        <b>EventType = #'CosNotification_EventType'{domain_name, type_name}</b><br/>
+        <b>domain_name = type_name = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Depending on the input parameter <tt>ObtainInfoMode</tt>, this operation may return a 
+          sequence of the <tt>EventTypes</tt> the target object is interested in receiving.
+          If <tt>'ALL_NOW_UPDATES_OFF'</tt> or <tt>'ALL_NOW_UPDATES_ON'</tt> is given a sequence will
+          be returned, otherwise not. If <tt>'ALL_NOW_UPDATES_OFF'</tt> or <tt>'NONE_NOW_UPDATES_OFF'</tt>
+          are issued the target object will not inform the associated <tt>NotifySubscribe</tt> object
+          when an update occurs. <tt>'ALL_NOW_UPDATES_ON'</tt> or <tt>'NONE_NOW_UPDATES_ON'</tt> will 
+          result in that update information will be sent.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="validate_event_qosProxyConsumerQoSPropertiesgtReply"></a><b>validate_event_qos(ProxyConsumer, QoSProperties) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ProxyConsumer = #objref</b><br/>
+        <b>QoSProperties = [QoSProperty]</b><br/>
+        <b>QoSProperty = #'CosNotification_Property'{name, value}</b><br/>
+        <b>name = string()</b><br/>
+        <b>value = #any</b><br/>
+        <b>Reply = {ok, NamedPropertyRangeSeq} | {'EXCEPTION', CosNotification_UnsupportedQoS{qos_err}}</b><br/>
+        <b>NamedPropertyRangeSeq = [NamedPropertyRange]</b><br/>
+        <b>NamedPropertyRange = #CosNotification_NamedPropertyRange{name, range}</b><br/>
+        <b>name = string()</b><br/>
+        <b>range = #CosNotification_PropertyRange{low_val, high_val}</b><br/>
+        <b>low_val = #any</b><br/>
+        <b>high_val = #any</b><br/>
+        <b>qos_err = PropertyErrorSeq</b><br/>
+        <b>PropertyErrorSeq = [PropertyError]</b><br/>
+        <b>PropertyError = #'CosNotification_PropertyError'{code, name, available_range}</b><br/>
+        <b>code = 'UNSUPPORTED_PROPERTY' | 'UNAVAILABLE_PROPERTY' | 'UNSUPPORTED_VALUE' |  'UNAVAILABLE_VALUE' | 'BAD_PROPERTY' | 'BAD_TYPE' | 'BAD_VALUE'</b><br/>
+        <b>name = string()</b><br/>
+        <b>available_range = PropertyRange</b><br/>
+        <b>PropertyRange = #CosNotification_PropertyRange{low_val, high_val}</b><br/>
+        <b>low_val = high_val = #any</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To check if certain Quality of Service properties can be added to events in
+          the current context of the target object this operation should be used. If we
+          cannot support the required settings an exception describing why will be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

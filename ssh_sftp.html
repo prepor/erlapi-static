@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ssh_sftp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ssh_sftp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module implements an SFTP (SSH FTP) client. SFTP is a
+      secure, encrypted file transfer service available for
+      SSH.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+        <li><a href="#">TIMEOUTS </a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#areadChannelPidHandleLengtasyncNerrorError">aread(ChannelPid, Handle, Len) -&gt; {async, N} | {error, Error}</a></li>
+        
+        <li><a href="#awriteChannelPidHandleDatagtokerrorReason">awrite(ChannelPid, Handle, Data) -&gt; ok | {error, Reason} </a></li>
+        
+        <li><a href="#closeChannelPidHandlegt">close(ChannelPid, Handle) -&gt; </a></li>
+        
+        <li><a href="#del_dirChannelPidNamegt">del_dir(ChannelPid, Name) -&gt; </a></li>
+        
+        <li><a href="#deleteChannelPidNamegt">delete(ChannelPid, Name) -&gt; </a></li>
+        
+        <li><a href="#list_dirChannelPidPathgt">list_dir(ChannelPid, Path) -&gt; </a></li>
+        
+        <li><a href="#make_dirChannelPidNamegt">make_dir(ChannelPid, Name) -&gt; </a></li>
+        
+        <li><a href="#make_symlinkChannelPidNameTargetgt">make_symlink(ChannelPid, Name, Target) -&gt; </a></li>
+        
+        <li><a href="#openChannelPidFileModegt">open(ChannelPid, File, Mode) -&gt; </a></li>
+        
+        <li><a href="#opendirChannelPidPathgt">opendir(ChannelPid, Path) -&gt; </a></li>
+        
+        <li><a href="#positionChannelPidHandleLocationgt">position(ChannelPid, Handle, Location) -&gt; </a></li>
+        
+        <li><a href="#readChannelPidHandleLengt">read(ChannelPid, Handle, Len) -&gt; </a></li>
+        
+        <li><a href="#read_fileChannelPidFilegt">read_file(ChannelPid, File) -&gt; </a></li>
+        
+        <li><a href="#read_file_infoChannelPidNamegt">read_file_info(ChannelPid, Name) -&gt; </a></li>
+        
+        <li><a href="#read_linkChannelPidNamegt">read_link(ChannelPid, Name) -&gt; </a></li>
+        
+        <li><a href="#read_link_infoChannelPidNamegtokFileInfoerrorReason">read_link_info(ChannelPid, Name) -&gt; {ok, FileInfo} | {error, Reason}</a></li>
+        
+        <li><a href="#renameChannelPidOldNameNewNamegt">rename(ChannelPid, OldName, NewName) -&gt;  </a></li>
+        
+        <li><a href="#start_channelConnectionRefgt">start_channel(ConnectionRef) -&gt; </a></li>
+        
+        <li><a href="#stop_channelChannelPidgtok">stop_channel(ChannelPid) -&gt; ok</a></li>
+        
+        <li><a href="#writeChannelPidHandleDatagt">write(ChannelPid, Handle, Data) -&gt;</a></li>
+        
+        <li><a href="#write_fileChannelPidFileIolistgt">write_file(ChannelPid, File, Iolist) -&gt; </a></li>
+        
+        <li><a href="#write_file_infoChannelPidNameInfogt">write_file_info(ChannelPid, Name, Info) -&gt; </a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Type definitions that are used more than once in this module
+    and/or abstractions to indicate the intended use of the data type:
+    </p>
+    <p><tt>ssh_connection_ref() - opaque to the user
+    returned by ssh:connect/[1,2,3]</tt></p>
+    <p><tt>timeout() =  infinity | integer() - in milliseconds.</tt></p>    
+   
+    </div>
+    
+    
+    <div class="sectiontitle">TIMEOUTS </div>
+    
+    <div class="description">
+        
+    <title>TIMEOUTS </title>
+    <p>If the request functions for the sftp channel return {error, timeout}
+    it does not mean that the request did not reach the server and was
+    not performed, it only means that we did not receive an answer from the
+    server within the time that was expected.</p>
+   
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_channelConnectionRefgt"></a><b>start_channel(ConnectionRef) -&gt; <br/>start_channel(ConnectionRef, Options) -&gt; <br/>start_channel(Host, Options) -&gt;<br/>start_channel(Host, Port, Options) -&gt; {ok, Pid} | {ok, Pid, ConnectionRef} |
+      {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Host = string()</b><br/>
+        <b>ConnectionRef = ssh_connection_ref()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Options = [{Option, Value}]</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>If not provided, setups a ssh connection in this case a
+	connection reference will be returned too. A ssh channel
+	process is started to handle the communication with the SFTP
+	server, the returned pid for this process should be used as
+	input to all other API functions in this module.</p>
+
+	<p>Options are:</p>
+	<taglist>
+          <tag><tt>{timeout, timeout()}</tt></tag>
+	  <item>
+	    <p>The timeout is passed to the ssh_channel start function,
+	    and defaults to infinity.</p>
+	  </item>
+	</taglist>
+	<p>All other options are  directly passed to
+	<seealso marker="ssh">ssh:connect[2/3]</seealso> or ignored if a
+	connection is already provided. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_channelChannelPidgtok"></a><b>stop_channel(ChannelPid) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Stops a sftp channel. If the ssh connection should be closed
+	call <seealso marker="ssh">ssh:close/1</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_fileChannelPidFilegt"></a><b>read_file(ChannelPid, File) -&gt; <br/>read_file(ChannelPid, File, Timeout) -&gt; {ok, Data} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>ChannelPid = pid()</b><br/>
+	<b>File = string()</b><br/>
+        <b>Data = binary()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+	<b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads a file from the server, and returns the data in a binary,
+          like <tt>file:read_file/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_fileChannelPidFileIolistgt"></a><b>write_file(ChannelPid, File, Iolist) -&gt; <br/>write_file(ChannelPid, File, Iolist, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>File = string()</b><br/>
+        <b>Data = binary()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Writes a file to the server, like <tt>file:write_file/2</tt>.
+          The file is created if it's not there.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_dirChannelPidPathgt"></a><b>list_dir(ChannelPid, Path) -&gt; <br/>list_dir(ChannelPid, Path, Timeout) -&gt; {ok, Filenames} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Path = string()</b><br/>
+        <b>Filenames = [Filename]</b><br/>
+        <b>Filename = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+	<b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Lists the given directory on the server, returning the
+          filenames as a list of strings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="openChannelPidFileModegt"></a><b>open(ChannelPid, File, Mode) -&gt; <br/>open(ChannelPid, File, Mode, Timeout) -&gt; {ok, Handle} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>File = string()</b><br/>
+        <b>Mode = [Modeflag]</b><br/>
+        <b>Modeflag = read | write | creat | trunc | append | binary</b><br/>
+	<b>Timeout = timeout()</b><br/>
+	<b>Handle = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens a file on the server, and returns a handle that
+          is used for reading or writing.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="opendirChannelPidPathgt"></a><b>opendir(ChannelPid, Path) -&gt; <br/>opendir(ChannelPid, Path, Timeout) -&gt; {ok, Handle} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Path = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens a handle to a directory on the server, the handle
+          is used for reading directory contents.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeChannelPidHandlegt"></a><b>close(ChannelPid, Handle) -&gt; <br/>close(ChannelPid, Handle, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes a handle to an open file or directory on the server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="readChannelPidHandleLengt"></a><b>read(ChannelPid, Handle, Len) -&gt; <br/>read(ChannelPid, Handle, Len, Timeout) -&gt; {ok, Data} | eof | {error, Error}<br/>pread(ChannelPid, Handle, Position, Len) -&gt; <br/>pread(ChannelPid, Handle, Position, Len, Timeout) -&gt; {ok, Data} | eof | {error, Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+        <b>Position = integer()</b><br/>
+        <b>Len = integer()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Data = string() | binary()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads <tt>Len</tt> bytes from the file referenced by
+          <tt>Handle</tt>. Returns <tt>{ok, Data}</tt>, or <tt>eof</tt>, or
+          <tt>{error, Reason}</tt>. If the file is opened with <tt>binary</tt>,
+          <tt>Data</tt> is a binary, otherwise it is a string.</p>
+        <p>If the file is read past eof, only the remaining bytes
+          will be read and returned. If no bytes are read, <tt>eof</tt>
+          is returned.</p>
+        <p>The <tt>pread</tt> function reads from a specified position,
+          combining the <tt>position</tt> and <tt>read</tt> functions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="areadChannelPidHandleLengtasyncNerrorError"></a><b>aread(ChannelPid, Handle, Len) -&gt; {async, N} | {error, Error}<br/>apread(ChannelPid, Handle, Position, Len) -&gt; {async, N} | {error, Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+        <b>Position = integer()</b><br/>
+        <b>Len = integer()</b><br/>
+        <b>N = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads from an open file, without waiting for the result. If the
+          handle is valid, the function returns <tt>{async, N}</tt>, where N
+          is a term guaranteed to be unique between calls of <tt>aread</tt>. 
+          The actual data is sent as a message to the calling process. This
+          message has the form <tt>{async_reply, N, Result}</tt>, where
+          <tt>Result</tt> is the result from the read, either <tt>{ok, Data}</tt>,
+          or <tt>eof</tt>, or <tt>{error, Error}</tt>.</p>
+        <p>The <tt>apread</tt> function reads from a specified position,
+          combining the <tt>position</tt> and <tt>aread</tt> functions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="writeChannelPidHandleDatagt"></a><b>write(ChannelPid, Handle, Data) -&gt;<br/>write(ChannelPid, Handle, Data, Timeout) -&gt; ok | {error, Error}<br/>pwrite(ChannelPid, Handle, Position, Data) -&gt; ok <br/>pwrite(ChannelPid, Handle, Position, Data, Timeout) -&gt; ok | {error, Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+        <b>Position = integer()</b><br/>
+        <b>Data = iolist()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write <tt>data</tt> to the file referenced by <tt>Handle</tt>.
+          The file should be opened with <tt>write</tt> or <tt>append</tt>
+          flag. Returns <tt>ok</tt> if successful and <tt>{error, Reason}</tt>
+          otherwise.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>ebadf</tt></tag>
+          <item>
+            <p>The file is not opened for writing.</p>
+          </item>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>There is a no space left on the device.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="awriteChannelPidHandleDatagtokerrorReason"></a><b>awrite(ChannelPid, Handle, Data) -&gt; ok | {error, Reason} <br/>apwrite(ChannelPid, Handle, Position, Data) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+        <b>Position = integer()</b><br/>
+        <b>Len = integer()</b><br/>
+        <b>Data = binary()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Writes to an open file, without waiting for the result. If the
+          handle is valid, the function returns <tt>{async, N}</tt>, where N
+          is a term guaranteed to be unique between calls of
+          <tt>awrite</tt>. The result of the <tt>write</tt> operation is sent
+          as a message to the calling process. This message has the form
+          <tt>{async_reply, N, Result}</tt>, where <tt>Result</tt> is the result
+          from the write, either <tt>ok</tt>, or <tt>{error, Error}</tt>.</p>
+        <p>The <tt>apwrite</tt> writes on a specified position, combining
+          the <tt>position</tt> and <tt>awrite</tt> operations.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="positionChannelPidHandleLocationgt"></a><b>position(ChannelPid, Handle, Location) -&gt; <br/>position(ChannelPid, Handle, Location, Timeout) -&gt; {ok, NewPosition | {error, Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Handle = term()</b><br/>
+        <b>Location = Offset | {bof, Offset} | {cur, Offset} | {eof, Offset} | bof | cur | eof</b><br/>
+        <b>Offset = int()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>NewPosition = integer()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the file position of the file referenced by <tt>Handle</tt>.
+          Returns <tt>{ok, NewPosition</tt> (as an absolute offset) if
+          successful, otherwise <tt>{error, Reason}</tt>. <tt>Location</tt> is
+          one of the following:</p>
+        <taglist>
+          <tag><tt>Offset</tt></tag>
+          <item>
+            <p>The same as <tt>{bof, Offset}</tt>.</p>
+          </item>
+          <tag><tt>{bof, Offset}</tt></tag>
+          <item>
+            <p>Absolute offset.</p>
+          </item>
+          <tag><tt>{cur, Offset}</tt></tag>
+          <item>
+            <p>Offset from the current position.</p>
+          </item>
+          <tag><tt>{eof, Offset}</tt></tag>
+          <item>
+            <p>Offset from the end of file.</p>
+          </item>
+          <tag><tt>bof | cur | eof</tt></tag>
+          <item>
+            <p>The same as above with <tt>Offset</tt> 0.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_file_infoChannelPidNamegt"></a><b>read_file_info(ChannelPid, Name) -&gt; <br/>read_file_info(ChannelPid, Name, Timeout) -&gt; {ok, FileInfo} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Handle = term()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>FileInfo = record()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a <tt>file_info</tt> record from the file specified by
+          <tt>Name</tt> or <tt>Handle</tt>, like <tt>file:read_file_info/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_link_infoChannelPidNamegtokFileInfoerrorReason"></a><b>read_link_info(ChannelPid, Name) -&gt; {ok, FileInfo} | {error, Reason}<br/>read_link_info(ChannelPid, Name, Timeout) -&gt; {ok, FileInfo} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Handle = term()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>FileInfo = record()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a <tt>file_info</tt> record from the symbolic
+          link specified by <tt>Name</tt> or <tt>Handle</tt>, like
+          <tt>file:read_link_info/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_file_infoChannelPidNameInfogt"></a><b>write_file_info(ChannelPid, Name, Info) -&gt; <br/>write_file_info(ChannelPid, Name, Info, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Info = record()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Writes file information from a <tt>file_info</tt> record to the
+          file specified by <tt>Name</tt>, like <tt>file:write_file_info</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_linkChannelPidNamegt"></a><b>read_link(ChannelPid, Name) -&gt; <br/>read_link(ChannelPid, Name, Timeout) -&gt; {ok, Target} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Target = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the link target from the symbolic link specified
+          by <tt>name</tt>, like <tt>file:read_link/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="make_symlinkChannelPidNameTargetgt"></a><b>make_symlink(ChannelPid, Name, Target) -&gt; <br/>make_symlink(ChannelPid, Name, Target, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Target = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a symbolic link pointing to <tt>Target</tt> with the
+          name <tt>Name</tt>, like <tt>file:make_symlink/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="renameChannelPidOldNameNewNamegt"></a><b>rename(ChannelPid, OldName, NewName) -&gt;  <br/>rename(ChannelPid, OldName, NewName, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>OldName = string()</b><br/>
+        <b>NewName = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Renames a file named <tt>OldName</tt>, and gives it the name
+          <tt>NewName</tt>, like <tt>file:rename/2</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteChannelPidNamegt"></a><b>delete(ChannelPid, Name) -&gt; <br/>delete(ChannelPid, Name, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes the file specified by <tt>Name</tt>, like
+          <tt>file:delete/1</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="make_dirChannelPidNamegt"></a><b>make_dir(ChannelPid, Name) -&gt; <br/>make_dir(ChannelPid, Name, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a directory specified by <tt>Name</tt>. <tt>Name</tt> should
+          be a full path to a new directory. The directory can only be
+          created in an existing directory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_dirChannelPidNamegt"></a><b>del_dir(ChannelPid, Name) -&gt; <br/>del_dir(ChannelPid, Name, Timeout) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelPid = pid()</b><br/>
+        <b>Name = string()</b><br/>
+	<b>Timeout = timeout()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes a directory specified by <tt>Name</tt>. The directory
+          should be empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

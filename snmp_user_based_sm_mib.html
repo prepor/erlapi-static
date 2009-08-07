@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmp_user_based_sm_mib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmp_user_based_sm_mib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmp_user_based_sm_mib</tt> implements the instrumentation 
+      functions for the SNMP-USER-BASED-SM-MIB, and functions for configuring 
+      the database.
+      </p>
+    <p>The configuration files are described in the SNMP User's Manual.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_userEngineIDNameSecNameCloneAuthPAuthKeyCOwnAuthKeyCPrivPPrivKeyCOwnPrivKeyCPublicAuthKeyPrivKeygtRet">add_user(EngineID, Name, SecName, Clone, AuthP, AuthKeyC, OwnAuthKeyC, PrivP, PrivKeyC, OwnPrivKeyC, Public, AuthKey, PrivKey) -&gt; Ret</a></li>
+        
+        <li><a href="#configureConfDirgtvoid">configure(ConfDir) -&gt; void()</a></li>
+        
+        <li><a href="#delete_userKeygtRet">delete_user(Key) -&gt; Ret</a></li>
+        
+        <li><a href="#reconfigureConfDirgtvoid">reconfigure(ConfDir) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="configureConfDirgtvoid"></a><b>configure(ConfDir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfDir = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is called from the supervisor at system
+          start-up.
+          </p>
+        <p>Inserts all data in the configuration files into the
+          database and destroys all old rows with StorageType
+          <tt>volatile</tt>.  The rows created from the configuration file
+          will have StorageType <tt>nonVolatile</tt>.
+          </p>
+        <p>All <tt>snmp</tt> counters are set to zero.
+          </p>
+        <p>If an error is found in the configuration file, it is
+          reported using the function <tt>config_err/2</tt> of the error
+          report module, and the function fails with the reason 
+          <tt>configuration_error</tt>.
+          </p>
+        <p><tt>ConfDir</tt> is a string which points to the directory
+          where the configuration files are found.
+          </p>
+        <p>The configuration file read is: <tt>usm.conf</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reconfigureConfDirgtvoid"></a><b>reconfigure(ConfDir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfDir = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts all data in the configuration files into the
+          database and destroys all old data, including the rows with
+          StorageType <tt>nonVolatile</tt>.  The rows created from the
+          configuration file will have StorageType <tt>nonVolatile</tt>.
+          </p>
+        <p>Thus, the data in the SNMP-USER-BASED-SM-MIB, after this
+          function has been called, is the data from the configuration
+          files.
+          </p>
+        <p>All <tt>snmp</tt> counters are set to zero.
+          </p>
+        <p>If an error is found in the configuration file, it is
+          reported using the function <tt>config_err/2</tt> of the error
+          report module, and the function fails with the reason 
+          <tt>configuration_error</tt>.
+          </p>
+        <p><tt>ConfDir</tt> is a string which points to the directory
+          where the configuration files are found.
+          </p>
+        <p>The configuration file read is: <tt>usm.conf</tt>.
+                    <marker id="add_user"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_userEngineIDNameSecNameCloneAuthPAuthKeyCOwnAuthKeyCPrivPPrivKeyCOwnPrivKeyCPublicAuthKeyPrivKeygtRet"></a><b>add_user(EngineID, Name, SecName, Clone, AuthP, AuthKeyC, OwnAuthKeyC, PrivP, PrivKeyC, OwnPrivKeyC, Public, AuthKey, PrivKey) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EngineID = string()</b><br/>
+        <b>Name = string()</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>Clone = zeroDotZero | [integer()]</b><br/>
+        <b>AuthP = usmNoAuthProtocol | usmHMACMD5AuthProtocol | usmHMACSHAAuthProtocol</b><br/>
+        <b>AuthKeyC = string()</b><br/>
+        <b>OwnAuthKeyC = string()</b><br/>
+        <b>PrivP = usmNoPrivProtocol | usmDESPrivProtocol</b><br/>
+        <b>PrivKeyC = string()</b><br/>
+        <b>OwnPrivKeyC = string()</b><br/>
+        <b>Public = string()</b><br/>
+        <b>AuthKey = string()</b><br/>
+        <b>PrivKey = string()</b><br/>
+        <b>Ret = {ok, Key} | {error, Reason}</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a USM security data (user) to the agent config. 
+          Equivalent to one line in the <tt>usm.conf</tt> file.</p>
+        <marker id="delete_user"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_userKeygtRet"></a><b>delete_user(Key) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Ret = ok | {error, Reason}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Delete a USM security data (user) from the agent config.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

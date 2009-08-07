@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>docb_transform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />docb_transform</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>docb_transform</tt> contains functions for transforming XML
+      documentation source code to HTML.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Options</a></li>
+        
+        <li><a href="#">Callback Module</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#Modulebottomgtstring">Module:bottom() -&gt; string()</a></li>
+        
+        <li><a href="#fileFilegtokerrorReason">file(File) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#Moduleheadgtstring">Module:head() -&gt; string()</a></li>
+        
+        <li><a href="#ModuleseealsoSeeAlsogtHref">Module:seealso(SeeAlso) -&gt; Href</a></li>
+        
+        <li><a href="#Moduletopgtstring">Module:top() -&gt; string()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Options</div>
+    
+    <div class="description">
+        
+    <title>Options</title>
+    <taglist>
+      <tag><tt>{html_mod, Module}, Module=atom()</tt></tag>
+      <item>
+	<p>A callback module can be used for specifying HTML snippets
+	  that should be included in the generated HTML files, see
+	  below.</p>
+      </item>
+
+      <tag><tt>{outdir, Dir}, Dir=string()</tt></tag>
+      <item>
+        <p>Destination for generated files. Default is current working
+	  directory.</p>
+      </item>
+
+      <tag><tt>{number, Number}, Number=int()</tt></tag>
+      <item>
+        <p>First chapter number when transforming a <tt>chapter</tt>
+	  file. Default is 1.</p>
+      </item>
+
+      <tag><tt>{ptype, unix|windows}</tt></tag>
+      <item>
+        <p>For <tt>path</tt> elements, the specified file path should be
+	  presented.</p>
+      </item>
+
+      <tag><tt>silent</tt></tag>
+      <item>
+        <p>Silent - no warnings, only error information is printed.</p>
+      </item>
+
+      <tag><tt>{top, Index}, Index=string()</tt></tag>
+      <item>
+	<p>Specifies the value of "Top" in the left frame of a front
+	  page, which normally should be some kind of top index file
+	  for the documentation.</p>
+      </item>
+
+      <tag><tt>{vsn, Vsn}, Vsn=string()</tt></tag>
+      <item>
+	<p>Application version number. Overrides a version number
+	  defined in the XML document. Visible in the left frame and
+	  on the front page.</p>
+      </item>
+
+      <tag><tt>{term_defs, File}, File=string()</tt></tag>
+      <item>
+        <p>Use the global glossary definitions in <tt>File</tt>, which
+	  should contain a list of tuples <tt>{Id, Name, Definition,
+	    Owner}</tt>. See the section
+	  <seealso marker="inline_tags#termTAG">&lt;term&gt;,
+	    &lt;termdef&gt; - Glossary</seealso> in the User's Guide.
+	</p>
+      </item>
+
+      <tag><tt>{cite_defs, File}, File=string()</tt></tag>
+      <item>
+        <p>Use the global bibliography definitions in <tt>File</tt>, which
+	  should contain a list of tuples <tt>{Id, Title, Info,
+	    Owner}</tt>. See the section
+	  <seealso marker="inline_tags#citeTAG">&lt;cite&gt;,
+	    &lt;citedef&gt; - Bibliography</seealso> in the User's
+	  Guide.</p>
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Callback Module</div>
+    
+    <div class="description">
+        
+    <title>Callback Module</title>
+
+    <p>A <tt>html_mod</tt> callback module can include the functions
+      specified below. Note that there is no check that the resulting
+      HTML code is valid. All functions are optional.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFilegtokerrorReason"></a><b>file(File) -&gt; ok | {error, Reason}<br/>file(File, Options) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>File = string()</b><br/>
+	<b>Options = [Opt]</b><br/>
+	<b>Opt -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Transforms XML documentation source code to HTML.</p>
+
+        <p><tt>File</tt> is a documentation source file, given with or
+	  without the <tt>.xml</tt> extension as <tt>Name.xml</tt> or
+	  <tt>Name</tt>.</p>
+
+	<p>If <tt>File</tt> contains XML code according to a basic DTD
+	  (<tt>chapter</tt>, <tt>erlref</tt>, ...), the resulting HTML
+	  file is named <tt>Name.html</tt>.</p>
+
+        <p>If <tt>File</tt> contains XML code according to a compound DTD
+	  (<tt>application</tt> or <tt>part</tt>), several files are
+	  created:</p>
+	<list>
+	  <item>A cover page for the application with two frames,
+	    <tt>Name_frame.html</tt>.</item>
+	  <item>The contents of the left frame and a front page,
+	    <tt>Name.html</tt> and <tt>Name_first.html</tt>.</item>
+	  <item>A bibliography and a glossary, <tt>Name_cite.html</tt>
+	    and <tt>Name_term.html</tt>.</item>
+	  <item>In the case of an <tt>application</tt> DTD an index
+	    is created, <tt>Name.kwc</tt> and <tt>Name_index.html</tt>.
+	  </item>
+	  <item>One HTML file for each file included from <tt>File</tt>.
+	  </item>
+	  <item>Also, if there exists a <tt>fascicules.xml</tt> file where
+	    the value of the <tt>entry</tt> attribute for <tt>File</tt> is
+	    <tt>"yes"</tt>, the cover page is copied to <tt>index.html</tt>.
+	  </item>
+	</list>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleheadgtstring"></a><b>Module:head() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Defines a HTML snippet to be included in the head of
+	  a document, after the <tt>&lt;HEAD&gt;</tt> start tag and
+	  <tt>&lt;TITLE&gt;</tt> tag:</p>
+	<pre>
+&lt;HTML&gt;
+&lt;HEAD&gt;
+  &lt;TITLE&gt;...&lt;/TITLE&gt;
+  - snippet is included here -
+  ...
+&lt;/HEAD&gt;
+...
+&lt;/HTML&gt;
+	</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduletopgtstring"></a><b>Module:top() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Defines a HTML snippet to be included at the top of a
+	  document, after the <tt>&lt;BODY&gt;</tt> start tag.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Modulebottomgtstring"></a><b>Module:bottom() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Defines a HTML snippet to be included at the bottom of a
+	  document, before the <tt>&lt;/BODY&gt;</tt> end tag.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ModuleseealsoSeeAlsogtHref"></a><b>Module:seealso(SeeAlso) -&gt; Href</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>SeeAlso = Href = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>When referring to another part of the document, or another
+	  document, the XML tag <tt>&lt;seealso&gt;</tt> is used:
+	  <tt><seealso marker="File#Marker">...text...</seealso></tt>.
+	  By default, this is translated to
+	  <tt><A HREF="File.html#Marker>...text...</A></tt>.</p>
+
+	<p>This function makes it possible to specify an alternative
+	  translation <tt>Href</tt> of the <tt>marker</tt> attribute value
+	  <tt>SeeAlso</tt>. For example, in OTP this is used to resolve
+	  cross references between applications.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

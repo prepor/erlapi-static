@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>compile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />compile</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides an interface to the standard Erlang
+      compiler. It can generate either a new file which contains
+      the object code, or return a binary which can be loaded directly.
+    </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Default compiler options</a></li>
+        
+        <li><a href="#">Inlining</a></li>
+        
+        <li><a href="#">Parse Transformations</a></li>
+        
+        <li><a href="#">Error Information</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#fileFile">file(File)</a></li>
+        
+        <li><a href="#fileFileOptionsgtCompRet">file(File, Options) -&gt; CompRet</a></li>
+        
+        <li><a href="#format_errorErrorDescriptorgtchars">format_error(ErrorDescriptor) -&gt; chars()</a></li>
+        
+        <li><a href="#formsFormsOptionsgtCompRet">forms(Forms, Options) -&gt; CompRet</a></li>
+        
+        <li><a href="#formsForms">forms(Forms)</a></li>
+        
+        <li><a href="#noenv_fileFileOptionsgtCompRet">noenv_file(File, Options) -&gt; CompRet</a></li>
+        
+        <li><a href="#noenv_formsFormsOptionsgtCompRet">noenv_forms(Forms, Options) -&gt; CompRet</a></li>
+        
+        <li><a href="#noenv_output_generatedOptionsgttruefalse">noenv_output_generated(Options) -&gt; true | false</a></li>
+        
+        <li><a href="#output_generatedOptionsgttruefalse">output_generated(Options) -&gt; true | false</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Default compiler options</div>
+    
+    <div class="description">
+        
+    <title>Default compiler options</title>
+    <p>The (host operating system) environment variable
+      <tt>ERL_COMPILER_OPTIONS</tt> can be used to give default compiler
+      options. Its value must be a valid Erlang term. If the value is a
+      list, it will be used as is. If it is not a list, it will be put
+      into a list.</p>
+
+      <p>The list will be appended to any options given to
+      <seealso marker="#file/2">file/2</seealso>,
+      <seealso marker="#forms/2">forms/2</seealso>, and
+      <seealso marker="#output_generated/1">output_generated/2</seealso>.
+      Use the alternative functions
+      <seealso marker="#noenv_file/2">noenv_file/2</seealso>,
+      <seealso marker="#noenv_forms/2">noenv_forms/2</seealso>, or
+      <seealso marker="#noenv_output_generated/1">noenv_output_generated/2</seealso>
+      if you don't want the environment variable to be consulted
+      (for instance, if you are calling the compiler recursively from
+      inside a parse transform).</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Inlining</div>
+    
+    <div class="description">
+        
+    <title>Inlining</title>
+    <p>The compiler can do function inlining within an Erlang
+      module. Inlining means that a call to a function is replaced with
+      the function body with the arguments replaced with the actual
+      values. The semantics are preserved, except if exceptions are
+      generated in the inlined code. Exceptions will be reported as
+      occurring in the function the body was inlined into. Also,
+      <tt>function_clause</tt> exceptions will be converted to similar
+      <tt>case_clause</tt> exceptions.</p>
+
+    <p>When a function is inlined, the original function will be
+      kept if it is exported (either by an explicit export or if the
+      <tt>export_all</tt> option was given) or if not all calls to the
+      function were inlined.</p>
+    
+    <p>Inlining does not necessarily improve running time.
+      For instance, inlining may increase Beam stack usage which will
+      probably be detrimental to performance for recursive functions.
+    </p>
+
+    <p>Inlining is never default; it must be explicitly enabled with a
+      compiler option or a <tt>-compile()</tt> attribute in the source
+      module.</p>
+
+    <p>To enable inlining, either use the <tt>inline</tt> option to
+    let the compiler decide which functions to inline or
+    <tt>{inline,[{Name,Arity},...]}</tt> to have the compiler inline
+    all calls to the given functions. If the option is given inside
+    a <tt>compile</tt> directive in an Erlang module, <tt>{Name,Arity}</tt>
+    may be written as <tt>Name/Arity</tt>.</p>
+
+    <p>Example of explicit inlining:</p>
+
+    <pre>
+-compile({inline,[pi/0]}).
+
+pi() -&gt; 3.1416.
+    </pre>
+
+    <p>Example of implicit inlining:</p>
+    <pre>
+-compile(inline).
+    </pre>
+
+    <p>The <tt>{inline_size,Size}</tt> option controls how large functions
+      that are allowed to be inlined. Default is <tt>24</tt>, which will
+      keep the size of the inlined code roughly the same as
+      the un-inlined version (only relatively small functions will be
+      inlined).</p>
+
+    <p>Example:</p>
+    <pre>
+%% Aggressive inlining - will increase code size.
+-compile(inline).
+-compile({inline_size,100}).
+    </pre>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Parse Transformations</div>
+    
+    <div class="description">
+        
+    <title>Parse Transformations</title>
+
+    <p>Parse transformations are used when a programmer wants to use
+      Erlang syntax but with different semantics. The original Erlang
+      code is then transformed into other Erlang code.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Error Information</div>
+    
+    <div class="description">
+        
+    <title>Error Information</title>
+
+    <p>The <tt>ErrorInfo</tt> mentioned above is the standard
+      <tt>ErrorInfo</tt> structure which is returned from all IO modules.
+      It has the following format:</p>
+    <code>
+{ErrorLine, Module, ErrorDescriptor}
+    </code>
+
+    <p>A string describing the error is obtained with the following
+      call:</p>
+    <code>
+apply(Module, format_error, ErrorDescriptor)
+    </code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>
+      <seealso marker="stdlib:epp">epp(3)</seealso>,
+      <seealso marker="stdlib:erl_id_trans">erl_id_trans(3)</seealso>,
+      <seealso marker="stdlib:erl_lint">erl_lint(3)</seealso>,
+      <seealso marker="stdlib:beam_lib">beam_lib(3)</seealso>
+    </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFile"></a><b>file(File)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Is the same as
+	  <tt>file(File, [verbose,report_errors,report_warnings])</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fileFileOptionsgtCompRet"></a><b>file(File, Options) -&gt; CompRet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>CompRet = ModRet | BinRet | ErrRet</b><br/>
+        <b>ModRet = {ok,ModuleName} | {ok,ModuleName,Warnings}</b><br/>
+        <b>BinRet = {ok,ModuleName,Binary} | {ok,ModuleName,Binary,Warnings}</b><br/>
+        <b>ErrRet = error | {error,Errors,Warnings}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles the code in the file <tt>File</tt>, which is an
+	  Erlang source code file without the <tt>.erl</tt> extension.
+	  <tt>Options</tt> determine the behavior of the compiler.</p>
+
+        <p>Returns <tt>{ok,ModuleName}</tt> if successful, or <tt>error</tt>
+	  if there are errors. An object code file is created if
+	  the compilation succeeds with no errors. It is considered
+	  to be an error if the module name in the source code is
+	  not the same as the basename of the output file.</p>
+
+        <p>Here follows first all elements of <tt>Options</tt> that in
+	  some way control the behavior of the compiler.</p>
+        <taglist>
+          <tag><tt>basic_validation</tt></tag>
+          <item>
+            <p>This option is fast way to test whether a module will
+	      compile successfully (mainly useful for code generators
+              that want to verify the code they emit). No code will
+	      generated. If warnings are enabled, warnings generated by
+	      the <tt>erl_lint</tt> module (such as warnings for unused
+	      variables and functions) will be returned too.</p>
+
+            <p>Use the <tt>strong_validation</tt> option to generate all
+	      warnings that the compiler would generate.</p>
+          </item>
+
+          <tag><tt>strong_validation</tt></tag>
+          <item>
+            <p>Similar to the <tt>basic_validation</tt> option, no code
+	      will be generated, but more compiler passes will be run
+	      to ensure also warnings generated by the optimization
+	      passes are generated (such as clauses that will not match
+	      or expressions that are guaranteed to fail with an
+	      exception at run-time).</p>
+          </item>
+
+          <tag><tt>binary</tt></tag>
+          <item>
+            <p>Causes the compiler to return the object code in a
+              binary instead of creating an object file. If successful,
+              the compiler returns <tt>{ok,ModuleName,Binary}</tt>.</p>
+          </item>
+
+          <tag><tt>bin_opt_info</tt></tag>
+          <item>
+            <p>The compiler will emit informational warnings about binary
+	    matching optimizations (both successful and unsuccesful).
+	    See the <em>Efficiency Guide</em> for further information.</p>
+          </item>
+
+          <tag><tt>compressed</tt></tag>
+          <item>
+            <p>The compiler will compress the generated object code,
+	    which can be useful for embedded systems.</p>
+          </item>
+
+          <tag><tt>debug_info</tt></tag>
+          <item>
+            <marker id="debug_info"></marker>
+            <p>Include debug information in the form of abstract code
+              (see
+              <seealso marker="erts:absform">The Abstract Format</seealso>
+              in ERTS User's Guide) in the compiled beam module. Tools
+	      such as Debugger, Xref and Cover require the debug
+              information to be included.</p>
+
+            <p><em>Warning</em>: Source code can be reconstructed from
+              the debug information. Use encrypted debug information
+              (see below) to prevent this.</p>
+
+            <p>See
+              <seealso marker="stdlib:beam_lib#debug_info">beam_lib(3)</seealso>
+              for details.</p>
+          </item>
+
+          <tag><tt>{debug_info_key,KeyString}</tt></tag>
+          <item></item>
+          <tag><tt>{debug_info_key,{Mode,KeyString}}</tt></tag>
+          <item>
+            <marker id="debug_info_key"></marker>
+            <p>Include debug information, but encrypt it, so that it
+              cannot be accessed without supplying the key. (To give
+              the <tt>debug_info</tt> option as well is allowed, but is
+              not necessary.) Using this option is a good way to always
+              have the debug information available during testing, yet
+              protect the source code.</p>
+            <p><tt>Mode</tt> is the type of crypto algorithm to be used
+              for encrypting the debug information. The default type --
+              and currently the only type -- is <tt>des3_cbc</tt>.</p>
+            <p>See
+              <seealso marker="stdlib:beam_lib#debug_info">beam_lib(3)</seealso>
+              for details.</p>
+          </item>
+
+          <tag><tt>encrypt_debug_info</tt></tag>
+          <item>
+            <marker id="encrypt_debug_info"></marker>
+            <p>Like the <tt>debug_info_key</tt> option above, except that
+	      the key will be read from an <tt>.erlang.crypt</tt> file.
+	    </p>
+
+	    <p>See
+              <seealso marker="stdlib:beam_lib#debug_info">beam_lib(3)</seealso>
+              for details.</p>
+          </item>
+
+          <tag><tt>'P'</tt></tag>
+          <item>
+            <p>Produces a listing of the parsed code after preprocessing
+	      and parse transforms, in the file
+	      <tt><File>.P</tt>. No object file is produced.
+	    </p>
+          </item>
+
+          <tag><tt>'E'</tt></tag>
+          <item>
+            <p>Produces a listing of the code after all source code
+	      transformations have been performed, in the file
+	      <tt><File>.E</tt>. No object file is produced.
+	    </p>
+          </item>
+
+          <tag><tt>'S'</tt></tag>
+          <item>
+            <p>Produces a listing of the assembler code in the file
+              <tt><File>.S</tt>. No object file is produced.
+	    </p>
+          </item>
+
+          <tag><tt>report_errors/report_warnings</tt></tag>
+          <item>
+            <p>Causes errors/warnings to be printed as they occur.</p>
+          </item>
+
+          <tag><tt>report</tt></tag>
+          <item>
+            <p>This is a short form for both <tt>report_errors</tt> and
+              <tt>report_warnings</tt>.</p>
+          </item>
+
+          <tag><tt>return_errors</tt></tag>
+          <item>
+            <p>If this flag is set, then
+	      <tt>{error,ErrorList,WarningList}</tt> is returned when
+	      there are errors.</p>
+          </item>
+
+          <tag><tt>return_warnings</tt></tag>
+          <item>
+            <p>If this flag is set, then an extra field containing
+              <tt>WarningList</tt> is added to the tuples returned on
+              success.</p>
+          </item>
+
+          <tag><tt>return</tt></tag>
+          <item>
+            <p>This is a short form for both <tt>return_errors</tt> and
+              <tt>return_warnings</tt>.</p>
+          </item>
+
+	  <tag><tt>verbose</tt></tag>
+          <item>
+            <p>Causes more verbose information from the compiler
+              describing what it is doing.</p>
+          </item>
+
+	  <tag><tt>{outdir,Dir}</tt></tag>
+          <item>
+            <p>Sets a new directory for the object code. The current
+              directory is used for output, except when a directory
+              has been specified with this option.</p>
+          </item>
+
+	  <tag><tt>export_all</tt></tag>
+          <item>
+            <p>Causes all functions in the module to be exported.</p>
+          </item>
+
+	  <tag><tt>{i,Dir}</tt></tag>
+          <item>
+            <p>Add <tt>Dir</tt> to the list of directories to be searched
+              when including a file. When encountering an
+	      <tt>-include</tt> or <tt>-include_dir</tt> directive,
+	      the compiler searches for header files in the following
+	      directories:</p>
+            <list type="ordered">
+              <item>
+                <p><tt>"."</tt>, the current working directory of
+		  the file server;</p>
+              </item>
+              <item>
+                <p>the base name of the compiled file;</p>
+              </item>
+              <item>
+                <p>the directories specified using the <tt>i</tt> option.
+                  The directory specified last is searched first.</p>
+              </item>
+            </list>
+          </item>
+
+          <tag><tt>{d,Macro}</tt></tag>
+          <item></item>
+          <tag><tt>{d,Macro,Value}</tt></tag>
+          <item>
+            <p>Defines a macro <tt>Macro</tt> to have the value
+	      <tt>Value</tt>. The default is <tt>true</tt>).</p>
+          </item>
+
+	  <tag><tt>{parse_transform,Module}</tt></tag>
+          <item>
+            <p>Causes the parse transformation function
+              <tt>Module:parse_transform/2</tt> to be applied to the
+              parsed code before the code is checked for errors.</p>
+          </item>
+
+	  <tag><tt>asm</tt></tag>
+          <item>
+            <p>The input file is expected to be assembler code (default
+	      file suffix ".S"). Note that the format of assembler files
+              is not documented, and may change between releases - this
+              option is primarily for internal debugging use.</p>
+          </item>
+
+          <tag><tt>no_strict_record_tests</tt></tag>
+          <item>
+            <p>This option is not recommended.</p>
+
+	    <p>By default, the generated code for
+	      the <tt>Record#record_tag.field</tt> operation verifies that
+	      the tuple <tt>Record</tt> is of the correct size for
+	      the record and that the first element is the tag
+	      <tt>record_tag</tt>. Use this option to omit
+	      the verification code.</p>
+          </item>
+
+          <tag><tt>no_error_module_mismatch</tt></tag>
+          <item>
+            <p>Normally the compiler verifies that the module name
+	    given in the source code is the same as the base name
+	    of the output file and refuses to generate an output file
+	    if there is a mismatch. If you have a good reason (or
+	    other reason) for having a module name unrelated to the
+	    name of the output file, this option disables that verification
+	    (there will not even be a warning if there is a mismatch).</p>
+          </item>
+
+        </taglist>
+
+        <p>If warnings are turned on (the <tt>report_warnings</tt> option
+          described above), the following options control what type of
+          warnings that will be generated.
+	  <marker id="erl_lint_options"></marker>
+          With the exception of <tt>{warn_format,Verbosity}</tt> all
+	  options below have two forms; one <tt>warn_xxx</tt> form to
+	  turn on the warning and one <tt>nowarn_xxx</tt> form to turn off
+	  the warning. In the description that follows, the form that
+	  is used to change the default value is listed.</p>
+
+        <taglist>
+          <tag><tt>{warn_format, Verbosity}</tt></tag>
+          <item>
+            <p>Causes warnings to be emitted for malformed format
+              strings as arguments to <tt>io:format</tt> and similar
+              functions. <tt>Verbosity</tt> selects the amount of
+              warnings: 0 = no warnings; 1 = warnings for invalid
+              format strings and incorrect number of arguments; 2 =
+              warnings also when the validity could not be checked
+              (for example, when the format string argument is a
+              variable). The default verbosity is 1. Verbosity 0 can
+              also be selected by the option <tt>nowarn_format</tt>.</p>
+          </item>
+
+          <tag><tt>nowarn_bif_clash</tt></tag>
+          <item>
+            <p>By default, there will be a compilation error if a
+              module contains an exported function with the same name
+              as an auto-imported BIF (such as <tt>size/1</tt>) AND
+              there is a call to it without a qualifying module name.
+              The reason is that the BIF will be called, not
+	      the function in the same module. The recommended way to
+	      eliminate that warning is to use a call with a module
+	      name - either <tt>erlang</tt> to call the BIF or
+	      <tt>?MODULE</tt> to call the function in the same module.
+              The warning can also be turned off using this option,
+	      but that is not recommended.</p>
+
+	    <p><em>The use of this option is strongly discouraged,
+	    as code that uses it will probably break in a future
+	    major release (R14 or R15).</em></p>
+          </item>
+
+          <tag><tt>{nowarn_bif_clash, FAs}</tt></tag>
+          <item>
+            <p>Turns off warnings as <tt>nowarn_bif_clash</tt> but only
+	      for the mentioned local functions. <tt>FAs</tt> is a tuple
+	      <tt>{Name,Arity}</tt> or a list of such tuples.</p>
+	      <p><em>The use of this option is strongly discouraged,
+	      as code that uses it will probably break in a future
+	      major release (R14 or R15).</em></p>
+          </item>
+
+	  <tag><tt>warn_export_all</tt></tag>
+          <item>
+            <p>Causes a warning to be emitted if the <tt>export_all</tt>
+	      option has also been given.</p>
+          </item>
+
+	  <tag><tt>warn_export_vars</tt></tag>
+          <item>
+            <p>Causes warnings to be emitted for all implicitly
+              exported variables referred to after the primitives
+              where they were first defined. No warnings for exported
+              variables unless they are referred to in some pattern,
+              which is the default, can be selected by the option
+              <tt>nowarn_export_vars</tt>.</p>
+          </item>
+
+	  <tag><tt>warn_shadow_vars</tt></tag>
+          <item>
+            <p>Causes warnings to be emitted for "fresh" variables
+              in functional objects or list comprehensions with the same
+	      name as some already defined variable. The default is to
+	      warn for such variables. No warnings for shadowed
+	      variables can be selected by the option 
+              <tt>nowarn_shadow_vars</tt>.</p>
+          </item>
+
+	  <tag><tt>nowarn_unused_function</tt></tag>
+          <item>
+            <p>Turns off warnings for unused local functions.
+              By default (<tt>warn_unused_function</tt>), warnings are
+	      emitted for all local functions that are not called
+	      directly or indirectly by an exported function.
+              The compiler does not include unused local functions in
+	      the generated beam file, but the warning is still useful
+	      to keep the source code cleaner.</p>
+          </item>
+
+	  <tag><tt>{nowarn_unused_function, FAs}</tt></tag>
+          <item>
+            <p>Turns off warnings for unused local functions as
+              <tt>nowarn_unused_function</tt> but only for the mentioned
+              local functions. <tt>FAs</tt> is a tuple <tt>{Name,Arity}</tt>
+              or a list of such tuples.</p>
+          </item>
+
+	  <tag><tt>nowarn_deprecated_function</tt></tag>
+          <item>
+            <p>Turns off warnings for calls to deprecated functions. By
+	      default (<tt>warn_deprecated_function</tt>), warnings are
+	      emitted for every call to a function known by the compiler
+	      to be deprecated. Note that the compiler does not know
+	      about the <tt>-deprecated()</tt> attribute but uses an
+	      assembled list of deprecated functions in Erlang/OTP. To
+	      do a more general check the <tt>Xref</tt> tool can be used.
+	      See also
+	      <seealso marker="tools:xref#deprecated_function">xref(3)</seealso>
+              and the function
+	      <seealso marker="tools:xref#m/1">xref:m/1</seealso> also
+              accessible through
+	      the <seealso marker="stdlib:c#xm/1">c:xm/1</seealso>
+	      function.</p>
+          </item>
+
+	  <tag><tt>{nowarn_deprecated_function, MFAs}</tt></tag>
+          <item>
+            <p>Turns off warnings for calls to deprecated functions as
+	      <tt>nowarn_deprecated_function</tt> but only for
+	      the mentioned functions. <tt>MFAs</tt> is a tuple
+              <tt>{Module,Name,Arity}</tt> or a list of such tuples.</p>
+          </item>
+
+	  <tag><tt>warn_obsolete_guard</tt></tag>
+          <item>
+            <p>Causes warnings to be emitted for calls to old type
+	      testing BIFs such as <tt>pid/1</tt> and <tt>list/1</tt>. See
+	      the
+	      <seealso marker="doc/reference_manual:expressions#guards">Erlang Reference Manual</seealso>
+	      for a complete list of type testing BIFs and their old
+	      equivalents. No warnings for calls to old type testing
+	      BIFs, which is the default, can be selected by the option
+              <tt>nowarn_obsolete_guard</tt>.</p>
+          </item>
+
+	  <tag><tt>warn_unused_import</tt></tag>
+          <item>
+            <p>Causes warnings to be emitted for unused imported
+              functions. No warnings for unused imported functions,
+	      which is the default, can be selected by the option
+              <tt>nowarn_unused_import</tt>. </p>
+          </item>
+
+          <tag><tt>nowarn_unused_vars</tt></tag>
+          <item>
+            <p>By default, warnings are emitted for variables which
+              are not used, with the exception of variables beginning
+              with an underscore ("Prolog style warnings").
+              Use this option to turn off this kind of warnings.</p>
+          </item>
+
+	  <tag><tt>nowarn_unused_record</tt></tag>
+          <item>
+            <p>Turns off warnings for unused record types. By
+              default (<tt>warn_unused_records</tt>), warnings are
+              emitted for unused locally defined record types.</p>
+          </item>
+        </taglist>
+
+	<p>Another class of warnings is generated by the compiler
+	  during optimization and code generation. They warn about
+	  patterns that will never match (such as <tt>a=b</tt>), guards
+	  that will always evaluate to false, and expressions that will
+	  always fail (such as <tt>atom+42</tt>).</p>
+
+        <p>Note that the compiler does not warn for expressions that it
+          does not attempt to optimize. For instance, the compiler tries
+          to evaluate <tt>1/0</tt>, notices that it will cause an
+	  exception and emits a warning. On the other hand,
+	  the compiler is silent about the similar expression
+	  <tt>X/0</tt>; because of the variable in it, the compiler does
+	  not even try to evaluate and therefore it emits no warnings.
+	</p>
+
+	<p>Currently, those warnings cannot be disabled (except by
+	  disabling all warnings).</p>
+
+	<warning>
+          <p>Obviously, the absence of warnings does not mean that
+	    there are no remaining errors in the code.</p>
+        </warning>
+
+	<p>Note that all the options except the include path
+	  (<tt>{i,Dir}</tt>) can also be given in the file with a
+	  <tt>-compile([Option,...])</tt>. attribute.
+	  The <tt>-compile()</tt> attribute is allowed after function
+	  definitions.</p>
+
+	<p>Note also that the <tt>{nowarn_unused_function, FAs}</tt>,
+          <tt>{nowarn_bif_clash, FAs}</tt>, and 
+          <tt>{nowarn_deprecated_function, MFAs}</tt> options are only
+          recognized when given in files. They are not affected by
+	  the <tt>warn_unused_function</tt>, <tt>warn_bif_clash</tt>, or 
+          <tt>warn_deprecated_function</tt> options.</p>
+
+        <p>For debugging of the compiler, or for pure curiosity,
+          the intermediate code generated by each compiler pass can be
+	  inspected.
+          A complete list of the options to produce list files can be
+	  printed by typing <tt>compile:options()</tt> at the Erlang
+	  shell prompt.
+          The options will be printed in order that the passes are
+	  executed. If more than one listing option is used, the one
+	  representing the earliest pass takes effect.</p>
+
+        <p><em>Unrecognized options are ignored.</em></p>
+
+        <p>Both <tt>WarningList</tt> and <tt>ErrorList</tt> have
+	  the following format:</p>
+        <code>
+[{FileName,[ErrorInfo]}].
+        </code>
+
+	<p><tt>ErrorInfo</tt> is described below. The file name has been
+	  included here as the compiler uses the Erlang pre-processor
+	  <tt>epp</tt>, which allows the code to be included in other
+	  files. For this reason, it is important to know to
+	  <em>which</em> file an error or warning line number refers.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="formsForms"></a><b>forms(Forms)</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Is the same as
+	  <tt>forms(File, [verbose,report_errors,report_warnings])</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="formsFormsOptionsgtCompRet"></a><b>forms(Forms, Options) -&gt; CompRet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Forms = [Form]</b><br/>
+        <b>CompRet = BinRet | ErrRet</b><br/>
+        <b>BinRet = {ok,ModuleName,BinaryOrCode} | {ok,ModuleName,BinaryOrCode,Warnings}</b><br/>
+        <b>BinaryOrCode = binary() | term()</b><br/>
+        <b>ErrRet = error | {error,Errors,Warnings}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Analogous to <tt>file/1</tt>, but takes a list of forms (in
+	  the Erlang abstract format representation) as first argument.
+          The option <tt>binary</tt> is implicit; i.e., no object code
+	  file is produced. Options that would ordinarily produce a
+	  listing file, such as 'E', will instead cause the internal
+	  format for that compiler pass (an Erlang term; usually not a
+	  binary) to be returned instead of a binary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorErrorDescriptorgtchars"></a><b>format_error(ErrorDescriptor) -&gt; chars()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ErrorDescriptor = errordesc()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Uses an <tt>ErrorDescriptor</tt> and returns a deep list of
+	  characters which describes the error. This function is
+	  usually called implicitly when an <tt>ErrorInfo</tt> structure
+	  is processed. See below.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="output_generatedOptionsgttruefalse"></a><b>output_generated(Options) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Determines whether the compiler would generate a <tt>beam</tt>
+	file with the given options. <tt>true</tt> means that a <tt>beam</tt>
+	file would be generated; <tt>false</tt> means that the compiler
+	would generate some listing file, return a binary, or merely
+	check the syntax of the source code.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="noenv_fileFileOptionsgtCompRet"></a><b>noenv_file(File, Options) -&gt; CompRet</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+      <p>Works exactly like <seealso marker="#file/2">file/2</seealso>,
+	 except that the environment variable <tt>ERL_COMPILER_OPTIONS</tt>
+	 is not consulted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="noenv_formsFormsOptionsgtCompRet"></a><b>noenv_forms(Forms, Options) -&gt; CompRet</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Works exactly like <seealso marker="#forms/2">forms/2</seealso>,
+	 except that the environment variable <tt>ERL_COMPILER_OPTIONS</tt>
+	 is not consulted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="noenv_output_generatedOptionsgttruefalse"></a><b>noenv_output_generated(Options) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Options = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Works exactly like
+	<seealso marker="#output_generated/1">output_generated/1</seealso>,
+	except that the environment variable <tt>ERL_COMPILER_OPTIONS</tt>
+	is not consulted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

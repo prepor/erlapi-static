@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>sets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />sets</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Sets are collections of elements with no duplicate elements.
+      The representation of a set is not defined.</p>
+    <p>This module provides exactly the same interface as the module
+      <tt>ordsets</tt> but with a defined representation. One difference is
+      that while this module considers two elements as different if they
+      do not match (<tt>=:=</tt>), <tt>ordsets</tt> considers two elements as
+      different if and only if they do not compare equal (<tt>==</tt>).</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_elementElementSet1gtSet2">add_element(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#del_elementElementSet1gtSet2">del_element(Element, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#filterPredSet1gtSet2">filter(Pred, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#foldFunctionAcc0SetgtAcc1">fold(Function, Acc0, Set) -&gt; Acc1</a></li>
+        
+        <li><a href="#from_listListgtSet">from_list(List) -&gt; Set</a></li>
+        
+        <li><a href="#intersectionSetListgtSet">intersection(SetList) -&gt; Set</a></li>
+        
+        <li><a href="#intersectionSet1Set2gtSet3">intersection(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#is_disjointSet1Set2gtbool">is_disjoint(Set1, Set2) -&gt; bool()</a></li>
+        
+        <li><a href="#is_elementElementSetgtbool">is_element(Element, Set) -&gt; bool()</a></li>
+        
+        <li><a href="#is_setSetgtbool">is_set(Set) -&gt; bool()</a></li>
+        
+        <li><a href="#is_subsetSet1Set2gtbool">is_subset(Set1, Set2) -&gt; bool()</a></li>
+        
+        <li><a href="#newgtSet">new() -&gt; Set</a></li>
+        
+        <li><a href="#sizeSetgtint">size(Set) -&gt; int()</a></li>
+        
+        <li><a href="#subtractSet1Set2gtSet3">subtract(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#to_listSetgtList">to_list(Set) -&gt; List</a></li>
+        
+        <li><a href="#unionSetListgtSet">union(SetList) -&gt; Set</a></li>
+        
+        <li><a href="#unionSet1Set2gtSet3">union(Set1, Set2) -&gt; Set3</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+set()
+  as returned by new/0</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="ordsets">ordsets(3)</seealso>,
+      <seealso marker="gb_sets">gb_sets(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="newgtSet"></a><b>new() -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new empty set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_setSetgtbool"></a><b>is_set(Set) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Set</tt> is a set of
+          elements, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeSetgtint"></a><b>size(Set) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements in <tt>Set</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listSetgtList"></a><b>to_list(Set) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the elements of <tt>Set</tt> as a list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListgtSet"></a><b>from_list(List) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an set of the elements in <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_elementElementSetgtbool"></a><b>is_element(Element, Set) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Element</tt> is an element of
+          <tt>Set</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_elementElementSet1gtSet2"></a><b>add_element(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new set formed from <tt>Set1</tt> with
+          <tt>Element</tt> inserted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_elementElementSet1gtSet2"></a><b>del_element(Element, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>Set1</tt>, but with <tt>Element</tt> removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSet1Set2gtSet3"></a><b>union(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) set of <tt>Set1</tt> and
+          <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSetListgtSet"></a><b>union(SetList) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetList = [set()]</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) set of the list of sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSet1Set2gtSet3"></a><b>intersection(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of <tt>Set1</tt> and
+          <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSetListgtSet"></a><b>intersection(SetList) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetList = [set()]</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of the non-empty list of sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_disjointSet1Set2gtbool"></a><b>is_disjoint(Set1, Set2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Set1</tt> and
+          <tt>Set2</tt> are disjoint (have no elements in common),
+	  and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subtractSet1Set2gtSet3"></a><b>subtract(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns only the elements of <tt>Set1</tt> which are not
+          also elements of <tt>Set2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_subsetSet1Set2gtbool"></a><b>is_subset(Set1, Set2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> when every element of <tt>Set</tt>1 is
+          also a member of <tt>Set2</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldFunctionAcc0SetgtAcc1"></a><b>fold(Function, Acc0, Set) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = fun (E, AccIn) -&gt; AccOut</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Fold <tt>Function</tt> over every element in <tt>Set</tt>
+          returning the final value of the accumulator.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterPredSet1gtSet2"></a><b>filter(Pred, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun (E) -&gt; bool()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Filter elements in <tt>Set1</tt> with boolean function
+          <tt>Fun</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

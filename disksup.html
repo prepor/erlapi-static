@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>disksup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />disksup</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>disksup</tt> is a process which supervises the available disk
+      space in the system. It is part of the OS_Mon application, see
+      <seealso marker="os_mon">os_mon(6)</seealso>. Available for Unix
+      and Windows.</p>
+    <p>Periodically checks the disks. For each disk or partition which
+      uses more than a certain amount of the available space, the alarm
+      <tt>{{disk_almost_full, MountedOn}, []}</tt> is set.</p>
+    <taglist>
+      <tag>On Unix</tag>
+      <item>
+        <p>All (locally) mounted disks are checked, including the swap
+          disk if it is present.</p>
+      </item>
+      <tag>On WIN32</tag>
+      <item>
+        <p>All logical drives of type "FIXED_DISK" are checked.</p>
+      </item>
+    </taglist>
+    <p>Alarms are reported to the SASL alarm handler, see
+      <seealso marker="sasl:alarm_handler">alarm_handler(3)</seealso>.
+      To set an alarm, <tt>alarm_handler:set_alarm(Alarm)</tt> is called
+      where <tt>Alarm</tt> is the alarm specified above.</p>
+    <p>The alarms are cleared automatically when the alarm cause is no
+      longer valid.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Configuration</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#get_almost_full_thresholdgtPercent">get_almost_full_threshold() -&gt; Percent</a></li>
+        
+        <li><a href="#get_check_intervalgtMS">get_check_interval() -&gt; MS</a></li>
+        
+        <li><a href="#get_disk_datagtDiskData">get_disk_data() -&gt; [DiskData]</a></li>
+        
+        <li><a href="#set_almost_full_thresholdFloatgtok">set_almost_full_threshold(Float) -&gt; ok</a></li>
+        
+        <li><a href="#set_check_intervalMinutesgtok">set_check_interval(Minutes) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Configuration</div>
+    
+    <div class="description">
+        
+    <marker id="config"></marker>
+    <title>Configuration</title>
+    <p>The following configuration parameters can be used to change
+      the default values for time interval and threshold:</p>
+    <taglist>
+      <tag><tt>disk_space_check_interval = int()&gt;0</tt></tag>
+      <item>
+        <p>The time interval, in minutes, for the periodic disk space
+          check. The default is 30 minutes.</p>
+      </item>
+      <tag><tt>disk_almost_full_threshold = float()</tt></tag>
+      <item>
+        <p>The threshold, as percentage of total disk space, for how
+          much disk can be utilized before the <tt>disk_almost_full</tt>
+          alarm is set. The default is 0.80 (80%).</p>
+      </item>
+    </taglist>
+    <p>See <seealso marker="kernel:config">config(4)</seealso> for
+      information about how to change the value of configuration
+      parameters.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="sasl:alarm_handler">alarm_handler(3)</seealso>,
+      <seealso marker="os_mon">os_mon(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="get_disk_datagtDiskData"></a><b>get_disk_data() -&gt; [DiskData]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DiskData = {Id, KByte, Capacity}</b><br/>
+        <b>&nbsp;Id = string()</b><br/>
+        <b>&nbsp;KByte = int()</b><br/>
+        <b>&nbsp;Capacity = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the result of the latest disk check. <tt>Id</tt> is a
+          string that identifies the disk or partition. <tt>KByte</tt> is
+          the total size of the disk or partition in kbytes.
+          <tt>Capacity</tt> is the percentage of disk space used.</p>
+        <p>The function is asynchronous in the sense that it does not
+          invoke a disk check, but returns the latest available value.</p>
+        <p>Returns <tt>[{"none",0,0}]</tt> if <tt>disksup</tt> is not
+          available.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_check_intervalgtMS"></a><b>get_check_interval() -&gt; MS</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MS = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the time interval, in milliseconds, for the periodic
+          disk space check.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_check_intervalMinutesgtok"></a><b>set_check_interval(Minutes) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Minutes = int()&gt;=1</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the time interval, given in minutes, for the periodic
+          disk space check.</p>
+        <p>The change will take effect after the next disk space check
+          and is non-persistant. That is, in case of a process restart,
+          this value is forgotten and the default value will be used.
+          See <seealso marker="#config">Configuration</seealso> above.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_almost_full_thresholdgtPercent"></a><b>get_almost_full_threshold() -&gt; Percent</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Percent = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the threshold, in percent, for disk space utilization.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_almost_full_thresholdFloatgtok"></a><b>set_almost_full_threshold(Float) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Float = float(), 0=&lt;Float=&lt;1</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the threshold, given as a float, for disk space
+          utilization.</p>
+        <p>The change will take effect during the next disk space check
+          and is non-persistant. That is, in case of a process restart,
+          this value is forgotten and the default value will be used.
+          See <seealso marker="#config">Configuration</seealso> above.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

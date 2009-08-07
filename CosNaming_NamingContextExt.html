@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNaming_NamingContextExt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNaming_NamingContextExt</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+</p>
+    <code type="none">
+        -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
+    </code>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNaming_NamingContext">CosNaming_NamingContext</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#resolve_strNamingContextNameStringgtReturn">resolve_str(NamingContext, NameString) -&gt; Return</a></li>
+        
+        <li><a href="#to_nameNamingContextNameStringgtReturn">to_name(NamingContext, NameString) -&gt; Return</a></li>
+        
+        <li><a href="#to_stringNamingContextNamegtReturn">to_string(NamingContext, Name) -&gt; Return</a></li>
+        
+        <li><a href="#to_urlNamingContextAddressStringNameStringgtReturn">to_url(NamingContext, AddressString, NameString) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="to_stringNamingContextNamegtReturn"></a><b>to_string(NamingContext, Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NameContext = #objref</b><br/>
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = string() | {'EXCEPTION', NamingContext::InvalidName{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stringifies a <tt>Name</tt> sequence to a string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_nameNamingContextNameStringgtReturn"></a><b>to_name(NamingContext, NameString) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NameContext = #objref</b><br/>
+        <b>NameString = string()</b><br/>
+        <b>Return = [NameComponent] | {'EXCEPTION', NamingContext::InvalidName{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a stringified <tt>Name</tt> to a <tt>Name</tt> sequence.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_urlNamingContextAddressStringNameStringgtReturn"></a><b>to_url(NamingContext, AddressString, NameString) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NameContext = #objref</b><br/>
+        <b>Address = NameString = string()</b><br/>
+        <b>Return =  URLString |  {'EXCEPTION', NamingContext::InvalidName{}} |  {'EXCEPTION', NamingContextExt::InvalidAddress{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation takes a <tt>corbaloc</tt> string and a stringified <tt>Name</tt>
+          sequence as input and returns a fully formed URL string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resolve_strNamingContextNameStringgtReturn"></a><b>resolve_str(NamingContext, NameString) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NameContext = #objref</b><br/>
+        <b>NameString = string()</b><br/>
+        <b>Return =  #objref |  {'EXCEPTION', NamingContext::InvalidName{}} |  {'EXCEPTION', NamingContext::NotFound{why, rest_of_name}} | {'EXCEPTION', NamingContext::CannotProceed{cxt, rest_of_name}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation takes a stringified <tt>Name</tt> sequence as input and
+          returns the associated, if any, object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

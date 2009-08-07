@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_pp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_pp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The functions in this module are used to generate
+      aesthetically attractive representations of abstract
+      forms, which are suitable for printing. All functions return (possibly deep)
+      lists of characters and generate an error if the form is wrong.</p>
+    <p>All functions can have an optional argument which specifies a hook
+      that is called if an attempt is made to print an unknown form.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Unknown Expression Hooks</a></li>
+        
+        <li><a href="#">Bugs</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#attributeAttributegtDeepCharList">attribute(Attribute) -&gt; DeepCharList</a></li>
+        
+        <li><a href="#exprExpressiongtDeepCharList">expr(Expression) -&gt; DeepCharList</a></li>
+        
+        <li><a href="#exprsExpressionsgtDeepCharList">exprs(Expressions) -&gt; DeepCharList</a></li>
+        
+        <li><a href="#formFormgtDeepCharList">form(Form) -&gt; DeepCharList</a></li>
+        
+        <li><a href="#functionFunctiongtDeepCharList">function(Function) -&gt; DeepCharList</a></li>
+        
+        <li><a href="#guardGuardgtDeepCharList">guard(Guard) -&gt; DeepCharList</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Unknown Expression Hooks</div>
+    
+    <div class="description">
+        
+    <title>Unknown Expression Hooks</title>
+    <p>The optional argument <tt>HookFunction</tt>, shown in the functions described above,  defines a function which is called when an unknown form occurs where there
+      should be a valid expression. It can have the following formats:</p>
+    <taglist>
+      <tag><tt>Function</tt></tag>
+      <item>
+        <p>The hook function is called by:</p>
+        <code type="none">
+Function(Expr, 
+         CurrentIndentation,
+         CurrentPrecedence,
+         HookFunction)        </code>
+      </item>
+      <tag><tt>none</tt></tag>
+      <item>
+        <p>There is no hook function</p>
+      </item>
+    </taglist>
+    <p>The called hook function should return a (possibly deep) list
+      of characters. <tt>expr/4</tt> is useful in a hook.
+      </p>
+    <p>If <tt>CurrentIndentation</tt> is negative, there will be no line
+      breaks and only a space is used as a separator.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Bugs</div>
+    
+    <div class="description">
+        
+    <title>Bugs</title>
+    <p>It should be possible to have hook functions for unknown forms
+      at places other than expressions.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="io">io(3)</seealso>,
+      <seealso marker="erl_parse">erl_parse(3)</seealso>,
+      <seealso marker="erl_eval">erl_eval(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="formFormgtDeepCharList"></a><b>form(Form) -&gt; DeepCharList<br/>form(Form, HookFunction) -&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Form = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Pretty prints a 
+          <tt>Form</tt> which is an abstract form of a type which is
+          returned by <tt>erl_parse:parse_form</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="attributeAttributegtDeepCharList"></a><b>attribute(Attribute) -&gt; DeepCharList<br/>attribute(Attribute, HookFunction) -&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Attribute = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>form</tt>, but only for the attribute
+          <tt>Attribute</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="functionFunctiongtDeepCharList"></a><b>function(Function) -&gt; DeepCharList<br/>function(Function, HookFunction) -&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>form</tt>, but only for the function
+          <tt>Function</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="guardGuardgtDeepCharList"></a><b>guard(Guard) -&gt; DeepCharList<br/>guard(Guard, HookFunction) -&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Form = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>form</tt>, but only for the guard test
+          <tt>Guard</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exprsExpressionsgtDeepCharList"></a><b>exprs(Expressions) -&gt; DeepCharList<br/>exprs(Expressions, HookFunction) -&gt; DeepCharList<br/>exprs(Expressions, Indent, HookFunction) -&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Expressions = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>Indent = integer()</b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>form</tt>, but only for the sequence of
+          expressions in <tt>Expressions</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exprExpressiongtDeepCharList"></a><b>expr(Expression) -&gt; DeepCharList<br/>expr(Expression, HookFunction) -&gt; DeepCharList<br/>expr(Expression, Indent, HookFunction) -&gt; DeepCharList<br/>expr(Expression, Indent, Precedence, HookFunction) -&gt;-&gt; DeepCharList</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Expression = term()</b><br/>
+        <b>HookFunction = see separate description below.</b><br/>
+        <b>Indent = integer()</b><br/>
+        <b>Precedence = </b><br/>
+        <b>DeepCharList = [char()|DeepCharList]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function prints one expression. It is useful for implementing hooks (see below).</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

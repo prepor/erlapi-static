@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cosFileTransferApp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cosFileTransferApp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosFileTransfer/include/*.hrl").</tt></p>
+    <p>This module contains the functions for starting and stopping the application.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_VFSTypeContentHostPortOptionsgtReturn">create_VFS(Type, Content, Host, Port [,Options]) -&gt; Return</a></li>
+        
+        <li><a href="#installgtReturn">install() -&gt; Return</a></li>
+        
+        <li><a href="#ssl_client_certfilegtstring">ssl_client_certfile() -&gt; string()</a></li>
+        
+        <li><a href="#ssl_client_depthgtint">ssl_client_depth() -&gt;  int()</a></li>
+        
+        <li><a href="#ssl_client_verifygt012">ssl_client_verify() -&gt; 0 | 1 | 2</a></li>
+        
+        <li><a href="#ssl_server_certfilegtstring">ssl_server_certfile() -&gt; string()</a></li>
+        
+        <li><a href="#ssl_server_depthgtint">ssl_server_depth() -&gt; int()</a></li>
+        
+        <li><a href="#ssl_server_verifygt012">ssl_server_verify() -&gt; 0 | 1 | 2</a></li>
+        
+        <li><a href="#startgtReturn">start() -&gt; Return</a></li>
+        
+        <li><a href="#stopgtReturn">stop() -&gt; Return</a></li>
+        
+        <li><a href="#uninstallgtReturn">uninstall() -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="installgtReturn"></a><b>install() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosFileTransfer application. Note, the
+          <tt>cosProperty</tt> application must be installed prior to invoking this
+          operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstallgtReturn"></a><b>uninstall() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosFileTransfer application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtReturn"></a><b>start() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts the cosFileTransfer application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtReturn"></a><b>stop() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the cosFileTransfer application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="create_VFSTypeContentHostPortOptionsgtReturn"></a><b>create_VFS(Type, Content, Host, Port [,Options]) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = 'FTP' | {'NATIVE', 'cosFileTransferNATIVE_file'} |  {'NATIVE', MyModule}</b><br/>
+        <b>Content = []</b><br/>
+        <b>Host = string(), e.g. "myHost@myServer" or "012.345.678.910"</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = {protocol, Protocol} | {connect_timeout, Seconds}</b><br/>
+        <b>Protocol = tcp | ssl</b><br/>
+        <b>Return = VFS | {'EXCEPTION, E}</b><br/>
+        <b>VFS = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a Virtual File System. The 
+          <tt>Type</tt> parameter determines which type we want the VFS to represent.
+          'FTP' maps to the <tt>INETS</tt> ftp implementation, while
+          {'NATIVE', 'cosFileTransferNATIVE_file'} uses the <tt>file</tt> module.
+          It is also possible to implement own mappings which are activated by
+          supplying {'NATIVE', MyModule}. The MyModule module must export the same
+          functions and behave in the same way as the INETS ftp module, and
+          an operation named <tt>open(Host, Port)</tt>, which shall return 
+          <tt>{ok, Pid}</tt> or <tt>{error, Reason}</tt>.</p>
+        <p>If no <tt>Options</tt> are supplied the default setting will be
+          used, i.e., tcp and 60 seconds.</p>
+        <p>The <tt>Content</tt> parameter is currently ignored by must be supplied
+          as an empty list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_certfilegtstring"></a><b>ssl_server_certfile() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns a path to a file containing a chain of PEM encoded 
+          certificates for the cosFileTransfer as target. 
+          This is configured by setting the application variable 
+          <em>ssl_server_certfile</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_certfilegtstring"></a><b>ssl_client_certfile() -&gt; string()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns a path to a file containing a chain of PEM encoded 
+          certificates used in outgoing calls.
+          The default value is configured by setting the application variable 
+          <em>ssl_client_certfile</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_verifygt012"></a><b>ssl_server_verify() -&gt; 0 | 1 | 2</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the type of verification used by SSL during authentication of the other 
+          peer for incoming calls. 
+          It is configured by setting the application variable 
+          <em>ssl_server_verify</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_verifygt012"></a><b>ssl_client_verify() -&gt; 0 | 1 | 2</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns  the type of verification used by SSL during authentication of the other 
+          peer for outgoing calls. 
+          The default value is configured by setting the application variable 
+          <em>ssl_client_verify</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_server_depthgtint"></a><b>ssl_server_depth() -&gt; int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the SSL verification depth for incoming calls. 
+          It is configured by setting the application variable 
+          <em>ssl_server_depth</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ssl_client_depthgtint"></a><b>ssl_client_depth() -&gt;  int()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function returns the SSL verification depth for outgoing calls. 
+          The default value is configured by setting the application variable 
+          <em>ssl_client_depth</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

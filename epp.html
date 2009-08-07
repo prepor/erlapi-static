@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>epp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />epp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The Erlang code preprocessor includes functions which are used
+      by <tt>compile</tt> to preprocess macros and include files before
+      the actual parsing takes place.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Error Information</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#closeEppgtok">close(Epp) -&gt; ok</a></li>
+        
+        <li><a href="#openFileNameIncludePathgtokEpperrorErrorDescriptor">open(FileName, IncludePath) -&gt; {ok,Epp} | {error, ErrorDescriptor}</a></li>
+        
+        <li><a href="#parse_erl_formEppgtokAbsFormeofLineerrorErrorInfo">parse_erl_form(Epp) -&gt; {ok, AbsForm} | {eof, Line} | {error, ErrorInfo}</a></li>
+        
+        <li><a href="#parse_fileFileNameIncludePathPredefMacrogtokFormerrorOpenError">parse_file(FileName,IncludePath,PredefMacro) -&gt; {ok,[Form]} | {error,OpenError}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Error Information</div>
+    
+    <div class="description">
+        
+    <title>Error Information</title>
+    <p>The <tt>ErrorInfo</tt> mentioned above is the standard
+      <tt>ErrorInfo</tt> structure which is returned from all IO
+      modules. It has the following format:
+      </p>
+    <code type="none">
+    {ErrorLine, Module, ErrorDescriptor}    </code>
+    <p>A string which describes the error is obtained with the following call:
+      </p>
+    <code type="none">
+apply(Module, format_error, ErrorDescriptor)    </code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="erl_parse">erl_parse(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="openFileNameIncludePathgtokEpperrorErrorDescriptor"></a><b>open(FileName, IncludePath) -&gt; {ok,Epp} | {error, ErrorDescriptor}<br/>open(FileName, IncludePath, PredefMacros) -&gt; {ok,Epp} | {error, ErrorDescriptor}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = atom() | string()</b><br/>
+        <b>IncludePath = [DirectoryName]</b><br/>
+        <b>DirectoryName = atom() | string()</b><br/>
+        <b>PredefMacros = [{atom(),term()}]</b><br/>
+        <b>Epp = pid() -- handle to the epp server</b><br/>
+        <b>ErrorDescriptor = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens a file for preprocessing.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeEppgtok"></a><b>close(Epp) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Epp = pid() -- handle to the epp server</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes the preprocessing of a file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="parse_erl_formEppgtokAbsFormeofLineerrorErrorInfo"></a><b>parse_erl_form(Epp) -&gt; {ok, AbsForm} | {eof, Line} | {error, ErrorInfo}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Epp = pid()</b><br/>
+        <b>AbsForm = term()</b><br/>
+        <b>Line = integer()</b><br/>
+        <b>ErrorInfo = see separate description below.</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the next Erlang form from the opened Erlang source file.
+          The tuple <tt>{eof, Line}</tt> is returned at end-of-file. The first
+          form corresponds to an implicit attribute <tt>-file(File,1).</tt>, where
+          <tt>File</tt> is the name of the file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="parse_fileFileNameIncludePathPredefMacrogtokFormerrorOpenError"></a><b>parse_file(FileName,IncludePath,PredefMacro) -&gt; {ok,[Form]} | {error,OpenError}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = atom() | string()</b><br/>
+        <b>IncludePath = [DirectoryName]</b><br/>
+        <b>DirectoryName = atom() | string()</b><br/>
+        <b>PredefMacros = [{atom(),term()}]</b><br/>
+        <b>Form = term() -- same as returned by erl_parse:parse_form</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Preprocesses and parses an Erlang source file.
+          Note that the tuple <tt>{eof, Line}</tt> returned at end-of-file is
+          included as a "form".</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

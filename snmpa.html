@@ -1,0 +1,1712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpa</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmpa</tt> contains interface functions to the 
+      SNMP agent.</p>
+
+    <marker id="data_types"></marker>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_agent_capsSysORIDSysORDescrgtSysORIndex">add_agent_caps(SysORID, SysORDescr) -&gt; SysORIndex</a></li>
+        
+        <li><a href="#backupBackupDirgtokerrorReason">backup(BackupDir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#change_log_sizeNewSizegtokerrorReason">change_log_size(NewSize) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#convert_configOldConfiggtAgentConfig">convert_config(OldConfig) -&gt; AgentConfig</a></li>
+        
+        <li><a href="#current_request_idgtvalueRequestIdfalse">current_request_id() -&gt; {value, RequestId} | false</a></li>
+        
+        <li><a href="#del_agent_capsSysORIndexgtvoid">del_agent_caps(SysORIndex) -&gt; void()</a></li>
+        
+        <li><a href="#discoveryTargetNameNotificationgtokokManagerEngineIDerrorReason">discovery(TargetName, Notification) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}</a></li>
+        
+        <li><a href="#enum_to_intNameEnumgtvalueIntfalse">enum_to_int(Name, Enum) -&gt; {value, Int} | false</a></li>
+        
+        <li><a href="#getAgentVarsgtValueserrorReason">get(Agent, Vars) -&gt; Values | {error, Reason}</a></li>
+        
+        <li><a href="#get_agent_capsgtSysORIndexSysORIDSysORDescrSysORUpTime">get_agent_caps() -&gt; [[SysORIndex, SysORID, SysORDescr, SysORUpTime]]</a></li>
+        
+        <li><a href="#get_nextAgentVarsgtValueserrorReason">get_next(Agent, Vars) -&gt; Values | {error, Reason}</a></li>
+        
+        <li><a href="#infogtKeyValue">info() -&gt; [{Key, Value}]</a></li>
+        
+        <li><a href="#int_to_enumNameIntgtvalueEnumfalse">int_to_enum(Name, Int) -&gt; {value, Enum} | false</a></li>
+        
+        <li><a href="#load_mibsMibsgtokerrorReason">load_mibs(Mibs) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#log_to_txtLogDirMibs">log_to_txt(LogDir, Mibs)</a></li>
+        
+        <li><a href="#me_ofOidgtokMeerrorReason">me_of(Oid) -&gt; {ok, Me} | {error, Reason}</a></li>
+        
+        <li><a href="#mib_ofOidgtokMibNameerrorReason">mib_of(Oid) -&gt; {ok, MibName} | {error, Reason}</a></li>
+        
+        <li><a href="#name_to_oidNamegtvalueoidfalse">name_to_oid(Name) -&gt; {value, oid()} | false</a></li>
+        
+        <li><a href="#oid_to_nameOIDgtvalueNamefalse">oid_to_name(OID) -&gt; {value, Name} | false</a></li>
+        
+        <li><a href="#old_info_formatNewInfogtOldInfo">old_info_format(NewInfo) -&gt; OldInfo</a></li>
+        
+        <li><a href="#register_notification_filterIdModDatagtokerrorReason">register_notification_filter(Id, Mod, Data) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#register_subagentAgentSubTreeOidSubagentgtokerrorReason">register_subagent(Agent, SubTreeOid, Subagent) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#restart_set_workergtvoid">restart_set_worker() -&gt; void()</a></li>
+        
+        <li><a href="#restart_workergtvoid">restart_worker() -&gt; void()</a></li>
+        
+        <li><a href="#send_notificationAgentNotificationReceiver">send_notification(Agent, Notification, Receiver)</a></li>
+        
+        <li><a href="#send_trapAgentTrapCommunity">send_trap(Agent,Trap,Community)</a></li>
+        
+        <li><a href="#set_log_typeNewTypegtokOldTypeerrorReason">set_log_type(NewType) -&gt; {ok, OldType} | {error, Reason}</a></li>
+        
+        <li><a href="#set_request_limitNewLimitgtokOldLimiterrorReason">set_request_limit(NewLimit) -&gt; {ok, OldLimit} | {error, Reason}</a></li>
+        
+        <li><a href="#unload_mibsMibsgtokerrorReason">unload_mibs(Mibs) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#unregister_notification_filterIdgtokerrorReason">unregister_notification_filter(Id) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#unregister_subagentAgentSubagentOidOrPidgtokokSubAgentPiderrorReason">unregister_subagent(Agent, SubagentOidOrPid) -&gt; ok | {ok, SubAgentPid} | {error, Reason}</a></li>
+        
+        <li><a href="#verbosityRefVerbositygtvoid">verbosity(Ref,Verbosity) -&gt; void()</a></li>
+        
+        <li><a href="#whereis_mibMibNamegtokMibFileerrorReason">whereis_mib(MibName) -&gt; {ok, MibFile} | {error, Reason}</a></li>
+        
+        <li><a href="#which_aliasnamesgtResult">which_aliasnames() -&gt; Result</a></li>
+        
+        <li><a href="#which_mibsgtMibs">which_mibs() -&gt; Mibs</a></li>
+        
+        <li><a href="#which_notification_filtergtFilters">which_notification_filter() -&gt; Filters</a></li>
+        
+        <li><a href="#which_notificationsgtResult">which_notifications() -&gt; Result</a></li>
+        
+        <li><a href="#which_tablesgtResult">which_tables() -&gt; Result</a></li>
+        
+        <li><a href="#which_variablesgtResult">which_variables() -&gt; Result</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+oid() = [byte()] 
+atl_type() = read | write | read_write
+notification_delivery_info() = #snmpa_notification_delivery_info{}
+    </code>
+
+    <p>The <tt>oid()</tt> type is used to represent an ASN.1 OBJECT IDENTIFIER. </p>
+
+    <p>The record <tt>snmpa_notification_delivery_info</tt> contains the following fields: </p>
+    <taglist>
+      <tag><tt>tag = term()</tt></tag>
+      <item>
+        <p>A user defined identity representing this notification send 
+          operation.</p>
+      </item>
+      <tag><tt>mod = module()</tt></tag>
+      <item>
+        <p>A module implementing the 
+          <seealso marker="snmpa_notification_delivery_info_receiver">snmpa_notification_delivery_info_receiver</seealso> 
+          behaviour. The info functions of this module will be called at 
+          various stages of delivery. </p>
+      </item>
+      <tag><tt>extra = term()</tt></tag>
+      <item>
+        <p>This is any extra info the user wants to have supplied 
+          when the functions in the callback module is called. </p>
+      </item>
+    </taglist>
+    
+    <marker id="add_agent_caps"></marker>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>calendar(3), erlc(1) </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="add_agent_capsSysORIDSysORDescrgtSysORIndex"></a><b>add_agent_caps(SysORID, SysORDescr) -&gt; SysORIndex</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SysORID = oid()</b><br/>
+        <b>SysORDescr = string()</b><br/>
+        <b>SysORIndex = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used to add an AGENT-CAPABILITY
+          statement to the sysORTable in the agent.  The table is
+          defined in the SNMPv2-MIB.</p>
+        <marker id="del_agent_caps"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_agent_capsSysORIndexgtvoid"></a><b>del_agent_caps(SysORIndex) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SysORIndex = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used to delete an AGENT-CAPABILITY
+          statement to the sysORTable in the agent.  This table is
+          defined in the SNMPv2-MIB. </p>
+
+          <marker id="get_agent_caps"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_agent_capsgtSysORIndexSysORIDSysORDescrSysORUpTime"></a><b>get_agent_caps() -&gt; [[SysORIndex, SysORID, SysORDescr, SysORUpTime]]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SysORIndex = integer()</b><br/>
+        <b>SysORId = oid()</b><br/>
+        <b>SysORDescr = string()</b><br/>
+        <b>SysORUpTime = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns all AGENT-CAPABILITY statements in the sysORTable
+          in the agent.  This table is defined in the SNMPv2-MIB. </p>
+
+        <marker id="get"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getAgentVarsgtValueserrorReason"></a><b>get(Agent, Vars) -&gt; Values | {error, Reason}<br/>get(Agent, Vars, Context) -&gt; Values | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Vars = [oid()]</b><br/>
+        <b>Context = string()</b><br/>
+        <b>Values = [term()]</b><br/>
+        <b>Reason = {atom(), oid()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a GET operation on the agent.  All loaded MIB
+          objects are visible in this operation.  The agent calls the
+          corresponding instrumentation functions just as if it was a
+          GET request coming from a manager. </p>
+        <p>Note that the request specific parameters (such as 
+          <seealso marker="#current_request_id">current_request_id</seealso>) 
+          are not accessible for the instrumentation functions if this 
+          function is used. </p>
+
+          <marker id="get_next"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_nextAgentVarsgtValueserrorReason"></a><b>get_next(Agent, Vars) -&gt; Values | {error, Reason}<br/>get_next(Agent, Vars, Context) -&gt; Values | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Vars = [oid()]</b><br/>
+        <b>Context = string()</b><br/>
+        <b>Values = [{oid(), term()}]</b><br/>
+        <b>Reason = {atom(), oid()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a GET-NEXT operation on the agent.  All loaded MIB
+          objects are visible in this operation.  The agent calls the
+          corresponding instrumentation functions just as if it was a
+          GET request coming from a manager. </p>
+        <p>Note that the request specific parameters (such as 
+          <tt>snmpa:current_request_id/0</tt> are not accessible for the 
+          instrumentation functions if this function is used. </p>
+
+        <marker id="backup"></marker>
+        <!-- <marker id="get_symbolic_store_db"></marker> -->
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="backupBackupDirgtokerrorReason"></a><b>backup(BackupDir) -&gt; ok | {error, Reason}<br/>backup(Agent, BackupDir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BackupDir = string()</b><br/>
+        <b>Agent = pid() | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Backup persistent/permanent data handled by the agent
+          (such as local-db, mib-data and vacm). </p>
+        <p>Data stored by mnesia is not handled. </p>
+        <p>BackupDir cannot be identical to DbDir. </p>
+
+        <marker id="info"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infogtKeyValue"></a><b>info() -&gt; [{Key, Value}]<br/>info(Agent) -&gt; [{Key, Value}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list (a dictionary) containing information about
+          the agent. Information includes loaded MIBs, registered
+          sub-agents, some information about the memory allocation. </p>
+        <p>As of version 4.4 the format of the info has been changed. 
+          To convert the info to the old format, call the 
+          <seealso marker="#old_info_format">old_info_format</seealso> 
+          function. </p>
+
+        <marker id="old_info_format"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="old_info_formatNewInfogtOldInfo"></a><b>old_info_format(NewInfo) -&gt; OldInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OldInfo = NewInfo = [{Key, Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As of version 4.4 the format of the info has been changed. 
+          This function is used to convert to the old (pre-4.4) info 
+          format. </p>
+
+        <marker id="load_mibs"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="load_mibsMibsgtokerrorReason"></a><b>load_mibs(Mibs) -&gt; ok | {error, Reason}<br/>load_mibs(Agent,Mibs) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Mibs = [MibName]</b><br/>
+        <b>MibName = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Loads <tt>Mibs</tt> into an agent.  If the agent cannot load
+          all MIBs, it will indicate where loading was aborted.  The
+          <tt>MibName</tt> is the name of the Mib, including the path to
+          where the compiled mib is found.  For example,</p>
+        <code type="none">
+          Dir = code:priv_dir(my_app) ++ "/mibs/",
+          snmpa:load_mibs(snmp_master_agent, [Dir ++ "MY-MIB"]).
+        </code>
+
+        <marker id="unload_mibs"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unload_mibsMibsgtokerrorReason"></a><b>unload_mibs(Mibs) -&gt; ok | {error, Reason}<br/>unload_mibs(Agent,Mibs) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Mibs = [MibName]</b><br/>
+        <b>MibName = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unloads MIBs into an agent.  If it cannot unload all MIBs,
+          it will indicate where unloading was aborted. </p>
+
+        <marker id="which_mibs"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_mibsgtMibs"></a><b>which_mibs() -&gt; Mibs<br/>which_mibs(Agent) -&gt; Mibs</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Mibs = [{MibName, MibFile}]</b><br/>
+        <b>MibName = atom()</b><br/>
+        <b>MibFile = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieve the list of all the mibs loaded into this agent. Default 
+          is the master agent. </p>
+                    
+        <marker id="whereis_mib"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="whereis_mibMibNamegtokMibFileerrorReason"></a><b>whereis_mib(MibName) -&gt; {ok, MibFile} | {error, Reason}<br/>whereis_mib(Agent, MibName) -&gt; {ok, MibFile} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>MibName = atom()</b><br/>
+        <b>MibFile = string()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Get the full path to the (compiled) mib-file. </p>
+
+        <marker id="current_request_id"></marker>
+        <marker id="current_context"></marker>
+        <marker id="current_community"></marker>
+        <marker id="current_address"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="current_request_idgtvalueRequestIdfalse"></a><b>current_request_id() -&gt; {value, RequestId} | false<br/>current_context() -&gt; {value, Context} | false<br/>current_community() -&gt; {value, Community} | false<br/>current_address() -&gt; {value, Address} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RequestId = integer()</b><br/>
+        <b>Context = string()</b><br/>
+        <b>Community = string()</b><br/>
+        <b>Address = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Get the request-id, context, community and address of the 
+          request currently being processed by the agent. </p>
+        <p>Note that these functions is intended to be called by the 
+          instrumentation functions and <em>only</em> if they are 
+          executed in the context of the agent process (e.g. it does 
+          not work if called from a spawned process).</p>
+
+        <marker id="enum_to_int"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enum_to_intNameEnumgtvalueIntfalse"></a><b>enum_to_int(Name, Enum) -&gt; {value, Int} | false<br/>enum_to_int(Db, Name, Enum) -&gt; {value, Int} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Db   = term()</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>Enum = atom()</b><br/>
+        <b>Int  = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts the symbolic value <tt>Enum</tt> to the
+          corresponding integer of the enumerated object or type
+          <tt>Name</tt> in a MIB.  The MIB must be loaded. 
+          </p>
+        <p><tt>false</tt> is returned if the object or type is not
+          defined in any loaded MIB, or if it does not define the
+          symbolic value as enumerated.
+          </p>
+        <p><tt>Db</tt> is a reference to the symbolic store database 
+          (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
+
+        <marker id="int_to_enum"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="int_to_enumNameIntgtvalueEnumfalse"></a><b>int_to_enum(Name, Int) -&gt; {value, Enum} | false<br/>int_to_enum(Db, Name, Int) -&gt; {value, Enum} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Db   = term()</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>Int  = int()</b><br/>
+        <b>Enum = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts the integer <tt>Int</tt> to the corresponding
+          symbolic value of the enumerated object or type <tt>Name</tt> in
+          a MIB.  The MIB must be loaded. 
+          </p>
+        <p><tt>false</tt> is returned if the object or type is not
+          defined in any loaded MIB, or if it does not define the
+          symbolic value as enumerated.
+          </p>
+        <p><tt>Db</tt> is a reference to the symbolic store database 
+          (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
+
+        <marker id="name_to_oid"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="name_to_oidNamegtvalueoidfalse"></a><b>name_to_oid(Name) -&gt; {value, oid()} | false<br/>name_to_oid(Db, Name) -&gt; {value, oid()} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Db   = term()</b><br/>
+        <b>Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Looks up the OBJECT IDENTIFIER of a MIB object, given the
+          symbolic name.  Note, the OBJECT IDENTIFIER is given for the
+          object, not for an instance. </p>
+        <p><tt>false</tt> is returned if the object is not defined in any
+          loaded MIB. </p>
+        <p><tt>Db</tt> is a reference to the symbolic store database 
+          (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
+
+        <marker id="oid_to_name"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="oid_to_nameOIDgtvalueNamefalse"></a><b>oid_to_name(OID) -&gt; {value, Name} | false<br/>oid_to_name(Db, OID) -&gt; {value, Name} | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Db   = term()</b><br/>
+        <b>OID  = oid()</b><br/>
+        <b>Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Looks up the symbolic name of a MIB object, given OBJECT
+          IDENTIFIER. </p>
+        <p><tt>false</tt> is returned if the object is not defined in any
+          loaded MIB. </p>
+        <p><tt>Db</tt> is a reference to the symbolic store database 
+          (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
+
+        <marker id="which_aliasnames"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_aliasnamesgtResult"></a><b>which_aliasnames() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [atom()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieve all alias-names known to the agent.</p>
+        <marker id="which_tables"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_tablesgtResult"></a><b>which_tables() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [atom()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieve all tables known to the agent.</p>
+
+        <marker id="which_variables"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_variablesgtResult"></a><b>which_variables() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [atom()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieve all variables known to the agent.</p>
+
+        <marker id="which_notifications"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_notificationsgtResult"></a><b>which_notifications() -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = [{Name, MibName, Info}]</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>MibName = atom()</b><br/>
+        <b>Info = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieve all notifications (and traps) known to the agent.</p>
+
+        <marker id="log_to_txt"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="log_to_txtLogDirMibs"></a><b>log_to_txt(LogDir, Mibs)<br/>log_to_txt(LogDir, Mibs, OutFile) -&gt; ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName) -&gt;  ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile) -&gt;  ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile, Start) -&gt;  ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile, Start, Stop)  -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>LogDir = string()</b><br/>
+        <b>Mibs = [MibName]</b><br/>
+        <b>MibName = string()</b><br/>
+        <b>OutFile = string()</b><br/>
+        <b>LogName = string()</b><br/>
+        <b>LogFile = string()</b><br/>
+        <b>Start = Stop = null | datetime() | {local_time,datetime()} |  {universal_time,datetime()} </b><br/>
+        <b>Reason = disk_log_open_error() | file_open_error() | term()</b><br/>
+        <b>disk_log_open_error() = {LogName, term()}</b><br/>
+        <b>file_open_error() = {OutFile, term()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts an Audit Trail Log to a readable text file. 
+          <tt>OutFile</tt> defaults to "./snmpa_log.txt". 
+          <tt>LogName</tt> defaults to "snmpa_log". 
+          <tt>LogFile</tt> defaults to "snmpa.log". 
+          See <seealso marker="snmp#log_to_txt">snmp:log_to_txt</seealso> 
+          for more info.</p>
+
+        <marker id="change_log_size"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_log_sizeNewSizegtokerrorReason"></a><b>change_log_size(NewSize) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NewSize = {MaxBytes, MaxFiles}</b><br/>
+        <b>MaxBytes = integer()</b><br/>
+        <b>MaxFiles = integer()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the log size of the Audit Trail Log. The application must 
+          be configured to use the audit trail log function. Please refer to 
+          disk_log(3) in Kernel Reference Manual for a description of how to 
+          change the log size. </p>
+        <p>The change is permanent, as long as the log is not deleted. 
+          That means, the log size is remembered across reboots. </p>
+
+        <marker id="set_log_type"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_log_typeNewTypegtokOldTypeerrorReason"></a><b>set_log_type(NewType) -&gt; {ok, OldType} | {error, Reason}<br/>set_log_type(Agent, NewType) -&gt; {ok, OldType} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NewType = OldType = atl_type()</b><br/>
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the run-time Audit Trail log type. </p>
+        <p>Note that this has no effect on the application configuration as
+          defined by configuration files, so a node restart will revert the 
+          config to whatever is in those files. </p>
+        <p>This function is primarily useful in testing/debugging 
+          scenarios. </p>
+
+        <marker id="mib_of"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mib_ofOidgtokMibNameerrorReason"></a><b>mib_of(Oid) -&gt; {ok, MibName} | {error, Reason}<br/>mib_of(Agent, Oid) -&gt; {ok, MibName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Oid = oid()</b><br/>
+        <b>MibName = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finds the mib corresponding to the <tt>Oid</tt>. If it is a
+          variable, the Oid must be 
+          &lt;Oid for var&gt;.0 and if it is a table, Oid must be 
+          &lt;table&gt;.&lt;entry&gt;.&lt;col&gt;.&lt;any&gt;</p>
+
+        <marker id="me_of"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="me_ofOidgtokMeerrorReason"></a><b>me_of(Oid) -&gt; {ok, Me} | {error, Reason}<br/>me_of(Agent, Oid) -&gt; {ok, Me} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Oid = oid()</b><br/>
+        <b>Me = #me{}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finds the mib entry corresponding to the <tt>Oid</tt>. If it is a
+          variable, the Oid must be 
+          &lt;Oid for var&gt;.0 and if it is a table, Oid must be 
+          &lt;table&gt;.&lt;entry&gt;.&lt;col&gt;.&lt;any&gt;</p>
+
+        <marker id="register_notification_filter"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="register_notification_filterIdModDatagtokerrorReason"></a><b>register_notification_filter(Id, Mod, Data) -&gt; ok | {error, Reason}<br/>register_notification_filter(Agent, Id, Mod, Data) -&gt; ok | {error, Reason}<br/>register_notification_filter(Id, Mod, Data, Where) -&gt; ok | {error, Reason}<br/>register_notification_filter(Agent, Id, Mod, Data, Where) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Id = filter_id()</b><br/>
+        <b>filter_id() = term()</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Data = term()</b><br/>
+        <b>Where = filter_position()</b><br/>
+        <b>Reason = term()</b><br/>
+        <b>filter_position() = first | last | {insert_before, filter_id()} | {insert_after, filter_id()} </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Registers a notification filter.
+          </p>
+        <p><tt>Mod</tt> is a module implementing the 
+          <tt>snmpa_notification_filter</tt> behaviour.</p>
+        <p><tt>Data</tt> will be passed on to the filter when calling the
+          functions of the behaviour.</p>
+
+        <marker id="unregister_notification_filter"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unregister_notification_filterIdgtokerrorReason"></a><b>unregister_notification_filter(Id) -&gt; ok | {error, Reason}<br/>unregister_notification_filter(Agent, Id) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Id = filter_id()</b><br/>
+        <b>filter_id() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unregister a notification filter. </p>
+
+        <marker id="which_notification_filter"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_notification_filtergtFilters"></a><b>which_notification_filter() -&gt; Filters<br/>which_notification_filter(Agent) -&gt; Filters</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Filters = [filter_id()]</b><br/>
+        <b>filter_id() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>List all notification filters in an agent.</p>
+
+        <marker id="set_request_limit"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_request_limitNewLimitgtokOldLimiterrorReason"></a><b>set_request_limit(NewLimit) -&gt; {ok, OldLimit} | {error, Reason}<br/>set_request_limit(Agent, NewLimit) -&gt; {ok, OldLimit} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NewLimit = OldLimit = infinity | integer() &gt;= 0</b><br/>
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the request limit. </p>
+        <p>Note that this has no effect on the application configuration as
+          defined by configuration files, so a node restart will revert the 
+          config to whatever is in those files. </p>
+        <p>This function is primarily useful in load regulation 
+          scenarios. </p>
+
+        <marker id="register_subagent"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="register_subagentAgentSubTreeOidSubagentgtokerrorReason"></a><b>register_subagent(Agent, SubTreeOid, Subagent) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>SubTreeOid = oid()</b><br/>
+        <b>SubAgent = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Registers a sub-agent under a sub-tree of another agent. </p>
+        <p>It is easy to make mistakes when registering sub-agents and
+          this activity should be done carefully.  For example, a
+          strange behaviour would result from the following
+          configuration:</p>
+        <pre>
+snmp_agent:register_subagent(MAPid,[1,2,3,4],SA1),
+snmp_agent:register_subagent(SA1,[1,2,3], SA2).
+        </pre>
+        <p><tt>SA2</tt> will not get requests starting with object
+          identifier <tt>[1,2,3]</tt> since <tt>SA1</tt> does not. </p>
+
+        <marker id="unregister_subagent"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unregister_subagentAgentSubagentOidOrPidgtokokSubAgentPiderrorReason"></a><b>unregister_subagent(Agent, SubagentOidOrPid) -&gt; ok | {ok, SubAgentPid} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>SubTreeOidorPid = oid() | pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unregister a sub-agent.  If the second argument is a pid,
+          then that sub-agent will be unregistered from all trees in
+          <tt>Agent</tt>. </p>
+
+          <marker id="send_notification"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_notificationAgentNotificationReceiver"></a><b>send_notification(Agent, Notification, Receiver)<br/>send_notification(Agent, Notification, Receiver, Varbinds)<br/>send_notification(Agent, Notification, Receiver, NotifyName, Varbinds)<br/>send_notification(Agent, Notification, Receiver, NotifyName, ContextName, Varbinds) -&gt; void() </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Notification = atom()</b><br/>
+        <b>Receiver = no_receiver | {Tag, Recv} | notification_delivery_info()</b><br/>
+        <b>Tag = term()</b><br/>
+        <b>Recv = receiver()</b><br/>
+        <b>receiver() = pid() | atom() | {Mod, Func, Args}</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Args = list()</b><br/>
+        <b>NotifyName = string()</b><br/>
+        <b>ContextName = string()</b><br/>
+        <b>Varbinds = varbinds()</b><br/>
+        <b>varbinds() = [varbind()]</b><br/>
+        <b>varbind() = {Variable, Value} | {Column, RowIndex, Value} | {OID, Value}</b><br/>
+        <b>Variable = atom()</b><br/>
+        <b>Column = atom()</b><br/>
+        <b>OID = oid()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>RowIndex = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends the notification <tt>Notification</tt> to the
+          management targets defined for <tt>NotifyName</tt> in the
+          <tt>snmpNotifyTable</tt> in SNMP-NOTIFICATION-MIB from the
+          specified context.  If no <tt>NotifyName</tt> is specified (or
+          if it is <tt>""</tt>), the notification is sent to all
+          management targets (<tt>Addresses</tt> below).  If no <tt>ContextName</tt> 
+          is specified, the default <tt>""</tt> context is used.
+          </p>
+
+        <p>The parameter <tt>Receiver</tt> specifies where information
+          about delivery of Inform-Requests should be sent.  The agent
+          sends Inform-Requests and waits for acknowledgments from the
+          managers. <tt>Receiver</tt> can have three values: </p>
+
+	<list type="bulleted">
+          <item>
+            <p><tt>no_receiver</tt> - No information is delivered. </p>
+	  </item>
+
+          <item>
+            <p><tt>{Tag, Recv}</tt> - The information is delivered either via messages 
+              or via a function call according to the value of <tt>Recv</tt>. </p>
+	  </item>
+
+          <item>
+            <p><tt>notification_delivery_info()</tt> - The information is 
+              delivered via a function call according to this data. See the 
+              <seealso marker="#data_types">DATA TYPES</seealso> section 
+              above for details. </p>
+	  </item>
+
+        </list>
+
+
+        <p>If <tt>Receiver</tt> has the value <tt>{Tag, Recv}</tt>, the delivery is
+          done according to <tt>Recv</tt>: </p>
+
+        <list>
+          <item>
+            <p><tt>pid() | atom()</tt> - The info will be delivered in  
+              the following messages: </p>
+            <list>
+              <item>
+                <p><tt>{snmp_targets, Tag, Addresses}</tt></p>
+                <p>This inform the user which target addresses the 
+                  notification was sent to. </p>
+		  </item>
+              <item>
+                <p><tt>{snmp_notification, Tag, {got_response, Address}}</tt></p>
+                <p>This informs the user that this target address 
+                  acknowledged the notification. </p>
+		  </item>
+              <item>
+                <p><tt>{snmp_notification, Tag, {no_response, Address}}</tt></p>
+                <p>This informs the user that this target address 
+                  did not acknowledge notification. </p>
+		  </item>
+		</list>
+            <p>The notification is sent as an Inform-Request to each 
+              target address in <tt>Addresses</tt> and if there are no 
+              targets for which an Inform-Request is sent, <tt>Addresses</tt> 
+              is the empty list <tt>[]</tt>. </p>
+            <p>The <tt>receiver</tt> will first be sent the <tt>snmp_targets</tt> 
+              message, and then for each address in <tt>Addresses</tt> list, 
+              one of the two <tt>snmp_notification</tt> messages. </p>
+	  </item>
+          <item>
+            <p><tt>{Mod, Func, Args}</tt> - The info will be delivered via
+              the function call: </p>
+            <p><tt>Mod:Func([Msg | Args])</tt></p>
+            <p>where <tt>Msg</tt> has the same content and purpose as the 
+              messages descrived above.</p>
+	  </item>
+	</list>
+
+        <p><tt>Address</tt> is a management target address and <tt>Addresses</tt> is a 
+          list of management target addresses. They are defined as followes: </p>
+
+<pre>
+        Addresses  = [address()]
+        Address    = address()
+        address()  = v1_address() | v3_address()
+        v1_address() = {TDomain, TAddress}
+        v3_address() = {{TDomain, TAddress}, V3MsgData}
+        TDomain    = tdoamin()
+        TAddress   = taddress()
+        tdomain()  = The oid of snmpUDPDomain 
+                     This is the only supported transport domain.
+        taddress() = [A1, A2, A3, A4, P1, P3]
+                     The 4 first bytes makes up the IP-address and the last 2,
+                     the UDP-port number.
+        V3MsgData  = v3_msg_data()
+        v3_msg_data() = term()
+</pre>
+
+        <p>If <tt>Receiver</tt> is a <tt>notification_delivery_info()</tt> record,
+          then the information about the notification delivery will be delivered 
+          to the <tt>receiver</tt> via the callback functions defined by the 
+          <seealso marker="snmpa_notification_delivery_info_receiver">snmpa_notification_delivery_info_receiver</seealso> 
+          behaviour according to the content of the <tt>notification_delivery_info()</tt> 
+          record. </p>
+
+        <p>The optional argument <tt>Varbinds</tt> defines
+          values for the objects in the notification.  If no value is
+          given for an object, the <tt>Agent</tt> performs a get-operation
+          to retrieve the value.
+          </p>
+        <p><tt>Varbinds</tt> is a list of <tt>Varbind</tt>, where each
+          <tt>Varbind</tt> is one of:
+          </p>
+        <list type="bulleted">
+          <item><tt>{Variable, Value}</tt>, where <tt>Variable</tt> is the
+           symbolic name of a scalar variable referred to in the notification
+           specification.
+          </item>
+          <item><tt>{Column, RowIndex, Value}</tt>, where <tt>Column</tt>
+           is the symbolic name of a column variable.
+          <tt>RowIndex</tt> is a list of indices for the specified
+           element.  If this is the case, the OBJECT IDENTIFIER sent
+           in the notification is the <tt>RowIndex</tt> appended to the OBJECT
+           IDENTIFIER for the table column. This is the OBJECT
+           IDENTIFIER which specifies the element.
+          </item>
+          <item><tt>{OID, Value}</tt>, where <tt>OID</tt> is the OBJECT
+           IDENTIFIER for an instance of an object, scalar variable,
+           or column variable.
+          </item>
+        </list>
+        <p>For example, to specify that <tt>sysLocation</tt> should have the
+          value <tt>"upstairs"</tt> in the notification, we could use one of:
+          </p>
+        <list type="bulleted">
+          <item><tt>{sysLocation, "upstairs"}</tt> or</item>
+          <item><tt>{[1,3,6,1,2,1,1,6,0], "upstairs"}</tt> or</item>
+          <item><tt>{?sysLocation_instance, "upstairs"}</tt> (provided
+           that the generated <tt>.hrl</tt> file is included)</item>
+        </list>
+        <p>If a variable in the notification is a table element, the
+          <tt>RowIndex</tt> for the element must be given in the
+          <tt>Varbinds</tt> list. In this case, the OBJECT IDENTIFIER sent
+          in the notification is the OBJECT IDENTIFIER that identifies this
+          element.  This OBJECT IDENTIFIER could be used in a get
+          operation later.
+          </p>
+        <p>This function is asynchronous, and does not return any
+          information.  If an error occurs, <tt>user_err/2</tt> of the error
+          report module is called and the notification is discarded.
+          </p>
+
+          <marker id="send_trap"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_trapAgentTrapCommunity"></a><b>send_trap(Agent,Trap,Community)<br/>send_trap(Agent,Trap,Community,Varbinds) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+        <b>Trap = atom()</b><br/>
+        <b>Community = string()</b><br/>
+        <b>Varbinds = [Varbind]</b><br/>
+        <b>Varbind = {Variable, Value} | {Column, RowIndex, Value} | {OID, Value}</b><br/>
+        <b>Variable = atom()</b><br/>
+        <b>Column = atom()</b><br/>
+        <b>OID = oid()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>RowIndex = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Note!  This function is only kept for backwards
+          compatibility reasons.  Use <tt>send_notification</tt> instead.
+          </p>
+        <p>Sends the trap <tt>Trap</tt> to the managers defined for
+          <tt>Community</tt> in the <tt>intTrapDestTable</tt> in
+          OTP-SNMPEA-MIB.  The optional argument <tt>Varbinds</tt> defines
+          values for the objects in the trap.  If no value is given for
+          an object, the <tt>Agent</tt> performs a get-operation to
+          retrieve the value.
+          </p>
+        <p><tt>Varbinds</tt> is a list of <tt>Varbind</tt>, where each
+          <tt>Varbind</tt> is one of:
+          </p>
+        <list type="bulleted">
+          <item><tt>{Variable, Value}</tt>, where <tt>Variable</tt> is the
+           symbolic name of a scalar variable referred to in the trap
+           specification.
+          </item>
+          <item><tt>{Column, RowIndex, Value}</tt>, where <tt>Column</tt>
+           is the symbolic name of a column variable.
+          <tt>RowIndex</tt> is a list of indices for the specified
+           element.  If this is the case, the OBJECT IDENTIFIER sent
+           in the trap is the <tt>RowIndex</tt> appended to the OBJECT
+           IDENTIFIER for the table column. This is the OBJECT
+           IDENTIFIER which specifies the element.
+          </item>
+          <item><tt>{OID, Value}</tt>, where <tt>OID</tt> is the OBJECT
+           IDENTIFIER for an instance of an object, scalar variable,
+           or column variable.
+          </item>
+        </list>
+        <p>For example, to specify that <tt>sysLocation</tt> should have the
+          value <tt>"upstairs"</tt> in the trap, we could use one of:
+          </p>
+        <list type="bulleted">
+          <item><tt>{sysLocation, "upstairs"}</tt> or</item>
+          <item><tt>{[1,3,6,1,2,1,1,6,0], "upstairs"}</tt> or</item>
+          <item><tt>{?sysLocation_instance, "upstairs"}</tt> (provided
+           that the generated <tt>.hrl</tt> file is included)</item>
+        </list>
+        <p>If a variable in the trap is a table element, the
+          <tt>RowIndex</tt> for the element must be given in the
+          <tt>Varbinds</tt> list. In this case, the OBJECT IDENTIFIER sent
+          in the trap is the OBJECT IDENTIFIER that identifies this
+          element.  This OBJECT IDENTIFIER could be used in a get
+          operation later.
+          </p>
+        <p>This function is asynchronous, and does not return any
+          information.  If an error occurs, <tt>snmp_error:user_err/2</tt>
+          is called and the trap is discarded. </p>
+
+        <marker id="discovery"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="discoveryTargetNameNotificationgtokokManagerEngineIDerrorReason"></a><b>discovery(TargetName, Notification) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}<br/>discovery(TargetName, Notification, Varbinds) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}<br/>discovery(TargetName, Notification, DiscoHandler) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}<br/>discovery(TargetName, Notification, ContextName, Varbinds) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}<br/>discovery(TargetName, Notification, Varbinds, DiscoHandler) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}<br/>discovery(TargetName, Notification, ContextName, Varbinds, DiscoHandler) -&gt; ok | {ok, ManagerEngineID} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TargetName = string()</b><br/>
+        <b>Notification = atom()</b><br/>
+        <b>ContextName = string() (defaults to "")</b><br/>
+        <b>Varbinds = varbinds()</b><br/>
+        <b>varbinds() = [varbind()]</b><br/>
+        <b>DiscoHandler = snmpa_discovery_handler()</b><br/>
+        <b>snmpa_discovery_handler() = Module implementing the snmpa_discovery_handler behaviour</b><br/>
+        <b>ManagerEngineID = string()</b><br/>
+        <b>varbind() = {Variable, Value} | {Column, RowIndex, Value} | {OID, Value}</b><br/>
+        <b>Variable = atom()</b><br/>
+        <b>Column = atom()</b><br/>
+        <b>OID = oid()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>RowIndex = [int()]</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Initiate the discovery process with the manager identified by
+          <tt>TargetName</tt> using the notification <tt>Notification</tt>. </p>
+
+        <p>This function is synchronous, which means that it will return when
+          the discovery process has been completed or failed. </p>
+
+        <p>The <tt>DiscoHandler</tt> module is used during the discovery 
+          process. See 
+          <seealso marker="snmpa_discovery_handler">discovery handler</seealso>
+          for more info. </p>
+
+        <p>In case the 
+          <seealso marker="snmpa_discovery_handler#stage1_finish">stage1_finish</seealso> 
+          function returns <tt>ignore</tt> then the <tt>discovery</tt> will
+          return <tt>{ok, ManagerEngineID}</tt> for a successfull discovery.
+          eitherwise <tt>ok</tt> is returned. </p>
+
+        <note><p>If we are not at security-level <tt>noAuthNoPriv</tt>,
+          this could be complicated, since the agent will then continue 
+          with stage 2, before which the usm-related updates must be 
+          done. </p></note>
+
+        <note><p>The default discovery handler will require 
+          additional actions by the caller and the discovery will not work
+          if the security-level is higher then <tt>noAuthNoPriv</tt>. </p></note>
+
+          <marker id="convert_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="convert_configOldConfiggtAgentConfig"></a><b>convert_config(OldConfig) -&gt; AgentConfig</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OldConfig = list()</b><br/>
+        <b>AgentConfig = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This off-line utility function can be used to convert
+          the old snmp application config (pre snmp-4.0) to the 
+          new snmp agent config (as of snmp-4.0).</p>
+        <p>For information about the old config (<tt>OldConfig</tt>) 
+          see the OTP R9C documentation.</p>
+        <p>For information about the current agent config 
+          (<tt>AgentConfig</tt>), see either
+          the <seealso marker="snmp_app">SNMP application</seealso> 
+          part of the reference manual or the 
+          <seealso marker="snmp_config">Configuring the application</seealso> 
+          chapter of the SNMP user's guide.</p>
+
+        <marker id="restart_worker"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="restart_workergtvoid"></a><b>restart_worker() -&gt; void()<br/>restart_worker(Agent) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Restart the worker process of a multi-threaded agent.</p>
+        <p>This is a utility function, that can be usefull when 
+          e.g. debugging instrumentation functions.</p>
+
+        <marker id="restart_set_worker"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="restart_set_workergtvoid"></a><b>restart_set_worker() -&gt; void()<br/>restart_set_worker(Agent) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Agent = pid() | atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Restart the set worker process of a multi-threaded agent.</p>
+        <p>This is a utility function, that can be usefull when 
+          e.g. debugging instrumentation functions.</p>
+
+        <marker id="verbosity"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="verbosityRefVerbositygtvoid"></a><b>verbosity(Ref,Verbosity) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = pid() | sub_agents | master_agent | net_if | mib_server | symbolic_store | note_store | local_db</b><br/>
+        <b>Verbosity = verbosity() | {subagents, verbosity()}</b><br/>
+        <b>verbosity() = silence | info | log | debug | trace </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets verbosity for the designated process. For the lowest 
+          verbosity <tt>silence</tt>, nothing is printed. The higher the
+          verbosity, the more is printed. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

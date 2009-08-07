@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>filelib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />filelib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains utilities on a higher level than the <tt>file</tt>
+      module.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ensure_dirNamegtokerrorReason">ensure_dir(Name) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#file_sizeFilenamegtinteger">file_size(Filename) -&gt; integer()</a></li>
+        
+        <li><a href="#fold_filesDirRegExpRecursiveFunAccIngtAccOut">fold_files(Dir, RegExp, Recursive, Fun, AccIn) -&gt; AccOut   </a></li>
+        
+        <li><a href="#is_dirNamegttruefalse">is_dir(Name) -&gt; true | false</a></li>
+        
+        <li><a href="#is_fileNamegttruefalse">is_file(Name) -&gt; true | false</a></li>
+        
+        <li><a href="#is_regularNamegttruefalse">is_regular(Name) -&gt; true | false</a></li>
+        
+        <li><a href="#last_modifiedNamegtYearMonthDayHourMinSec0">last_modified(Name) -&gt; {{Year,Month,Day},{Hour,Min,Sec}} | 0</a></li>
+        
+        <li><a href="#wildcardWildcardgtlist">wildcard(Wildcard) -&gt; list()</a></li>
+        
+        <li><a href="#wildcardWildcardCwdgtlist">wildcard(Wildcard, Cwd) -&gt; list()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+filename() = string() | atom() | DeepList
+dirname() = filename()
+DeepList = [char() | atom() | DeepList]</code>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="ensure_dirNamegtokerrorReason"></a><b>ensure_dir(Name) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename() | dirname()</b><br/>
+        <b>Reason = posix() -- see file(3)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>ensure_dir/1</tt> function ensures that all parent
+          directories for the given file or directory name <tt>Name</tt>
+          exist, trying to create them if necessary.</p>
+        <p>Returns <tt>ok</tt> if all parent directories already exist
+          or could be created, or <tt>{error, Reason}</tt> if some parent
+          directory does not exist and could not be created for some
+          reason.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="file_sizeFilenamegtinteger"></a><b>file_size(Filename) -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>The <tt>file_size</tt> function returns the size of the given file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fold_filesDirRegExpRecursiveFunAccIngtAccOut"></a><b>fold_files(Dir, RegExp, Recursive, Fun, AccIn) -&gt; AccOut   </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = dirname()</b><br/>
+        <b>RegExp = regular_expression_string()</b><br/>
+        <b>Recursive = true|false</b><br/>
+        <b>Fun = fun(F, AccIn) -&gt; AccOut</b><br/>
+        <b>AccIn = AccOut = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>fold_files/5</tt> function folds the function
+          <tt>Fun</tt> over all (regular) files <tt>F</tt> in the
+          directory <tt>Dir</tt> that match the regular expression <tt>RegExp</tt>
+	  (see the <seealso marker="re">re</seealso> module for a description
+	  of the allowed regular expressions).
+          If <tt>Recursive</tt> is true all sub-directories to <tt>Dir</tt>
+          are processed. The regular expression matching is done on just
+	  the filename without the directory part.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_dirNamegttruefalse"></a><b>is_dir(Name) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename() | dirname()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>is_dir/1</tt> function returns <tt>true</tt> if <tt>Name</tt>
+          refers to a directory, and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_fileNamegttruefalse"></a><b>is_file(Name) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename() | dirname()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>is_file/1</tt> function returns <tt>true</tt> if <tt>Name</tt>
+          refers to a file or a directory, and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_regularNamegttruefalse"></a><b>is_regular(Name) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>is_regular/1</tt> function returns <tt>true</tt> if <tt>Name</tt>
+          refers to a file (regular file), and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="last_modifiedNamegtYearMonthDayHourMinSec0"></a><b>last_modified(Name) -&gt; {{Year,Month,Day},{Hour,Min,Sec}} | 0</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = filename() | dirname()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>last_modified/1</tt> function returns the date and time the
+          given file or directory was last modified, or 0 if the file
+	  does not exist.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="wildcardWildcardgtlist"></a><b>wildcard(Wildcard) -&gt; list()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Wildcard = filename() | dirname()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>wildcard/1</tt> function returns a list of all files
+          that match Unix-style wildcard-string <tt>Wildcard</tt>.</p>
+        <p>The wildcard string looks like an ordinary filename, except
+          that certain "wildcard characters" are interpreted in a special
+          way. The following characters are special:
+          </p>
+        <taglist>
+          <tag>?</tag>
+          <item>
+            <p>Matches one character.</p>
+          </item>
+          <tag>*</tag>
+          <item>
+            <p>Matches any number of characters up to the end of
+              the filename, the next dot, or the next slash.</p>
+          </item>
+          <tag>{Item,...}</tag>
+          <item>
+            <p>Alternation. Matches one of the alternatives.</p>
+          </item>
+        </taglist>
+        <p>Other characters represent themselves. Only filenames that
+          have exactly the same character in the same position will match.
+          (Matching is case-sensitive; i.e. "a" will not match "A").
+          </p>
+        <p>Note that multiple "*" characters are allowed
+          (as in Unix wildcards, but opposed to Windows/DOS wildcards).
+          </p>
+        <p>Examples:</p>
+        <p>The following examples assume that the current directory is the
+          top of an Erlang/OTP installation.
+          </p>
+        <p>To find all <tt>.beam</tt> files in all applications, the following
+          line can be used:</p>
+        <code type="none">
+    filelib:wildcard("lib/*/ebin/*.beam").        </code>
+        <p>To find either <tt>.erl</tt> or <tt>.hrl</tt> in all applications
+          <tt>src</tt> directories, the following</p>
+        <code type="none">
+    filelib:wildcard("lib/*/src/*.?rl")        </code>
+        <p>or the following line</p>
+        <code type="none">
+    filelib:wildcard("lib/*/src/*.{erl,hrl}")        </code>
+        <p>can be used.</p>
+        <p>To find all <tt>.hrl</tt> files in either <tt>src</tt> or <tt>include</tt>
+          directories, use:</p>
+        <code type="none">
+    filelib:wildcard("lib/*/{src,include}/*.hrl").        </code>
+        <p>To find all <tt>.erl</tt> or <tt>.hrl</tt> files in either
+          <tt>src</tt> or <tt>include</tt> directories, use:</p>
+        <code type="none">
+    filelib:wildcard("lib/*/{src,include}/*.{erl,hrl}")        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="wildcardWildcardCwdgtlist"></a><b>wildcard(Wildcard, Cwd) -&gt; list()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Wildcard = filename() | dirname()</b><br/>
+        <b>Cwd = dirname()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>wildcard/2</tt> function works like <tt>wildcard/1</tt>,
+          except that instead of the actual working directory, <tt>Cwd</tt>
+          will be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

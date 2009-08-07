@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_EventChannel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_EventChannel</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotification_AdminPropertiesAdmin">CosNotification_AdminPropertiesAdmin</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_MyFactoryChannelgtChannelFactory">_get_MyFactory(Channel) -&gt; ChannelFactory</a></li>
+        
+        <li><a href="#_get_default_consumer_adminChannelgtConsumerAdmin">_get_default_consumer_admin(Channel) -&gt; ConsumerAdmin</a></li>
+        
+        <li><a href="#_get_default_filter_factoryChannelgtFilterFactory">_get_default_filter_factory(Channel) -&gt; FilterFactory</a></li>
+        
+        <li><a href="#_get_default_supplier_adminChannelgtSupplierAdmin">_get_default_supplier_admin(Channel) -&gt; SupplierAdmin</a></li>
+        
+        <li><a href="#destroyChannelgtok">destroy(Channel) -&gt; ok</a></li>
+        
+        <li><a href="#for_consumersChannelgtConsumerAdmin">for_consumers(Channel) -&gt; ConsumerAdmin</a></li>
+        
+        <li><a href="#for_suppliersChannelgtSupplierAdmin">for_suppliers(Channel) -&gt; SupplierAdmin</a></li>
+        
+        <li><a href="#get_all_consumeradminsChannelgtReply">get_all_consumeradmins(Channel) -&gt; Reply</a></li>
+        
+        <li><a href="#get_all_supplieradminsChannelgtReply">get_all_supplieradmins(Channel) -&gt; Reply</a></li>
+        
+        <li><a href="#get_consumeradminChannelAdminIDgtConsumerAdmin">get_consumeradmin(Channel, AdminID) -&gt; ConsumerAdmin</a></li>
+        
+        <li><a href="#get_supplieradminChannelAdminIDgtSupplierAdmin">get_supplieradmin(Channel, AdminID) -&gt; SupplierAdmin</a></li>
+        
+        <li><a href="#new_for_consumersChannelOpTypegtReturn">new_for_consumers(Channel, OpType) -&gt; Return</a></li>
+        
+        <li><a href="#new_for_suppliersChannelOpTypegtReturn">new_for_suppliers(Channel, OpType) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyFactoryChannelgtChannelFactory"></a><b>_get_MyFactory(Channel) -&gt; ChannelFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>ChannelFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the reference of the event channel
+          factory that created the target channel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_default_consumer_adminChannelgtConsumerAdmin"></a><b>_get_default_consumer_admin(Channel) -&gt; ConsumerAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>ConsumerAdmin = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is a readonly attribute which maintains a reference to a default
+          <tt>ConsumerAdmin</tt> object associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_default_supplier_adminChannelgtSupplierAdmin"></a><b>_get_default_supplier_admin(Channel) -&gt; SupplierAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>SupplierAdmin = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is a readonly attribute which maintains a reference to a default
+          <tt>SupplierAdmin</tt> object associated with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_default_filter_factoryChannelgtFilterFactory"></a><b>_get_default_filter_factory(Channel) -&gt; FilterFactory</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>FilterFactory = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The default <tt>FilterFactory</tt> associated with the target channel
+          is maintained by this readonly attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_for_consumersChannelOpTypegtReturn"></a><b>new_for_consumers(Channel, OpType) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>OpType = 'AND_OP' | 'OR_OP'</b><br/>
+        <b>Return = {ConsumerAdmin, AdminID}</b><br/>
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>AdminID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new instance of a <tt>ConsumerAdmin</tt> and supplies
+          an Id which may be used when invoking other operations exported by this module.
+          The returned object will inherit the Quality of Service properties of the
+          target channel.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="for_consumersChannelgtConsumerAdmin"></a><b>for_consumers(Channel) -&gt; ConsumerAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>ConsumerAdmin = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A new new instance of a <tt>ConsumerAdmin</tt> object is created but no
+          Id is returned. The returned object's operation type, i.e., <tt>'AND_OP'</tt> or <tt>'OR_OP'</tt>, 
+          will be set to the value of the configuration parameter <tt>filterOp</tt>.
+          The target object's Quality of Service properties will be inherited by the
+          returned <tt>ConsumerAdmin</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_for_suppliersChannelOpTypegtReturn"></a><b>new_for_suppliers(Channel, OpType) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>OpType = 'AND_OP' | 'OR_OP'</b><br/>
+        <b>Return = {SupplierAdmin, AdminID}</b><br/>
+        <b>SupplierAdmin = #objref</b><br/>
+        <b>AdminID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Enables us to create a new instance of a <tt>SupplierAdmin</tt>. An Id, which
+          may be used when invoking other operations exported by this module, is also
+          returned. The current Quality of Service settings associated with the target
+          object will be inherited by the <tt>SupplierAdmin</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="for_suppliersChannelgtSupplierAdmin"></a><b>for_suppliers(Channel) -&gt; SupplierAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>SupplierAdmin = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To create a new <tt>SupplierAdmin</tt> with the target object's current 
+          Quality of Service settings we can use this function. The returned object's
+          operation type (<tt>'AND_OP'</tt> or <tt>'OR_OP'</tt>) will be determined by the
+          configuration variable <tt>filterOp</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_consumeradminChannelAdminIDgtConsumerAdmin"></a><b>get_consumeradmin(Channel, AdminID) -&gt; ConsumerAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>AdminID = long()</b><br/>
+        <b>ConsumerAdmin = #objref | {'EXCEPTION', #'CosNotifyChannelAdmin_AdminNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the given Id is associated with a <tt>ConsumerAdmin</tt> the object reference 
+          is returned. If such association never existed or the <tt>ConsumerAdmin</tt>
+          have terminated an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_supplieradminChannelAdminIDgtSupplierAdmin"></a><b>get_supplieradmin(Channel, AdminID) -&gt; SupplierAdmin</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>AdminID = long()</b><br/>
+        <b>SupplierAdmin = #objref | {'EXCEPTION', #'CosNotifyChannelAdmin_AdminNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Equal to the operation <tt>get_consumeradmin/2</tt> but a reference to 
+          a <tt>SupplierAdmin</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_consumeradminsChannelgtReply"></a><b>get_all_consumeradmins(Channel) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>Reply = [AdminID]</b><br/>
+        <b>AdminID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To get access to all <tt>ConsumerAdmin</tt> Id's created by the target object, and still
+          alive, this operation could be invoked.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_supplieradminsChannelgtReply"></a><b>get_all_supplieradmins(Channel) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+        <b>Reply = [AdminID]</b><br/>
+        <b>AdminID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Equal to the operation <tt>get_all_consumeradmins/1</tt> but returns
+          a list of all <tt>SupplierAdmin</tt> object ID's.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyChannelgtok"></a><b>destroy(Channel) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Channel = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>destroy</tt> operation will terminate the target channel and
+          all associated Admin objects.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

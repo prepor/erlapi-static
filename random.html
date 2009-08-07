@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>random</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />random</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Random number generator. The method is attributed to
+      B.A. Wichmann and I.D.Hill, in 'An efficient and portable
+      pseudo-random number generator', Journal of Applied
+      Statistics. AS183. 1982. Also Byte March 1987. </p>
+    <p>The current algorithm is a modification of the version attributed
+      to Richard A O'Keefe in the standard Prolog library.</p>
+    <p>Every time a random number is requested, a state is used to calculate
+      it, and a new state produced. The state can either be implicit (kept
+      in the process dictionary) or be an explicit argument and return value.
+      In this implementation, the state (the type <tt>ran()</tt>) consists of a
+      tuple of three integers.</p>
+    <p>It should be noted that this random number generator is not cryptographically 
+      strong. If a strong cryptographic random number generator is needed for
+      example <tt>crypto:rand_bytes/1</tt> could be used instead.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Note</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#seedgtran">seed() -&gt; ran()</a></li>
+        
+        <li><a href="#seedA1A2A3gtundefinedran">seed(A1, A2, A3) -&gt; undefined | ran()</a></li>
+        
+        <li><a href="#seedA1A2A3gtundefinedran">seed({A1, A2, A3}) -&gt; undefined | ran()</a></li>
+        
+        <li><a href="#seed0gtran">seed0() -&gt; ran()</a></li>
+        
+        <li><a href="#uniformNgtinteger">uniform(N) -&gt; integer()</a></li>
+        
+        <li><a href="#uniformgtfloat">uniform()-&gt; float()</a></li>
+        
+        <li><a href="#uniform_sState0gtfloatState1">uniform_s(State0) -&gt; {float(), State1}</a></li>
+        
+        <li><a href="#uniform_sNState0gtintegerState1">uniform_s(N, State0) -&gt; {integer(), State1}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Note</div>
+    
+    <div class="description">
+        
+    <title>Note</title>
+    <p>Some of the functions use the process dictionary variable
+      <tt>random_seed</tt> to remember the current seed.</p>
+    <p>If a process calls <tt>uniform/0</tt> or <tt>uniform/1</tt> without
+      setting a seed first, <tt>seed/0</tt> is called automatically.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="seedgtran"></a><b>seed() -&gt; ran()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Seeds random number generation with default (fixed) values
+          in the process dictionary, and returns the old state.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seedA1A2A3gtundefinedran"></a><b>seed(A1, A2, A3) -&gt; undefined | ran()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A1 = A2 = A3 = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Seeds random number generation with integer values in the process
+          dictionary, and returns the old state.</p>
+        <p>One way of obtaining a seed is to use the BIF <tt>now/0</tt>:</p>
+        <code type="none">
+\011  ...
+\011  {A1,A2,A3} = now(),
+\011  random:seed(A1, A2, A3),
+\011  ...</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seedA1A2A3gtundefinedran"></a><b>seed({A1, A2, A3}) -&gt; undefined | ran()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>A1 = A2 = A3 = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>
+	<tt>seed({A1, A2, A3})</tt> is equivalent to <tt>seed(A1, A2, A3)</tt>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="seed0gtran"></a><b>seed0() -&gt; ran()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the default state.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uniformgtfloat"></a><b>uniform()-&gt; float()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns a random float uniformly distributed between <tt>0.0</tt>
+          and <tt>1.0</tt>, updating the state in the process dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uniformNgtinteger"></a><b>uniform(N) -&gt; integer()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Given an integer <tt>N &gt;= 1</tt>, <tt>uniform/1</tt> returns a
+          random integer uniformly distributed between <tt>1</tt> and
+          <tt>N</tt>, updating the state in the process dictionary.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uniform_sState0gtfloatState1"></a><b>uniform_s(State0) -&gt; {float(), State1}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>State0 = State1 = ran()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Given a state, <tt>uniform_s/1</tt>returns a random float uniformly
+          distributed between <tt>0.0</tt> and <tt>1.0</tt>, and a new state.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uniform_sNState0gtintegerState1"></a><b>uniform_s(N, State0) -&gt; {integer(), State1}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer()</b><br/>
+        <b>State0 = State1 = ran()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Given an integer <tt>N &gt;= 1</tt> and a state, <tt>uniform_s/2</tt>
+          returns a random integer uniformly distributed between <tt>1</tt> and
+          <tt>N</tt>, and a new state.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

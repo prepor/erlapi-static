@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>gen_udp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />gen_udp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>gen_udp</tt> module provides functions for communicating
+      with sockets using the UDP protocol.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#closeSocketgtokerrorReason">close(Socket) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#controlling_processSocketPidgtok">controlling_process(Socket, Pid) -&gt; ok</a></li>
+        
+        <li><a href="#openPortgtokSocketerrorReason">open(Port) -&gt; {ok, Socket} | {error, Reason}</a></li>
+        
+        <li><a href="#recvSocketLengthgtokAddressPortPacketerrorReason">recv(Socket, Length) -&gt; {ok, {Address, Port, Packet}} | {error, Reason}</a></li>
+        
+        <li><a href="#sendSocketAddressPortPacketgtokerrorReason">send(Socket, Address, Port, Packet) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+ip_address()
+  see inet(3)
+
+posix()
+  see inet(3)
+
+socket()
+  as returned by open/1,2</code>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="openPortgtokSocketerrorReason"></a><b>open(Port) -&gt; {ok, Socket} | {error, Reason}<br/>open(Port, Options) -&gt; {ok, Socket} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port = 0..65535</b><br/>
+        <b>Options = [Opt]</b><br/>
+        <b>&nbsp;Opt -- see below</b><br/>
+        <b>Socket = socket()</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Associates a UDP port number (<tt>Port</tt>) with the calling
+          process.</p>
+        <p>The available options are:</p>
+        <taglist>
+          <tag><tt>list</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a list.</p>
+          </item>
+          <tag><tt>binary</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a binary.</p>
+          </item>
+          <tag><tt>{ip, ip_address()}</tt></tag>
+          <item>
+            <p>If the host has several network interfaces, this option
+              specifies which one to use.</p>
+          </item>
+          <tag><tt>{fd, int()}</tt></tag>
+          <item>
+            <p>If a socket has somehow been opened without using
+              <tt>gen_udp</tt>, use this option to pass the file
+              descriptor for it.</p>
+          </item>
+          <tag><tt>inet6</tt></tag>
+          <item>
+            <p>Set up the socket for IPv6.</p>
+          </item>
+          <tag><tt>inet</tt></tag>
+          <item>
+            <p>Set up the socket for IPv4.</p>
+          </item>
+          <tag><tt>Opt</tt></tag>
+          <item>
+            <p>See
+              <seealso marker="inet#setopts/2">inet:setopts/2</seealso>.</p>
+          </item>
+        </taglist>
+        <p>The returned socket <tt>Socket</tt> is used to send packets
+          from this port with <tt>send/4</tt>. When UDP packets arrive at
+          the opened port, they are delivered as messages:</p>
+        <code type="none">
+{udp, Socket, IP, InPortNo, Packet}</code>
+        <p>Note that arriving UDP packets that are longer than
+          the receive buffer option specifies, might be truncated
+          without warning.</p>
+        <p><tt>IP</tt> and <tt>InPortNo</tt> define the address from which
+          <tt>Packet</tt> came. <tt>Packet</tt> is a list of bytes if
+          the option <tt>list</tt> was specified. <tt>Packet</tt> is a
+          binary if the option <tt>binary</tt> was specified.</p>
+        <p>Default value for the receive buffer option is
+          <tt>{recbuf, 8192}</tt>.</p>
+        <p>If <tt>Port == 0</tt>, the underlying OS assigns a free UDP
+          port, use <tt>inet:port/1</tt> to retrieve it.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendSocketAddressPortPacketgtokerrorReason"></a><b>send(Socket, Address, Port, Packet) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Address = string() | atom() | ip_address()</b><br/>
+        <b>Port = 0..65535</b><br/>
+        <b>Packet = [char()] | binary()</b><br/>
+        <b>Reason = not_owner | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a packet to the specified address and port.
+          The <tt>Address</tt> argument can be either a hostname, or an
+          IP address.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recvSocketLengthgtokAddressPortPacketerrorReason"></a><b>recv(Socket, Length) -&gt; {ok, {Address, Port, Packet}} | {error, Reason}<br/>recv(Socket, Length, Timeout) -&gt; {ok, {Address, Port, Packet}} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Length  = int()</b><br/>
+        <b>Address = ip_address()</b><br/>
+        <b>Port = 0..65535</b><br/>
+        <b>Packet = [char()] | binary()</b><br/>
+        <b>Timeout = int() | infinity</b><br/>
+        <b>Reason = not_owner | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function receives a packet from a socket in passive
+          mode.</p>
+        <p>The optional <tt>Timeout</tt> parameter specifies a timeout in
+          milliseconds. The default value is <tt>infinity</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="controlling_processSocketPidgtok"></a><b>controlling_process(Socket, Pid) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Assigns a new controlling process <tt>Pid</tt> to
+          <tt>Socket</tt>. The controlling process is the process which
+          receives messages from the socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeSocketgtokerrorReason"></a><b>close(Socket) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Reason = not_owner | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes a UDP socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

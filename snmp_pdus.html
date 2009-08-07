@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmp_pdus</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmp_pdus</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>RFC1157, RFC1905 and/or RFC2272 should be studied carefully
+      before using this module, <tt>snmp_pdus</tt>.
+      </p>
+    <p>The module <tt>snmp_pdus</tt> contains functions for encoding 
+      and decoding of
+      SNMP protocol data units (PDUs).  In short, this module converts a
+      list of bytes to Erlang record representations and vice versa.
+      The record definitions can be found in the file
+      <tt>snmp/include/snmp_types.hrl</tt>.  If snmpv3 is used, the module
+      that includes <tt>snmp_types.hrl</tt> must define the constant
+      <tt>SNMP_USE_V3</tt> before the header file is included.  Example:</p>
+    <pre>
+-define(SNMP_USE_V3, true).
+-include_lib("snmp/include/snmp_types.hrl").    </pre>
+    <p>Encoding and decoding must be done explicitly when writing your
+      own Net if process.
+      </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#dec_messagebytegtMessage">dec_message([byte()]) -&gt; Message</a></li>
+        
+        <li><a href="#dec_message_onlybytegtMessage">dec_message_only([byte()]) -&gt; Message</a></li>
+        
+        <li><a href="#dec_pdubytegtPdu">dec_pdu([byte()]) -&gt; Pdu</a></li>
+        
+        <li><a href="#dec_scoped_pdubytegtScopedPdu">dec_scoped_pdu([byte()]) -&gt; ScopedPdu</a></li>
+        
+        <li><a href="#dec_scoped_pdu_databytegtScopedPduData">dec_scoped_pdu_data([byte()]) -&gt; ScopedPduData</a></li>
+        
+        <li><a href="#dec_usm_security_parametersbytegtUsmSecParams">dec_usm_security_parameters([byte()]) -&gt; UsmSecParams</a></li>
+        
+        <li><a href="#enc_encrypted_scoped_pduEncryptedScopedPdugtbyte">enc_encrypted_scoped_pdu(EncryptedScopedPdu) -&gt; [byte()]</a></li>
+        
+        <li><a href="#enc_messageMessagegtbyte">enc_message(Message) -&gt; [byte()]</a></li>
+        
+        <li><a href="#enc_message_onlyMessagegtbyte">enc_message_only(Message) -&gt; [byte()]</a></li>
+        
+        <li><a href="#enc_pduPdgtbyte">enc_pdu(Pd) -&gt; [byte()]</a></li>
+        
+        <li><a href="#enc_scoped_pduScopedPdugtbyte">enc_scoped_pdu(ScopedPdu) -&gt; [byte()]</a></li>
+        
+        <li><a href="#enc_usm_security_parametersUsmSecParamsgtbyte">enc_usm_security_parameters(UsmSecParams) -&gt; [byte()]</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="dec_messagebytegtMessage"></a><b>dec_message([byte()]) -&gt; Message</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Message = #message</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into an SNMP Message.  Note, if there
+          is a v3 message, the <tt>msgSecurityParameters</tt> are not
+          decoded.  They must be explicitly decoded by a call to a
+          security model specific decoding function,
+          e.g. <tt>dec_usm_security_parameters/1</tt>.  Also note, if
+          the <tt>scopedPDU</tt> is encrypted, the OCTET STRING encoded
+          <tt>encryptedPDU</tt> will be present in the <tt>data</tt> field.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dec_message_onlybytegtMessage"></a><b>dec_message_only([byte()]) -&gt; Message</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Message = #message</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into an SNMP Message, but does not
+          decode the data part of the Message. That means, data is still
+          a list of bytes, normally an encoded <tt>PDU</tt> (v1 and V2) or an
+          encoded and possibly encrypted <tt>scopedPDU</tt> (v3).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dec_pdubytegtPdu"></a><b>dec_pdu([byte()]) -&gt; Pdu</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pdu = #pdu</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into an SNMP Pdu.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dec_scoped_pdubytegtScopedPdu"></a><b>dec_scoped_pdu([byte()]) -&gt; ScopedPdu</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ScopedPdu = #scoped_pdu</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into an SNMP ScopedPdu.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dec_scoped_pdu_databytegtScopedPduData"></a><b>dec_scoped_pdu_data([byte()]) -&gt; ScopedPduData</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ScopedPduData = #scoped_pdu | EncryptedPDU</b><br/>
+        <b>EncryptedPDU = [byte()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into either a scoped pdu record, or
+          - if the scoped pdu was encrypted - to a list of bytes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dec_usm_security_parametersbytegtUsmSecParams"></a><b>dec_usm_security_parameters([byte()]) -&gt; UsmSecParams</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UsmSecParams = #usmSecurityParameters</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a list of bytes into an SNMP UsmSecurityParameters</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_encrypted_scoped_pduEncryptedScopedPdugtbyte"></a><b>enc_encrypted_scoped_pdu(EncryptedScopedPdu) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncryptedScopedPdu = [byte()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes an encrypted SNMP ScopedPdu into an OCTET STRING
+          that can be used as the <tt>data</tt> field in a
+          <tt>message</tt> record, that later can be encoded with a call
+          to <tt>enc_message_only/1</tt>. 
+          </p>
+        <p>This function should be used whenever the <tt>ScopedPDU</tt>
+          is encrypted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_messageMessagegtbyte"></a><b>enc_message(Message) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Message = #message</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes a message record to a list of bytes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_message_onlyMessagegtbyte"></a><b>enc_message_only(Message) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Message = #message</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>Message</tt> is a record where the <tt>data</tt> field is
+          assumed to be encoded (a list of bytes).  If there is a v1 or v2
+          message, the <tt>data</tt> field is an encoded <tt>PDU</tt>, and if
+          there is a v3 message, <tt>data</tt> is an encoded and possibly
+          encrypted <tt>scopedPDU</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_pduPdgtbyte"></a><b>enc_pdu(Pd) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pdu = #pdu</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes an SNMP Pdu into a list of bytes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_scoped_pduScopedPdugtbyte"></a><b>enc_scoped_pdu(ScopedPdu) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ScopedPdu = #scoped_pdu</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes an SNMP ScopedPdu into a list of bytes, which can be
+          encrypted, and after encryption, encoded with
+          a call to <tt>enc_encrypted_scoped_pdu/1</tt>; or it can be
+          used as the <tt>data</tt> field in a <tt>message</tt> record, which
+          then can be encoded with <tt>enc_message_only/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enc_usm_security_parametersUsmSecParamsgtbyte"></a><b>enc_usm_security_parameters(UsmSecParams) -&gt; [byte()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UsmSecParams = #usmSecurityParameters</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes SNMP UsmSecurityParameters into a list of bytes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

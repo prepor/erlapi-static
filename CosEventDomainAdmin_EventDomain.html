@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventDomainAdmin_EventDomain</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventDomainAdmin_EventDomain</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to all definitions include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEventDomain/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item><em>CosNotification_QoSAdmin</em></item>
+      <item><em>CosNotification_AdminPropertiesAdmin</em></item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_channelEventDomainChannelgtMemberID">add_channel(EventDomain, Channel) -&gt; MemberID</a></li>
+        
+        <li><a href="#add_connectionEventDomainConnectiongtReply">add_connection(EventDomain, Connection) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_pull_consumerEventDomainConsumergtReply">connect_pull_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_pull_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_pull_supplierEventDomainSuppliergtReply">connect_pull_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_pull_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_push_consumerEventDomainConsumergtReply">connect_push_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_push_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_push_supplierEventDomainSuppliergtReply">connect_push_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_push_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_pull_consumerEventDomainConsumergtReply">connect_sequence_pull_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_pull_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_sequence_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_pull_supplierEventDomainSuppliergtReply">connect_sequence_pull_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_pull_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_sequence_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_push_consumerEventDomainConsumergtReply">connect_sequence_push_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_push_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_sequence_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_push_supplierEventDomainSuppliergtReply">connect_sequence_push_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_sequence_push_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_sequence_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_pull_consumerEventDomainConsumergtReply">connect_structured_pull_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_pull_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_structured_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_pull_supplierEventDomainSuppliergtReply">connect_structured_pull_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_pull_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_structured_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_push_consumerEventDomainConsumergtReply">connect_structured_push_consumer(EventDomain, Consumer) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_push_consumer_with_idEventDomainConsumerMemberIDgtReply">connect_structured_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_push_supplierEventDomainSuppliergtReply">connect_structured_push_supplier(EventDomain, Supplier) -&gt; Reply</a></li>
+        
+        <li><a href="#connect_structured_push_supplier_with_idEventDomainSupplierMemberIDgtReply">connect_structured_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#destroyEventDomaingtok">destroy(EventDomain) -&gt; ok</a></li>
+        
+        <li><a href="#get_all_channelsEventDomaingtMemberIDSeq">get_all_channels(EventDomain) -&gt; MemberIDSeq</a></li>
+        
+        <li><a href="#get_all_connectionsEventDomaingtConnectionIDSeq">get_all_connections(EventDomain) -&gt; ConnectionIDSeq</a></li>
+        
+        <li><a href="#get_channelEventDomainMemberIDgtReply">get_channel(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#get_connectionEventDomainConnectionIDgtReply">get_connection(EventDomain, ConnectionID) -&gt; Reply</a></li>
+        
+        <li><a href="#get_cyclesEventDomaingtRouteSeq">get_cycles(EventDomain) -&gt; RouteSeq</a></li>
+        
+        <li><a href="#get_diamondsEventDomaingtDiamondSeq">get_diamonds(EventDomain) -&gt; DiamondSeq</a></li>
+        
+        <li><a href="#get_offer_channelsEventDomainMemberIDgtReply">get_offer_channels(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#get_subscription_channelsEventDomainMemberIDgtReply">get_subscription_channels(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#remove_channelEventDomainMemberIDgtReply">remove_channel(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#remove_connectionEventDomainConnectionIDgtReply">remove_connection(EventDomain, ConnectionID) -&gt; Reply</a></li>
+        
+        <li><a href="#set_default_consumer_channelEventDomainMemberIDgtReply">set_default_consumer_channel(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+        <li><a href="#set_default_supplier_channelEventDomainMemberIDgtReply">set_default_supplier_channel(EventDomain, MemberID) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="add_channelEventDomainChannelgtMemberID"></a><b>add_channel(EventDomain, Channel) -&gt; MemberID</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = Channel = #objref</b><br/>
+        <b>MemberID    = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds the given channel to the target domain. The channel
+          must be a <tt>CosNotifyChannelAdmin::EventChannel</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_channelsEventDomaingtMemberIDSeq"></a><b>get_all_channels(EventDomain) -&gt; MemberIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>MemberIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a a sequence of all channels associated with
+          the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_channelEventDomainMemberIDgtReply"></a><b>get_channel(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = Channel | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+        <b>Channel     = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the target domain have a <tt>CosNotifyChannelAdmin::EventChannel</tt>
+          represented by the given id this channel is returned. Otherwise,
+          an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_channelEventDomainMemberIDgtReply"></a><b>remove_channel(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = ok | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a  <tt>CosNotifyChannelAdmin::EventChannel</tt> with the 
+          <tt>MemberID</tt> exists it will removed and all its <tt>Connections</tt>
+          terminated. Otherwise an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_connectionEventDomainConnectiongtReply"></a><b>add_connection(EventDomain, Connection) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain  = #objref</b><br/>
+        <b>Connection   = 'CosEventDomainAdmin_Connection'{supplier_id=MemberID, consumer_id=MemberID, ctype=Type, notification_style=Style}</b><br/>
+        <b>MemberID     = long()</b><br/>
+        <b>Type         = 'ANY_EVENT' | 'STRUCTURED_EVENT' | 'SEQUENCE_EVENT'</b><br/>
+        <b>Style        = 'Pull' | 'Push'</b><br/>
+        <b>Reply        = ConnectionID | {'EXCEPTION', Exc}</b><br/>
+        <b>ConnectionID = long()</b><br/>
+        <b>Exc          = #'CosNotifyChannelAdmin_ChannelNotFound'{} | #'CosNotifyChannelAdmin_TypeError'{} | #'CosEventDomainAdmin_AlreadyExists'{} | #'CosEventDomainAdmin_DiamondCreationForbidden'{diam=RouteSeq} | #'CosEventDomainAdmin_CycleCreationForbidden'{cyc=MemberIDSeq}</b><br/>
+        <b>RouteSeq  = [MemberIDSeq]</b><br/>
+        <b>MemberIDSeq  = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The Connection parameter must contain valid data to enable
+          the target domain to setup a connection between two channels.
+          The struct members <tt>supplier_id</tt> and <tt>consumer_id</tt>
+          determines which channel should produce and consume events.
+          which type of events and if the supplier should push or the
+          consumer pull events is determined by <tt>ctype</tt> and
+          <tt>notification_style</tt> respectively.</p>
+        <p>If the target domain is not able to setup the connection
+          the appropriate exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_connectionsEventDomaingtConnectionIDSeq"></a><b>get_all_connections(EventDomain) -&gt; ConnectionIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain     = #objref</b><br/>
+        <b>ConnectionIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a sequnce of all connections within
+          the target domain.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_connectionEventDomainConnectionIDgtReply"></a><b>get_connection(EventDomain, ConnectionID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain  = #objref</b><br/>
+        <b>ConnectionID = long()</b><br/>
+        <b>Reply        = Connection | {'EXCEPTION', #'CosEventDomainAdmin_ConnectionNotFound'{}}</b><br/>
+        <b>Connection   = 'CosEventDomainAdmin_Connection'{supplier_id=MemberID, consumer_id=MemberID, ctype=Type, notification_style=Style}</b><br/>
+        <b>MemberID     = long()</b><br/>
+        <b>Type         = 'ANY_EVENT' | 'STRUCTURED_EVENT' | 'SEQUENCE_EVENT'</b><br/>
+        <b>Style        = 'Pull' | 'Push'</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a connection identified by the given id exists within the
+          target domain, a <tt>#'CosEventDomainAdmin_Connection'{}</tt> which
+          describe the connection is returned. Otherwise, an exception
+          is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_connectionEventDomainConnectionIDgtReply"></a><b>remove_connection(EventDomain, ConnectionID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain  = #objref</b><br/>
+        <b>ConnectionID = long()</b><br/>
+        <b>Reply        = ok | {'EXCEPTION', #'CosEventDomainAdmin_ConnectionNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the supplied connection id exists, the connection the
+          id represents is terminated. Otherwise, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_offer_channelsEventDomainMemberIDgtReply"></a><b>get_offer_channels(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = MemberIDSeq | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a sequence, containing the member id's
+          of all channels within the target domain which will supply events
+          to the channel identified by the given id. But, if no such
+          id exists in this domain, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_subscription_channelsEventDomainMemberIDgtReply"></a><b>get_subscription_channels(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Reply       = MemberIDSeq | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operations behaves like <tt>get_subscription_channels</tt>;
+          the difference is that the id's returned identifies channels
+          which will consume events supplied by the channel associated
+          with the given id.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyEventDomaingtok"></a><b>destroy(EventDomain) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calling this operation will terminate all connections
+          within the target domain. The domain will terminate but
+          all channels will not be affected.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_cyclesEventDomaingtRouteSeq"></a><b>get_cycles(EventDomain) -&gt; RouteSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>RouteSeq    = [MemberIDSeq]</b><br/>
+        <b>MemberIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of all cycles within the target domain.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_diamondsEventDomaingtDiamondSeq"></a><b>get_diamonds(EventDomain) -&gt; DiamondSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>DiamondSeq  = [RouteSeq]</b><br/>
+        <b>RouteSeq    = [MemberIDSeq]</b><br/>
+        <b>MemberIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of all diamonds within the target domain</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_default_consumer_channelEventDomainMemberIDgtReply"></a><b>set_default_consumer_channel(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Reply       = MemberID | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+        <b>MemberID    = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the given id represents a channel within the target domain,
+          this channel will be used when connection a supplier client
+          without specifying a certain channel. If no such channel exists
+          an exceptions is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_default_supplier_channelEventDomainMemberIDgtReply"></a><b>set_default_supplier_channel(EventDomain, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Reply       = MemberID | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+        <b>MemberID    = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If the given id represents a channel within the target domain,
+          this channel will be used when connection a consumer client
+          without specifying a certain channel. If no such channel exists
+          an exceptions is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_consumerEventDomainConsumergtReply"></a><b>connect_push_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosEventComm::PushConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          PushConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_pull_consumerEventDomainConsumergtReply"></a><b>connect_pull_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosEventComm::PullConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          PullConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_supplierEventDomainSuppliergtReply"></a><b>connect_push_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosEventComm::PushSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          PushSupplier to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_pull_supplierEventDomainSuppliergtReply"></a><b>connect_pull_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosEventComm::PullSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          PullSupplier to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_push_consumerEventDomainConsumergtReply"></a><b>connect_structured_push_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::StructuredPushConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          StructuredPushConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_pull_consumerEventDomainConsumergtReply"></a><b>connect_structured_pull_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::StructuredPullConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          StructuredPullConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_push_supplierEventDomainSuppliergtReply"></a><b>connect_structured_push_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::StructuredPushSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          StructuredPushSupplier to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_pull_supplierEventDomainSuppliergtReply"></a><b>connect_structured_pull_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::StructuredPullSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPullConsume | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          StructuredPullSupplier to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_push_consumerEventDomainConsumergtReply"></a><b>connect_sequence_push_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::SequencePushConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          SequencePushConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_consumerEventDomainConsumergtReply"></a><b>connect_sequence_pull_consumer(EventDomain, Consumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::SequencePullConsumer</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          SequencePullConsumer to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_push_supplierEventDomainSuppliergtReply"></a><b>connect_sequence_push_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::SequencePushSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          SequencePushSupplier to it. Otherwise, the
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_supplierEventDomainSuppliergtReply"></a><b>connect_sequence_pull_supplier(EventDomain, Supplier) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::SequencePullSupplier</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPullConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a default Channel have been set, this operation connects the given
+          SequencePullSupplier to it. Otherwise, the 
+          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosEventComm::PushConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given PushConsumer 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_pull_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosEventComm::PullConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given PullConsumer 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosEventComm::PushSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given PushSupplier 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_pull_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosEventComm::PullSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::ProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given PullSupplier 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_push_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_structured_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::StructuredPushConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given StructuredPushConsumer 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_pull_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_structured_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::StructuredPullConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given StructuredPullConsumer 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_push_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_structured_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::StructuredPushSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given StructuredPushSupplier 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_structured_pull_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_structured_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::StructuredPullSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::StructuredProxyPullConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given StructuredPullSupplier 
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_push_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_sequence_push_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::SequencePushConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPushSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given SequencePushConsumer
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_consumer_with_idEventDomainConsumerMemberIDgtReply"></a><b>connect_sequence_pull_consumer_with_id(EventDomain, Consumer, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Consumer    = CosNotifyComm::SequencePullConsumer</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPullSupplier | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given SequencePullConsumer
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_push_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_sequence_push_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::SequencePushSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPushConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given SequencePushSupplier
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_supplier_with_idEventDomainSupplierMemberIDgtReply"></a><b>connect_sequence_pull_supplier_with_id(EventDomain, Supplier, MemberID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EventDomain = #objref</b><br/>
+        <b>Supplier    = CosNotifyComm::SequencePullSupplier</b><br/>
+        <b>MemberID    = long()</b><br/>
+        <b>Reply       = CosNotifyChannelAdmin::SequenceProxyPullConsumer | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a Channel associated with the given MemberID exists within the
+          target Domain, this operation connects the given SequencePullSupplier
+          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

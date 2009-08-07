@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>global_group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />global_group</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The global group function makes it possible to group the nodes
+      in a system into partitions, each partition having its own global
+      name space, refer to <tt>global(3)</tt>. These partitions are
+      called global groups.</p>
+    <p>The main advantage of dividing systems to global groups is that
+      the background load decreases while the number of nodes to be
+      updated is reduced when manipulating globally registered names.</p>
+    <p>The Kernel configuration parameter <tt>global_groups</tt> defines
+      the global groups (see also
+      <seealso marker="kernel_app">kernel(6)</seealso>,
+      <seealso marker="config">config(4)</seealso>:</p>
+    <code type="none">
+{global_groups, [GroupTuple]}</code>
+    <p>Types:</p>
+    <list type="bulleted">
+      <item><tt>GroupTuple = {GroupName, [Node]} | {GroupName, PublishType, [Node]}</tt></item>
+      <item><tt>GroupName = atom()</tt> (naming a global group)</item>
+      <item><tt>PublishType = normal | hidden</tt></item>
+      <item><tt>Node = atom()</tt> (naming a node)</item>
+    </list>
+    <p>A <tt>GroupTuple</tt> without <tt>PublishType</tt> is the same as a
+      <tt>GroupTuple</tt> with <tt>PublishType == normal</tt>.</p>
+    <p>A node started with the command line flag <tt>-hidden</tt>, see
+      <seealso marker="erts:erl">erl(1)</seealso>, is said to be a
+      <em>hidden</em> node. A hidden node will establish hidden
+      connections to nodes not part of the same global group, but
+      normal (visible) connections to nodes part of the same global
+      group.</p>
+    <p>A global group defined with <tt>PublishType == hidden</tt>, is
+      said to be a hidden global group. All nodes in a hidden global
+      group are hidden nodes, regardless if they are started with
+      the <tt>-hidden</tt> command line flag or not.</p>
+    <p>For the processes and nodes to run smoothly using the global
+      group functiontionality, the following criteria must be met:</p>
+    <list type="bulleted">
+      <item>
+        <p>An instance of the global group server, <tt>global_group</tt>,
+          must be running on each node. The processes are automatically
+          started and synchronized when a node is started.</p>
+      </item>
+      <item>
+        <p>All involved nodes must agree on the global group definition,
+          or the behavior of the system is undefined.</p>
+      </item>
+      <item>
+        <p><em>All</em> nodes in the system should belong to exactly
+          one global group.</p>
+      </item>
+    </list>
+    <p>In the following description, a <em>group node</em> is a node
+      belonging to the same global group as the local node.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">NOTE</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#global_groupsgtGroupNameGroupNamesundefined">global_groups() -&gt; {GroupName, GroupNames} | undefined</a></li>
+        
+        <li><a href="#infogtItemInfo">info() -&gt; [{Item, Info}]</a></li>
+        
+        <li><a href="#monitor_nodesFlaggtok">monitor_nodes(Flag) -&gt; ok </a></li>
+        
+        <li><a href="#own_nodesgtNodes">own_nodes() -&gt; Nodes</a></li>
+        
+        <li><a href="#registered_namesWheregtNames">registered_names(Where) -&gt; Names</a></li>
+        
+        <li><a href="#sendNameMsggtpidbadargNameMsg">send(Name, Msg) -&gt; pid() | {badarg, {Name, Msg}}</a></li>
+        
+        <li><a href="#syncgtok">sync() -&gt; ok</a></li>
+        
+        <li><a href="#whereis_nameNamegtpidundefined">whereis_name(Name) -&gt; pid() | undefined</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">NOTE</div>
+    
+    <div class="description">
+        
+    <title>NOTE</title>
+    <p>In the situation where a node has lost its connections to other
+      nodes in its global group, but has connections to nodes in other
+      global groups, a request from another global group may produce an
+      incorrect or misleading result. For example, the isolated node may
+      not have accurate information about registered names in its
+      global group.</p>
+    <p>Note also that the <tt>send/2,3</tt> function is not secure.</p>
+    <p>Distribution of applications is highly dependent of the global
+      group definitions. It is not recommended that an application is 
+      distributed over several global groups of the obvious reason that
+      the registered names may be moved to another global group at
+      failover/takeover. There is nothing preventing doing this, but
+      the application code must in such case handle the situation.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="erts:erl">erl(1)</seealso>,
+      <seealso marker="global">global(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="global_groupsgtGroupNameGroupNamesundefined"></a><b>global_groups() -&gt; {GroupName, GroupNames} | undefined</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GroupName = atom()</b><br/>
+        <b>GroupNames = [GroupName]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a tuple containing the name of the global group
+          the local node belongs to, and the list of all other known
+          group names. Returns <tt>undefined</tt> if no global groups are
+          defined.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="infogtItemInfo"></a><b>info() -&gt; [{Item, Info}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item, Info -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list containing information about the global
+          groups. Each element of the list is a tuple. The order of
+          the tuples is not defined.</p>
+        <taglist>
+          <tag><tt>{state, State}</tt></tag>
+          <item>
+            <p>If the local node is part of a global group,
+              <tt>State == synced</tt>. If no global groups are defined,
+              <tt>State == no_conf</tt>.</p>
+          </item>
+          <tag><tt>{own_group_name, GroupName}</tt></tag>
+          <item>
+            <p>The name (atom) of the group that the local node belongs
+              to.</p>
+          </item>
+          <tag><tt>{own_group_nodes, Nodes}</tt></tag>
+          <item>
+            <p>A list of node names (atoms), the group nodes.</p>
+          </item>
+          <tag><tt>{synced_nodes, Nodes}</tt></tag>
+          <item>
+            <p>A list of node names, the group nodes currently
+              synchronized with the local node.</p>
+          </item>
+          <tag><tt>{sync_error, Nodes}</tt></tag>
+          <item>
+            <p>A list of node names, the group nodes with which
+              the local node has failed to synchronize.</p>
+          </item>
+          <tag><tt>{no_contact, Nodes}</tt></tag>
+          <item>
+            <p>A list of node names, the group nodes to which there are
+              currently no connections.</p>
+          </item>
+          <tag><tt>{other_groups, Groups}</tt></tag>
+          <item>
+            <p><tt>Groups</tt> is a list of tuples
+              <tt>{GroupName, Nodes}</tt>, specifying the name and nodes
+              of the other global groups.</p>
+          </item>
+          <tag><tt>{monitoring, Pids}</tt></tag>
+          <item>
+            <p>A list of pids, specifying the processes which have
+              subscribed to <tt>nodeup</tt> and <tt>nodedown</tt> messages.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="monitor_nodesFlaggtok"></a><b>monitor_nodes(Flag) -&gt; ok </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Flag = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Depending on <tt>Flag</tt>, the calling process starts
+          subscribing (<tt>Flag == true</tt>) or stops subscribing
+          (<tt>Flag == false</tt>) to node status change messages.</p>
+        <p>A process which has subscribed will receive the messages
+          <tt>{nodeup, Node}</tt> and <tt>{nodedown, Node}</tt> when a
+          group node connects or disconnects, respectively.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="own_nodesgtNodes"></a><b>own_nodes() -&gt; Nodes</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [Node]</b><br/>
+        <b>&nbsp;Node = node()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the names of all group nodes, regardless of their
+          current status.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="registered_namesWheregtNames"></a><b>registered_names(Where) -&gt; Names</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Where = {node, Node} | {group, GroupName}</b><br/>
+        <b>&nbsp;Node = node()</b><br/>
+        <b>&nbsp;GroupName = atom()</b><br/>
+        <b>Names = [Name]</b><br/>
+        <b>&nbsp;Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of all names which are globally registered
+          on the specified node or in the specified global group.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendNameMsggtpidbadargNameMsg"></a><b>send(Name, Msg) -&gt; pid() | {badarg, {Name, Msg}}<br/>send(Where, Name, Msg) -&gt; pid() | {badarg, {Name, Msg}}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Where = {node, Node} | {group, GroupName}</b><br/>
+        <b>&nbsp;Node = node()</b><br/>
+        <b>&nbsp;GroupName = atom()</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>Msg = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches for <tt>Name</tt>, globally registered on
+          the specified node or in the specified global group, or --
+          if the <tt>Where</tt> argument is not provided -- in any global
+          group. The global groups are searched in the order in which
+          they appear in the value of the <tt>global_groups</tt>
+          configuration parameter.</p>
+        <p>If <tt>Name</tt> is found, the message <tt>Msg</tt> is sent to
+          the corresponding pid. The pid is also the return value of
+          the function. If the name is not found, the function returns
+          <tt>{badarg, {Name, Msg}}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="syncgtok"></a><b>sync() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Synchronizes the group nodes, that is, the global name
+          servers on the group nodes. Also check the names globally
+          registered in the current global group and unregisters them
+          on any known node not part of the group.</p>
+        <p>If synchronization is not possible, an error report is sent
+          to the error logger (see also <tt>error_logger(3)</tt>).</p>
+        <p>Failure:
+          <tt>{error, {'invalid global_groups definition', Bad}}</tt> if
+          the <tt>global_groups</tt> configuration parameter has an
+          invalid value <tt>Bad</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="whereis_nameNamegtpidundefined"></a><b>whereis_name(Name) -&gt; pid() | undefined<br/>whereis_name(Where, Name) -&gt; pid() | undefined</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Where = {node, Node} | {group, GroupName}</b><br/>
+        <b>&nbsp;Node = node()</b><br/>
+        <b>&nbsp;GroupName = atom()</b><br/>
+        <b>Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches for <tt>Name</tt>, globally registered on
+          the specified node or in the specified global group, or -- if
+          the <tt>Where</tt> argument is not provided -- in any global
+          group. The global groups are searched in the order in which
+          they appear in the value of the <tt>global_groups</tt>
+          configuration parameter.</p>
+        <p>If <tt>Name</tt> is found, the corresponding pid is returned.
+          If the name is not found, the function returns
+          <tt>undefined</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>pman</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />pman</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>A graphical tool used to inspect the Erlang processes executing either
+      locally or on remote nodes. It is also possible to trace events in
+      the individual processes.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#procProcess">proc(Process)</a></li>
+        
+        <li><a href="#start">start()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start"></a><b>start()<br/>start(Excluded)<br/>start_notimeout()<br/>start_notimeout(Excluded)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Excluded = [Module]</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts Pman. It will use the previously saved trace settings
+          in <tt>HOME/.erlang_tools/pman.opts</tt>, where <tt>HOME</tt> is
+          the user's home directory, if such a file exists. Otherwise
+          standard trace settings will be used. The return value should
+          be ignored.</p>
+        <p><tt>Excluded</tt> is a list of module names. If the argument is
+          present, processes currently executing in any of these modules
+          will not be shown by Pman.</p>
+        <p><tt>start/0,1</tt> will fail unless the start-up succeeds
+          within 20 seconds, whereas <tt>start_notimeout/0,1</tt> will
+          wait indefinitely.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="procProcess"></a><b>proc(Process)<br/>proc(A, B, C)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Process = pid() | atom()</b><br/>
+        <b>A = B = C = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a Pman trace window for the specified process.
+          The return value should be ignored.</p>
+        <p>The process to trace is given either by its pid or by its
+          registered name. It is also possible to use <tt>proc/3</tt>
+          to trace the pid represented as <tt><A,B,C></tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_ConsumerAdmin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_ConsumerAdmin</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyComm_NotifySubscribe">CosNotifyComm_NotifySubscribe</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyFilter_FilterAdmin">CosNotifyFilter_FilterAdmin</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#_get_MyChannelConsumerAdmingtChannel">_get_MyChannel(ConsumerAdmin) -&gt; Channel</a></li>
+        
+        <li><a href="#_get_MyIDConsumerAdmingtAdminID">_get_MyID(ConsumerAdmin) -&gt; AdminID</a></li>
+        
+        <li><a href="#_get_MyOperatorConsumerAdmingtOpType">_get_MyOperator(ConsumerAdmin) -&gt; OpType</a></li>
+        
+        <li><a href="#_get_lifetime_filterConsumerAdmingtMappingFilter">_get_lifetime_filter(ConsumerAdmin) -&gt; MappingFilter</a></li>
+        
+        <li><a href="#_get_priority_filterConsumerAdmingtMappingFilter">_get_priority_filter(ConsumerAdmin) -&gt; MappingFilter</a></li>
+        
+        <li><a href="#_get_pull_suppliersConsumerAdmingtProxyIDSeq">_get_pull_suppliers(ConsumerAdmin) -&gt; ProxyIDSeq</a></li>
+        
+        <li><a href="#_get_push_suppliersConsumerAdmingtProxyIDSeq">_get_push_suppliers(ConsumerAdmin) -&gt; ProxyIDSeq</a></li>
+        
+        <li><a href="#_set_lifetime_filterConsumerAdminMappingFiltergtok">_set_lifetime_filter(ConsumerAdmin, MappingFilter) -&gt; ok</a></li>
+        
+        <li><a href="#_set_priority_filterConsumerAdminMappingFiltergtok">_set_priority_filter(ConsumerAdmin, MappingFilter) -&gt; ok</a></li>
+        
+        <li><a href="#destroyConsumerAdmingtok">destroy(ConsumerAdmin) -&gt; ok</a></li>
+        
+        <li><a href="#get_proxy_supplierConsumerAdminProxyIDgtReply">get_proxy_supplier(ConsumerAdmin, ProxyID) -&gt; Reply</a></li>
+        
+        <li><a href="#obtain_notification_pull_supplierConsumerAdminConsumerTypegtReply">obtain_notification_pull_supplier(ConsumerAdmin, ConsumerType) -&gt; Reply</a></li>
+        
+        <li><a href="#obtain_notification_push_supplierConsumerAdminConsumerTypegtReply">obtain_notification_push_supplier(ConsumerAdmin, ConsumerType) -&gt; Reply</a></li>
+        
+        <li><a href="#obtain_pull_supplierConsumerAdmingtProxy">obtain_pull_supplier(ConsumerAdmin) -&gt; Proxy</a></li>
+        
+        <li><a href="#obtain_push_supplierConsumerAdmingtProxy">obtain_push_supplier(ConsumerAdmin) -&gt; Proxy</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyIDConsumerAdmingtAdminID"></a><b>_get_MyID(ConsumerAdmin) -&gt; AdminID</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>AdminID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The ID returned by the creating channel is equal to the value encapsulated by
+          this readonly attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyChannelConsumerAdmingtChannel"></a><b>_get_MyChannel(ConsumerAdmin) -&gt; Channel</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>Channel = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The creating channel's reference is maintained by this readonly attribute.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_MyOperatorConsumerAdmingtOpType"></a><b>_get_MyOperator(ConsumerAdmin) -&gt; OpType</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>OpType = 'AND_OP' | 'OR_OP'</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When <tt>ConsumerAdmin's</tt> are created an operation type,
+          i.e., <tt>'AND_OP'</tt> or <tt>'OR_OP'</tt>, is supplied, which determines
+          the semantics used by the target object concerning evaluation against
+          any associated <tt>Filter</tt> objects.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_priority_filterConsumerAdmingtMappingFilter"></a><b>_get_priority_filter(ConsumerAdmin) -&gt; MappingFilter</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If set, this operation returns the associated priority <tt>MappingFilter</tt>, otherwise
+          a <tt>NIL</tt> object reference is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_set_priority_filterConsumerAdminMappingFiltergtok"></a><b>_set_priority_filter(ConsumerAdmin, MappingFilter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To associate a priority <tt>MappingFilter</tt> with the target object this operation
+          must be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_lifetime_filterConsumerAdmingtMappingFilter"></a><b>_get_lifetime_filter(ConsumerAdmin) -&gt; MappingFilter</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Unless a lifetime <tt>MappingFilter</tt> have been associated with the target object
+          a <tt>NIL</tt> object reference is returned by this operation.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_set_lifetime_filterConsumerAdminMappingFiltergtok"></a><b>_set_lifetime_filter(ConsumerAdmin, MappingFilter) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = MappingFilter = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation associate a lifetime <tt>MappingFilter</tt> with the target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_pull_suppliersConsumerAdmingtProxyIDSeq"></a><b>_get_pull_suppliers(ConsumerAdmin) -&gt; ProxyIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>ProxyIDSeq = [ProxyID]</b><br/>
+        <b>ProxyID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This readonly attribute maintains the Id's for all <tt>PullProxies</tt> created
+          by the target object and still alive.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="_get_push_suppliersConsumerAdmingtProxyIDSeq"></a><b>_get_push_suppliers(ConsumerAdmin) -&gt; ProxyIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>ProxyIDSeq = [ProxyID]</b><br/>
+        <b>ProxyID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This attribute is similar to the <tt>_get_pull_suppliers</tt> attribute but maintains
+          the Id's for all <tt>PushProxies</tt> created by the target object and still alive.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_proxy_supplierConsumerAdminProxyIDgtReply"></a><b>get_proxy_supplier(ConsumerAdmin, ProxyID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>ProxyID = long()</b><br/>
+        <b>Reply = Proxy |  {'EXCEPTION', #'CosNotifyChannelAdmin_ProxyNotFound'{}}</b><br/>
+        <b>Proxy = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If a proxy with the given Id exists the reference to the object is returned, but if
+          the object have terminated, or an incorrect Id is supplied, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="obtain_notification_pull_supplierConsumerAdminConsumerTypegtReply"></a><b>obtain_notification_pull_supplier(ConsumerAdmin, ConsumerType) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>ConsumerType = 'ANY_EVENT' | 'STRUCTURED_EVENT' | 'SEQUENCE_EVENT'</b><br/>
+        <b>Reply = {Proxy, ProxyID}</b><br/>
+        <b>Proxy = #objref</b><br/>
+        <b>ProxyID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Determined by the parameter <tt>ConsumerType</tt>, a proxy which will
+          accept events of the defined type is created. Along with the object reference an
+          Id is returned. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="obtain_pull_supplierConsumerAdmingtProxy"></a><b>obtain_pull_supplier(ConsumerAdmin) -&gt; Proxy</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>Proxy = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new proxy which accepts <tt>#any{}</tt> events.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="obtain_notification_push_supplierConsumerAdminConsumerTypegtReply"></a><b>obtain_notification_push_supplier(ConsumerAdmin, ConsumerType) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>ConsumerType = 'ANY_EVENT' | 'STRUCTURED_EVENT' | 'SEQUENCE_EVENT'</b><br/>
+        <b>Reply = {Proxy, ProxyID}</b><br/>
+        <b>Proxy = #objref</b><br/>
+        <b>ProxyID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A proxy which accepts events of the type described by the parameter <tt>ConsumerType</tt>
+          is created by this operation. A unique Id is returned as an out parameter.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="obtain_push_supplierConsumerAdmingtProxy"></a><b>obtain_push_supplier(ConsumerAdmin) -&gt; Proxy</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+        <b>Proxy = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The object created by this function is a proxy which accepts <tt>#any{}</tt> events.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyConsumerAdmingtok"></a><b>destroy(ConsumerAdmin) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConsumerAdmin = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To terminate the target object this operation should be used. The associated
+          <tt>Channel</tt> will be notified.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

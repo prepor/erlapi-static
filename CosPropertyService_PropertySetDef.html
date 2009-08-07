@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosPropertyService_PropertySetDef</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosPropertyService_PropertySetDef</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosProperty/include/CosPropertyService.hrl").</tt></p>
+    <p>This module also exports the functions described in</p>
+    <p><seealso marker="CosPropertyService_PropertySet">CosPropertyService_PropertySet</seealso></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#define_properties_with_modesPropertySetDefPropertyDefsgtReply">define_properties_with_modes(PropertySetDef, PropertyDefs) -&gt; Reply</a></li>
+        
+        <li><a href="#define_property_with_modePropertySetDefNameValueModegtReply">define_property_with_mode(PropertySetDef, Name, Value, Mode) -&gt; Reply</a></li>
+        
+        <li><a href="#get_allowed_propertiesPropertySetDefgtReply">get_allowed_properties(PropertySetDef) -&gt; Reply</a></li>
+        
+        <li><a href="#get_allowed_property_typesPropertySetDefgtReply">get_allowed_property_types(PropertySetDef) -&gt; Reply</a></li>
+        
+        <li><a href="#get_property_modePropertySetDefNamegtReply">get_property_mode(PropertySetDef, Name) -&gt; Reply</a></li>
+        
+        <li><a href="#get_property_modesPropertySetDefNamesgtReply">get_property_modes(PropertySetDef, Names) -&gt; Reply</a></li>
+        
+        <li><a href="#set_property_modePropertySetDefNameModegtReply">set_property_mode(PropertySetDef, Name, Mode) -&gt; Reply</a></li>
+        
+        <li><a href="#set_property_modesPropertySetDefPropertyModesgtReply">set_property_modes(PropertySetDef, PropertyModes) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="get_allowed_property_typesPropertySetDefgtReply"></a><b>get_allowed_property_types(PropertySetDef) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Reply = {ok, PropertyTypes}</b><br/>
+        <b>PropertyTypes = [CORBA::TypeCode]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation return the TypeCodes which we are allowed to use when adding
+          new properties.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_allowed_propertiesPropertySetDefgtReply"></a><b>get_allowed_properties(PropertySetDef) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Reply = {ok, PropertyDefs}</b><br/>
+        <b>PropertyDefs = [#'CosPropertyService_PropertyDef'{property_name = Name, property_value = Value, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation a sequence of the allowed properties we may alter; depends on
+          which mode associated with a certain property.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="define_property_with_modePropertySetDefNameValueModegtReply"></a><b>define_property_with_mode(PropertySetDef, Name, Value, Mode) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Name = non-empty string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Mode =  normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}} | {'EXCEPTION', #CosPropertyService_ConflictingProperty{}} | {'EXCEPTION', #CosPropertyService_UnsupportedTypeCode{}} | {'EXCEPTION', #CosPropertyService_UnsupportedProperty{}} | {'EXCEPTION', #CosPropertyService_UnsupportedMode{}} | {'EXCEPTION', #CosPropertyService_ReadOnlyProperty{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation attempts to associate a new property with the target object.
+          If we fail to do so the appropriate exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="define_properties_with_modesPropertySetDefPropertyDefsgtReply"></a><b>define_properties_with_modes(PropertySetDef, PropertyDefs) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>PropertyDefs = [#'CosPropertyService_PropertyDef'{property_name = Name, property_value = Value, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_MultipleExceptions{exceptions = Excs}}</b><br/>
+        <b>Excs = [#'CosPropertyService_PropertyException{reason = Reason, failing_property_name = Name}]</b><br/>
+        <b>Reason = invalid_property_name | conflicting_property | property_not_found | unsupported_type_code | unsupported_property | unsupported_mode | fixed_property | read_only_property</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation attempts to associate the given Property Definitions with the
+          target object. If one or more attempts fail an exception is raised 
+          describing which properties we where not able to create.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_property_modePropertySetDefNamegtReply"></a><b>get_property_mode(PropertySetDef, Name) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Reply = Mode | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}} | {'EXCEPTION', #CosPropertyService_PropertyNotFound{}}</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the type of the given property.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_property_modesPropertySetDefNamesgtReply"></a><b>get_property_modes(PropertySetDef, Names) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Names = [string()]</b><br/>
+        <b>Reply = {boolean(), PropertyModes}</b><br/>
+        <b>PropertyModes = [#'CosPropertyService_PropertyMode'{property_name = Name, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the modes of the listed properties. If the boolean
+          flag is false, all properties with mode <tt>undefined</tt> this operation
+          failed to comply.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_property_modePropertySetDefNameModegtReply"></a><b>set_property_mode(PropertySetDef, Name, Mode) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}} | {'EXCEPTION', #CosPropertyService_UnsupportedMode{}} | {'EXCEPTION', #CosPropertyService_PropertyNotFound{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation changes the given property's mode. Return the appropriate
+          exception if not able to fulfill the request.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_property_modesPropertySetDefPropertyModesgtReply"></a><b>set_property_modes(PropertySetDef, PropertyModes) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySetDef = #objref</b><br/>
+        <b>PropertyModes = [#'CosPropertyService_PropertyMode'{property_name = Name, property_mode = Mode}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Mode = normal | read_only | fixed_normal | fixed_readonly | undefined</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_MultipleExceptions{exceptions = Excs}}</b><br/>
+        <b>Excs = [#'CosPropertyService_PropertyException{reason = Reason, failing_property_name = Name}]</b><br/>
+        <b>Reason = invalid_property_name | conflicting_property | property_not_found | unsupported_type_code | unsupported_property | unsupported_mode | fixed_property | read_only_property</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation attempts to update the listed properties mode's. Raises an 
+          exception which describe which and why an operation failed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

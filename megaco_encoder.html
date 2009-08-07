@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_encoder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_encoder</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The following functions should be exported from a 
+      <tt>megaco_encoder</tt> callback module:</p>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#Moduledecode_messageEncodingConfigVersionBingtokMessageError">Module:decode_message(EncodingConfig, Version, Bin) -&gt; {ok, Message} | Error</a></li>
+        
+        <li><a href="#Moduledecode_mini_messageEncodingConfigVersionBingtokMessageError">Module:decode_mini_message(EncodingConfig, Version, Bin) -&gt; {ok, Message} | Error</a></li>
+        
+        <li><a href="#Moduleencode_action_replyEncodingConfigVersionARgtOKError">Module:encode_action_reply(EncodingConfig, Version, AR) -&gt; OK | Error</a></li>
+        
+        <li><a href="#Moduleencode_action_requestsEncodingConfigVersionARsgtOKError">Module:encode_action_requests(EncodingConfig, Version, ARs) -&gt; OK | Error</a></li>
+        
+        <li><a href="#Moduleencode_messageEncodingConfigVersionMessagegtokBinError">Module:encode_message(EncodingConfig, Version, Message) -&gt; {ok, Bin} | Error</a></li>
+        
+        <li><a href="#Moduleencode_transactionEncodingConfigVersionTransactiongtOKError">Module:encode_transaction(EncodingConfig, Version, Transaction) -&gt; OK | Error</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+megaco_message() = #'MegacoMessage{}'
+transaction() = {transactionRequest,     transaction_request()}      |
+                {transactionPending,     transaction_reply()}        |
+                {transactionReply,       transaction_pending()}      |
+                {transactionResponseAck, transaction_response_ack()} |
+                {segmentReply,           segment_reply()}
+transaction_request() = #'TransactionRequest'{}
+transaction_pending() = #'TransactionPending'{}
+transaction_reply() = #'TransactionReply'{}
+transaction_response_ack() = [transaction_ack()]
+transaction_ack() = #'TransactionAck'{}
+segment_reply() = #'SegmentReply'{}
+action_request() = #'ActionRequest'{}
+action_reply() = #'ActionReply'{}
+    </code>
+
+    <marker id="encode_message"></marker>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleencode_messageEncodingConfigVersionMessagegtokBinError"></a><b>Module:encode_message(EncodingConfig, Version, Message) -&gt; {ok, Bin} | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>Message = megaco_message()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encode a megaco message.</p>
+
+	<marker id="decode_message"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduledecode_messageEncodingConfigVersionBingtokMessageError"></a><b>Module:decode_message(EncodingConfig, Version, Bin) -&gt; {ok, Message} | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer() | dynamic</b><br/>
+        <b>Message = megaco_message()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decode a megaco message. </p>
+        <p>Note that if the Version argument is <tt>dynamic</tt>, the
+          decoder should try to figure out the actual version from the
+          message itself and then use the proper decoder, e.g. version 1.
+          <br>If on the other hand the Version argument is an integer, 
+          it means that this is the expected version of the message and 
+          the decoder for that version should be used.</p>
+
+	<marker id="decode_mini_message"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduledecode_mini_messageEncodingConfigVersionBingtokMessageError"></a><b>Module:decode_mini_message(EncodingConfig, Version, Bin) -&gt; {ok, Message} | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer() | dynamic</b><br/>
+        <b>Message = megaco_message()</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Perform a minimal decode of a megaco message. </p>
+        <p>The purpose of this function is to do a minimal decode of
+          Megaco message. A successfull result is a <tt>'MegacoMessage'</tt> 
+          in which only version and mid has been initiated. This function 
+          is used by the megaco_messeger module when the 
+          <tt>decode_message/3</tt> function failes to figure out the mid 
+          (the actual sender) of the message.</p>
+        <p>Note again that a successfull decode only returns a
+          partially initiated message.</p>
+
+	<marker id="encode_transaction"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleencode_transactionEncodingConfigVersionTransactiongtOKError"></a><b>Module:encode_transaction(EncodingConfig, Version, Transaction) -&gt; OK | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>Transaction = transaction()</b><br/>
+        <b>OK = {ok, Bin}</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = {error, Reason}</b><br/>
+        <b>Reason = not_implemented | OtherReason</b><br/>
+        <b>OtherReason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encode a megaco transaction. If this, for whatever reason, 
+          is not supported, the function should return the error reason 
+          <tt>not_implemented</tt>. </p>
+
+        <p>This functionallity is used both when the transaction sender is 
+          used and for segmentation. So, for either of those to work, this 
+          function <em>must</em> be fully supported! </p>
+
+	<marker id="encode_action_requests"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleencode_action_requestsEncodingConfigVersionARsgtOKError"></a><b>Module:encode_action_requests(EncodingConfig, Version, ARs) -&gt; OK | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>ARs = action_requests()</b><br/>
+        <b>action_requests() = [action_request()]</b><br/>
+        <b>OK = {ok, Bin}</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = {error, Reason}</b><br/>
+        <b>Reason = not_implemented | OtherReason</b><br/>
+        <b>OtherReason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encode megaco action requests. This function is called when 
+          the user calls the function 
+          <seealso marker="megaco#encode_actions">encode_actions/3</seealso>.
+          If that function is never used or if the codec cannot support this
+          (the encoding of individual actions), then return with error reason 
+          <tt>not_implemented</tt>. </p>
+
+	<marker id="encode_action_reply"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="Moduleencode_action_replyEncodingConfigVersionARgtOKError"></a><b>Module:encode_action_reply(EncodingConfig, Version, AR) -&gt; OK | Error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EncodingConfig = list()</b><br/>
+        <b>Version = integer()</b><br/>
+        <b>AR = action_reply()</b><br/>
+        <b>OK = {ok, Bin}</b><br/>
+        <b>Bin = binary()</b><br/>
+        <b>Error = {error, Reason}</b><br/>
+        <b>Reason = not_implemented | OtherReason</b><br/>
+        <b>OtherReason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encode a megaco action reply. If this, for whatever reason, 
+          is not supported, the function should return the error reason 
+          <tt>not_implemented</tt>. </p>
+
+        <p>This function is used when segmentation has been configured. 
+          So, for this to work, this function <em>must</em> be fully 
+          supported! </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

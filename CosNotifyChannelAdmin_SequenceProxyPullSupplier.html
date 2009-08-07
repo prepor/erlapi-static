@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_SequenceProxyPullSupplier</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_SequenceProxyPullSupplier</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+    <p>This module also exports the functions described in:</p>
+    <list type="bulleted">
+      <item>
+        <p><seealso marker="CosNotifyComm_NotifySubscribe">CosNotifyComm_NotifySubscribe</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotification_QoSAdmin">CosNotification_QoSAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyFilter_FilterAdmin">CosNotifyFilter_FilterAdmin</seealso></p>
+      </item>
+      <item>
+        <p><seealso marker="CosNotifyChannelAdmin_ProxySupplier">CosNotifyChannelAdmin_ProxySupplier</seealso></p>
+      </item>
+    </list>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_sequence_pull_consumerSequenceProxyPullSupplierPullConsumergtReply">connect_sequence_pull_consumer(SequenceProxyPullSupplier, PullConsumer) -&gt; Reply</a></li>
+        
+        <li><a href="#disconnect_sequence_pull_supplierSequenceProxyPullSuppliergtok">disconnect_sequence_pull_supplier(SequenceProxyPullSupplier) -&gt; ok</a></li>
+        
+        <li><a href="#pull_structured_eventsSequenceProxyPullSupplierMaxEventsgtReply">pull_structured_events(SequenceProxyPullSupplier, MaxEvents) -&gt; Reply</a></li>
+        
+        <li><a href="#try_pull_structured_eventsSequenceProxyPullSupplierMaxEventsgtReply">try_pull_structured_events(SequenceProxyPullSupplier, MaxEvents) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_sequence_pull_consumerSequenceProxyPullSupplierPullConsumergtReply"></a><b>connect_sequence_pull_consumer(SequenceProxyPullSupplier, PullConsumer) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullSupplier = #objref</b><br/>
+        <b>PullConsumer = #objref</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #'CosEventChannelAdmin_AlreadyConnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects a <tt>PullConsumer</tt> to the target object. If a connection
+          already exists an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pull_structured_eventsSequenceProxyPullSupplierMaxEventsgtReply"></a><b>pull_structured_events(SequenceProxyPullSupplier, MaxEvents) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullSupplier = #objref</b><br/>
+        <b>MaxEvents = long()</b><br/>
+        <b>Reply = EventBatch | {'EXCEPTION', #'CosEventChannelAdmin_Disconnected'{}}</b><br/>
+        <b>EventBatch = [StructuredEvent]</b><br/>
+        <b>StructuredEvent = #'CosNotification_StructuredEvent'{header, filterable_data, remainder_of_body}</b><br/>
+        <b>header = EventHeader</b><br/>
+        <b>filterable_data = [#'CosNotification_Property'{name, value}]</b><br/>
+        <b>name = string()</b><br/>
+        <b>value = #any</b><br/>
+        <b>remainder_of_body = #any</b><br/>
+        <b>EventHeader = #'CosNotification_EventHeader'{fixed_header, variable_header}</b><br/>
+        <b>fixed_header = FixedEventHeader</b><br/>
+        <b>variable_header = OptionalHeaderFields</b><br/>
+        <b>FixedEventHeader = #'CosNotification_FixedEventHeader'{event_type, event_name}</b><br/>
+        <b>event_type = EventType</b><br/>
+        <b>event_name = string()</b><br/>
+        <b>EventType = #'CosNotification_EventType'{domain_name, type_name}</b><br/>
+        <b>domain_name = type_name = string()</b><br/>
+        <b>OptionalHeaderFields = [#'CosNotification_Property'{name, value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>A client use this operation to pull next event sequence of maximum length 
+          <tt>MaxEvents</tt>. This operation is blocking and will not reply until the
+          requested amount of events can be delivered or the QoS property <tt>PacingInterval</tt>
+          is reached. For more information see the <tt>User's Guide</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="try_pull_structured_eventsSequenceProxyPullSupplierMaxEventsgtReply"></a><b>try_pull_structured_events(SequenceProxyPullSupplier, MaxEvents) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullSupplier = #objref</b><br/>
+        <b>MaxEvents = long()</b><br/>
+        <b>Reply = {EventBatch, HasEvent} | {'EXCEPTION', #'CosEventChannelAdmin_Disconnected'{}}</b><br/>
+        <b>HasEvent = boolean()</b><br/>
+        <b>EventBatch = [StructuredEvent]</b><br/>
+        <b>StructuredEvent = #'CosNotification_StructuredEvent'{header, filterable_data, remainder_of_body}</b><br/>
+        <b>header = EventHeader</b><br/>
+        <b>filterable_data = [#'CosNotification_Property'{name, value}]</b><br/>
+        <b>name = string()</b><br/>
+        <b>value = #any</b><br/>
+        <b>remainder_of_body = #any</b><br/>
+        <b>EventHeader = #'CosNotification_EventHeader'{fixed_header, variable_header}</b><br/>
+        <b>fixed_header = FixedEventHeader</b><br/>
+        <b>variable_header = OptionalHeaderFields</b><br/>
+        <b>FixedEventHeader = #'CosNotification_FixedEventHeader'{event_type, event_name}</b><br/>
+        <b>event_type = EventType</b><br/>
+        <b>event_name = string()</b><br/>
+        <b>EventType = #'CosNotification_EventType'{domain_name, type_name}</b><br/>
+        <b>domain_name = type_name = string()</b><br/>
+        <b>OptionalHeaderFields = [#'CosNotification_Property'{name, value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation pulls an event sequence of the maximum length <tt>MaxEvents</tt>, 
+          but do not block if the target object have no events to forward. The outparameter,
+          <tt>HasEvent</tt> is true if the sequence contain any events.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_sequence_pull_supplierSequenceProxyPullSuppliergtok"></a><b>disconnect_sequence_pull_supplier(SequenceProxyPullSupplier) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SequenceProxyPullSupplier = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation cause the target object to close the connection and terminate.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

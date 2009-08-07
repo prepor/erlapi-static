@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmp_view_based_acm_mib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmp_view_based_acm_mib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmp_view_based_acm_mib</tt> implements the instrumentation functions for the
+      SNMP-VIEW-BASED-ACM-MIB, and functions for configuring the database.
+      </p>
+    <p>The configuration files are described in the SNMP User's Manual.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_accessGroupNamePrefixSecModelSecLevelMatchRVWVNVgtRet">add_access(GroupName, Prefix, SecModel, SecLevel, Match, RV, WV, NV) -&gt; Ret</a></li>
+        
+        <li><a href="#add_sec2groupSecModelSecNameGroupNamegtRet">add_sec2group(SecModel, SecName, GroupName) -&gt; Ret</a></li>
+        
+        <li><a href="#add_view_tree_famViewIndexSubTreeStatusMaskgtRet">add_view_tree_fam(ViewIndex, SubTree, Status, Mask) -&gt; Ret</a></li>
+        
+        <li><a href="#configureConfDirgtvoid">configure(ConfDir) -&gt; void()</a></li>
+        
+        <li><a href="#delete_accessKeygtRet">delete_access(Key) -&gt; Ret</a></li>
+        
+        <li><a href="#delete_sec2groupKeygtRet">delete_sec2group(Key) -&gt; Ret</a></li>
+        
+        <li><a href="#delete_view_tree_famKeygtRet">delete_view_tree_fam(Key) -&gt; Ret</a></li>
+        
+        <li><a href="#reconfigureConfDirgtvoid">reconfigure(ConfDir) -&gt; void()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="configureConfDirgtvoid"></a><b>configure(ConfDir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfDir = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is called from the supervisor at system
+          start-up.
+          </p>
+        <p>Inserts all data in the configuration files into the
+          database and destroys all old rows with StorageType
+          <tt>volatile</tt>.  The rows created from the configuration file
+          will have StorageType <tt>nonVolatile</tt>.
+          </p>
+        <p>All <tt>snmp</tt> counters are set to zero.
+          </p>
+        <p>If an error is found in the configuration file, it is
+          reported using the function <tt>config_err/2</tt> of the error
+          report module, and the function fails with the reason 
+          <tt>configuration_error</tt>.
+          </p>
+        <p><tt>ConfDir</tt> is a string which points to the directory
+          where the configuration files are found.
+          </p>
+        <p>The configuration file read is: <tt>vacm.conf</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reconfigureConfDirgtvoid"></a><b>reconfigure(ConfDir) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConfDir = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts all data in the configuration files into the
+          database and destroys all old data, including the rows with
+          StorageType <tt>nonVolatile</tt>.  The rows created from the
+          configuration file will have StorageType <tt>nonVolatile</tt>.
+          </p>
+        <p>Thus, the data in the SNMP-VIEW-BASED-ACM-MIB, after this
+          function has been called, is the data from the configuration
+          files.
+          </p>
+        <p>All <tt>snmp</tt> counters are set to zero.
+          </p>
+        <p>If an error is found in the configuration file, it is
+          reported using the function <tt>config_err/2</tt> of the error
+          report module, and the function fails with the reason 
+          <tt>configuration_error</tt>.
+          </p>
+        <p><tt>ConfDir</tt> is a string which points to the directory
+          where the configuration files are found.
+          </p>
+        <p>The configuration file read is: <tt>vacm.conf</tt>.
+                    <marker id="add_sec2group"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_sec2groupSecModelSecNameGroupNamegtRet"></a><b>add_sec2group(SecModel, SecName, GroupName) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SecModel = v1 | v2c | usm</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>GroupName = string()</b><br/>
+        <b>Ret = {ok, Key} | {error, Reason}</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a security to group definition to the agent config. 
+          Equivalent to one vacmSecurityToGroup-line in the <tt>vacm.conf</tt> file.</p>
+        <marker id="delete_sec2group"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_sec2groupKeygtRet"></a><b>delete_sec2group(Key) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Ret = ok | {error, Reason}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Delete a security to group definition from the agent config.</p>
+        <marker id="add_access"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_accessGroupNamePrefixSecModelSecLevelMatchRVWVNVgtRet"></a><b>add_access(GroupName, Prefix, SecModel, SecLevel, Match, RV, WV, NV) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>GroupName = string()</b><br/>
+        <b>Prefix = string()</b><br/>
+        <b>SecModel = v1 | v2c | usm</b><br/>
+        <b>SecLevel = string()</b><br/>
+        <b>Match = prefix | exact</b><br/>
+        <b>RV = string()</b><br/>
+        <b>WV = string()</b><br/>
+        <b>NV = string()</b><br/>
+        <b>Ret = {ok, Key} | {error, Reason}</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a access definition to the agent config. 
+          Equivalent to one vacmAccess-line in the <tt>vacm.conf</tt> file.</p>
+        <marker id="delete_access"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_accessKeygtRet"></a><b>delete_access(Key) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Ret = ok | {error, Reason}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Delete a access definition from the agent config.</p>
+        <marker id="add_view_tree_fam"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_view_tree_famViewIndexSubTreeStatusMaskgtRet"></a><b>add_view_tree_fam(ViewIndex, SubTree, Status, Mask) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ViewIndex = integer()</b><br/>
+        <b>SubTree = oid()</b><br/>
+        <b>Status = included | excluded</b><br/>
+        <b>Mask = null | [integer()], where all values are either 0 or 1</b><br/>
+        <b>Ret = {ok, Key} | {error, Reason}</b><br/>
+        <b>Key = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a view tree family definition to the agent config. 
+          Equivalent to one vacmViewTreeFamily-line in the <tt>vacm.conf</tt> file.</p>
+        <marker id="delete_view_tree_fam"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_view_tree_famKeygtRet"></a><b>delete_view_tree_fam(Key) -&gt; Ret</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Key = term()</b><br/>
+        <b>Ret = ok | {error, Reason}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Delete a view tree family definition from the agent config.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

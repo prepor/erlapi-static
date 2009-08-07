@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpm_conf</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpm_conf</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmpm_conf</tt> contains various utility functions to 
+      used for manipulating (write/append/read) the config files of the
+      SNMP manager. </p>
+    <marker id="manager_entry"></marker>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#agents_entryUserIdTargetNameCommIpPortEngineIDTimeoutMaxMessageSizeVersionSecModelSecNameSecLevelgtagents_entry">agents_entry(UserId, TargetName, Comm, Ip, Port, EngineID, Timeout, MaxMessageSize, Version, SecModel, SecName, SecLevel) -&gt; agents_entry()</a></li>
+        
+        <li><a href="#append_agents_configDirConfgtok">append_agents_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_manager_configDirConfgtok">append_manager_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_users_configDirConfgtok">append_users_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#append_usm_configDirConfgtok">append_usm_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#manager_entryTagValgtmanager_entry">manager_entry(Tag, Val) -&gt; manager_entry()</a></li>
+        
+        <li><a href="#read_agents_configDirgtConf">read_agents_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_manager_configDirgtConf">read_manager_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_users_configDirgtConf">read_users_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#read_usm_configDirgtConf">read_usm_config(Dir) -&gt; Conf</a></li>
+        
+        <li><a href="#users_entryUserIdgtusers_entry">users_entry(UserId) -&gt; users_entry()</a></li>
+        
+        <li><a href="#usm_entryEngineIDUserNameAuthPAuthKeyPrivPPrivKeygtusm_entry">usm_entry(EngineID, UserName, AuthP, AuthKey, PrivP, PrivKey) -&gt; usm_entry()</a></li>
+        
+        <li><a href="#write_agents_configDirConfgtok">write_agents_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_manager_configDirConfgtok">write_manager_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_users_configDirConfgtok">write_users_config(Dir, Conf) -&gt; ok</a></li>
+        
+        <li><a href="#write_usm_configDirConfgtok">write_usm_config(Dir, Conf) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="manager_entryTagValgtmanager_entry"></a><b>manager_entry(Tag, Val) -&gt; manager_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = address | port | engine_id | max_message_size</b><br/>
+        <b>Val = term()</b><br/>
+        <b>manager_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the manager config file, 
+          <tt>manager.conf</tt>. </p>
+        <p>The type of <tt>Val</tt> depends on the value of <tt>Tag</tt>, 
+          see 
+          <seealso marker="snmp_manager_config_files#manager_information">Manager Information</seealso> 
+          for more info. </p>
+        <marker id="write_manager_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_manager_configDirConfgtok"></a><b>write_manager_config(Dir, Conf) -&gt; ok<br/>write_manager_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [manager_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the manager config to the manager config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#manager_information">Manager Information</seealso> 
+          for more info. </p>
+        <marker id="append_manager_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_manager_configDirConfgtok"></a><b>append_manager_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [manager_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the config to the current manager config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#manager_information">Manager Information</seealso> 
+          for more info. </p>
+        <marker id="read_manager_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_manager_configDirgtConf"></a><b>read_manager_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [manager_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current manager config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#manager_information">Manager Information</seealso> 
+          for more info. </p>
+        <marker id="users_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="users_entryUserIdgtusers_entry"></a><b>users_entry(UserId) -&gt; users_entry()<br/>users_entry(UserId, UserMod) -&gt; users_entry()<br/>users_entry(UserId, UserMod, UserData) -&gt; users_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UserId = term()</b><br/>
+        <b>UserMod = atom()</b><br/>
+        <b>UserData = term()</b><br/>
+        <b>standard_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the manager users config file, 
+          <tt>users.conf</tt>. </p>
+        <p><tt>users_entry(UserId)</tt> translates to the following call:
+          <tt>users_entry(UserId, snmpm_user_default)</tt>. </p>
+        <p><tt>users_entry(UserId, UserMod)</tt> translates to the following 
+          call: <tt>users_entry(UserId, UserMod, undefined)</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#users">Users</seealso> 
+          for more info. </p>
+        <marker id="write_users_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_users_configDirConfgtok"></a><b>write_users_config(Dir, Conf) -&gt; ok<br/>write_users_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [users_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the manager users config to the manager users 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#users">Users</seealso> 
+          for more info. </p>
+        <marker id="append_users_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_users_configDirConfgtok"></a><b>append_users_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [users_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the users config to the current manager users  
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#users">Users</seealso> 
+          for more info. </p>
+        <marker id="read_users_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_users_configDirgtConf"></a><b>read_users_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [users_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current manager users config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#users">Users</seealso> 
+          for more info. </p>
+        <marker id="agents_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="agents_entryUserIdTargetNameCommIpPortEngineIDTimeoutMaxMessageSizeVersionSecModelSecNameSecLevelgtagents_entry"></a><b>agents_entry(UserId, TargetName, Comm, Ip, Port, EngineID, Timeout, MaxMessageSize, Version, SecModel, SecName, SecLevel) -&gt; agents_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UserId = term()</b><br/>
+        <b>TargetName = string()</b><br/>
+        <b>Comm = string()</b><br/>
+        <b>Ip = string()</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>EngineID = string()</b><br/>
+        <b>Timeout = integer()</b><br/>
+        <b>MaxMessageSize = integer()</b><br/>
+        <b>Version = v1 | v2 | v3</b><br/>
+        <b>SecModel = v1 | v2c | usm</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>SecLevel = noAuthNoPriv | authNoPriv | authPriv</b><br/>
+        <b>agents_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the manager agents config file, 
+          <tt>agents.conf</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#agents">Agents</seealso> 
+          for more info. </p>
+        <marker id="write_agents_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_agents_configDirConfgtok"></a><b>write_agents_config(Dir, Conf) -&gt; ok<br/>write_agents_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the manager agents config to the manager agents 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#agents">Agents</seealso> 
+          for more info. </p>
+        <marker id="append_agents_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_agents_configDirConfgtok"></a><b>append_agents_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [agents_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the agents config to the current manager agents 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#agents">Agents</seealso> 
+          for more info. </p>
+        <marker id="read_agents_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_agents_configDirgtConf"></a><b>read_agents_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [agents_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current manager agents config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#agents">Agents</seealso> 
+          for more info. </p>
+        <marker id="usm_entry"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="usm_entryEngineIDUserNameAuthPAuthKeyPrivPPrivKeygtusm_entry"></a><b>usm_entry(EngineID, UserName, AuthP, AuthKey, PrivP, PrivKey) -&gt; usm_entry()<br/>usm_entry(EngineID, UserName, SecName, AuthP, AuthKey, PrivP, PrivKey) -&gt; usm_entry()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>EngineID = string()</b><br/>
+        <b>UserName = string()</b><br/>
+        <b>SecName = string()</b><br/>
+        <b>AuthP = usmNoAuthProtocol | usmHMACMD5AuthProtocol | usmHMACSHAAuthProtocol</b><br/>
+        <b>AuthKey = [integer()]</b><br/>
+        <b>PrivP = usmNoPrivProtocol | usmDESPrivProtocol | usmAesCfb128Protocol</b><br/>
+        <b>PrivKey = [integer()]</b><br/>
+        <b>usm_entry() = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Create an entry for the agent community config file, 
+          <tt>community.conf</tt>. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+        <marker id="write_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_usm_configDirConfgtok"></a><b>write_usm_config(Dir, Conf) -&gt; ok<br/>write_usm_config(Dir, Hdr, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Hdr = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Write the manager usm config to the manager usm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p><tt>Hdr</tt> is an optional file header (note that this text is
+          written to the file as is). </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+        <marker id="append_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="append_usm_configDirConfgtok"></a><b>append_usm_config(Dir, Conf) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Append the usm config to the current manager usm 
+          config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+        <marker id="read_usm_config"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_usm_configDirgtConf"></a><b>read_usm_config(Dir) -&gt; Conf</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Conf = [usm_entry()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read the current manager usm config file. </p>
+        <p><tt>Dir</tt> is the path to the directory where to store the 
+          config file. </p>
+        <p>See 
+          <seealso marker="snmp_manager_config_files#usm">Security data for USM</seealso> 
+          for more info. </p>
+        <marker id="end"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,2794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>file</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />file</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>file</tt> provides an interface to the file system.</p>
+    <p>On operating systems with thread support, it is possible to let
+      file operations be performed in threads of their own, allowing
+      other Erlang processes to continue executing in parallel with
+      the file operations. See the command line flag
+      <tt>+A</tt> in <seealso marker="erts:erl">erl(1)</seealso>.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">POSIX Error Codes</a></li>
+        
+        <li><a href="#">Performance</a></li>
+        
+        <li><a href="#">Warnings</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#change_groupFilenameGidgtokerrorReason">change_group(Filename, Gid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#change_ownerFilenameUidgtokerrorReason">change_owner(Filename, Uid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#change_ownerFilenameUidGidgtokerrorReason">change_owner(Filename, Uid, Gid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#change_timeFilenameMtimegtokerrorReason">change_time(Filename, Mtime) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#change_timeFilenameMtimeAtimegtokerrorReason">change_time(Filename, Mtime, Atime) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#closeIoDevicegtokerrorReason">close(IoDevice) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#consultFilenamegtokTermserrorReason">consult(Filename) -&gt; {ok, Terms} | {error, Reason}</a></li>
+        
+        <li><a href="#copySourceDestinationgt">copy(Source, Destination) -&gt;</a></li>
+        
+        <li><a href="#del_dirDirgtokerrorReason">del_dir(Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#deleteFilenamegtokerrorReason">delete(Filename) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#evalFilenamegtokerrorReason">eval(Filename) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#evalFilenameBindingsgtokerrorReason">eval(Filename, Bindings) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#file_infoFilenamegtokFileInfoerrorReason">file_info(Filename) -&gt; {ok, FileInfo} | {error, Reason}</a></li>
+        
+        <li><a href="#format_errorReasongtChars">format_error(Reason) -&gt; Chars</a></li>
+        
+        <li><a href="#get_cwdDrivegtokDirerrorReason">get_cwd(Drive) -&gt; {ok, Dir} | {error, Reason}</a></li>
+        
+        <li><a href="#get_cwdgtokDirerrorReason">get_cwd() -&gt; {ok, Dir} | {error, Reason}</a></li>
+        
+        <li><a href="#list_dirDirgtokFilenameserrorReason">list_dir(Dir) -&gt; {ok, Filenames} | {error, Reason}</a></li>
+        
+        <li><a href="#make_dirDirgtokerrorReason">make_dir(Dir) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#make_linkExistingNewgtokerrorReason">make_link(Existing, New) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#make_symlinkName1Name2gtokerrorReason">make_symlink(Name1, Name2) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#openFilenameModesgtokIoDeviceerrorReason">open(Filename, Modes) -&gt; {ok, IoDevice} | {error, Reason}</a></li>
+        
+        <li><a href="#path_consultPathFilenamegtokTermsFullNameerrorReason">path_consult(Path, Filename) -&gt; {ok, Terms, FullName} | {error, Reason}</a></li>
+        
+        <li><a href="#path_evalPathFilenamegtokFullNameerrorReason">path_eval(Path, Filename) -&gt; {ok, FullName} | {error, Reason}</a></li>
+        
+        <li><a href="#path_openPathFilenameModesgtokIoDeviceFullNameerrorReason">path_open(Path, Filename, Modes) -&gt; {ok, IoDevice, FullName} | {error, Reason}</a></li>
+        
+        <li><a href="#path_scriptPathFilenamegtokValueFullNameerrorReason">path_script(Path, Filename) -&gt; {ok, Value, FullName} | {error, Reason}</a></li>
+        
+        <li><a href="#path_scriptPathFilenameBindingsgtokValueFullNameerrorReason">path_script(Path, Filename, Bindings) -&gt; {ok, Value, FullName} | {error, Reason}</a></li>
+        
+        <li><a href="#pid2namePidgtstringundefined">pid2name(Pid) -&gt; string() | undefined</a></li>
+        
+        <li><a href="#positionIoDeviceLocationgtokNewPositionerrorReason">position(IoDevice, Location) -&gt; {ok, NewPosition} | {error, Reason}</a></li>
+        
+        <li><a href="#preadIoDeviceLocNumsgtokDataLeoferrorReason">pread(IoDevice, LocNums) -&gt; {ok, DataL} | eof | {error, Reason}</a></li>
+        
+        <li><a href="#preadIoDeviceLocationNumbergtokDataeoferrorReason">pread(IoDevice, Location, Number) -&gt; {ok, Data} | eof | {error, Reason}</a></li>
+        
+        <li><a href="#pwriteIoDeviceLocBytesgtokerrorNReason">pwrite(IoDevice, LocBytes) -&gt; ok | {error, {N, Reason}}</a></li>
+        
+        <li><a href="#pwriteIoDeviceLocationBytesgtokerrorReason">pwrite(IoDevice, Location, Bytes) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#readIoDeviceNumbergtokDataeoferrorReason">read(IoDevice, Number) -&gt; {ok, Data} | eof | {error, Reason}</a></li>
+        
+        <li><a href="#read_fileFilenamegtokBinaryerrorReason">read_file(Filename) -&gt; {ok, Binary} | {error, Reason}</a></li>
+        
+        <li><a href="#read_file_infoFilenamegtokFileInfoerrorReason">read_file_info(Filename) -&gt; {ok, FileInfo} | {error, Reason}</a></li>
+        
+        <li><a href="#read_linkNamegtokFilenameerrorReason">read_link(Name) -&gt; {ok, Filename} | {error, Reason}</a></li>
+        
+        <li><a href="#read_link_infoNamegtokFileInfoerrorReason">read_link_info(Name) -&gt; {ok, FileInfo} | {error, Reason}</a></li>
+        
+        <li><a href="#renameSourceDestinationgtokerrorReason">rename(Source, Destination) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#scriptFilenameBindingsgtokValueerrorReason">script(Filename, Bindings) -&gt; {ok, Value} | {error, Reason}</a></li>
+        
+        <li><a href="#scriptFilenamegtokValueerrorReason">script(Filename) -&gt; {ok, Value} | {error, Reason}</a></li>
+        
+        <li><a href="#set_cwdDirgtokerrorReason">set_cwd(Dir) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#syncIoDevicegtokerrorReason">sync(IoDevice) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#truncateIoDevicegtokerrorReason">truncate(IoDevice) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#writeIoDeviceBytesgtokerrorReason">write(IoDevice, Bytes) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#write_fileFilenameBytesModesgtokerrorReason">write_file(Filename, Bytes, Modes) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#write_fileFilenameBytesgtokerrorReason">write_file(Filename, Bytes) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#write_file_infoFilenameFileInfogtokerrorReason">write_file_info(Filename, FileInfo) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+iodata() = iolist() | binary()
+  iolist() = [char() | binary() | iolist()]
+
+io_device()
+  as returned by file:open/2, a process handling IO protocols
+
+name() = string() | atom() | DeepList
+  DeepList = [char() | atom() | DeepList]
+
+posix()
+  an atom which is named from the Posix error codes used in
+  Unix, and in the runtime libraries of most C compilers
+
+ext_posix() = posix() | badarg
+
+time() = {{Year, Month, Day}, {Hour, Minute, Second}}
+  Year = Month = Day = Hour = Minute = Second = int()
+  Must denote a valid date and time</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">POSIX Error Codes</div>
+    
+    <div class="description">
+        
+    <title>POSIX Error Codes</title>
+    <list type="bulleted">
+      <item><tt>eacces</tt> - permission denied</item>
+      <item><tt>eagain</tt> - resource temporarily unavailable</item>
+      <item><tt>ebadf</tt> - bad file number</item>
+      <item><tt>ebusy</tt> - file busy</item>
+      <item><tt>edquot</tt> - disk quota exceeded</item>
+      <item><tt>eexist</tt> - file already exists</item>
+      <item><tt>efault</tt> - bad address in system call argument</item>
+      <item><tt>efbig</tt> - file too large</item>
+      <item><tt>eintr</tt> - interrupted system call</item>
+      <item><tt>einval</tt> - invalid argument</item>
+      <item><tt>eio</tt> - IO error</item>
+      <item><tt>eisdir</tt> - illegal operation on a directory</item>
+      <item><tt>eloop</tt> - too many levels of symbolic links</item>
+      <item><tt>emfile</tt> - too many open files</item>
+      <item><tt>emlink</tt> - too many links</item>
+      <item><tt>enametoolong</tt> - file name too long</item>
+      <item><tt>enfile</tt> - file table overflow</item>
+      <item><tt>enodev</tt> - no such device</item>
+      <item><tt>enoent</tt> - no such file or directory</item>
+      <item><tt>enomem</tt> - not enough memory</item>
+      <item><tt>enospc</tt> - no space left on device</item>
+      <item><tt>enotblk</tt> - block device required</item>
+      <item><tt>enotdir</tt> - not a directory</item>
+      <item><tt>enotsup</tt> - operation not supported</item>
+      <item><tt>enxio</tt> - no such device or address</item>
+      <item><tt>eperm</tt> - not owner</item>
+      <item><tt>epipe</tt> - broken pipe</item>
+      <item><tt>erofs</tt> - read-only file system</item>
+      <item><tt>espipe</tt> - invalid seek</item>
+      <item><tt>esrch</tt> - no such process</item>
+      <item><tt>estale</tt> - stale remote file handle</item>
+      <item><tt>exdev</tt> - cross-domain link</item>
+    </list>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Performance</div>
+    
+    <div class="description">
+        
+    <title>Performance</title>
+    <p>Some operating system file operations, for example a
+      <tt>sync/1</tt> or <tt>close/1</tt> on a huge file, may block their 
+      calling thread for seconds. If this befalls the emulator main
+      thread, the response time is no longer in the order of
+      milliseconds, depending on the definition of "soft" in soft
+      real-time system.</p>
+    <p>If the device driver thread pool is active, file operations are
+      done through those threads instead, so the emulator can go on
+      executing Erlang processes. Unfortunately, the time for serving a
+      file operation increases due to the extra scheduling required
+      from the operating system.</p>
+    <p>If the device driver thread pool is disabled or of size 0, large
+      file reads and writes are segmented into several smaller, which
+      enables the emulator so server other processes during the file
+      operation. This gives the same effect as when using the thread
+      pool, but with larger overhead. Other file operations, for
+      example <tt>sync/1</tt> or <tt>close/1</tt> on a huge file, still are
+      a problem.</p>
+    <p>For increased performance, raw files are recommended. Raw files
+      uses the file system of the node's host machine. For normal files
+      (non-raw), the file server is used to find the files, and if
+      the node is running its file server as slave to another node's,
+      and the other node runs on some other host machine, they may have
+      different file systems. This is seldom a problem, but you have
+      now been warned.</p>
+    <p>A normal file is really a process so it can be used as an IO
+      device (see <tt>io</tt>). Therefore when data is written to a
+      normal file, the sending of the data to the file process, copies 
+      all data that are not binaries. Opening the file in binary mode
+      and writing binaries is therefore recommended. If the file is
+      opened on another node, or if the file server runs as slave to
+      another node's, also binaries are copied.</p>
+    <p>Caching data to reduce the number of file operations, or rather
+      the number of calls to the file driver, will generally increase
+      performance. The following function writes 4 MBytes in 23
+      seconds when tested:</p>
+    <code type="none">
+create_file_slow(Name, N) when integer(N), N >= 0 ->
+    {ok, FD} = file:open(Name, [raw, write, delayed_write, binary]),
+    ok = create_file_slow(FD, 0, N),
+    ok = ?FILE_MODULE:close(FD),
+    ok.
+      
+create_file_slow(FD, M, M) ->
+    ok;
+create_file_slow(FD, M, N) ->
+    ok = file:write(FD, <<M:32/unsigned>>),
+    create_file_slow(FD, M+1, N).</code>
+    <p>The following, functionally equivalent, function collects 1024
+      entries into a list of 128 32-byte binaries before each call to
+      <tt>file:write/2</tt> and so does the same work in 0.52 seconds,
+      which is 44 times faster.</p>
+    <code type="none">
+create_file(Name, N) when integer(N), N >= 0 ->
+    {ok, FD} = file:open(Name, [raw, write, delayed_write, binary]),
+    ok = create_file(FD, 0, N),
+    ok = ?FILE_MODULE:close(FD),
+    ok.
+      
+create_file(FD, M, M) ->
+    ok;
+create_file(FD, M, N) when M + 1024 =&lt; N ->
+    create_file(FD, M, M + 1024, []),
+    create_file(FD, M + 1024, N);
+create_file(FD, M, N) ->
+    create_file(FD, M, N, []).
+      
+create_file(FD, M, M, R) ->
+    ok = file:write(FD, R);
+create_file(FD, M, N0, R) when M + 8 =&lt; N0 ->
+    N1  = N0-1,  N2  = N0-2,  N3  = N0-3,  N4  = N0-4, 
+    N5  = N0-5,  N6  = N0-6,  N7  = N0-7,  N8  = N0-8, 
+    create_file(FD, M, N8, 
+                [<<N8:32/unsigned,  N7:32/unsigned, 
+                   N6:32/unsigned,  N5:32/unsigned, 
+                   N4:32/unsigned,  N3:32/unsigned, 
+                   N2:32/unsigned,  N1:32/unsigned>> | R]);
+create_file(FD, M, N0, R) ->
+    N1 = N0-1,
+    create_file(FD, M, N1, [<<N1:32/unsigned>> | R]).</code>
+    <note>
+      <p>Trust only your own benchmarks. If the list length in 
+        <tt>create_file/2</tt> above is increased, it will run slightly
+        faster, but consume more memory and cause more memory
+        fragmentation. How much this affects your application is
+        something that this simple benchmark can not predict.</p>
+      <p>If the\011size of each binary is increased to 64 bytes, it will
+        also run slightly faster, but the code will be twice as clumsy.
+        In the current implementation are binaries larger than 64 bytes
+        stored in memory common to all processes and not copied when
+        sent between processes, while these smaller binaries are stored
+        on the process heap and copied when sent like any other term.</p>
+      <p>So, with a binary size of 68 bytes <tt>create_file/2</tt> runs
+        30 percent slower then with 64 bytes, and will cause much more
+        memory fragmentation. Note that if the binaries were to be sent
+        between processes (for example a non-raw file) the results
+        would probably be completely different.</p>
+    </note>
+    <p>A raw file is really a port. When writing data to a port, it is
+      efficient to write a list of binaries. There is no need to
+      flatten a deep list before writing. On Unix hosts, scatter output,
+      which writes a set of buffers in one operation, is used when
+      possible. In this way <tt>file:write(FD, [Bin1, Bin2 | Bin3])</tt>
+      will write the contents of the binaries without copying the data
+      at all except for perhaps deep down in the operating system
+      kernel.</p>
+    <p>For raw files, <tt>pwrite/2</tt> and <tt>pread/2</tt> are
+      efficiently implemented. The file driver is called only once for
+      the whole operation, and the list iteration is done in the file
+      driver.</p>
+    <p>The options <tt>delayed_write</tt> and <tt>read_ahead</tt> to 
+      <tt>file:open/2</tt> makes the file driver cache data to reduce
+      the number of operating system calls. The function
+      <tt>create_file/2</tt> in the example above takes 60 seconds
+      seconds without the <tt>delayed_write</tt> option, which is 2.6
+      times slower.</p>
+    <p>And, as a really bad example, <tt>create_file_slow/2</tt> above
+      without the <tt>raw</tt>, <tt>binary</tt> and <tt>delayed_write</tt>
+      options, that is it calls <tt>file:open(Name, [write])</tt>, needs
+      1 min 20 seconds for the job, which is 3.5 times slower than
+      the first example, and 150 times slower than the optimized
+      <tt>create_file/2</tt>. </p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Warnings</div>
+    
+    <div class="description">
+        
+    <title>Warnings</title>
+    <p>If an error occurs when accessing an open file with the <tt>io</tt>
+      module, the process which handles the file will exit. The dead
+      file process might hang if a process tries to access it later.
+      This will be fixed in a future release.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="stdlib:filename">filename(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="change_groupFilenameGidgtokerrorReason"></a><b>change_group(Filename, Gid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Gid = int()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes group of a file. See
+          <seealso marker="#write_file_info/2">write_file_info/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_ownerFilenameUidgtokerrorReason"></a><b>change_owner(Filename, Uid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Uid = int()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes owner of a file. See
+          <seealso marker="#write_file_info/2">write_file_info/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_ownerFilenameUidGidgtokerrorReason"></a><b>change_owner(Filename, Uid, Gid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Uid = int()</b><br/>
+        <b>Gid = int()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes owner and group of a file. See
+          <seealso marker="#write_file_info/2">write_file_info/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_timeFilenameMtimegtokerrorReason"></a><b>change_time(Filename, Mtime) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Mtime = time()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the modification and access times of a file. See
+          <seealso marker="#write_file_info/2">write_file_info/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_timeFilenameMtimeAtimegtokerrorReason"></a><b>change_time(Filename, Mtime, Atime) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Mtime = Atime = time()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the modification and last access times of a file. See
+          <seealso marker="#write_file_info/2">write_file_info/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeIoDevicegtokerrorReason"></a><b>close(IoDevice) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes the file referenced by <tt>IoDevice</tt>. It mostly
+          returns <tt>ok</tt>, expect for some severe errors such as out
+          of memory.</p>
+        <p>Note that if the option <tt>delayed_write</tt> was
+          used when opening the file, <tt>close/1</tt> might return an
+          old write error and not even try to close the file. See
+          <seealso marker="#open/2">open/2</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="consultFilenamegtokTermserrorReason"></a><b>consult(Filename) -&gt; {ok, Terms} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Terms = [term()]</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads Erlang terms, separated by '.', from <tt>Filename</tt>.
+          Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, Terms}</tt></tag>
+          <item>
+            <p>The file was successfully read.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <seealso marker="#open/2">open/2</seealso> for a list
+              of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang terms in
+              the file. Use <tt>format_error/1</tt> to convert
+              the three-element tuple to an English description of
+              the error.</p>
+          </item>
+        </taglist>
+        <p>Example:</p>
+        <code type="none">
+f.txt:  {person, "kalle", 25}.
+        {person, "pelle", 30}.</code>
+        <pre>
+1&gt; <input>
+{ok,[{person,"kalle",25},{person,"pelle",30}]}</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="copySourceDestinationgt"></a><b>copy(Source, Destination) -&gt;<br/>copy(Source, Destination, ByteCount) -&gt; {ok, BytesCopied} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Source = Destination = io_device() | Filename | {Filename, Modes}</b><br/>
+        <b>&nbsp;Filename = name()</b><br/>
+        <b>&nbsp;Modes = [Mode] -- see open/2</b><br/>
+        <b>ByteCount = int() &gt;= 0 | infinity</b><br/>
+        <b>BytesCopied = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Copies <tt>ByteCount</tt> bytes from <tt>Source</tt> to
+          <tt>Destination</tt>. <tt>Source</tt> and <tt>Destination</tt> refer
+          to either filenames or IO devices from e.g. <tt>open/2</tt>.
+          <tt>ByteCount</tt> defaults <tt>infinity</tt>, denoting an
+          infinite number of bytes.</p>
+        <p>The argument <tt>Modes</tt> is a list of possible modes, see
+          <seealso marker="#open/2">open/2</seealso>, and defaults to
+          [].</p>
+        <p>If both <tt>Source</tt> and <tt>Destination</tt> refer to
+          filenames, the files are opened with <tt>[read, binary]</tt>
+          and <tt>[write, binary]</tt> prepended to their mode lists,
+          respectively, to optimize the copy.</p>
+        <p>If <tt>Source</tt> refers to a filename, it is opened with
+          <tt>read</tt> mode prepended to the mode list before the copy,
+          and closed when done.</p>
+        <p>If <tt>Destination</tt> refers to a filename, it is opened
+          with <tt>write</tt> mode prepended to the mode list before
+          the copy, and closed when done.</p>
+        <p>Returns <tt>{ok, BytesCopied}</tt> where <tt>BytesCopied</tt> is
+          the number of bytes that actually was copied, which may be
+          less than <tt>ByteCount</tt> if end of file was encountered on
+          the source. If the operation fails, <tt>{error, Reason}</tt> is
+          returned.</p>
+        <p>Typical error reasons: As for <tt>open/2</tt> if a file had to
+          be opened, and as for <tt>read/2</tt> and <tt>write/2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_dirDirgtokerrorReason"></a><b>del_dir(Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to delete the directory <tt>Dir</tt>. The directory must
+          be empty before it can be deleted. Returns <tt>ok</tt> if
+          successful.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing search or write permissions for the parent
+              directories of <tt>Dir</tt>.</p>
+          </item>
+          <tag><tt>eexist</tt></tag>
+          <item>
+            <p>The directory is not empty.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The directory does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of <tt>Dir</tt> is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p>Attempt to delete the current directory. On some
+              platforms, <tt>eacces</tt> is returned instead.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="deleteFilenamegtokerrorReason"></a><b>delete(Filename) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to delete the file <tt>Filename</tt>. Returns <tt>ok</tt>
+          if successful.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing permission for the file or one of its parents.</p>
+          </item>
+          <tag><tt>eperm</tt></tag>
+          <item>
+            <p>The file is a directory and the user is not super-user.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p><tt>Filename</tt> had an improper type, such as tuple.</p>
+          </item>
+        </taglist>
+        <warning>
+          <p>In a future release, a bad type for the <tt>Filename</tt>
+            argument will probably generate an exception.</p>
+          <p></p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="evalFilenamegtokerrorReason"></a><b>eval(Filename) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit 
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads and evaluates Erlang expressions, separated by '.' (or
+          ',', a sequence of expressions is also an expression), from
+          <tt>Filename</tt>. The actual result of the evaluation is not
+          returned; any expression sequence in the file must be there
+          for its side effect. Returns one of the following:</p>
+        <taglist>
+          <tag><tt>ok</tt></tag>
+          <item>
+            <p>The file was read and evaluated.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <tt>open/2</tt> for a list of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang
+              expressions in the file. Use <tt>format_error/1</tt> to
+              convert the three-element tuple to an English description
+              of the error.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="evalFilenameBindingsgtokerrorReason"></a><b>eval(Filename, Bindings) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Bindings -- see erl_eval(3)</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit 
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see eval/1</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>eval/1</tt> but the variable bindings
+          <tt>Bindings</tt> are used in the evaluation. See
+          <seealso marker="stdlib:erl_eval">erl_eval(3)</seealso> about
+          variable bindings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="file_infoFilenamegtokFileInfoerrorReason"></a><b>file_info(Filename) -&gt; {ok, FileInfo} | {error, Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>This function is obsolete. Use <tt>read_file_info/1</tt>
+          instead.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="format_errorReasongtChars"></a><b>format_error(Reason) -&gt; Chars</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Reason = atom() | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see eval/1</b><br/>
+        <b>Chars = [char() | Chars]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Given the error reason returned by any function in this
+          module, returns a descriptive string of the error in English.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_cwdgtokDirerrorReason"></a><b>get_cwd() -&gt; {ok, Dir} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{ok, Dir}</tt>, where <tt>Dir</tt> is the current
+          working directory of the file server.</p>
+        <note>
+          <p>In rare circumstances, this function can fail on Unix.
+            It may happen if read permission does not exist for
+            the parent directories of the current directory.</p>
+        </note>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing read permission for one of the parents of
+              the current directory.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_cwdDrivegtokDirerrorReason"></a><b>get_cwd(Drive) -&gt; {ok, Dir} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Drive = string() -- see below</b><br/>
+        <b>Dir = string()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><tt>Drive</tt> should be of the form "<tt>Letter</tt><tt>:</tt>",
+          for example "c:". Returns <tt>{ok, Dir}</tt> or
+          <tt>{error, Reason}</tt>, where <tt>Dir</tt> is the current
+          working directory of the drive specified.</p>
+        <p>This function returns <tt>{error, enotsup}</tt> on platforms
+          which have no concept of current drive (Unix, for example).</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>enotsup</tt></tag>
+          <item>
+            <p>The operating system have no concept of drives.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>The drive does not exist.</p>
+          </item>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p>The format of <tt>Drive</tt> is invalid.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="list_dirDirgtokFilenameserrorReason"></a><b>list_dir(Dir) -&gt; {ok, Filenames} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name()</b><br/>
+        <b>Filenames = [Filename]</b><br/>
+        <b>&nbsp;Filename = string()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Lists all the files in a directory. Returns
+          <tt>{ok, Filenames}</tt> if successful. Otherwise, it returns
+          <tt>{error, Reason}</tt>. <tt>Filenames</tt> is a list of
+          the names of all the files in the directory. The names are
+          not sorted.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing search or write permissions for <tt>Dir</tt> or
+              one of its parent directories.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The directory does not exist.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="make_dirDirgtokerrorReason"></a><b>make_dir(Dir) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to create the directory <tt>Dir</tt>. Missing parent
+          directories are <em>not</em> created. Returns <tt>ok</tt> if
+          successful.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing search or write permissions for the parent
+              directories of <tt>Dir</tt>.</p>
+          </item>
+          <tag><tt>eexist</tt></tag>
+          <item>
+            <p>There is already a file or directory named <tt>Dir</tt>.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>A component of <tt>Dir</tt> does not exist.</p>
+          </item>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>There is a no space left on the device.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of <tt>Dir</tt> is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="make_linkExistingNewgtokerrorReason"></a><b>make_link(Existing, New) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Existing = New = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Makes a hard link from <tt>Existing</tt> to <tt>New</tt>, on
+          platforms that support links (Unix). This function returns
+          <tt>ok</tt> if the link was successfully created, or
+          <tt>{error, Reason}</tt>. On platforms that do not support
+          links, <tt>{error,enotsup}</tt> is returned.</p>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing read or write permissions for the parent
+              directories of <tt>Existing</tt> or <tt>New</tt>.</p>
+          </item>
+          <tag><tt>eexist</tt></tag>
+          <item>
+            <p><tt>New</tt> already exists.</p>
+          </item>
+          <tag><tt>enotsup</tt></tag>
+          <item>
+            <p>Hard links are not supported on this platform.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="make_symlinkName1Name2gtokerrorReason"></a><b>make_symlink(Name1, Name2) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name1 = Name2 = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function creates a symbolic link <tt>Name2</tt> to
+          the file or directory <tt>Name1</tt>, on platforms that support
+          symbolic links (most Unix systems). <tt>Name1</tt> need not
+          exist. This function returns <tt>ok</tt> if the link was
+          successfully created, or <tt>{error, Reason}</tt>. On platforms
+          that do not support symbolic links, <tt>{error, enotsup}</tt>
+          is returned.</p>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing read or write permissions for the parent
+              directories of <tt>Name1</tt> or <tt>Name2</tt>.</p>
+          </item>
+          <tag><tt>eexist</tt></tag>
+          <item>
+            <p><tt>Name2</tt> already exists.</p>
+          </item>
+          <tag><tt>enotsup</tt></tag>
+          <item>
+            <p>Symbolic links are not supported on this platform.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="openFilenameModesgtokIoDeviceerrorReason"></a><b>open(Filename, Modes) -&gt; {ok, IoDevice} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Modes = [Mode]</b><br/>
+        <b>&nbsp;Mode = read | write | append | raw | binary | {delayed_write, Size, Delay} | delayed_write | {read_ahead, Size} | read_ahead | compressed</b><br/>
+        <b>&nbsp;&nbsp;Size = Delay = int()</b><br/>
+        <b>IoDevice = io_device()</b><br/>
+        <b>Reason = ext_posix() | system_limit</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens the file <tt>Filename</tt> in the mode determined by
+          <tt>Modes</tt>, which may contain one or more of the following
+          items:</p>
+        <taglist>
+          <tag><tt>read</tt></tag>
+          <item>
+            <p>The file, which must exist, is opened for reading.</p>
+          </item>
+          <tag><tt>write</tt></tag>
+          <item>
+            <p>The file is opened for writing. It is created if it does
+              not exist. If the file exists, and if <tt>write</tt> is not
+              combined with <tt>read</tt>, the file will be truncated.</p>
+          </item>
+          <tag><tt>append</tt></tag>
+          <item>
+            <p>The file will be opened for writing, and it will be
+              created if it does not exist. Every write operation to a
+              file opened with <tt>append</tt> will take place at
+              the end of the file.</p>
+          </item>
+          <tag><tt>raw</tt></tag>
+          <item>
+            <p>The <tt>raw</tt> option allows faster access to a file,
+              because no Erlang process is needed to handle the file.
+              However, a file opened in this way has the following
+              limitations:</p>
+            <list type="bulleted">
+              <item>The functions in the <tt>io</tt> module cannot be used,
+               because they can only talk to an Erlang process.
+               Instead, use the <tt>read/2</tt> and <tt>write/2</tt>
+               functions.</item>
+              <item>Only the Erlang process which opened the file can use
+               it.</item>
+              <item>A remote Erlang file server cannot be used;
+               the computer on which the Erlang node is running must
+               have access to the file system (directly or through
+               NFS).</item>
+            </list>
+          </item>
+          <tag><tt>binary</tt></tag>
+          <item>
+            <p>When this option has been given, read operations on the file
+	       will return binaries rather than lists.</p>
+          </item>
+          <tag><tt>{delayed_write, Size, Delay}</tt></tag>
+          <item>
+            <p>If this option is used, the data in subsequent
+              <tt>write/2</tt> calls is buffered until there are at least
+              <tt>Size</tt> bytes buffered, or until the oldest buffered
+              data is <tt>Delay</tt> milliseconds old. Then all buffered
+              data is written in one operating system call.
+              The buffered data is also flushed before some other file
+              operation than <tt>write/2</tt> is executed.</p>
+            <p>The purpose of this option is to increase performance
+              by reducing the number of operating system calls, so the
+              <tt>write/2</tt> calls should be for sizes significantly
+              less than <tt>Size</tt>, and not interspersed by to many
+              other file operations, for this to happen.</p>
+            <p>When this option is used, the result of <tt>write/2</tt>
+              calls may prematurely be reported as successful, and if
+              a write error should actually occur the error is
+              reported as the result of the next file operation, which
+              is not executed.</p>
+            <p>For example, when <tt>delayed_write</tt> is used, after a
+              number of <tt>write/2</tt> calls, <tt>close/1</tt> might
+              return <tt>{error, enospc}</tt> because there was not enough
+              space on the disc for previously written data, and
+              <tt>close/1</tt> should probably be called again since the
+              file is still open.</p>
+          </item>
+          <tag><tt>delayed_write</tt></tag>
+          <item>
+            <p>The same as <tt>{delayed_write, Size, Delay}</tt> with
+              reasonable default values for <tt>Size</tt> and
+              <tt>Delay</tt>. (Roughly some 64 KBytes, 2 seconds)</p>
+          </item>
+          <tag><tt>{read_ahead, Size}</tt></tag>
+          <item>
+            <p>This option activates read data buffering. If
+              <tt>read/2</tt> calls are for significantly less than
+              <tt>Size</tt> bytes, read operations towards the operating
+              system are still performed for blocks of <tt>Size</tt>
+              bytes. The extra data is buffered and returned in
+              subsequent <tt>read/2</tt> calls, giving a performance gain
+              since the number of operating system calls is reduced.</p>
+            <p>If <tt>read/2</tt> calls are for sizes not significantly
+              less than, or even greater than <tt>Size</tt> bytes, no
+              performance gain can be expected.</p>
+          </item>
+          <tag><tt>read_ahead</tt></tag>
+          <item>
+            <p>The same as <tt>{read_ahead, Size}</tt> with a reasonable
+              default value for <tt>Size</tt>. (Roughly some 64 KBytes)</p>
+          </item>
+          <tag><tt>compressed</tt></tag>
+          <item>
+            <p>Makes it possible to read or write gzip compressed
+              files. The <tt>compressesed</tt> option must be combined
+	      with either <tt>read</tt> or <tt>write</tt>, but not both.
+	      Note that the file size obtained with
+              <tt>read_file_info/1</tt> will most probably not match the
+              number of bytes that can be read from a compressed file.</p>
+          </item>
+          <tag><tt>{encoding, Encoding}</tt></tag>
+          <item>
+            <p>Makes the file perform automatic translation of characters to and from a specific (Unicode) encoding. Note that the data supplied to file:write or returned by file:read still is byte oriented, this option only denotes how data is actually stored in the disk file.</p>
+	    <p>Depending on the encoding, different methods of reading and writing data is preferred. The default encoding of <tt>latin1</tt> implies using this (the file) module for reading and writing data, as the interfaces provided here work with byte-oriented data, while using other (Unicode) encodings makes the  <seealso marker="stdlib:io">io(3)</seealso> module's <tt>get_chars</tt>, <tt>get_line</tt> and <tt>put_chars</tt> functions more suitable, as they can work with the full Unicode range.</p>
+	    <p>If data is sent to an <tt>io_device()</tt> in a format that cannot be converted to the specified encoding, or if data is read by a function that returns data in a format that cannot cope with the character range of the data, an error occurs and the file will be closed.</p> 
+	    <p>The allowed values for <tt>Encoding</tt> are:</p>
+	    <taglist>
+	    <tag><tt>latin1</tt></tag>
+	    <item>
+	    <p>The default encoding. Bytes supplied to i.e. file:write are written as is on the file, likewise bytes read from the file are returned to i.e. file:read as is. If the <seealso marker="stdlib:io">io(3)</seealso> module is used for writing, the file can only cope with Unicode characters up to codepoint 255 (the ISO-latin-1 range).</p>
+	    </item>
+	    <tag><tt>unicode</tt> or <tt>utf8</tt></tag>
+	    <item>
+	    <p>Characters are translated to and from the UTF-8 encoding before being written to or read from the file. A file opened in this way might be readable using the file:read function, as long as no data stored on the file lies beyond the ISO-latin-1 range (0..255), but failure will occur if the data contains Unicode codepoints beyond that range. The file is best read with the functions in the Unicode aware   <seealso marker="stdlib:io">io(3)</seealso> module.</p>
+	    <p>Bytes written to the file by any means are translated to UTF-8 encoding before actually being stored on the disk file.</p>
+	    </item>
+	    <tag><tt>utf16</tt> or <tt>{utf16,big}</tt></tag>
+	    <item>
+	    <p>Works like <tt>unicode</tt>, but translation is done to and from big endian UTF-16 instead of UTF-8.</p>
+	    </item>
+	    <tag><tt>{utf16,little}</tt></tag>
+	    <item>
+	    <p>Works like <tt>unicode</tt>, but translation is done to and from little endian UTF-16 instead of UTF-8.</p>
+	    </item>
+	    <tag><tt>utf32</tt> or <tt>{utf32,big}</tt></tag>
+	    <item>
+	    <p>Works like <tt>unicode</tt>, but translation is done to and from big endian UTF-32 instead of UTF-8.</p>
+	    </item>
+	    <tag><tt>{utf32,little}</tt></tag>
+	    <item>
+	    <p>Works like <tt>unicode</tt>, but translation is done to and from little endian UTF-32 instead of UTF-8.</p>
+	    </item>
+	    </taglist>
+	    <p>The Encoding can be changed for a file "on the fly" by using the <seealso marker="stdlib:io#setopts/2">io:setopts/2</seealso> function, why a file can be analyzed in latin1 encoding for i.e. a BOM, positioned beyond the BOM and then be set for the right encoding before further reading.See the <seealso marker="stdlib:unicode">unicode(3)</seealso> module for functions identifying BOM's.</p>
+	    <p>This option is not allowed on <tt>raw</tt> files.</p>
+          </item>
+        </taglist>
+        <p>Returns:</p>
+        <taglist>
+          <tag><tt>{ok, IoDevice}</tt></tag>
+          <item>
+            <p>The file has been opened in the requested mode.
+              <tt>IoDevice</tt> is a reference to the file.</p>
+          </item>
+          <tag><tt>{error, Reason}</tt></tag>
+          <item>
+            <p>The file could not be opened.</p>
+          </item>
+        </taglist>
+        <p><tt>IoDevice</tt> is really the pid of the process which
+          handles the file. This process is linked to the process
+          which originally opened the file. If any process to which
+          the <tt>IoDevice</tt> is linked terminates, the file will be
+          closed and the process itself will be terminated.
+          An <tt>IoDevice</tt> returned from this call can be used as an
+          argument to the IO functions (see
+          <seealso marker="stdlib:io">io(3)</seealso>).</p>
+        <note>
+          <p>In previous versions of <tt>file</tt>, modes were given
+            as one of the atoms <tt>read</tt>, <tt>write</tt>, or
+            <tt>read_write</tt> instead of a list. This is still allowed
+            for reasons of backwards compatibility, but should not be
+            used for new code. Also note that <tt>read_write</tt> is not
+            allowed in a mode list.</p>
+        </note>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing permission for reading the file or searching one
+              of the parent directories.</p>
+          </item>
+          <tag><tt>eisdir</tt></tag>
+          <item>
+            <p>The named file is not a regular file. It may be a
+              directory, a fifo, or a device.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>There is a no space left on the device (if <tt>write</tt>
+              access was specified).</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="path_consultPathFilenamegtokTermsFullNameerrorReason"></a><b>path_consult(Path, Filename) -&gt; {ok, Terms, FullName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = [Dir]</b><br/>
+        <b>&nbsp;Dir = name()</b><br/>
+        <b>Filename = name()</b><br/>
+        <b>Terms = [term()]</b><br/>
+        <b>FullName = string()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the path <tt>Path</tt> (a list of directory names)
+          until the file <tt>Filename</tt> is found. If <tt>Filename</tt>
+          is an absolute filename, <tt>Path</tt> is ignored.
+          Then reads Erlang terms, separated by '.', from the file.
+          Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, Terms, FullName}</tt></tag>
+          <item>
+            <p>The file was successfully read. <tt>FullName</tt> is
+              the full name of the file.</p>
+          </item>
+          <tag><tt>{error, enoent}</tt></tag>
+          <item>
+            <p>The file could not be found in any of the directories in
+              <tt>Path</tt>.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <seealso marker="#open/2">open/2</seealso> for a list
+              of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang terms in
+              the file. Use <tt>format_error/1</tt> to convert
+              the three-element tuple to an English description of
+              the error.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="path_evalPathFilenamegtokFullNameerrorReason"></a><b>path_eval(Path, Filename) -&gt; {ok, FullName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = [Dir]</b><br/>
+        <b>&nbsp;Dir = name()</b><br/>
+        <b>Filename = name()</b><br/>
+        <b>FullName = string()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the path <tt>Path</tt> (a list of directory names)
+          until the file <tt>Filename</tt> is found. If <tt>Filename</tt>
+          is an absolute file name, <tt>Path</tt> is ignored. Then reads
+          and evaluates Erlang expressions, separated by '.' (or ',', a
+          sequence of expressions is also an expression), from the file.
+          The actual result of evaluation is not returned; any
+          expression sequence in the file must be there for its side
+          effect. Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, FullName}</tt></tag>
+          <item>
+            <p>The file was read and evaluated. <tt>FullName</tt> is
+              the full name of the file.</p>
+          </item>
+          <tag><tt>{error, enoent}</tt></tag>
+          <item>
+            <p>The file could not be found in any of the directories in
+              <tt>Path</tt>.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <seealso marker="#open/2">open/2</seealso> for a list
+              of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang
+              expressions in the file. Use <tt>format_error/1</tt> to
+              convert the three-element tuple to an English description
+              of the error.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="path_openPathFilenameModesgtokIoDeviceFullNameerrorReason"></a><b>path_open(Path, Filename, Modes) -&gt; {ok, IoDevice, FullName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = [Dir]</b><br/>
+        <b>&nbsp;Dir = name()</b><br/>
+        <b>Filename = name()</b><br/>
+        <b>Modes = [Mode] -- see open/2</b><br/>
+        <b>IoDevice = io_device()</b><br/>
+        <b>FullName = string()</b><br/>
+        <b>Reason = ext_posix() | system_limit</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the path <tt>Path</tt> (a list of directory names)
+          until the file <tt>Filename</tt> is found. If <tt>Filename</tt>
+          is an absolute file name, <tt>Path</tt> is ignored.
+          Then opens the file in the mode determined by <tt>Modes</tt>.
+          Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, IoDevice, FullName}</tt></tag>
+          <item>
+            <p>The file has been opened in the requested mode.
+              <tt>IoDevice</tt> is a reference to the file and
+              <tt>FullName</tt> is the full name of the file.</p>
+          </item>
+          <tag><tt>{error, enoent}</tt></tag>
+          <item>
+            <p>The file could not be found in any of the directories in
+              <tt>Path</tt>.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>The file could not be opened.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="path_scriptPathFilenamegtokValueFullNameerrorReason"></a><b>path_script(Path, Filename) -&gt; {ok, Value, FullName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = [Dir]</b><br/>
+        <b>&nbsp;Dir = name()</b><br/>
+        <b>Filename = name()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>FullName = string()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit 
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Searches the path <tt>Path</tt> (a list of directory names)
+          until the file <tt>Filename</tt> is found. If <tt>Filename</tt>
+          is an absolute file name, <tt>Path</tt> is ignored. Then reads
+          and evaluates Erlang expressions, separated by '.' (or ',', a
+          sequence of expressions is also an expression), from the file.
+          Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, Value, FullName}</tt></tag>
+          <item>
+            <p>The file was read and evaluated. <tt>FullName</tt> is
+              the full name of the file and <tt>Value</tt> the value of
+              the last expression.</p>
+          </item>
+          <tag><tt>{error, enoent}</tt></tag>
+          <item>
+            <p>The file could not be found in any of the directories in
+              <tt>Path</tt>.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <seealso marker="#open/2">open/2</seealso> for a list
+              of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang
+              expressions in the file. Use <tt>format_error/1</tt> to
+              convert the three-element tuple to an English description
+              of the error.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="path_scriptPathFilenameBindingsgtokValueFullNameerrorReason"></a><b>path_script(Path, Filename, Bindings) -&gt; {ok, Value, FullName} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = [Dir]</b><br/>
+        <b>&nbsp;Dir = name()</b><br/>
+        <b>Filename = name()</b><br/>
+        <b>Bindings -- see erl_eval(3)</b><br/>
+        <b>Value = term()</b><br/>
+        <b>FullName = string()</b><br/>
+        <b>Reason = posix() | terminated | system_limit
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see path_script/2</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>path_script/2</tt> but the variable bindings
+          <tt>Bindings</tt> are used in the evaluation. See
+          <seealso marker="stdlib:erl_eval">erl_eval(3)</seealso> about
+          variable bindings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pid2namePidgtstringundefined"></a><b>pid2name(Pid) -&gt; string() | undefined</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If <tt>Pid</tt> is an IO device, that is, a pid returned from
+          <tt>open/2</tt>, this function returns the filename, or rather:</p>
+        <taglist>
+          <tag><tt>{ok, Filename}</tt></tag>
+          <item>
+            <p>If this node's file server is not a slave, the file was
+              opened by this node's file server, (this implies that
+              <tt>Pid</tt> must be a local pid) and the file is not
+              closed. <tt>Filename</tt> is the filename in flat string
+              format.</p>
+          </item>
+          <tag><tt>undefined</tt></tag>
+          <item>
+            <p>In all other cases.</p>
+          </item>
+        </taglist>
+        <warning>
+          <p>This function is intended for debugging only.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="positionIoDeviceLocationgtokNewPositionerrorReason"></a><b>position(IoDevice, Location) -&gt; {ok, NewPosition} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Location = Offset | {bof, Offset} | {cur, Offset} | {eof, Offset} | bof | cur | eof</b><br/>
+        <b>&nbsp;Offset = int()</b><br/>
+        <b>NewPosition = int()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the position of the file referenced by <tt>IoDevice</tt>
+          to <tt>Location</tt>. Returns <tt>{ok, NewPosition}</tt> (as
+          absolute offset) if successful, otherwise
+          <tt>{error, Reason}</tt>. <tt>Location</tt> is one of
+          the following:</p>
+        <taglist>
+          <tag><tt>Offset</tt></tag>
+          <item>
+            <p>The same as <tt>{bof, Offset}</tt>.</p>
+          </item>
+          <tag><tt>{bof, Offset}</tt></tag>
+          <item>
+            <p>Absolute offset.</p>
+          </item>
+          <tag><tt>{cur, Offset}</tt></tag>
+          <item>
+            <p>Offset from the current position.</p>
+          </item>
+          <tag><tt>{eof, Offset}</tt></tag>
+          <item>
+            <p>Offset from the end of file.</p>
+          </item>
+          <tag><tt>bof | cur | eof</tt></tag>
+          <item>
+            <p>The same as above with <tt>Offset</tt> 0.</p>
+          </item>
+        </taglist>
+	<p>Note that offsets are counted in bytes, not in characters. If the file is opened using some other <tt>encoding</tt> than <tt>latin1</tt>, one byte does not correspond to one character. Positioning in such a file can only be done to known character boundaries, i.e. to a position earlier retrieved by getting a current position, to the beginning/end of the file or to some other position <em>known</em> to be on a correct character boundary by some other means (typically beyond a byte order mark in the file, which has a known byte-size).</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p>Either <tt>Location</tt> was illegal, or it evaluated to a
+              negative offset in the file. Note that if the resulting
+              position is a negative value, the result is an error, and
+              after the call the file position is undefined.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="preadIoDeviceLocNumsgtokDataLeoferrorReason"></a><b>pread(IoDevice, LocNums) -&gt; {ok, DataL} | eof | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>LocNums = [{Location, Number}]</b><br/>
+        <b>&nbsp;Location -- see position/2</b><br/>
+        <b>&nbsp;Number = int()</b><br/>
+        <b>DataL = [Data]</b><br/>
+        <b>&nbsp;Data = [char()] | binary()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a sequence of <tt>pread/3</tt> in one operation, 
+          which is more efficient than calling them one at a time.
+          Returns <tt>{ok, [Data, ...]}</tt> or <tt>{error, Reason}</tt>,
+          where each <tt>Data</tt>, the result of the corresponding
+          <tt>pread</tt>, is either a list or a binary depending on
+          the mode of the file, or <tt>eof</tt> if the requested position
+          was beyond end of file.</p>
+	  <p>As the position is given as a byte-offset, special caution has to be taken when working with files where <tt>encoding</tt> is set to something else than <tt>latin1</tt>, as not every byte position will be a valid character boundary on such a file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="preadIoDeviceLocationNumbergtokDataeoferrorReason"></a><b>pread(IoDevice, Location, Number) -&gt; {ok, Data} | eof | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Location -- see position/2</b><br/>
+        <b>Number = int()</b><br/>
+        <b>Data = [char()] | binary()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Combines <tt>position/2</tt> and <tt>read/2</tt> in one
+          operation, which is more efficient than calling them one at a
+          time. If <tt>IoDevice</tt> has been opened in raw mode, some
+          restrictions apply: <tt>Location</tt> is only allowed to be an
+          integer; and the current position of the file is undefined
+          after the operation.</p>
+	  <p>As the position is given as a byte-offset, special caution has to be taken when working with files where <tt>encoding</tt> is set to something else than <tt>latin1</tt>, as not every byte position will be a valid character boundary on such a file.</p>
+        
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pwriteIoDeviceLocBytesgtokerrorNReason"></a><b>pwrite(IoDevice, LocBytes) -&gt; ok | {error, {N, Reason}}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>LocBytes = [{Location, Bytes}]</b><br/>
+        <b>&nbsp;Location -- see position/2</b><br/>
+        <b>&nbsp;Bytes = iodata()</b><br/>
+        <b>N = int()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a sequence of <tt>pwrite/3</tt> in one operation, 
+          which is more efficient than calling them one at a time.
+          Returns <tt>ok</tt> or <tt>{error, {N, Reason}}</tt>, where
+          <tt>N</tt> is the number of successful writes that was done
+          before the failure.</p>
+	<p>When positioning in a file with other <tt>encoding</tt> than <tt>latin1</tt>, caution must be taken to set the position on a correct character boundary, see <seealso marker="#position/2">position/2</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pwriteIoDeviceLocationBytesgtokerrorReason"></a><b>pwrite(IoDevice, Location, Bytes) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Location -- see position/2</b><br/>
+        <b>Bytes = iodata()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Combines <tt>position/2</tt> and <tt>write/2</tt> in one
+          operation, which is more efficient than calling them one at a
+          time. If <tt>IoDevice</tt> has been opened in raw mode, some
+          restrictions apply: <tt>Location</tt> is only allowed to be an
+          integer; and the current position of the file is undefined
+          after the operation.</p>
+	<p>When positioning in a file with other <tt>encoding</tt> than <tt>latin1</tt>, caution must be taken to set the position on a correct character boundary, see <seealso marker="#position/2">position/2</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="readIoDeviceNumbergtokDataeoferrorReason"></a><b>read(IoDevice, Number) -&gt; {ok, Data} | eof | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Number = int()</b><br/>
+        <b>Data = [char()] | binary()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads <tt>Number</tt> bytes/characters from the file referenced by
+          <tt>IoDevice</tt>. This function is the only way to read from a
+          file opened in raw mode (although it works for normally
+          opened files, too).</p>
+	  <p>For files where <tt>encoding</tt> is set to something else than <tt>latin1</tt>, one character might be represented by more than one byte on the file. The parameter <tt>Number</tt> always denotes the number of <em>characters</em> read from the file, why the position in the file might be moved a lot more than this number when reading a Unicode file.</p>
+	  <p>Also if <tt>encoding</tt> is set to something else than <tt>latin1</tt>, the <tt>read/3</tt> call will fail if the data contains characters larger than 255, why the <seealso marker="stdlib:io">io(3)</seealso> module is to be preferred when reading such a file.</p> 
+	  <p>The function returns:</p>
+        <taglist>
+          <tag><tt>{ok, Data}</tt></tag>
+          <item>
+            <p>If the file was opened in binary mode, the read bytes are
+              returned in a binary, otherwise in a list. The list or
+              binary will be shorter than the number of bytes requested
+              if end of file was reached.</p>
+          </item>
+          <tag><tt>eof</tt></tag>
+          <item>
+            <p>Returned if <tt>Number&gt;0</tt> and end of file was reached
+              before anything at all could be read.</p>
+          </item>
+          <tag><tt>{error, Reason}</tt></tag>
+          <item>
+            <p>An error occurred.</p>
+          </item>
+        </taglist>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>ebadf</tt></tag>
+          <item>
+            <p>The file is not opened for reading.</p>
+          </item>
+          <tag><tt>{no_translation, unicode, latin1}</tt></tag>
+          <item>
+            <p>The file is was opened with another <tt>encoding</tt> than <tt>latin1</tt> and the data on the file can not be translated to the byte-oriented data that this function returns.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_fileFilenamegtokBinaryerrorReason"></a><b>read_file(Filename) -&gt; {ok, Binary} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Binary = binary()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{ok, Binary}</tt>, where <tt>Binary</tt> is a binary
+          data object that contains the contents of <tt>Filename</tt>, or
+          <tt>{error, Reason}</tt> if an error occurs.</p>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing permission for reading the file, or for
+              searching one of the parent directories.</p>
+          </item>
+          <tag><tt>eisdir</tt></tag>
+          <item>
+            <p>The named file is a directory.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+          <tag><tt>enomem</tt></tag>
+          <item>
+            <p>There is not enough memory for the contents of the file.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_file_infoFilenamegtokFileInfoerrorReason"></a><b>read_file_info(Filename) -&gt; {ok, FileInfo} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>FileInfo = #file_info{}</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retrieves information about a file. Returns
+          <tt>{ok, FileInfo}</tt> if successful, otherwise
+          <tt>{error, Reason}</tt>. <tt>FileInfo</tt> is a record
+          <tt>file_info</tt>, defined in the Kernel include file
+          <tt>file.hrl</tt>. Include the following directive in the module
+          from which the function is called:</p>
+        <code type="none">
+-include_lib("kernel/include/file.hrl").</code>
+        <p>The record <tt>file_info</tt> contains the following fields.</p>
+        <taglist>
+          <tag><tt>size = int()</tt></tag>
+          <item>
+            <p>Size of file in bytes.</p>
+          </item>
+          <tag><tt>type = device | directory | regular | other</tt></tag>
+          <item>
+            <p>The type of the file.</p>
+          </item>
+          <tag><tt>access = read | write | read_write | none</tt></tag>
+          <item>
+            <p>The current system access to the file.</p>
+          </item>
+          <tag><tt>atime = time()</tt></tag>
+          <item>
+            <p>The last (local) time the file was read.</p>
+          </item>
+          <tag><tt>mtime = time()</tt></tag>
+          <item>
+            <p>The last (local) time the file was written.</p>
+          </item>
+          <tag><tt>ctime = time()</tt></tag>
+          <item>
+            <p>The interpretation of this time field depends on
+              the operating system. On Unix, it is the last time
+              the file or the inode was changed. In Windows, it is
+              the create time.</p>
+          </item>
+          <tag><tt>mode = int()</tt></tag>
+          <item>
+            <p>The file permissions as the sum of the following bit
+              values:</p>
+            <taglist>
+              <tag>8#00400</tag>
+              <item>read permission: owner</item>
+              <tag>8#00200</tag>
+              <item>write permission: owner</item>
+              <tag>8#00100</tag>
+              <item>execute permission: owner</item>
+              <tag>8#00040</tag>
+              <item>read permission: group</item>
+              <tag>8#00020</tag>
+              <item>write permission: group</item>
+              <tag>8#00010</tag>
+              <item>execute permission: group</item>
+              <tag>8#00004</tag>
+              <item>read permission: other</item>
+              <tag>8#00002</tag>
+              <item>write permission: other</item>
+              <tag>8#00001</tag>
+              <item>execute permission: other</item>
+              <tag>16#800</tag>
+              <item>set user id on execution</item>
+              <tag>16#400</tag>
+              <item>set group id on execution</item>
+            </taglist>
+            <p>On Unix platforms, other bits than those listed above
+              may be set.</p>
+          </item>
+          <tag><tt>links = int()</tt></tag>
+          <item>
+            <p>Number of links to the file (this will always be 1 for
+              file systems which have no concept of links).</p>
+          </item>
+          <tag><tt>major_device = int()</tt></tag>
+          <item>
+            <p>Identifies the file system where the file is located.
+              In Windows, the number indicates a drive as follows:
+              0 means A:, 1 means B:, and so on.</p>
+          </item>
+          <tag><tt>minor_device = int()</tt></tag>
+          <item>
+            <p>Only valid for character devices on Unix. In all other
+              cases, this field is zero.</p>
+          </item>
+          <tag><tt>inode = int()</tt></tag>
+          <item>
+            <p>Gives the <tt>inode</tt> number. On non-Unix file systems,
+              this field will be zero.</p>
+          </item>
+          <tag><tt>uid = int()</tt></tag>
+          <item>
+            <p>Indicates the owner of the file. Will be zero for
+              non-Unix file systems.</p>
+          </item>
+          <tag><tt>gid = int()</tt></tag>
+          <item>
+            <p>Gives the group that the owner of the file belongs to.
+              Will be zero for non-Unix file systems.</p>
+          </item>
+        </taglist>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing search permission for one of the parent
+              directories of the file.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_linkNamegtokFilenameerrorReason"></a><b>read_link(Name) -&gt; {ok, Filename} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = name()</b><br/>
+        <b>Filename = string()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns <tt>{ok, Filename}</tt> if <tt>Name</tt>
+          refers to a symbolic link or <tt>{error, Reason}</tt> otherwise.
+          On platforms that do not support symbolic links, the return
+          value will be <tt>{error,enotsup}</tt>.</p>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p><tt>Linkname</tt> does not refer to a symbolic link.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>enotsup</tt></tag>
+          <item>
+            <p>Symbolic links are not supported on this platform.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_link_infoNamegtokFileInfoerrorReason"></a><b>read_link_info(Name) -&gt; {ok, FileInfo} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = name()</b><br/>
+        <b>FileInfo = #file_info{}, see read_file_info/1</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function works like <tt>read_file_info/1</tt>, except that
+          if <tt>Name</tt> is a symbolic link, information about the link
+          will be returned in the <tt>file_info</tt> record and
+          the <tt>type</tt> field of the record will be set to
+          <tt>symlink</tt>.</p>
+        <p>If <tt>Name</tt> is not a symbolic link, this function returns
+          exactly the same result as <tt>read_file_info/1</tt>.
+          On platforms that do not support symbolic links, this function
+          is always equivalent to <tt>read_file_info/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="renameSourceDestinationgtokerrorReason"></a><b>rename(Source, Destination) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Source = Destination = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to rename the file <tt>Source</tt> to <tt>Destination</tt>.
+          It can be used to move files (and directories) between
+          directories, but it is not sufficient to specify
+          the destination only. The destination file name must also be
+          specified. For example, if <tt>bar</tt> is a normal file and
+          <tt>foo</tt> and <tt>baz</tt> are directories,
+          <tt>rename("foo/bar", "baz")</tt> returns an error, but
+          <tt>rename("foo/bar", "baz/bar")</tt> succeeds. Returns
+          <tt>ok</tt> if it is successful.</p>
+        <note>
+          <p>Renaming of open files is not allowed on most platforms
+            (see <tt>eacces</tt> below).</p>
+        </note>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing read or write permissions for the parent
+              directories of <tt>Source</tt> or <tt>Destination</tt>. On
+              some platforms, this error is given if either
+              <tt>Source</tt> or <tt>Destination</tt> is open.</p>
+          </item>
+          <tag><tt>eexist</tt></tag>
+          <item>
+            <p><tt>Destination</tt> is not an empty directory. On some
+              platforms, also given when <tt>Source</tt> and
+              <tt>Destination</tt> are not of the same type.</p>
+          </item>
+          <tag><tt>einval</tt></tag>
+          <item>
+            <p><tt>Source</tt> is a root directory, or <tt>Destination</tt>
+              is a sub-directory of <tt>Source</tt>.</p>
+          </item>
+          <tag><tt>eisdir</tt></tag>
+          <item>
+            <p><tt>Destination</tt> is a directory, but <tt>Source</tt> is
+              not.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p><tt>Source</tt> does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p><tt>Source</tt> is a directory, but <tt>Destination</tt> is
+              not.</p>
+          </item>
+          <tag><tt>exdev</tt></tag>
+          <item>
+            <p><tt>Source</tt> and <tt>Destination</tt> are on different
+              file systems.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="scriptFilenamegtokValueerrorReason"></a><b>script(Filename) -&gt; {ok, Value} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit 
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads and evaluates Erlang expressions, separated by '.' (or
+          ',', a sequence of expressions is also an expression), from
+          the file. Returns one of the following:</p>
+        <taglist>
+          <tag><tt>{ok, Value}</tt></tag>
+          <item>
+            <p>The file was read and evaluated. <tt>Value</tt> is
+              the value of the last expression.</p>
+          </item>
+          <tag><tt>{error, atom()}</tt></tag>
+          <item>
+            <p>An error occurred when opening the file or reading it.
+              See <seealso marker="#open/2">open/2</seealso> for a list
+              of typical error codes.</p>
+          </item>
+          <tag><tt>{error, {Line, Mod, Term}}</tt></tag>
+          <item>
+            <p>An error occurred when interpreting the Erlang
+              expressions in the file. Use <tt>format_error/1</tt> to
+              convert the three-element tuple to an English description
+              of the error.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="scriptFilenameBindingsgtokValueerrorReason"></a><b>script(Filename, Bindings) -&gt; {ok, Value} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Bindings -- see erl_eval(3)</b><br/>
+        <b>Value = term()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit 
+                  | {Line, Mod, Term}</b><br/>
+        <b>&nbsp;Line, Mod, Term -- see below</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The same as <tt>script/1</tt> but the variable bindings
+          <tt>Bindings</tt> are used in the evaluation. See
+          <seealso marker="stdlib:erl_eval">erl_eval(3)</seealso> about
+          variable bindings.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_cwdDirgtokerrorReason"></a><b>set_cwd(Dir) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = name()</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the current working directory of the file server to
+          <tt>Dir</tt>. Returns <tt>ok</tt> if successful.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The directory does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of <tt>Dir</tt> is not a directory. On some
+              platforms, <tt>enoent</tt> is returned.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing permission for the directory or one of its
+              parents.</p>
+          </item>
+          <tag><tt>badarg</tt></tag>
+          <item>
+            <p><tt>Filename</tt> had an improper type, such as tuple.</p>
+          </item>
+        </taglist>
+        <warning>
+          <p>In a future release, a bad type for the <tt>Filename</tt>
+            argument will probably generate an exception.</p>
+          <p></p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="syncIoDevicegtokerrorReason"></a><b>sync(IoDevice) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Makes sure that any buffers kept by the operating system
+          (not by the Erlang runtime system) are written to disk. On
+          some platforms, this function might have no effect.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>Not enough space left to write the file.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="truncateIoDevicegtokerrorReason"></a><b>truncate(IoDevice) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Truncates the file referenced by <tt>IoDevice</tt> at
+          the current position.  Returns <tt>ok</tt> if successful,
+          otherwise <tt>{error, Reason}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="writeIoDeviceBytesgtokerrorReason"></a><b>write(IoDevice, Bytes) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IoDevice = io_device()</b><br/>
+        <b>Bytes = iodata()</b><br/>
+        <b>Reason = ext_posix() | terminated</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Writes <tt>Bytes</tt> to the file referenced by
+          <tt>IoDevice</tt>. This function is the only way to write to a
+          file opened in raw mode (although it works for normally
+          opened files, too). Returns <tt>ok</tt> if successful, and
+          <tt>{error, Reason}</tt> otherwise.</p>
+	  <p>If the file is opened with <tt>encoding</tt> set to something else than <tt>latin1</tt>, each byte written might result in several bytes actually being written to the file, as the byte range 0..255 might represent anything between one and four bytes depending on value and UTF encoding type.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>ebadf</tt></tag>
+          <item>
+            <p>The file is not opened for writing.</p>
+          </item>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>There is a no space left on the device.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_fileFilenameBytesgtokerrorReason"></a><b>write_file(Filename, Bytes) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Bytes = iodata()</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Writes the contents of the iodata term <tt>Bytes</tt> to the
+          file <tt>Filename</tt>. The file is created if it does not
+          exist. If it exists, the previous contents are
+          overwritten. Returns <tt>ok</tt>, or <tt>{error, Reason}</tt>.</p>
+        <p>Typical error reasons are:</p>
+        <taglist>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>A component of the file name does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+          <tag><tt>enospc</tt></tag>
+          <item>
+            <p>There is a no space left on the device.</p>
+          </item>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing permission for writing the file or searching one
+              of the parent directories.</p>
+          </item>
+          <tag><tt>eisdir</tt></tag>
+          <item>
+            <p>The named file is a directory.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_fileFilenameBytesModesgtokerrorReason"></a><b>write_file(Filename, Bytes, Modes) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Bytes = iodata()</b><br/>
+        <b>Modes = [Mode] -- see open/2</b><br/>
+        <b>Reason = ext_posix() | terminated | system_limit</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Same as <tt>write_file/2</tt>, but takes a third argument
+          <tt>Modes</tt>, a list of possible modes, see
+          <seealso marker="#open/2">open/2</seealso>. The mode flags
+          <tt>binary</tt> and <tt>write</tt> are implicit, so they should
+          not be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="write_file_infoFilenameFileInfogtokerrorReason"></a><b>write_file_info(Filename, FileInfo) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>FileInfo = #file_info{} -- see also read_file_info/1</b><br/>
+        <b>Reason = ext_posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Change file information. Returns <tt>ok</tt> if successful,
+          otherwise <tt>{error, Reason}</tt>. <tt>FileInfo</tt> is a record
+          <tt>file_info</tt>, defined in the Kernel include file
+          <tt>file.hrl</tt>. Include the following directive in the module
+          from which the function is called:</p>
+        <code type="none">
+-include_lib("kernel/include/file.hrl").</code>
+        <p>The following fields are used from the record, if they are
+          given.</p>
+        <taglist>
+          <tag><tt>atime = time()</tt></tag>
+          <item>
+            <p>The last (local) time the file was read.</p>
+          </item>
+          <tag><tt>mtime = time()</tt></tag>
+          <item>
+            <p>The last (local) time the file was written.</p>
+          </item>
+          <tag><tt>ctime = time()</tt></tag>
+          <item>
+            <p>On Unix, any value give for this field will be ignored
+              (the "ctime" for the file will be set to the current
+              time). On Windows, this field is the new creation time to
+              set for the file.</p>
+          </item>
+          <tag><tt>mode = int()</tt></tag>
+          <item>
+            <p>The file permissions as the sum of the following bit
+              values:</p>
+            <taglist>
+              <tag>8#00400</tag>
+              <item>read permission: owner</item>
+              <tag>8#00200</tag>
+              <item>write permission: owner</item>
+              <tag>8#00100</tag>
+              <item>execute permission: owner</item>
+              <tag>8#00040</tag>
+              <item>read permission: group</item>
+              <tag>8#00020</tag>
+              <item>write permission: group</item>
+              <tag>8#00010</tag>
+              <item>execute permission: group</item>
+              <tag>8#00004</tag>
+              <item>read permission: other</item>
+              <tag>8#00002</tag>
+              <item>write permission: other</item>
+              <tag>8#00001</tag>
+              <item>execute permission: other</item>
+              <tag>16#800</tag>
+              <item>set user id on execution</item>
+              <tag>16#400</tag>
+              <item>set group id on execution</item>
+            </taglist>
+            <p>On Unix platforms, other bits than those listed above
+              may be set.</p>
+          </item>
+          <tag><tt>uid = int()</tt></tag>
+          <item>
+            <p>Indicates the owner of the file. Ignored for non-Unix
+              file systems.</p>
+          </item>
+          <tag><tt>gid = int()</tt></tag>
+          <item>
+            <p>Gives the group that the owner of the file belongs to.
+              Ignored non-Unix file systems.</p>
+          </item>
+        </taglist>
+        <p>Typical error reasons:</p>
+        <taglist>
+          <tag><tt>eacces</tt></tag>
+          <item>
+            <p>Missing search permission for one of the parent
+              directories of the file.</p>
+          </item>
+          <tag><tt>enoent</tt></tag>
+          <item>
+            <p>The file does not exist.</p>
+          </item>
+          <tag><tt>enotdir</tt></tag>
+          <item>
+            <p>A component of the file name is not a directory. On some
+              platforms, <tt>enoent</tt> is returned instead.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

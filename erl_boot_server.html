@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_boot_server</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_boot_server</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This server is used to assist diskless Erlang nodes which fetch
+      all Erlang code from another machine.</p>
+    <p>This server is used to fetch all code, including the start
+      script, if an Erlang runtime system is started with
+      the <tt>-loader inet</tt> command line flag. All hosts specified
+      with the <tt>-hosts Host</tt> command line flag must have one
+      instance of this server running.</p>
+    <p>This server can be started with the <tt>kernel</tt> configuration
+      parameter <tt>start_boot_server</tt>.</p>
+    <p>The <tt>erl_boot_server</tt> can both read regular files as well as
+      files in archives. See <seealso marker="code">code(3)</seealso>
+      and <seealso marker="erts:erl_prim_loader">erl_prim_loader(3)</seealso>.</p>
+    <warning><p>The support for loading of code from archive files is
+     experimental. The sole purpose of releasing it before it is ready
+     is to obtain early feedback. The file format, semantics,
+     interfaces etc. may be changed in a future release.</p></warning>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_slaveSlavegtokerrorWhat">add_slave(Slave) -&gt; ok | {error, What}</a></li>
+        
+        <li><a href="#delete_slaveSlavegtokerrorWhat">delete_slave(Slave) -&gt; ok | {error, What}</a></li>
+        
+        <li><a href="#startSlavesgtokPiderrorWhat">start(Slaves) -&gt; {ok, Pid} | {error, What}</a></li>
+        
+        <li><a href="#start_linkSlavesgtokPiderrorWhat">start_link(Slaves) -&gt; {ok, Pid} | {error, What}</a></li>
+        
+        <li><a href="#which_slavesgtSlaves">which_slaves() -&gt; Slaves</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="erts:init">init(3)</seealso>,  
+      <seealso marker="erts:erl_prim_loader">erl_prim_loader(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startSlavesgtokPiderrorWhat"></a><b>start(Slaves) -&gt; {ok, Pid} | {error, What}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Slaves = [Host]</b><br/>
+        <b>Host = atom()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>What = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the boot server. <tt>Slaves</tt> is a list of IP
+          addresses for hosts which are allowed to use this server as a
+          boot server.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_linkSlavesgtokPiderrorWhat"></a><b>start_link(Slaves) -&gt; {ok, Pid} | {error, What}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Slaves = [Host]</b><br/>
+        <b>Host = atom()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>What = term()()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the boot server and links to the caller. This function
+          is used to start the server if it is included in a supervision
+          tree.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_slaveSlavegtokerrorWhat"></a><b>add_slave(Slave) -&gt; ok | {error, What}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Slave = Host</b><br/>
+        <b>Host = atom()</b><br/>
+        <b>What = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a <tt>Slave</tt> node to the list of allowed slave hosts.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_slaveSlavegtokerrorWhat"></a><b>delete_slave(Slave) -&gt; ok | {error, What}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Slave = Host</b><br/>
+        <b>Host = atom()</b><br/>
+        <b>What = void()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes a <tt>Slave</tt> node from the list of allowed slave
+          hosts.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_slavesgtSlaves"></a><b>which_slaves() -&gt; Slaves</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Slaves = [Host]</b><br/>
+        <b>Host = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current list of allowed slave hosts.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

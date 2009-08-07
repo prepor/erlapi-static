@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>timer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />timer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides useful functions related to time. Unless otherwise
+      stated, time is always measured in <tt>milliseconds</tt>.  All
+      timer functions return immediately, regardless of work carried
+      out by another process. 
+      </p>
+    <p>Successful evaluations of the timer functions yield return values
+      containing a timer reference, denoted <tt>TRef</tt> below. By using 
+      <tt>cancel/1</tt>, the returned reference can be used to cancel any
+      requested action. A <tt>TRef</tt> is an Erlang term, the contents
+      of which must not be altered.
+      </p>
+    <p>The timeouts are not exact, but should be <tt>at least</tt> as long
+      as requested.
+      </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Examples</a></li>
+        
+        <li><a href="#">WARNING</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#apply_afterTimeModuleFunctionArgumentsgtokTreferrorReason">apply_after(Time, Module, Function, Arguments) -&gt; {ok, Tref} |  {error, Reason}</a></li>
+        
+        <li><a href="#apply_intervalTimeModuleFunctionArgumentsgtokTReferrorReason">apply_interval(Time, Module, Function, Arguments) -&gt; {ok, TRef} | {error, Reason}</a></li>
+        
+        <li><a href="#cancelTRefgtokcancelerrorReason">cancel(TRef) -&gt; {ok, cancel} | {error, Reason}</a></li>
+        
+        <li><a href="#exit_afterTimePidReason1gtokTReferrorReason2">exit_after(Time, Pid, Reason1) -&gt; {ok, TRef} | {error,Reason2}</a></li>
+        
+        <li><a href="#hmsHoursMinutesSecondsgtMilliseconds">hms(Hours, Minutes, Seconds) -&gt; Milliseconds</a></li>
+        
+        <li><a href="#hoursHoursgtMilliseconds">hours(Hours) -&gt; Milliseconds</a></li>
+        
+        <li><a href="#minutesMinutesgtMilliseconds">minutes(Minutes) -&gt; Milliseconds</a></li>
+        
+        <li><a href="#now_diffT2T1gtTdiff">now_diff(T2, T1) -&gt; Tdiff</a></li>
+        
+        <li><a href="#secondsSecondsgtMilliseconds">seconds(Seconds) -&gt; Milliseconds</a></li>
+        
+        <li><a href="#send_afterTimePidMessagegtokTReferrorReason">send_after(Time, Pid, Message) -&gt; {ok, TRef} | {error,Reason}</a></li>
+        
+        <li><a href="#send_intervalTimePidMessagegtokTReferrorReason">send_interval(Time, Pid, Message) -&gt; {ok, TRef} | {error, Reason}</a></li>
+        
+        <li><a href="#sleepTimegtok">sleep(Time) -&gt; ok</a></li>
+        
+        <li><a href="#startgtok">start() -&gt; ok</a></li>
+        
+        <li><a href="#tcModuleFunctionArgumentsgtTimeValue">tc(Module, Function, Arguments) -&gt; {Time, Value}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Examples</div>
+    
+    <div class="description">
+        
+    <title>Examples</title>
+    <p>This example illustrates  how to print out "Hello World!" in 5 seconds:</p>
+    <p></p>
+    <pre>
+      1&gt; <input>
+      {ok,TRef}
+      Hello World!</pre>
+    <p>The following coding example illustrates a process which performs a 
+      certain action and if this action is not completed within a certain 
+      limit, then the process is killed.</p>
+    <code type="none">
+      Pid = spawn(mod, fun, [foo, bar]),
+      %% If pid is not finished in 10 seconds, kill him
+      {ok, R} = timer:kill_after(timer:seconds(10), Pid),
+      ...
+      %% We change our mind...
+      timer:cancel(R),
+      ...</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">WARNING</div>
+    
+    <div class="description">
+        
+    <title>WARNING</title>
+    <p>A timer can always be removed by calling <tt>cancel/1</tt>.
+      </p>
+    <p>An interval timer, i.e. a timer created by evaluating any of the 
+      functions <tt>apply_interval/4</tt>, <tt>send_interval/3</tt>, and 
+      <tt>send_interval/2</tt>, is linked to the process towards which
+      the timer performs its task.
+      </p>
+    <p>A one-shot timer, i.e. a timer created by evaluating any of the
+      functions <tt>apply_after/4</tt>, <tt>send_after/3</tt>, 
+      <tt>send_after/2</tt>, <tt>exit_after/3</tt>, <tt>exit_after/2</tt>, 
+      <tt>kill_after/2</tt>, and <tt>kill_after/1</tt> is not linked to any
+      process. Hence, such a timer is removed only when it reaches its 
+      timeout, or if it is explicitly removed by a call to <tt>cancel/1</tt>.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtok"></a><b>start() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Starts the timer server. Normally, the server does not need
+          to be started explicitly. It is started dynamically if it
+          is needed. This is useful during development, but in a
+          target system the server should be started explicitly.  Use
+          configuration parameters for <tt>kernel</tt> for this.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="apply_afterTimeModuleFunctionArgumentsgtokTreferrorReason"></a><b>apply_after(Time, Module, Function, Arguments) -&gt; {ok, Tref} |  {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in Milliseconds</b><br/>
+        <b>Module = Function = atom()</b><br/>
+        <b>Arguments = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Evaluates <tt>apply(M, F, A)</tt> after <tt>Time</tt> amount of time
+          has elapsed. Returns <tt>{ok, TRef}</tt>, or <tt>{error, Reason}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_afterTimePidMessagegtokTReferrorReason"></a><b>send_after(Time, Pid, Message) -&gt; {ok, TRef} | {error,Reason}<br/>send_after(Time, Message) -&gt; {ok, TRef} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in Milliseconds</b><br/>
+        <b>Pid = pid() | atom()</b><br/>
+        <b>Message = term()</b><br/>
+        <b>Result = {ok, TRef} | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p></p>
+        <taglist>
+          <tag><tt>send_after/3</tt></tag>
+          <item>
+            <p>Evaluates <tt>Pid ! Message</tt> after <tt>Time</tt> amount
+              of time has elapsed. (<tt>Pid</tt> can also be an atom of a 
+              registered name.) Returns <tt>{ok, TRef}</tt>, or 
+              <tt>{error, Reason}</tt>.</p>
+          </item>
+          <tag><tt>send_after/2</tt></tag>
+          <item>
+            <p>Same as <tt>send_after(Time, self(), Message)</tt>.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exit_afterTimePidReason1gtokTReferrorReason2"></a><b>exit_after(Time, Pid, Reason1) -&gt; {ok, TRef} | {error,Reason2}<br/>exit_after(Time, Reason1) -&gt; {ok, TRef} | {error,Reason2}<br/>kill_after(Time, Pid)-&gt; {ok, TRef} | {error,Reason2}<br/>kill_after(Time) -&gt; {ok, TRef} | {error,Reason2}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in milliseconds</b><br/>
+        <b>Pid = pid() | atom()</b><br/>
+        <b>Reason1 = Reason2  = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p></p>
+        <taglist>
+          <tag><tt>exit_after/3</tt></tag>
+          <item>
+            <p>Send an exit signal with reason <tt>Reason1</tt> to Pid 
+              <tt>Pid</tt>. Returns <tt>{ok, TRef}</tt>, or 
+              <tt>{error, Reason2}</tt>.</p>
+          </item>
+          <tag><tt>exit_after/2</tt></tag>
+          <item>
+            <p>Same as <tt>exit_after(Time, self(), Reason1)</tt>.     </p>
+          </item>
+          <tag><tt>kill_after/2</tt></tag>
+          <item>
+            <p>Same as <tt>exit_after(Time, Pid, kill)</tt>.     </p>
+          </item>
+          <tag><tt>kill_after/1</tt></tag>
+          <item>
+            <p>Same as <tt>exit_after(Time, self(), kill)</tt>.     </p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="apply_intervalTimeModuleFunctionArgumentsgtokTReferrorReason"></a><b>apply_interval(Time, Module, Function, Arguments) -&gt; {ok, TRef} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in milliseconds</b><br/>
+        <b>Module = Function = atom()</b><br/>
+        <b>Arguments = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Evaluates <tt>apply(Module, Function, Arguments)</tt> repeatedly at
+          intervals of  <tt>Time</tt>. Returns <tt>{ok, TRef}</tt>, or 
+          <tt>{error, Reason}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_intervalTimePidMessagegtokTReferrorReason"></a><b>send_interval(Time, Pid, Message) -&gt; {ok, TRef} | {error, Reason}<br/>send_interval(Time, Message) -&gt; {ok, TRef} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in milliseconds</b><br/>
+        <b>Pid = pid() | atom()</b><br/>
+        <b>Message = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p></p>
+        <taglist>
+          <tag><tt>send_interval/3</tt></tag>
+          <item>
+            <p>Evaluates <tt>Pid ! Message</tt> repeatedly after <tt>Time</tt>
+              amount of time has elapsed. (<tt>Pid</tt> can also be an atom of
+              a registered name.) Returns <tt>{ok, TRef}</tt> or 
+              <tt>{error, Reason}</tt>.</p>
+          </item>
+          <tag><tt>send_interval/2</tt></tag>
+          <item>
+            <p>Same as <tt>send_interval(Time, self(), Message)</tt>.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="cancelTRefgtokcancelerrorReason"></a><b>cancel(TRef) -&gt; {ok, cancel} | {error, Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Cancels a previously requested timeout. <tt>TRef</tt> is a unique 
+          timer reference returned by the timer function in question. Returns
+          <tt>{ok, cancel}</tt>, or <tt>{error, Reason}</tt> when <tt>TRef</tt>
+          is not a timer reference.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sleepTimegtok"></a><b>sleep(Time) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Time = integer() in milliseconds or the atom infinity</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Suspends the process calling this function for <tt>Time</tt> amount
+          of milliseconds and then returns <tt>ok</tt>, or supend the process
+	  forever if <tt>Time</tt> is the atom <tt>infinity</tt>. Naturally, this 
+          function does <em>not</em> return immediately.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tcModuleFunctionArgumentsgtTimeValue"></a><b>tc(Module, Function, Arguments) -&gt; {Time, Value}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = Function = atom()</b><br/>
+        <b>Arguments = [term()]</b><br/>
+        <b>Time = integer() in microseconds</b><br/>
+        <b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Evaluates <tt>apply(Module, Function, Arguments)</tt> and measures
+          the elapsed real time. Returns <tt>{Time, Value}</tt>, where 
+          <tt>Time</tt> is the elapsed real time in <em>microseconds</em>,
+          and <tt>Value</tt> is what is returned from the apply.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="now_diffT2T1gtTdiff"></a><b>now_diff(T2, T1) -&gt; Tdiff</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>T1 = T2 = {MegaSecs, Secs, MicroSecs}</b><br/>
+        <b>Tdiff = MegaSecs = Secs = MicroSecs = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates the time difference <tt>Tdiff = T2 - T1</tt> in
+          <em>microseconds</em>, where <tt>T1</tt> and <tt>T2</tt> probably
+          are timestamp tuples returned from <tt>erlang:now/0</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="secondsSecondsgtMilliseconds"></a><b>seconds(Seconds) -&gt; Milliseconds</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the number of milliseconds in <tt>Seconds</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="minutesMinutesgtMilliseconds"></a><b>minutes(Minutes) -&gt; Milliseconds</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Return the number of milliseconds in <tt>Minutes</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="hoursHoursgtMilliseconds"></a><b>hours(Hours) -&gt; Milliseconds</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the number of milliseconds in <tt>Hours</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="hmsHoursMinutesSecondsgtMilliseconds"></a><b>hms(Hours, Minutes, Seconds) -&gt; Milliseconds</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the number of milliseconds in <tt>Hours + Minutes + Seconds</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

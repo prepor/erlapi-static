@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventChannelAdmin_EventChannel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventChannelAdmin_EventChannel</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>An event channel is an object that allows multiple suppliers to communicate
+      with multiple consumers in a highly decoupled, asynchronous manner. The event 
+      channel is built up incrementally. When an event channel is
+      created no suppliers or consumers are connected to it. Event Channel can
+      implement group communication by serving as a replicator, broadcaster, or
+      multicaster that forward events from one or more suppliers to multiple
+      consumers.</p>
+    <p>It is up to the user to decide when an event channel is created and how 
+      references to the event channel are obtained. By representing the event
+      channel as an object, it has all of the properties that apply to objects.
+      One way to manage an event channel is to register it in a naming context,
+      or export it through an operation on an object.</p>
+    <p>To get access to all definitions include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+    <p>Any object that possesses an object reference that supports the ProxyPullConsumer
+      interface can perform the following operations:</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#destroyObjectgtReturn">destroy(Object) -&gt; Return</a></li>
+        
+        <li><a href="#for_consumersObjectgtReturn">for_consumers(Object) -&gt; Return</a></li>
+        
+        <li><a href="#for_suppliersObjectgtReturn">for_suppliers(Object) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="for_consumersObjectgtReturn"></a><b>for_consumers(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a ConsumerAdmin object reference. If ConsumerAdmin
+          object does not exist already it creates one.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="for_suppliersObjectgtReturn"></a><b>for_suppliers(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a SupplierAdmin object reference. If SupplierAdmin
+          object does not exist already it creates one.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="destroyObjectgtReturn"></a><b>destroy(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p></p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

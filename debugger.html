@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>debugger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />debugger</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Erlang Debugger for debugging and testing of Erlang programs.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#quickModuleNameArgs">quick(Module, Name, Args)</a></li>
+        
+        <li><a href="#start">start()</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start"></a><b>start()<br/>start(File)<br/>start(Mode)<br/>start(Mode, File)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Mode = local | global</b><br/>
+	<b>File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Starts Debugger.</p>
+	
+	<p>If given a file name as argument, Debugger will try to load
+	  its settings from this file. Refer to Debugger User's Guide
+	  for more information about settings.</p>
+
+	<p>If given <tt>local</tt> as argument, Debugger will interpret
+	  code only at the current node. If given <tt>global</tt> as
+	  argument, Debugger will interpret code at all known nodes,
+	  this is the default.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="quickModuleNameArgs"></a><b>quick(Module, Name, Args)</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = Name = atom()</b><br/>
+	<b>Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>This function can be used to debug a single process.
+	  The module <tt>Module</tt> is interpreted and
+	  <tt>apply(Module,Name,Args)</tt> is called. This will open an
+	  Attach Process window, refer to Debugger User's Guide for
+	  more information.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

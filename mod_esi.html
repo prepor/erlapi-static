@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mod_esi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />mod_esi</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module defines the API - Erlang Server Interface (ESI).
+      Which is a more efficient way of writing erlang scripts
+      for your Inets web server than writing them as common CGI scripts.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">ESI Callback Functions</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ModuleFunctionEnvInputgtResponse">Module:Function(Env, Input)-&gt; Response </a></li>
+        
+        <li><a href="#ModuleFunctionSessionIDEnvInputgt_">Module:Function(SessionID, Env, Input)-&gt; _ </a></li>
+        
+        <li><a href="#deliverSessionIDDatagtokerrorReason">deliver(SessionID, Data) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">ESI Callback Functions</div>
+    
+    <div class="description">
+        
+    <title>ESI Callback Functions</title>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="deliverSessionIDDatagtokerrorReason"></a><b>deliver(SessionID, Data) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SessionID = term()</b><br/>
+        <b>Data = string() | io_list()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="deliver"></marker>
+	<p>This function is <em>only</em> intended to be used from
+	functions called by the Erl Scheme interface to deliver
+	parts of the content to the user.</p>
+	<p>Sends data from a Erl Scheme script back to the client.</p>
+	
+	<note><p>Note
+          that if any HTTP-header fields should be added by the
+          script they must be in the first call to deliver/2  and the
+          data in the call must be a string. Do not
+          assume anything about the data type of SessionID, the
+          SessionID must be the value given as input to the esi
+          call back function that you implemented.</p></note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ModuleFunctionSessionIDEnvInputgt_"></a><b>Module:Function(SessionID, Env, Input)-&gt; _ </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SessionID = term()</b><br/>
+        <b>Env  = [EnvironmentDirectives] ++ ParsedHeader</b><br/>
+        <b>EnvironmentDirectives = {Key,Value}</b><br/>
+        <b>Key = query_string | content_length | server_software | gateway_interface | server_protocol | server_port | request_method | remote_addr | script_name. &lt;v&gt;Input = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>Module</tt> must be found in the code path and export
+          <tt>Function</tt> with an arity of two. An erlScriptAlias must
+          also be set up in the configuration file for the Web server.</p>
+        <p>If the HTTP request is a post request and a body is sent
+          then content_length will be the length of the posted
+          data. If get is used query_string will be the data after
+          <em>?</em> in the url.</p>
+        <p>ParsedHeader is the HTTP request as a key value tuple
+          list. The keys in parsed header will be the in lower case.</p>
+        <p>SessionID is a identifier
+          the server use when <tt>deliver/2</tt> is called, do not
+          assume any-thing about the datatype.</p>
+        <p>Use this callback function to dynamicly generate dynamic web
+          content. when a part of the page is generated send the
+          data back to the client through <tt>deliver/2</tt>. Note
+          that the first chunk of data sent to the client must at
+          least contain all HTTP header fields that the response
+          will generate. If the first chunk not contains <em>End of HTTP header</em> that is <tt>"\\r\ \\r\ "</tt> the server will
+          assume that no HTTP header fields will be generated.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ModuleFunctionEnvInputgtResponse"></a><b>Module:Function(Env, Input)-&gt; Response </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Env  = [EnvironmentDirectives] ++ ParsedHeader</b><br/>
+        <b>EnvironmentDirectives = {Key,Value}</b><br/>
+        <b>Key = query_string | content_length | server_software | gateway_interface | server_protocol | server_port | request_method | remote_addr | script_name. &lt;v&gt;Input = string()</b><br/>
+        <b>Response = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This callback format consumes quite much memory since the
+          whole response must be generated before it is sent to the
+          user.This functions is deprecated and only keept for backwards
+          compability. For new development Module:Function/3 should be used.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

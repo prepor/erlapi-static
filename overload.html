@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>overload</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />overload</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>overload</tt> is a process which indirectly regulates CPU
+      usage in the system. The idea is that a main application calls
+      the <tt>request/0</tt> function before starting a major job, and
+      proceeds with the job if the return value is positive; otherwise
+      the job must not be started.
+      </p>
+    <p><tt>overload</tt> is part of the <tt>sasl</tt> application, and all
+      configuration parameters are defined there.
+      </p>
+    <p>A set of two intensities are maintained, the <tt>total intensity</tt> and the <tt>accept intensity</tt>. For that purpose
+      there are two configuration parameters, the <tt>MaxIntensity</tt>
+      and the <tt>Weight</tt> value (both are measured in 1/second).
+      </p>
+    <p>Then total and accept intensities are calculated as
+      follows. Assume that the time of the current call to
+      <tt>request/0</tt> is <tt>T(n)</tt>, and that the time of the
+      previous call was <tt>T(n-1)</tt>.
+      </p>
+    <list type="bulleted">
+      <item>
+        <p>The current <tt>total intensity</tt>, denoted
+          <tt>TI(n)</tt>, is calculated according to the formula,
+          </p>
+        <p><tt>TI(n) = exp(-Weight*(T(n) - T(n-1)) * TI(n-1) +  Weight</tt>,
+          </p>
+        <p>where <tt>TI(n-1)</tt> is the previous total intensity.
+          </p>
+      </item>
+      <item>
+        <p>The current <tt>accept intensity</tt>, denoted
+          <tt>AI(n)</tt>, is determined by the formula,
+          </p>
+        <p><tt>AI(n) = exp(-Weight*(T(n) - T(n-1)) * AI(n-1) + Weight</tt>,
+          </p>
+        <p>where <tt>AI(n-1)</tt> is the previous accept intensity,
+          provided that the value of <tt>exp(-Weight*(T(n) - T(n-1)) * AI(n-1)</tt> is less than <tt>MaxIntensity</tt>; otherwise the
+          value is
+          </p>
+        <p><tt>AI(n) = exp(-Weight*(T(n) - T(n-1)) * AI(n-1)</tt>.
+          </p>
+      </item>
+    </list>
+    <p>The value of configuration parameter <tt>Weight</tt> controls the
+      speed with which the calculations of intensities will react to
+      changes in the underlying input intensity. The inverted value of
+      <tt>Weight</tt>,
+      </p>
+    <p><tt>T = 1/Weight</tt></p>
+    <p>can be thought of as the "time constant"
+      of the intensity calculation formulas. For example, if <tt>Weight = 0.1</tt>, then a change in the underlying input intensity will be
+      reflected in the <tt>total</tt> and <tt>accept intensities</tt> within
+      approximately 10 seconds.
+      </p>
+    <p>The overload process defines one alarm, which it sets using
+      <tt>alarm_handler:set_alarm(Alarm)</tt>.  <tt>Alarm</tt> is defined
+      as:
+      </p>
+    <taglist>
+      <tag><tt>{overload, []}</tt></tag>
+      <item>
+        <p>This alarm is set when the current accept intensity exceeds
+          <tt>MaxIntensity</tt>. 
+          </p>
+      </item>
+    </taglist>
+    <p>A new overload alarm is not set until the current accept
+      intensity has fallen below <tt>MaxIntensity</tt>. To prevent the
+      overload process from generating a lot of set/reset alarms, the
+      alarm is not reset until the current accept intensity has fallen
+      below 75% of <tt>MaxIntensity</tt>, and it is not until then that
+      the alarm can be set again.
+      </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#get_overload_infogtOverloadInfo">get_overload_info() -&gt; OverloadInfo</a></li>
+        
+        <li><a href="#requestgtacceptreject">request() -&gt; accept | reject</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>alarm_handler(3), sasl(3)
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="requestgtacceptreject"></a><b>request() -&gt; accept | reject</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns <tt>accept</tt> or <tt>reject</tt> depending on the
+          current value of the accept intensity.  </p>
+        <p>The application
+          calling this function should be processed with the job in
+          question if the return value is <tt>accept</tt>; otherwise it
+          should not continue with that job.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_overload_infogtOverloadInfo"></a><b>get_overload_info() -&gt; OverloadInfo</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OverloadInfo = [{total_intensity, TotalIntensity}, {accept_intensity, AcceptIntensity}, {max_intensity, MaxIntensity}, {weight, Weight}, {total_requests, TotalRequests}, {accepted_requests, AcceptedRequests}].</b><br/>
+        <b>TotalIntensity = float() &gt; 0</b><br/>
+        <b>AcceptIntensity = float() &gt; 0</b><br/>
+        <b>MaxIntensity = float() &gt; 0</b><br/>
+        <b>Weight = float() &gt; 0</b><br/>
+        <b>TotalRequests = integer()</b><br/>
+        <b>AcceptedRequests = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current total and accept intensities, the
+          configuration parameters, and absolute counts of the total
+          number of requests, and accepted number of requests (since
+          the overload process was started).\011 </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

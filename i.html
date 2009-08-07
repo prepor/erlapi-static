@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>i</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />i</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>i</tt> provides short forms for some of
+      the functions used by the graphical Debugger and some of
+      the functions in the <tt>int</tt> module, the Erlang interpreter.
+    </p>
+
+    <p>This module also provides facilities for displaying status
+      information about interpreted processes and break points.</p>
+
+    <p>It is possible to attach to interpreted processes by giving
+      the corresponding process identity only. By default, an attachment
+      window pops up. Processes at other Erlang nodes can be
+      attached manually or automatically.</p>
+
+    <p>By preference, these functions can be included in the module
+      <tt>shell_default</tt>. By default, they are.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Usage</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#helpgtok">help() -&gt; ok</a></li>
+        
+        <li><a href="#iaPidgtokno_proc">ia(Pid) -&gt; ok | no_proc</a></li>
+        
+        <li><a href="#iaXYZgtokno_proc">ia(X,Y,Z) -&gt; ok | no_proc</a></li>
+        
+        <li><a href="#iaPidFunctiongtokno_proc">ia(Pid, Function) -&gt; ok | no_proc</a></li>
+        
+        <li><a href="#iaXYZFunctiongtokno_proc">ia(X,Y,Z, Function) -&gt; ok | no_proc</a></li>
+        
+        <li><a href="#iaaFlagsgttrue">iaa(Flags) -&gt; true</a></li>
+        
+        <li><a href="#ibModuleLinegtokerrorbreak_exists">ib(Module, Line) -&gt; ok | {error, break_exists}</a></li>
+        
+        <li><a href="#ibModuleNameAritygtokerrorfunction_not_found">ib(Module, Name, Arity) -&gt; ok | {error, function_not_found}
+      </a></li>
+        
+        <li><a href="#ibaModuleLineActiongtok">iba(Module, Line, Action) -&gt; ok</a></li>
+        
+        <li><a href="#ibcModuleLineFunctiongtok">ibc(Module, Line, Function) -&gt; ok</a></li>
+        
+        <li><a href="#ibdModuleLinegtok">ibd(Module, Line) -&gt; ok</a></li>
+        
+        <li><a href="#ibeModuleLinegtok">ibe(Module, Line) -&gt; ok</a></li>
+        
+        <li><a href="#icgtok">ic() -&gt; ok</a></li>
+        
+        <li><a href="#iiAbsModulesgtok">ii(AbsModules) -&gt; ok</a></li>
+        
+        <li><a href="#ilgtok">il() -&gt; ok</a></li>
+        
+        <li><a href="#imgtpid">im() -&gt; pid()</a></li>
+        
+        <li><a href="#ipgtok">ip() -&gt; ok</a></li>
+        
+        <li><a href="#ipbModulegtok">ipb(Module) -&gt; ok</a></li>
+        
+        <li><a href="#ipbgtok">ipb() -&gt; ok</a></li>
+        
+        <li><a href="#iqAbsModulegtok">iq(AbsModule) -&gt; ok</a></li>
+        
+        <li><a href="#irModuleLinegtok">ir(Module, Line) -&gt; ok</a></li>
+        
+        <li><a href="#irgtok">ir() -&gt; ok</a></li>
+        
+        <li><a href="#irModulegtok">ir(Module) -&gt; ok</a></li>
+        
+        <li><a href="#irModuleNameAritygtokerrorfunction_not_found">ir(Module, Name, Arity) -&gt; ok | {error, function_not_found}
+      </a></li>
+        
+        <li><a href="#istFlaggttrue">ist(Flag) -&gt; true</a></li>
+        
+        <li><a href="#ivgtatom">iv() -&gt; atom()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Usage</div>
+    
+    <div class="description">
+        
+    <title>Usage</title>
+
+    <p>Refer to the Debugger User's Guide for information about
+      the Debugger.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+  <title>See Also</title>
+    <p><tt>int(3)</tt></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="imgtpid"></a><b>im() -&gt; pid()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Starts a new graphical monitor. This is the Monitor window,
+	  the main window of the Debugger. All of the Debugger and
+	  interpreter functionality is accessed from the Monitor window.
+	  The Monitor window displays the status of all processes that 
+	  have been/are executing interpreted modules.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iiAbsModulesgtok"></a><b>ii(AbsModules) -&gt; ok<br/>ii(AbsModule) -&gt; {module, Module} | error<br/>ini(AbsModules) -&gt; ok<br/>ini(AbsModule) -&gt; {module, Module} | error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>AbsModules = [AbsModule]</b><br/>
+	<b>AbsModule = Module | File</b><br/>
+	<b>&nbsp;Module = atom()</b><br/>
+	<b>&nbsp;File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Interprets the specified module(s). <tt>ii/1</tt> interprets
+	  the module(s) only at the current node, see
+	  <seealso marker="int#i/1">int:i/1</seealso>. <tt>ini/1</tt>
+	  interprets the module(s) at all known nodes, see
+	  <seealso marker="int#ni/1">int:ni/1</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iqAbsModulegtok"></a><b>iq(AbsModule) -&gt; ok<br/>inq(AbsModule) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>AbsModule = Module | File</b><br/>
+	<b>&nbsp;Module = atom()</b><br/>
+	<b>&nbsp;File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Stops interpreting the specified module. <tt>iq/1</tt> stops
+	  interpreting the module only at the current node. <tt>inq/1</tt>
+	  stops interpreting the module at all known nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ilgtok"></a><b>il() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Makes a printout of all interpreted modules.
+	  Modules are printed together with the full path name of the 
+	  corresponding source code file.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ipgtok"></a><b>ip() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Makes a printout of the current status of all interpreted 
+	  processes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="icgtok"></a><b>ic() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Clears information about processes executing interpreted code
+	  byt removing all information about terminated processes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iaaFlagsgttrue"></a><b>iaa(Flags) -&gt; true<br/>iaa(Flags, Function) -&gt; true</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Flags = [init | break | exit]</b><br/>
+	<b>Function = {Module,Name,Args}</b><br/>
+	<b>&nbsp;Module = Name = atom()</b><br/>
+	<b>&nbsp;Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Sets when and how to automatically attach to a debugged
+	  process, see
+	  <seealso marker="int#auto_attach/0">int:auto_attach/2</seealso>.
+	  <tt>Function</tt> defaults to the standard function used by
+	  the Debugger.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="istFlaggttrue"></a><b>ist(Flag) -&gt; true</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Flag = all | no_tail | false</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Sets how to save call frames in the stack, see
+	  <seealso marker="int#stack_trace/0">int:stack_trace/1</seealso>.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iaPidgtokno_proc"></a><b>ia(Pid) -&gt; ok | no_proc</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Attaches to the debugged process <tt>Pid</tt>. A Debugger
+	  Attach Process window is opened for the process.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iaXYZgtokno_proc"></a><b>ia(X,Y,Z) -&gt; ok | no_proc</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>X = Y = Z = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Same as <tt>ia(Pid)</tt>, where <tt>Pid</tt> is the result of
+	  calling the shell function <tt>pid(X,Y,Z)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iaPidFunctiongtokno_proc"></a><b>ia(Pid, Function) -&gt; ok | no_proc</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Pid = pid()</b><br/>
+	<b>Function = {Module,Name}</b><br/>
+	<b>&nbsp;Module = Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Attaches to the debugged process <tt>Pid</tt>. The interpreter
+	  will call <tt>spawn(Module, Name, [Pid])</tt> (and ignore
+	  the result).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="iaXYZFunctiongtokno_proc"></a><b>ia(X,Y,Z, Function) -&gt; ok | no_proc</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>X = Y = Z = int()</b><br/>
+	<b>Function = {Module,Name}</b><br/>
+	<b>&nbsp;Module = Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Same as <tt>ia(Pid, Function)</tt>, where <tt>Pid</tt> is
+	  the result of calling the shell function <tt>pid(X,Y,Z)</tt>.
+	  An attached process is expected to call the unofficial
+	  <tt>int:attached(Pid)</tt> function and to be able to handle
+	  messages from the interpreter, see <tt>dbg_ui_trace.erl</tt> for
+	  an example.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibModuleLinegtokerrorbreak_exists"></a><b>ib(Module, Line) -&gt; ok | {error, break_exists}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Creates a breakpoint at <tt>Line</tt> in <tt>Module</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibModuleNameAritygtokerrorfunction_not_found"></a><b>ib(Module, Name, Arity) -&gt; ok | {error, function_not_found}
+      </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = Name = atom()</b><br/>
+	<b>Arity = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Creates breakpoints at the first line of every clause of 
+	  the <tt>Module:Name/Arity</tt> function.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="irgtok"></a><b>ir() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Deletes all breakpoints.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="irModulegtok"></a><b>ir(Module) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Deletes all breakpoints in <tt>Module</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="irModuleLinegtok"></a><b>ir(Module, Line) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Deletes the breakpoint located at <tt>Line</tt> in
+	  <tt>Module</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="irModuleNameAritygtokerrorfunction_not_found"></a><b>ir(Module, Name, Arity) -&gt; ok | {error, function_not_found}
+      </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = Name = atom()</b><br/>
+	<b>Arity = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Deletes the breakpoints at the first line of every clause of 
+	  the <tt>Module:Name/Arity</tt> function.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibdModuleLinegtok"></a><b>ibd(Module, Line) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Makes the breakpoint at <tt>Line</tt> in <tt>Module</tt>
+	  inactive.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibeModuleLinegtok"></a><b>ibe(Module, Line) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Makes the breakpoint at <tt>Line</tt> in <tt>Module</tt> active.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibaModuleLineActiongtok"></a><b>iba(Module, Line, Action) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+	<b>Action = enable | disable | delete</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Sets the trigger action of the breakpoint at <tt>Line</tt> in
+	  <tt>Module</tt> to <tt>Action</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ibcModuleLineFunctiongtok"></a><b>ibc(Module, Line, Function) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+	<b>Line = int()</b><br/>
+	<b>Function = {Module,Name}</b><br/>
+	<b>&nbsp;Name = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Sets the conditional test of the breakpoint at <tt>Line</tt> in
+	  <tt>Module</tt> to <tt>Function</tt>.</p>
+
+	<p>The conditional test is performed by calling
+	  <tt>Module:Name(Bindings)</tt>, where <tt>Bindings</tt> is
+	  the current variable bindings. The function must return
+	  <tt>true</tt> (break) or <tt>false</tt> (do not break). Use
+	  <tt>int:get_binding(Var, Bindings)</tt> to retrieve the value
+	  of a variable <tt>Var</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ipbgtok"></a><b>ipb() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Makes a printout of all existing breakpoints.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ipbModulegtok"></a><b>ipb(Module) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Makes a printout of all existing breakpoints in
+	  <tt>Module</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ivgtatom"></a><b>iv() -&gt; atom()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Returns the current version number of the interpreter.
+	  The same as the version number of the Debugger application.
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="helpgtok"></a><b>help() -&gt; ok</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p>Prints help text.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

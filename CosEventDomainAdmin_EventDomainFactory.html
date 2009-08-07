@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventDomainAdmin_EventDomainFactory</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventDomainAdmin_EventDomainFactory</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to all definitions include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEventDomain/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_event_domainFactoryQoSAdmingtReply">create_event_domain(Factory, QoS, Admin) -&gt; Reply</a></li>
+        
+        <li><a href="#get_all_domainsFactorygtDomainIDSeq">get_all_domains(Factory) -&gt; DomainIDSeq</a></li>
+        
+        <li><a href="#get_event_domainFactoryDomainIDgtReply">get_event_domain(Factory, DomainID) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_event_domainFactoryQoSAdmingtReply"></a><b>create_event_domain(Factory, QoS, Admin) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory     = #objref</b><br/>
+        <b>QoS         = CosNotification::QoSProperties</b><br/>
+        <b>Admin       = CosNotification::AdminProperties</b><br/>
+        <b>Reply       = {EventDomain, DomainID} |  {'EXCEPTION', #'CosNotification_UnsupportedQoS'{}} | {'EXCEPTION', #'CosNotification_UnsupportedAdmin'{}}</b><br/>
+        <b>EventDomain = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>To create a new EventDomain this operation is used. If it is not
+          possible to support the given <tt>QoSProperties</tt> or <tt>AdminProperties</tt>
+          an exception is raised, which list the properties not supported. For more
+          information see the <tt>cosNotification</tt> user's guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_domainsFactorygtDomainIDSeq"></a><b>get_all_domains(Factory) -&gt; DomainIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory     = #objref</b><br/>
+        <b>DomainIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a DomainID sequence of all domains associated with the
+          target object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_event_domainFactoryDomainIDgtReply"></a><b>get_event_domain(Factory, DomainID) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Factory     = #objref</b><br/>
+        <b>DomainID    = long()</b><br/>
+        <b>Reply       = EventDomain | {'EXCEPTION', #'CosEventDomainAdmin_DomainNotFound'{}}</b><br/>
+        <b>EventDomain = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the EventDomain object associated with the
+          given DomainID. If no such binding exists an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

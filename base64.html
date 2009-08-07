@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>base64</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />base64</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Implements base 64 encode and decode, see RFC2045. </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#decodeBase64gtData">decode(Base64) -&gt; Data</a></li>
+        
+        <li><a href="#encodeDatagtBase64">encode(Data) -&gt; Base64 </a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="encodeDatagtBase64"></a><b>encode(Data) -&gt; Base64 <br/>encode_to_string(Data) -&gt; Base64String</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = string() | binary()</b><br/>
+        <b>Base64 = binary()</b><br/>
+        <b>Base64String = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Encodes a plain ASCII string into base64. The result will
+          be 33% larger than the data.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="decodeBase64gtData"></a><b>decode(Base64) -&gt; Data<br/>decode_to_string(Base64) -&gt; DataString<br/>mime_decode(Base64) -&gt; Data<br/>mime_decode_to_string(Base64) -&gt; DataString</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Base64 = string() | binary()</b><br/>
+        <b>Data = binary()</b><br/>
+        <b>DataString = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Decodes a base64 encoded string to plain ASCII. See RFC4648.
+          <tt>mime_decode/1</tt> and <tt>mime_decode_to_string/1</tt>
+          strips away illegal characters, while <tt>decode/1</tt> and
+          <tt>decode_to_string/1</tt> only strips away whitespace characters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

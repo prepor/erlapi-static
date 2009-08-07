@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>orber_acl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />orber_acl</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions intended for analyzing Access 
+      Control List (ACL) filters. The filters uses a extended format of 
+      Classless Inter Domain Routing (CIDR). 
+      For example, <tt>"123.123.123.10"</tt> limits
+      the connection to that particular host, while <tt>"123.123.123.10/17"</tt> allows
+      connections to or from any host equal to the 17 most significant bits. Orber
+      also allow the user to specify a certain port or port range, for example,
+      <tt>"123.123.123.10/17#4001"</tt> and <tt>"123.123.123.10/17#4001/5001"</tt>
+      respectively. IPv4 or none compressed IPv6 strings are accepted.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#matchIPDirectiongtboolean">match(IP, Direction) -&gt; boolean()</a></li>
+        
+        <li><a href="#rangeFilterFamilygtReply">range(Filter, Family) -&gt; Reply</a></li>
+        
+        <li><a href="#verifyIPFilterFamilygtReply">verify(IP, Filter, Family) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="matchIPDirectiongtboolean"></a><b>match(IP, Direction) -&gt; boolean()<br/>match(IP, Direction, GetInfo) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IP = tuple() | [integer()]</b><br/>
+        <b>Direction = tcp_in | ssl_in | tcp_out | ssl_out</b><br/>
+        <b>GetInfo = boolean()</b><br/>
+        <b>Reply = boolean() | {boolean(), [Interface], PortInfo}</b><br/>
+        <b>Interface = string()</b><br/>
+        <b>PortInfo = integer() | {integer(), integer()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If <tt>GetInfo</tt> is not supplied or set to false, this operation returns
+          a boolean which tells if the IPv4 or IPv6 address would pass the ACL
+          filter, defined by the <tt>iiop_acl</tt> configuration parameter, or not.
+          When <tt>GetInfo</tt> is set to true, a tuple which, besides the boolean
+          that tells if access was granted, also include the defined
+          interfaces and port(s). This operation requires that Orber is running and
+          can be used on a live node to determine if Orber has been properly configured.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="verifyIPFilterFamilygtReply"></a><b>verify(IP, Filter, Family) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>IP = string()</b><br/>
+        <b>Filter = string()</b><br/>
+        <b>Family = inet | inet6</b><br/>
+        <b>Reply = true | {false, From, To} | {error, string()}</b><br/>
+        <b>From = string()</b><br/>
+        <b>To = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns true if the IPv4 or IPv6 address would pass the
+          supplied ACL. If that is not the case, a tuple containing the accepted range
+          is returned. This operation should only be used for test purposes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rangeFilterFamilygtReply"></a><b>range(Filter, Family) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filter = string()</b><br/>
+        <b>Family = inet | inet6</b><br/>
+        <b>Reply = {ok, From, To} | {error, string()}</b><br/>
+        <b>From = string()</b><br/>
+        <b>To = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the range of accepted IP addresses based on the supplied filter. 
+          This operation should only be used for test purposes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

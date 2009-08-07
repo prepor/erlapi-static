@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>fixed</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />fixed</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions that gives an interface to the CORBA fixed type.</p>
+    <p>The type <tt>Fixed</tt> used below is defined as:</p>
+    <code type="none">
+      -record(fixed, {digits, scale, value}).
+    </code>
+    <p>where <tt>digits</tt> is the total amount of digits it consists of and 
+      <tt>scale</tt> is the number of fractional digits. The <tt>value</tt> field
+      contains the actual Fixed value represented as an integer. The limitations
+      of each field are:</p>
+    <list type="bulleted">
+      <item>Digits - integer(), -1 &gt; Digits &lt; 32</item>
+      <item>Scale - integer(), -1 &gt; Scale =&lt; Digits</item>
+      <item>Value - integer(), range (31 digits): &plusmn;9999999999999999999999999999999</item>
+    </list>
+    <p>Since the Value part is represented by an integer, it is vital that the
+      Digits and Scale values are correct. This also means that trailing zeros
+      cannot be left out in some cases:</p>
+    <list type="bulleted">
+      <item>fixed&lt;5,3&gt; eq. 03.140d eq. 3140</item>
+      <item>fixed&lt;3,2&gt; eq. 3.14d eq. 314</item>
+    </list>
+    <p>Leading zeros can be left out.</p>
+    <p>For your convenience, this module exports functions which handle
+      unary (<tt>-</tt>) and binary (<tt>+-*/</tt>) operations legal for the Fixed type.
+      Since a unary <tt>+</tt> have no effect, this module do not export such a 
+      function. Any of the binary operations may cause an overflow (i.e. more than
+      31 significant digits; leading and trailing zeros are not considered 
+      significant). If this is the case, the Digit and Scale values are adjusted
+      and the Value truncated (no rounding performed). This behavior is
+      compliant with the OMG CORBA specification. Each binary operation have
+      the following upper bounds:</p>
+    <list type="bulleted">
+      <item><em>Fixed1 + Fixed2</em> - <tt>fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)></tt></item>
+      <item><em>Fixed1 - Fixed2</em> - <tt>fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)></tt></item>
+      <item><em>Fixed1 * Fixed2</em> - <tt>fixed<d1+d2, s1+s2></tt></item>
+      <item><em>Fixed1 / Fixed2</em> - <tt>fixed<(d1-s1+s2) + Sinf ,Sinf ></tt></item>
+    </list>
+    <p>A quotient may have an arbitrary number of decimal places, which is 
+      denoted by a scale of Sinf.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#addFixed1Fixed2gtResult">add(Fixed1, Fixed2) -&gt; Result</a></li>
+        
+        <li><a href="#createDigitsScaleValuegtResult">create(Digits, Scale, Value) -&gt; Result</a></li>
+        
+        <li><a href="#divideFixed1Fixed2gtResult">divide(Fixed1, Fixed2) -&gt; Result</a></li>
+        
+        <li><a href="#get_typecodeFixedgtResult">get_typecode(Fixed) -&gt; Result</a></li>
+        
+        <li><a href="#multiplyFixed1Fixed2gtResult">multiply(Fixed1, Fixed2) -&gt; Result</a></li>
+        
+        <li><a href="#subtractFixed1Fixed2gtResult">subtract(Fixed1, Fixed2) -&gt; Result</a></li>
+        
+        <li><a href="#unary_minusFixedgtResult">unary_minus(Fixed) -&gt; Result</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="createDigitsScaleValuegtResult"></a><b>create(Digits, Scale, Value) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = Fixed Type | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function creates a new instance of a <tt>Fixed Type</tt>. If
+          the limitations is not fulfilled (e.g. overflow) an exception is
+          raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_typecodeFixedgtResult"></a><b>get_typecode(Fixed) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = TypeCode | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the TypeCode which represents the supplied Fixed type.
+          If the parameter is not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="addFixed1Fixed2gtResult"></a><b>add(Fixed1, Fixed2) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = Fixed1 + Fixed2 | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a Fixed type addition.
+          If the parameters are not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subtractFixed1Fixed2gtResult"></a><b>subtract(Fixed1, Fixed2) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = Fixed1 - Fixed2 | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a Fixed type subtraction.
+          If the parameters are not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="multiplyFixed1Fixed2gtResult"></a><b>multiply(Fixed1, Fixed2) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = Fixed1 * Fixed2 | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a Fixed type multiplication.
+          If the parameters are not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="divideFixed1Fixed2gtResult"></a><b>divide(Fixed1, Fixed2) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = Fixed1 / Fixed2 | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs a Fixed type division.
+          If the parameters are not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unary_minusFixedgtResult"></a><b>unary_minus(Fixed) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = -Fixed | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Negates the supplied Fixed type.
+          If the parameter is not of the correct type, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

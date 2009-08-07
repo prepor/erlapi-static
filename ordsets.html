@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ordsets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />ordsets</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Sets are collections of elements with no duplicate elements.
+      An <tt>ordset</tt> is a representation of a set, where an ordered
+      list is used to store the elements of the set. An ordered list
+      is more efficient than an unordered list.</p>
+    <p>This module provides exactly the same interface as the module
+      <tt>sets</tt> but with a defined representation. One difference is
+      that while <tt>sets</tt> considers two elements as different if they
+      do not match (<tt>=:=</tt>), this module considers two elements as
+      different if and only if they do not compare equal (<tt>==</tt>).</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_elementElementOrdset1gtOrdset2">add_element(Element, Ordset1) -&gt; Ordset2</a></li>
+        
+        <li><a href="#del_elementElementOrdset1gtOrdset2">del_element(Element, Ordset1) -&gt; Ordset2</a></li>
+        
+        <li><a href="#filterPredOrdset1gtSet2">filter(Pred, Ordset1) -&gt; Set2</a></li>
+        
+        <li><a href="#foldFunctionAcc0OrdsetgtAcc1">fold(Function, Acc0, Ordset) -&gt; Acc1</a></li>
+        
+        <li><a href="#from_listListgtOrdset">from_list(List) -&gt; Ordset</a></li>
+        
+        <li><a href="#intersectionOrdsetListgtOrdset">intersection(OrdsetList) -&gt; Ordset</a></li>
+        
+        <li><a href="#intersectionOrdset1Ordset2gtOrdset3">intersection(Ordset1, Ordset2) -&gt; Ordset3</a></li>
+        
+        <li><a href="#is_disjointOrdset1Ordset2gtbool">is_disjoint(Ordset1, Ordset2) -&gt; bool()</a></li>
+        
+        <li><a href="#is_elementElementOrdsetgtbool">is_element(Element, Ordset) -&gt; bool()</a></li>
+        
+        <li><a href="#is_setOrdsetgtbool">is_set(Ordset) -&gt; bool()</a></li>
+        
+        <li><a href="#is_subsetOrdset1Ordset2gtbool">is_subset(Ordset1, Ordset2) -&gt; bool()</a></li>
+        
+        <li><a href="#newgtOrdset">new() -&gt; Ordset</a></li>
+        
+        <li><a href="#sizeOrdsetgtint">size(Ordset) -&gt; int()</a></li>
+        
+        <li><a href="#subtractOrdset1Ordset2gtOrdset3">subtract(Ordset1, Ordset2) -&gt; Ordset3</a></li>
+        
+        <li><a href="#to_listOrdsetgtList">to_list(Ordset) -&gt; List</a></li>
+        
+        <li><a href="#unionOrdsetListgtOrdset">union(OrdsetList) -&gt; Ordset</a></li>
+        
+        <li><a href="#unionOrdset1Ordset2gtOrdset3">union(Ordset1, Ordset2) -&gt; Ordset3</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+ordered_set()
+  as returned by new/0</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="gb_sets">gb_sets(3)</seealso>,
+      <seealso marker="sets">sets(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="newgtOrdset"></a><b>new() -&gt; Ordset</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new empty ordered set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_setOrdsetgtbool"></a><b>is_set(Ordset) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Ordset</tt> is an ordered set of
+          elements, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sizeOrdsetgtint"></a><b>size(Ordset) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements in <tt>Ordset</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listOrdsetgtList"></a><b>to_list(Ordset) -&gt; List</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset = ordered_set()</b><br/>
+        <b>List = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the elements of <tt>Ordset</tt> as a list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listListgtOrdset"></a><b>from_list(List) -&gt; Ordset</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>List = [term()]</b><br/>
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an ordered set of the elements in <tt>List</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_elementElementOrdsetgtbool"></a><b>is_element(Element, Ordset) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Element</tt> is an element of
+          <tt>Ordset</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_elementElementOrdset1gtOrdset2"></a><b>add_element(Element, Ordset1) -&gt; Ordset2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Ordset1 = Ordset2 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a new ordered set formed from <tt>Ordset1</tt> with
+          <tt>Element</tt> inserted.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_elementElementOrdset1gtOrdset2"></a><b>del_element(Element, Ordset1) -&gt; Ordset2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Element = term()</b><br/>
+        <b>Ordset1 = Ordset2 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>Ordset1</tt>, but with <tt>Element</tt> removed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionOrdset1Ordset2gtOrdset3"></a><b>union(Ordset1, Ordset2) -&gt; Ordset3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset1 = Ordset2 = Ordset3 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) set of <tt>Ordset1</tt> and
+          <tt>Ordset2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionOrdsetListgtOrdset"></a><b>union(OrdsetList) -&gt; Ordset</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OrdsetList = [ordered_set()]</b><br/>
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the merged (union) set of the list of sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionOrdset1Ordset2gtOrdset3"></a><b>intersection(Ordset1, Ordset2) -&gt; Ordset3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset1 = Ordset2 = Ordset3 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of <tt>Ordset1</tt> and
+          <tt>Ordset2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionOrdsetListgtOrdset"></a><b>intersection(OrdsetList) -&gt; Ordset</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>OrdsetList = [ordered_set()]</b><br/>
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of the non-empty list of sets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_disjointOrdset1Ordset2gtbool"></a><b>is_disjoint(Ordset1, Ordset2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset1 = Ordset2 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Ordset1</tt> and
+          <tt>Ordset2</tt> are disjoint (have no elements in common),
+	  and <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="subtractOrdset1Ordset2gtOrdset3"></a><b>subtract(Ordset1, Ordset2) -&gt; Ordset3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset1 = Ordset2 = Ordset3 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns only the elements of <tt>Ordset1</tt> which are not
+          also elements of <tt>Ordset2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_subsetOrdset1Ordset2gtbool"></a><b>is_subset(Ordset1, Ordset2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset1 = Ordset2 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> when every element of <tt>Ordset</tt>1 is
+          also a member of <tt>Ordset2</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="foldFunctionAcc0OrdsetgtAcc1"></a><b>fold(Function, Acc0, Ordset) -&gt; Acc1</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = fun (E, AccIn) -&gt; AccOut</b><br/>
+        <b>Acc0 = Acc1 = AccIn = AccOut = term()</b><br/>
+        <b>Ordset = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Fold <tt>Function</tt> over every element in <tt>Ordset</tt>
+          returning the final value of the accumulator.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterPredOrdset1gtSet2"></a><b>filter(Pred, Ordset1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pred = fun (E) -&gt; bool()</b><br/>
+        <b>Set1 = Set2 = ordered_set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Filter elements in <tt>Set1</tt> with boolean function
+          <tt>Fun</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

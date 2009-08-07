@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>filename</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />filename</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>filename</tt> provides a number of useful functions
+      for analyzing and manipulating file names. These functions are
+      designed so that the Erlang code can work on many different
+      platforms with different formats for file names. With file name
+      is meant all strings that can be used to denote a file. They can
+      be short relative names like <tt>foo.erl</tt>, very long absolute
+      name which include a drive designator and directory names like
+      <tt>D:\\usr/local\\bin\\erl/lib\\tools\\foo.erl</tt>, or any variations
+      in between.</p>
+    <p>In Windows, all functions return file names with forward slashes
+      only, even if the arguments contain back slashes. Use
+      <tt>join/1</tt> to normalize a file name by removing redundant
+      directory separators.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#absnameFilenamegtstring">absname(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#absnameFilenameDirgtstring">absname(Filename, Dir) -&gt; string()</a></li>
+        
+        <li><a href="#absname_joinDirFilenamegtstring">absname_join(Dir, Filename) -&gt; string()</a></li>
+        
+        <li><a href="#basenameFilenameExtgtstring">basename(Filename, Ext) -&gt; string()</a></li>
+        
+        <li><a href="#basenameFilenamegtstring">basename(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#dirnameFilenamegtstring">dirname(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#extensionFilenamegtstring">extension(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#find_srcBeamgtSourceFileOptionserrorErrorReasonModule">find_src(Beam) -&gt; {SourceFile, Options} | {error,{ErrorReason,Module}}</a></li>
+        
+        <li><a href="#flattenFilenamegtstring">flatten(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#joinName1Name2gtstring">join(Name1, Name2) -&gt; string()</a></li>
+        
+        <li><a href="#joinComponentsgtstring">join(Components) -&gt; string()</a></li>
+        
+        <li><a href="#nativenamePathgtstring">nativename(Path) -&gt; string()</a></li>
+        
+        <li><a href="#pathtypePathgtabsoluterelativevolumerelative">pathtype(Path) -&gt; absolute | relative | volumerelative</a></li>
+        
+        <li><a href="#rootnameFilenamegtstring">rootname(Filename) -&gt; string()</a></li>
+        
+        <li><a href="#splitFilenamegtComponents">split(Filename) -&gt; Components</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+name() = string() | atom() | DeepList
+  DeepList = [char() | atom() | DeepList]</code>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="absnameFilenamegtstring"></a><b>absname(Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a relative <tt>Filename</tt> and returns an absolute
+          name. No attempt is made to create the shortest absolute name,
+          because this can give incorrect results on file systems which
+          allow links.</p>
+        <p>Unix examples:</p>
+        <pre>
+1&gt; <input>
+"/usr/local"
+2&gt; <input>
+"/usr/local/foo"
+3&gt; <input>
+"/usr/local/../x"
+4&gt; <input>
+"/"</pre>
+        <p>Windows examples:</p>
+        <pre>
+1&gt; <input>
+"D:/usr/local"
+2&gt; <input>
+"D:/usr/local/foo"
+3&gt; <input>
+"D:/usr/local/../x"
+4&gt; <input>
+"D:/"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="absnameFilenameDirgtstring"></a><b>absname(Filename, Dir) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Dir = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function works like <tt>absname/1</tt>, except that
+          the directory to which the file name should be made relative
+          is given explicitly in the <tt>Dir</tt> argument.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="absname_joinDirFilenamegtstring"></a><b>absname_join(Dir, Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Joins an absolute directory with a relative filename.
+          Similar to <tt>join/2</tt>, but on platforms with tight
+          restrictions on raw filename length and no support for
+          symbolic links (read: VxWorks), leading parent directory
+          components in <tt>Filename</tt> are matched against trailing
+          directory components in <tt>Dir</tt> so they can be removed
+          from the result - minimizing its length.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="basenameFilenamegtstring"></a><b>basename(Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the last component of <tt>Filename</tt>, or
+          <tt>Filename</tt> itself if it does not contain any directory
+          separators.</p>
+        <pre>
+5&gt; <input>
+"foo"
+6&gt; <input>
+"foo"
+7&gt; <input>
+[]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="basenameFilenameExtgtstring"></a><b>basename(Filename, Ext) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = Ext = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the last component of <tt>Filename</tt> with the
+          extension <tt>Ext</tt> stripped. This function should be used
+          to remove a specific extension which might, or might not, be
+          there. Use <tt>rootname(basename(Filename))</tt> to remove an
+          extension that exists, but you are not sure which one it is.</p>
+        <pre>
+8&gt; <input>
+"kalle"
+9&gt; <input>
+"kalle.beam"
+10&gt; <input>
+"kalle.old"
+11&gt; <input>
+"kalle"
+12&gt; <input>
+"kalle"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dirnameFilenamegtstring"></a><b>dirname(Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the directory part of <tt>Filename</tt>.</p>
+        <pre>
+13&gt; <input>
+"/usr/src"
+14&gt; <input>
+"."
+
+5&gt; <input> % Windows
+"/usr/src"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="extensionFilenamegtstring"></a><b>extension(Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the file extension of <tt>Filename</tt>, including
+          the period. Returns an empty string if there is no extension.</p>
+        <pre>
+15&gt; <input>
+".erl"
+16&gt; <input>
+[]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="flattenFilenamegtstring"></a><b>flatten(Filename) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a possibly deep list filename consisting of
+          characters and atoms into the corresponding flat string
+          filename.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinComponentsgtstring"></a><b>join(Components) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Components = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Joins a list of file name <tt>Components</tt> with directory
+          separators. If one of the elements of <tt>Components</tt>
+          includes an absolute path, for example <tt>"/xxx"</tt>,
+          the preceding elements, if any, are removed from the result.</p>
+        <p>The result is "normalized":</p>
+        <list type="bulleted">
+          <item>Redundant directory separators are removed.</item>
+          <item>In Windows, all directory separators are forward
+           slashes and the drive letter is in lower case.</item>
+        </list>
+        <pre>
+17&gt; <input>
+"/usr/local/bin"
+18&gt; <input>
+"a/b/c"
+
+6&gt; <input> % Windows
+"b:a/b/c"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinName1Name2gtstring"></a><b>join(Name1, Name2) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name1 = Name2 = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Joins two file name components with directory separators. 
+          Equivalent to <tt>join([Name1, Name2])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nativenamePathgtstring"></a><b>nativename(Path) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts <tt>Path</tt> to a form accepted by the command shell
+          and native applications on the current platform. On Windows,
+          forward slashes is converted to backward slashes. On all
+          platforms, the name is normalized as done by <tt>join/1</tt>.</p>
+        <pre>
+19&gt; <input> % Unix
+"/usr/local/bin"
+
+7&gt; <input> % Windows
+"\\\\usr\\\\local\\\\bin"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pathtypePathgtabsoluterelativevolumerelative"></a><b>pathtype(Path) -&gt; absolute | relative | volumerelative</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the type of path, one of <tt>absolute</tt>,
+          <tt>relative</tt>, or <tt>volumerelative</tt>.</p>
+        <taglist>
+          <tag><tt>absolute</tt></tag>
+          <item>
+            <p>The path name refers to a specific file on a specific
+              volume.</p>
+            <p>Unix example: <tt>/usr/local/bin</tt></p>
+            <p>Windows example: <tt>D:/usr/local/bin</tt></p>
+          </item>
+          <tag><tt>relative</tt></tag>
+          <item>
+            <p>The path name is relative to the current working
+              directory on the current volume.</p>
+            <p>Example: <tt>foo/bar, ../src</tt></p>
+          </item>
+          <tag><tt>volumerelative</tt></tag>
+          <item>
+            <p>The path name is relative to the current working
+              directory on a specified volume, or it is a specific file
+              on the current working volume.</p>
+            <p>Windows example: <tt>D:bar.erl, /bar/foo.erl</tt></p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rootnameFilenamegtstring"></a><b>rootname(Filename) -&gt; string()<br/>rootname(Filename, Ext) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = Ext = name()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Remove a filename extension. <tt>rootname/2</tt> works as
+          <tt>rootname/1</tt>, except that the extension is removed only
+          if it is <tt>Ext</tt>.</p>
+        <pre>
+20&gt; <input>
+/beam.src/kalle"
+21&gt; <input>
+"/beam.src/foo"
+22&gt; <input>
+"/beam.src/foo"
+23&gt; <input>
+"/beam.src/foo.beam"</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="splitFilenamegtComponents"></a><b>split(Filename) -&gt; Components</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = name()</b><br/>
+        <b>Components = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list whose elements are the path components of
+          <tt>Filename</tt>.</p>
+        <pre>
+24&gt; <input>
+["/","usr","local","bin"]
+25&gt; <input>
+["foo","bar"]
+26&gt; <input>
+["a:/","msdev","include"]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="find_srcBeamgtSourceFileOptionserrorErrorReasonModule"></a><b>find_src(Beam) -&gt; {SourceFile, Options} | {error,{ErrorReason,Module}}<br/>find_src(Beam, Rules) -&gt; {SourceFile, Options} | {error,{ErrorReason,Module}}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Beam = Module | Filename</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+        <b>&nbsp;Filename = string() | atom()</b><br/>
+        <b>SourceFile = string()</b><br/>
+        <b>Options = [Opt]</b><br/>
+        <b>&nbsp;Opt = {i, string()} | {outdir, string()} | {d, atom()}</b><br/>
+	<b>ErrorReason = non_existing | preloaded | interpreted</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Finds the source filename and compiler options for a module.
+          The result can be fed to <tt>compile:file/2</tt> in order to
+          compile the file again.</p>
+        <p>The <tt>Beam</tt> argument, which can be a string or an atom,
+          specifies either the module name or the path to the source
+          code, with or without the <tt>".erl"</tt> extension. In either
+          case, the module must be known by the code server, i.e.
+          <tt>code:which(Module)</tt> must succeed.</p>
+        <p><tt>Rules</tt> describes how the source directory can be found,
+          when the object code directory is known. It is a list of
+          tuples <tt>{BinSuffix, SourceSuffix}</tt> and is interpreted
+          as follows: If the end of the directory name where the object
+          is located matches <tt>BinSuffix</tt>, then the source code
+          directory has the same name, but with <tt>BinSuffix</tt>
+          replaced by <tt>SourceSuffix</tt>. <tt>Rules</tt> defaults to:</p>
+        <code type="none">
+[{"", ""}, {"ebin", "src"}, {"ebin", "esrc"}]</code>
+        <p>If the source file is found in the resulting directory, then
+          the function returns that location together with
+          <tt>Options</tt>. Otherwise, the next rule is tried, and so on.</p>
+
+        <p>The function returns <tt>{SourceFile, Options}</tt> if it succeeds.
+          <tt>SourceFile</tt> is the absolute path to the source file
+          without the <tt>".erl"</tt> extension. <tt>Options</tt> include
+          the options which are necessary to recompile the file with
+          <tt>compile:file/2</tt>, but excludes options such as
+          <tt>report</tt> or <tt>verbose</tt> which do not change the way
+          code is generated. The paths in the <tt>{outdir, Path}</tt>
+          and <tt>{i, Path}</tt> options are guaranteed to be
+          absolute.</p>
+
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

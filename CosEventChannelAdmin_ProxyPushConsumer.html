@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosEventChannelAdmin_ProxyPushConsumer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosEventChannelAdmin_ProxyPushConsumer</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The ProxyPushConsumer interface defines the second step for connecting push
+      suppliers to the event channel. A proxy consumer is similar to a normal consumer,
+      but includes an additional method for connecting a supplier to the proxy
+      consumer.</p>
+    <p>To get access to all definitions, e.g., exceptions,
+      include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+    <p>Any object that possesses an object reference that supports the ProxyPushConsumer
+      interface can perform the following operations:</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#connect_push_supplierObjectPushSuppliergtReturn">connect_push_supplier(Object, PushSupplier) -&gt; Return</a></li>
+        
+        <li><a href="#disconnect_push_consumerObjectgtReturn">disconnect_push_consumer(Object) -&gt; Return</a></li>
+        
+        <li><a href="#pushObjectDatagtReturn">push(Object, Data) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connect_push_supplierObjectPushSuppliergtReturn"></a><b>connect_push_supplier(Object, PushSupplier) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object       = #objref</b><br/>
+        <b>PushSupplier = #objref of PushSupplier type</b><br/>
+        <b>Return = ok | {'EXCEPTION', #'CosEventChannelAdmin_AlreadyConnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation connects PushSupplier object to the ProxyPushConsumer object.
+          A nil object reference can be passed to this operation. If so a channel
+          cannot invoke the disconnect_push_supplier operation on the supplier;
+          the supplier may be disconnected from the channel without being 
+          informed. If the ProxyPushConsumer is already connected to a 
+          PushSupplier, then the <tt>CosEventChannelAdmin_AlreadyConnected</tt> 
+          exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnect_push_consumerObjectgtReturn"></a><b>disconnect_push_consumer(Object) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation disconnects proxy push consumer from the event channel.
+          Sends a notification about the loss of the connection to the push supplier
+          attached to it, unless nil object reference was passed at the connection
+          time.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pushObjectDatagtReturn"></a><b>push(Object, Data) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Object = #objref</b><br/>
+        <b>Data   = any</b><br/>
+        <b>Return = ok | {'EXCEPTION', #'CosEventComm_Disconnected'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation sends event data to all connected consumers via the 
+          event channel. If the event communication has already been disconnected,
+          the <tt>CosEventComm_Disconnected</tt> is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

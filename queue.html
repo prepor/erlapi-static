@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>queue</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />queue</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module implements (double ended) FIFO queues
+      in an efficient manner.</p>
+    <p>All functions fail with reason <tt>badarg</tt> if arguments
+      are of wrong type, for example queue arguments are not
+      queues, indexes are not integers, list arguments are
+      not lists. Improper lists cause internal crashes.
+      An index out of range for a queue also causes
+      a failure with reason <tt>badarg</tt>.</p>
+    <p>Some functions, where noted, fail with reason <tt>empty</tt>
+      for an empty queue.</p>
+    <p>The data representing a queue as used by this module
+      should be regarded as opaque by other modules. Any code
+      assuming knowledge of the format is running on thin ice.</p>
+    <p>All operations has an amortized O(1) running time, except
+      <tt>len/1</tt>, <tt>join/2</tt>, <tt>split/2</tt>, <tt>filter/2</tt>
+      and <tt>member/2</tt> that have O(n).
+      To minimize the size of a queue minimizing
+      the amount of garbage built by queue operations, the queues
+      do not contain explicit length information, and that is
+      why <tt>len/1</tt> is O(n). If better performance for this
+      particular operation is essential, it is easy for
+      the caller to keep track of the length.</p>
+    <p>Queues are double ended. The mental picture of
+      a queue is a line of people (items) waiting for
+      their turn. The queue front is the end with the item
+      that has waited the longest. The queue rear is the end
+      an item enters when it starts to wait. If instead using
+      the mental picture of a list, the front is called head
+      and the rear is called tail.</p>
+    <p>Entering at the front and exiting at the rear
+      are reverse operations on the queue.</p>
+    <p>The module has several sets of interface functions. The
+      "Original API", the "Extended API" and the "Okasaki API".</p>
+    <p>The "Original API" and the "Extended API" both use the
+      mental picture of a waiting line of items. Both also 
+      have reverse operations suffixed "_r".</p>
+    <p>The "Original API" item removal functions return compound
+      terms with both the removed item and the resulting queue.
+      The "Extended API" contain alternative functions that build
+      less garbage as well as functions for just inspecting the
+      queue ends. Also the "Okasaki API" functions build less garbage.</p>
+    <p>The "Okasaki API" is inspired by "Purely Functional Data structures"
+      by Chris Okasaki. It regards queues as lists.
+      The API is by many regarded as strange and avoidable.
+      For example many reverse operations have lexically reversed names,
+      some with more readable but perhaps less understandable aliases.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Original API</a></li>
+        
+        <li><a href="#">Extended API</a></li>
+        
+        <li><a href="#">Okasaki API</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#consItemQ1gtQ2">cons(Item, Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#daehQgtItem">daeh(Q) -&gt; Item</a></li>
+        
+        <li><a href="#dropQ1gtQ2">drop(Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#drop_rQ1gtQ2">drop_r(Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#filterFunQ1gtQ2">filter(Fun, Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#from_listLgtqueue">from_list(L) -&gt; queue()</a></li>
+        
+        <li><a href="#getQgtItem">get(Q) -&gt; Item</a></li>
+        
+        <li><a href="#get_rQgtItem">get_r(Q) -&gt; Item</a></li>
+        
+        <li><a href="#headQgtItem">head(Q) -&gt; Item</a></li>
+        
+        <li><a href="#inItemQ1gtQ2">in(Item, Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#in_rItemQ1gtQ2">in_r(Item, Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#is_emptyQgttruefalse">is_empty(Q) -&gt; true | false</a></li>
+        
+        <li><a href="#is_queueTermgttruefalse">is_queue(Term) -&gt; true | false</a></li>
+        
+        <li><a href="#joinQ1Q2gtQ3">join(Q1, Q2) -&gt; Q3</a></li>
+        
+        <li><a href="#lenQgtN">len(Q) -&gt; N</a></li>
+        
+        <li><a href="#liatQ1gtQ2">liat(Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#memberItemQgtbool">member(Item, Q) -&gt; bool()</a></li>
+        
+        <li><a href="#newgtQ">new() -&gt; Q</a></li>
+        
+        <li><a href="#outQ1gtResult">out(Q1) -&gt; Result</a></li>
+        
+        <li><a href="#out_rQ1gtResult">out_r(Q1) -&gt; Result</a></li>
+        
+        <li><a href="#peekQgtvalueItemempty">peek(Q) -&gt; {value,Item} | empty</a></li>
+        
+        <li><a href="#peek_rQgtvalueItemempty">peek_r(Q) -&gt; {value,Item} | empty</a></li>
+        
+        <li><a href="#reverseQ1gtQ2">reverse(Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#snocQ1ItemgtQ2">snoc(Q1, Item) -&gt; Q2</a></li>
+        
+        <li><a href="#splitNQ1gtQ2Q3">split(N, Q1) -&gt; {Q2,Q3}</a></li>
+        
+        <li><a href="#tailQ1gtQ2">tail(Q1) -&gt; Q2</a></li>
+        
+        <li><a href="#to_listQgtlist">to_list(Q) -&gt; list()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Original API</div>
+    
+    <div class="description">
+        
+    <title>Original API</title>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Extended API</div>
+    
+    <div class="description">
+        
+    <title>Extended API</title>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Okasaki API</div>
+    
+    <div class="description">
+        
+    <title>Okasaki API</title>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="newgtQ"></a><b>new() -&gt; Q</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns an empty queue.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_queueTermgttruefalse"></a><b>is_queue(Term) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tests if <tt>Q</tt> is a queue and returns <tt>true</tt> if so and
+          <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_emptyQgttruefalse"></a><b>is_empty(Q) -&gt; true | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tests if <tt>Q</tt> is empty and returns <tt>true</tt> if so and
+          <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lenQgtN"></a><b>len(Q) -&gt; N</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q = queue()</b><br/>
+        <b>N = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Calculates and returns the length of queue <tt>Q</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="inItemQ1gtQ2"></a><b>in(Item, Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Item</tt> at the rear of queue <tt>Q1</tt>.
+          Returns the resulting queue <tt>Q2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="in_rItemQ1gtQ2"></a><b>in_r(Item, Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Item</tt> at the front of queue <tt>Q1</tt>.
+          Returns the resulting queue <tt>Q2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="outQ1gtResult"></a><b>out(Q1) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = {{value, Item}, Q2} | {empty, Q1}</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the item at the front of queue <tt>Q1</tt>. Returns the
+          tuple <tt>{{value, Item}, Q2}</tt>, where <tt>Item</tt> is the
+          item removed and <tt>Q2</tt> is the resulting queue. If <tt>Q1</tt> is
+          empty, the tuple <tt>{empty, Q1}</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="out_rQ1gtResult"></a><b>out_r(Q1) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Result = {{value, Item}, Q2} | {empty, Q1}</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the item at the rear of the queue <tt>Q1</tt>. Returns the
+          tuple <tt>{{value, Item}, Q2}</tt>, where <tt>Item</tt> is the 
+          item removed and <tt>Q2</tt> is the new queue. If <tt>Q1</tt> is
+          empty, the tuple <tt>{empty, Q1}</tt> is returned.  </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_listLgtqueue"></a><b>from_list(L) -&gt; queue()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>L = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue containing the items in <tt>L</tt> in the
+          same order; the head item of the list will become the front
+          item of the queue.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_listQgtlist"></a><b>to_list(Q) -&gt; list()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of the items in the queue in the same order;
+          the front item of the queue will become the head of the list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reverseQ1gtQ2"></a><b>reverse(Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that contains the items of
+          <tt>Q1</tt> in the reverse order.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="splitNQ1gtQ2Q3"></a><b>split(N, Q1) -&gt; {Q2,Q3}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer()</b><br/>
+        <b>Q1 = Q2 = Q3 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Splits <tt>Q1</tt> in two. The <tt>N</tt> front items
+          are put in <tt>Q2</tt> and the rest in <tt>Q3</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinQ1Q2gtQ3"></a><b>join(Q1, Q2) -&gt; Q3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Q1 = Q2 = Q3 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q3</tt> that is the result of joining
+          <tt>Q1</tt> and <tt>Q2</tt> with <tt>Q1</tt> in front of
+          <tt>Q2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="filterFunQ1gtQ2"></a><b>filter(Fun, Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = fun(Item) -&gt; bool() | list()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that is the result of calling
+          <tt>Fun(Item)</tt> on all items in <tt>Q1</tt>,
+          in order from front to rear.</p>
+        <p>If <tt>Fun(Item)</tt> returns <tt>true</tt>, <tt>Item</tt>
+          is copied to the result queue. If it returns <tt>false</tt>,
+          <tt>Item</tt> is not copied. If it returns a list
+          the list elements are inserted instead of <tt>Item</tt> in the
+          result queue.</p>
+        <p>So, <tt>Fun(Item)</tt> returning <tt>[Item]</tt> is thereby
+          semantically equivalent to returning <tt>true</tt>, just
+          as returning <tt>[]</tt> is semantically equivalent to
+          returning <tt>false</tt>. But returning a list builds
+          more garbage than returning an atom.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memberItemQgtbool"></a><b>member(Item, Q) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if <tt>Item</tt> matches some element
+          in <tt>Q</tt>, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="getQgtItem"></a><b>get(Q) -&gt; Item</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>Item</tt> at the front of queue <tt>Q</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_rQgtItem"></a><b>get_r(Q) -&gt; Item</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>Item</tt> at the rear of queue <tt>Q</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="dropQ1gtQ2"></a><b>drop(Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that is the result of removing
+          the front item from <tt>Q1</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="drop_rQ1gtQ2"></a><b>drop_r(Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that is the result of removing
+          the rear item from <tt>Q1</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="peekQgtvalueItemempty"></a><b>peek(Q) -&gt; {value,Item} | empty</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the tuple <tt>{value, Item}</tt> where <tt>Item</tt> is the
+          front item of <tt>Q</tt>, or <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="peek_rQgtvalueItemempty"></a><b>peek_r(Q) -&gt; {value,Item} | empty</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the tuple <tt>{value, Item}</tt> where <tt>Item</tt> is the
+          rear item of <tt>Q</tt>, or <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="consItemQ1gtQ2"></a><b>cons(Item, Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Item</tt> at the head of queue <tt>Q1</tt>. Returns
+          the new queue <tt>Q2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="headQgtItem"></a><b>head(Q) -&gt; Item</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>Item</tt> from the head of queue <tt>Q</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tailQ1gtQ2"></a><b>tail(Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that is the result of removing
+          the head item from <tt>Q1</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="snocQ1ItemgtQ2"></a><b>snoc(Q1, Item) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Inserts <tt>Item</tt> as the tail item of queue <tt>Q1</tt>. Returns
+          the new queue <tt>Q2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="daehQgtItem"></a><b>daeh(Q) -&gt; Item<br/>last(Q) -&gt; Item</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the tail item of queue <tt>Q</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q</tt> is empty.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="liatQ1gtQ2"></a><b>liat(Q1) -&gt; Q2<br/>init(Q1) -&gt; Q2<br/>lait(Q1) -&gt; Q2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Item = term()</b><br/>
+        <b>Q1 = Q2 = queue()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a queue <tt>Q2</tt> that is the result of removing
+          the tail item from <tt>Q1</tt>.</p>
+        <p>Fails with reason <tt>empty</tt> if <tt>Q1</tt> is empty.</p>
+        <p>The name <tt>lait/1</tt> is a misspelling - do not use it anymore.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

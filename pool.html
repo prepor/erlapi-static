@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>pool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />pool</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p><tt>pool</tt> can be used to run a set of Erlang nodes as a pool
+      of computational processors. It is organized as a master and a
+      set of slave nodes and includes the following features:</p>
+    <list type="bulleted">
+      <item>The slave nodes send regular reports to the master about
+       their current load.</item>
+      <item>Queries can be sent to the master to determine which node
+       will have the least load.</item>
+    </list>
+    <p>The BIF <tt>statistics(run_queue)</tt> is used for estimating
+      future loads. It returns the length of the queue of ready to run
+      processes in the Erlang runtime system.</p>
+    <p>The slave nodes are started with the <tt>slave</tt> module. This
+      effects, tty IO, file IO, and code loading.</p>
+    <p>If the master node fails, the entire pool will exit.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Files</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#attachNodegtalready_attachedattached">attach(Node) -&gt; already_attached | attached</a></li>
+        
+        <li><a href="#get_nodegtnode">get_node() -&gt; node()</a></li>
+        
+        <li><a href="#get_nodesgtNodes">get_nodes() -&gt; Nodes</a></li>
+        
+        <li><a href="#pspawnModFunArgsgtpid">pspawn(Mod, Fun, Args) -&gt; pid()</a></li>
+        
+        <li><a href="#pspawn_linkModFunArgsgtpid">pspawn_link(Mod, Fun, Args) -&gt; pid()</a></li>
+        
+        <li><a href="#startNamegt">start(Name) -&gt;</a></li>
+        
+        <li><a href="#stopgtstopped">stop() -&gt; stopped</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Files</div>
+    
+    <div class="description">
+        
+    <marker id="files"></marker>
+    <title>Files</title>
+    <p><tt>.hosts.erlang</tt> is used to pick hosts where nodes can
+      be started. See
+      <seealso marker="kernel:net_adm#host_file/0">net_adm(3)</seealso>
+      for information about format and location of this file.</p>
+    <p><tt>$HOME/.erlang.slave.out.HOST</tt> is used for all additional IO
+      that may come from the slave nodes on standard IO. If the start-up
+      procedure does not work, this file may indicate the reason.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startNamegt"></a><b>start(Name) -&gt;<br/>start(Name, Args) -&gt; Nodes</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = atom()</b><br/>
+        <b>Args = string()</b><br/>
+        <b>Nodes = [node()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a new pool. The file <tt>.hosts.erlang</tt> is read to
+          find host names where the pool nodes can be started. See
+          section <seealso marker="#files">Files</seealso> below. The
+          start-up procedure fails if the file is not found.</p>
+        <p>The slave nodes are started with <tt>slave:start/2,3</tt>,
+          passing along <tt>Name</tt> and, if provided, <tt>Args</tt>.
+          <tt>Name</tt> is used as the first part of the node names,
+          <tt>Args</tt> is used to specify command line arguments. See
+          <seealso marker="slave#start/2">slave(3)</seealso>.</p>
+        <p>Access rights must be set so that all nodes in the pool have
+          the authority to access each other.</p>
+        <p>The function is synchronous and all the nodes, as well as
+          all the system servers, are running when it returns a value.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="attachNodegtalready_attachedattached"></a><b>attach(Node) -&gt; already_attached | attached</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function ensures that a pool master is running and
+          includes <tt>Node</tt> in the pool master's pool of nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtstopped"></a><b>stop() -&gt; stopped</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the pool and kills all the slave nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_nodesgtNodes"></a><b>get_nodes() -&gt; Nodes</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [node()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of the current member nodes of the pool.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pspawnModFunArgsgtpid"></a><b>pspawn(Mod, Fun, Args) -&gt; pid()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Fun = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Spawns a process on the pool node which is expected to have
+          the lowest future load.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pspawn_linkModFunArgsgtpid"></a><b>pspawn_link(Mod, Fun, Args) -&gt; pid()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Fun = atom()</b><br/>
+        <b>Args = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Spawn links a process on the pool node which is expected to
+          have the lowest future load.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_nodegtnode"></a><b>get_node() -&gt; node()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the node with the expected lowest future load.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

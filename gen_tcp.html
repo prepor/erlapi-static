@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>gen_tcp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />gen_tcp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>gen_tcp</tt> module provides functions for communicating
+      with sockets using the TCP/IP protocol.</p>
+    <p>The following code fragment provides a simple example of 
+      a client connecting to a server at port 5678, transferring a
+      binary and closing the connection:</p>
+    <code type="none">
+client() -&gt;
+    SomeHostInNet = "localhost" % to make it runnable on one machine
+    {ok, Sock} = gen_tcp:connect(SomeHostInNet, 5678, 
+                                 [binary, {packet, 0}]),
+    ok = gen_tcp:send(Sock, "Some Data"),
+    ok = gen_tcp:close(Sock).</code>
+    <p>At the other end a server is listening on port 5678, accepts
+      the connection and receives the binary:</p>
+    <code type="none">
+server() -&gt;
+    {ok, LSock} = gen_tcp:listen(5678, [binary, {packet, 0}, 
+\011\011\011\011\011{active, false}]),
+    {ok, Sock} = gen_tcp:accept(LSock),
+    {ok, Bin} = do_recv(Sock, []),
+    ok = gen_tcp:close(Sock),
+    Bin.
+
+do_recv(Sock, Bs) -&gt;
+    case gen_tcp:recv(Sock, 0) of
+\011{ok, B} -&gt;
+\011    do_recv(Sock, [Bs, B]);
+\011{error, closed} -&gt;
+\011    {ok, list_to_binary(Bs)}
+    end.</code>
+    <p>For more examples, see the <seealso marker="#examples">examples</seealso> section.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">Examples</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#acceptListenSocketgtokSocketerrorReason">accept(ListenSocket) -&gt; {ok, Socket} | {error, Reason}</a></li>
+        
+        <li><a href="#closeSocketgtokerrorReason">close(Socket) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#connectAddressPortOptionsgtokSocketerrorReason">connect(Address, Port, Options) -&gt; {ok, Socket} | {error, Reason}</a></li>
+        
+        <li><a href="#controlling_processSocketPidgtokerrorReason">controlling_process(Socket, Pid) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#listenPortOptionsgtokListenSocketerrorReason">listen(Port, Options) -&gt; {ok, ListenSocket} | {error, Reason}</a></li>
+        
+        <li><a href="#recvSocketLengthgtokPacketerrorReason">recv(Socket, Length) -&gt; {ok, Packet} | {error, Reason}</a></li>
+        
+        <li><a href="#sendSocketPacketgtokerrorReason">send(Socket, Packet) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#shutdownSocketHowgtokerrorReason">shutdown(Socket, How) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+    <code type="none">
+ip_address()
+  see inet(3)
+
+posix()
+  see inet(3)
+
+socket()
+  as returned by accept/1,2 and connect/3,4</code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Examples</div>
+    
+    <div class="description">
+        
+    <title>Examples</title>
+    <marker id="examples"></marker>
+    <p>The following example illustrates usage of the {active,once}
+      option and multiple accepts by implementing a server as a
+      number of worker processes doing accept on one single listen
+      socket. The start/2 function takes the number of worker
+      processes as well as a port number to listen for incoming
+      connections on. If <tt>LPort</tt> is specified as <tt>0</tt>, an
+      ephemeral portnumber is used, why the start function returns
+      the actual portnumber allocated:</p>
+    <code type="none">
+start(Num,LPort) -&gt;
+    case gen_tcp:listen(LPort,[{active, false},{packet,2}]) of
+\011{ok, ListenSock} -&gt;
+\011    start_servers(Num,ListenSock),
+\011    {ok, Port} = inet:port(ListenSock),
+\011    Port;
+\011{error,Reason} -&gt;
+\011    {error,Reason}
+    end.
+
+start_servers(0,_) -&gt;
+    ok;
+start_servers(Num,LS) -&gt;
+    spawn(?MODULE,server,[LS]),
+    start_servers(Num-1,LS).
+\011\011       
+server(LS) -&gt;
+    case gen_tcp:accept(LS) of
+\011{ok,S} -&gt;
+\011    loop(S),
+\011    server(LS);
+\011Other -&gt;
+\011    io:format("accept returned ~w - goodbye!~n",[Other]),
+\011    ok
+    end.
+
+loop(S) -&gt;
+    inet:setopts(S,[{active,once}]),
+    receive
+\011{tcp,S,Data} -&gt;
+\011    Answer = process(Data), % Not implemented in this example
+\011    gen_tcp:send(S,Answer),
+\011    loop(S);
+\011{tcp_closed,S} -&gt;
+\011    io:format("Socket ~w closed [~w]~n",[S,self()]),
+\011    ok
+    end.</code>
+    <p>A simple client could look like this:</p>
+    <code type="none">
+client(PortNo,Message) -&gt;
+    {ok,Sock} = gen_tcp:connect("localhost",PortNo,[{active,false},
+\011\011\011\011\011\011    {packet,2}]),
+    gen_tcp:send(Sock,Message),
+    A = gen_tcp:recv(Sock,0),
+    gen_tcp:close(Sock),
+    A.</code>
+    <p>The fact that the <tt>send</tt> call does not accept a timeout
+      option, is because timeouts on send is handled through the socket
+      option <tt>send_timeout</tt>. The behavior of a send operation with
+      no receiver is in a very high degree defined by the underlying TCP
+      stack, as well as the network infrastructure. If one wants to write
+      code that handles a hanging receiver that might eventually cause
+      the sender to hang on a <tt>send</tt> call, one writes code like
+      the following.</p>
+    <p>Consider a process that receives data from a client process that
+      is to be forwarded to a server on the network. The process has
+      connected to the server via TCP/IP and does not get any acknowledge
+      for each message it sends, but has to rely on the send timeout
+      option to detect that the other end is unresponsive. We could use
+      the <tt>send_timeout</tt> option when connecting:</p>
+    <code type="none">
+    ...
+    {ok,Sock} = gen_tcp:connect(HostAddress, Port,
+\011\011\011\011[{active,false},
+\011\011\011\011 {send_timeout, 5000},
+\011\011\011\011 {packet,2}]),
+\011\011    loop(Sock), % See below
+    ...    </code>
+    <p>In the loop where requests are handled, we can now detect send
+      timeouts:</p>
+    <code type="none">
+loop(Sock) -&gt;
+    receive
+\011{Client, send_data, Binary} -&gt;
+\011    case gen_tcp:send(Sock,[Binary]) of
+\011\011{error, timeout} -&gt;
+\011\011    io:format("Send timeout, closing!~n",
+\011\011\011      []),
+\011\011    handle_send_timeout(), % Not implemented here
+\011\011    Client ! {self(),{error_sending, timeout}},
+\011\011    %% Usually, it's a good idea to give up in case of a 
+\011\011    %% send timeout, as you never know how much actually 
+\011\011    %% reached the server, maybe only a packet header?!
+\011\011    gen_tcp:close(Sock);
+\011\011{error, OtherSendError} -&gt;
+\011\011    io:format("Some other error on socket (~p), closing",
+\011\011\011      [OtherSendError]),
+\011\011    Client ! {self(),{error_sending, OtherSendError}},
+\011\011    gen_tcp:close(Sock);
+\011\011ok -&gt;
+\011\011    Client ! {self(), data_sent},
+\011\011    loop(Sock)
+\011    end
+    end.    </code>
+    <p>Usually it would suffice to detect timeouts on receive, as most
+      protocols include some sort of acknowledgment from the server,
+      but if the protocol is strictly one way, the <tt>send_timeout</tt>
+      option comes in handy!</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="connectAddressPortOptionsgtokSocketerrorReason"></a><b>connect(Address, Port, Options) -&gt; {ok, Socket} | {error, Reason}<br/>connect(Address, Port, Options, Timeout) -&gt; {ok, Socket} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Address = string() | atom() | ip_address()</b><br/>
+        <b>Port = 0..65535</b><br/>
+        <b>Options = [Opt]</b><br/>
+        <b>&nbsp;Opt -- see below</b><br/>
+        <b>Timeout = int() | infinity</b><br/>
+        <b>Socket = socket()</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Connects to a server on TCP port <tt>Port</tt> on the host
+          with IP address <tt>Address</tt>. The <tt>Address</tt> argument
+          can be either a hostname, or an IP address.</p>
+        <p>The available options are:</p>
+        <taglist>
+          <tag><tt>list</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a list.</p>
+          </item>
+          <tag><tt>binary</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a binary.</p>
+          </item>
+          <tag><tt>{ip, ip_address()}</tt></tag>
+          <item>
+            <p>If the host has several network interfaces, this option
+              specifies which one to use.</p>
+          </item>
+          <tag><tt>{port, Port}</tt></tag>
+          <item>
+            <p>Specify which local port number to use.</p>
+          </item>
+          <tag><tt>{fd, int()}</tt></tag>
+          <item>
+            <p>If a socket has somehow been connected without using
+              <tt>gen_tcp</tt>, use this option to pass the file
+              descriptor for it.</p>
+          </item>
+          <tag><tt>inet6</tt></tag>
+          <item>
+            <p>Set up the socket for IPv6.</p>
+          </item>
+          <tag><tt>inet</tt></tag>
+          <item>
+            <p>Set up the socket for IPv4.</p>
+          </item>
+          <tag>Opt</tag>
+          <item>
+            <p>See
+              <seealso marker="inet#setopts/2">inet:setopts/2</seealso>.</p>
+          </item>
+        </taglist>
+        <p>Packets can be sent to the returned socket <tt>Socket</tt>
+          using\011<tt>send/2</tt>. Packets sent from the peer are delivered
+          as messages:</p>
+        <code type="none">
+{tcp, Socket, Data}</code>
+        <p>If the socket is closed, the following message is delivered:</p>
+        <code type="none">
+{tcp_closed, Socket}</code>
+        <p>If an error occurs on the socket, the following message is
+          delivered:</p>
+        <code type="none">
+{tcp_error, Socket, Reason}</code>
+        <p>unless <tt>{active, false}</tt> is specified in the option list
+          for the socket, in which case packets are retrieved by
+          calling <tt>recv/2</tt>.</p>
+        <p>The optional <tt>Timeout</tt> parameter specifies a timeout in
+          milliseconds. The default value is <tt>infinity</tt>.</p>
+        <note>
+          <p>The default values for options given to <tt>connect</tt> can
+            be affected by the Kernel configuration parameter
+            <tt>inet_default_connect_options</tt>. See
+            <seealso marker="inet">inet(3)</seealso> for details.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="listenPortOptionsgtokListenSocketerrorReason"></a><b>listen(Port, Options) -&gt; {ok, ListenSocket} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Port = 0..65535</b><br/>
+        <b>Options = [Opt]</b><br/>
+        <b>&nbsp;Opt -- see below</b><br/>
+        <b>ListenSocket -- see below</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets up a socket to listen on the port <tt>Port</tt> on
+          the local host.</p>
+        <p>If <tt>Port == 0</tt>, the underlying OS assigns an available
+          port number, use <tt>inet:port/1</tt> to retrieve it.</p>
+        <p>The available options are:</p>
+        <taglist>
+          <tag><tt>list</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a list.</p>
+          </item>
+          <tag><tt>binary</tt></tag>
+          <item>
+            <p>Received <tt>Packet</tt> is delivered as a binary.</p>
+          </item>
+          <tag><tt>{backlog, B}</tt></tag>
+          <item>
+            <p><tt>B</tt> is an integer &gt;= 0. The backlog value defaults
+              to 5. The backlog value defines the maximum length that
+              the queue of pending connections may grow to.</p>
+          </item>
+          <tag><tt>{ip, ip_address()}</tt></tag>
+          <item>
+            <p>If the host has several network interfaces, this option
+              specifies which one to listen on.</p>
+          </item>
+          <tag><tt>{fd, Fd}</tt></tag>
+          <item>
+            <p>If a socket has somehow been connected without using
+              <tt>gen_tcp</tt>, use this option to pass the file
+              descriptor for it.</p>
+          </item>
+          <tag><tt>inet6</tt></tag>
+          <item>
+            <p>Set up the socket for IPv6.</p>
+          </item>
+          <tag><tt>inet</tt></tag>
+          <item>
+            <p>Set up the socket for IPv4.</p>
+          </item>
+          <tag><tt>Opt</tt></tag>
+          <item>
+            <p>See
+              <seealso marker="inet#setopts/2">inet:setopts/2</seealso>.</p>
+          </item>
+        </taglist>
+        <p>The returned socket <tt>ListenSocket</tt> can only be used in
+          calls to <tt>accept/1,2</tt>.</p>
+        <note>
+          <p>The default values for options given to <tt>listen</tt> can
+            be affected by the Kernel configuration parameter
+            <tt>inet_default_listen_options</tt>. See
+            <seealso marker="inet">inet(3)</seealso> for details.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="acceptListenSocketgtokSocketerrorReason"></a><b>accept(ListenSocket) -&gt; {ok, Socket} | {error, Reason}<br/>accept(ListenSocket, Timeout) -&gt; {ok, Socket} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ListenSocket -- see listen/2</b><br/>
+        <b>Timeout = int() | infinity</b><br/>
+        <b>Socket = socket()</b><br/>
+        <b>Reason = closed | timeout | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Accepts an incoming connection request on a listen socket.
+          <tt>Socket</tt> must be a socket returned from <tt>listen/2</tt>.
+          <tt>Timeout</tt> specifies a timeout value in ms, defaults to
+          <tt>infinity</tt>.</p>
+        <p>Returns <tt>{ok, Socket}</tt> if a connection is established,
+          or <tt>{error, closed}</tt> if <tt>ListenSocket</tt> is closed,
+          or <tt>{error, timeout}</tt> if no connection is established
+          within the specified time. May also return a POSIX error
+          value if something else goes wrong, see inet(3) for possible
+          error values.</p>
+        <p>Packets can be sent to the returned socket <tt>Socket</tt>
+          using <tt>send/2</tt>. Packets sent from the peer are delivered
+          as messages:</p>
+        <code type="none">
+{tcp, Socket, Data}</code>
+        <p>unless <tt>{active, false}</tt> was specified in the option
+          list for the listen socket, in which case packets are
+          retrieved by calling <tt>recv/2</tt>.</p>
+        <note>
+          <p>It is worth noting that the <tt>accept</tt> call does
+            <em>not</em> have to be issued from the socket owner
+            process. Using version 5.5.3 and higher of the emulator,
+            multiple simultaneous accept calls can be issued from
+            different processes, which allows for a pool of acceptor
+            processes handling incoming connections.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendSocketPacketgtokerrorReason"></a><b>send(Socket, Packet) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Packet = [char()] | binary()</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a packet on a socket. </p>
+        <p>There is no <tt>send</tt> call with timeout option, you use the
+          <tt>send_timeout</tt> socket option if timeouts are
+          desired.  See the <seealso marker="#examples">examples</seealso> section.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="recvSocketLengthgtokPacketerrorReason"></a><b>recv(Socket, Length) -&gt; {ok, Packet} | {error, Reason}<br/>recv(Socket, Length, Timeout) -&gt; {ok, Packet} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Length  = int()</b><br/>
+        <b>Packet = [char()] | binary()</b><br/>
+        <b>Timeout = int() | infinity</b><br/>
+        <b>Reason = closed | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function receives a packet from a socket in passive
+          mode. A closed socket is indicated by a return value
+          <tt>{error, closed}</tt>.</p>
+        <p>The <tt>Length</tt> argument is only meaningful when
+          the socket is in <tt>raw</tt> mode and denotes the number of
+          bytes to read. If <tt>Length</tt> = 0, all available bytes are
+          returned. If <tt>Length</tt> &gt; 0, exactly <tt>Length</tt>
+          bytes are returned, or an error; possibly discarding less
+          than <tt>Length</tt> bytes of data when the socket gets closed
+          from the other side.</p>
+        <p>The optional <tt>Timeout</tt> parameter specifies a timeout in
+          milliseconds. The default value is <tt>infinity</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="controlling_processSocketPidgtokerrorReason"></a><b>controlling_process(Socket, Pid) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>Reason = closed | not_owner | posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Assigns a new controlling process <tt>Pid</tt> to
+          <tt>Socket</tt>. The controlling process is the process which
+          receives messages from the socket. If called by any other
+          process than the current controlling process,
+          <tt>{error, eperm}</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeSocketgtokerrorReason"></a><b>close(Socket) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes a TCP socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="shutdownSocketHowgtokerrorReason"></a><b>shutdown(Socket, How) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Socket = socket()</b><br/>
+        <b>How = read | write | read_write</b><br/>
+        <b>Reason = posix()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Immediately close a socket in one or two directions.</p>
+        <p><tt>How == write</tt> means closing the socket for writing,
+          reading from it is still possible.</p>
+        <p>To be able to handle that the peer has done a shutdown on
+          the write side, the <tt>{exit_on_close, false}</tt> option
+          is useful.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

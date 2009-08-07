@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>instrument</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />instrument</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>instrument</tt> contains support for studying the resource
+      usage in an Erlang runtime system. Currently, only the allocation of memory can
+      be studied.</p>
+    <note>
+      <p>Note that this whole module is experimental, and the representations
+        used as well as the functionality is likely to change in the future.</p>
+      <p>The <tt>instrument</tt> module interface was slightly changed in
+        Erlang/OTP R9C.</p>
+    </note>
+    <p>To start an Erlang runtime system with instrumentation, use the
+      <tt>+Mi*</tt> set of command-line arguments to the <tt>erl</tt> command (see
+      the erts_alloc(3) and erl(1) man pages).</p>
+    <p>The basic object of study in the case of memory allocation is a memory
+      allocation map. A memory allocation map contains a list of descriptors
+      for each allocated memory block. Currently, a descriptor is a 4-tuple</p>
+    <pre>
+\011{TypeNo, Address, Size, PidDesc}    </pre>
+    <p>where <tt>TypeNo</tt> is the memory block type number, <tt>Address</tt>
+      is its place in memory, and <tt>Size</tt> is its size, in bytes.
+      <tt>PidDesc</tt> is either a tuple <tt>{X,Y,Z}</tt> identifying the
+      process which was executing when the block was allocated, or
+      <tt>undefined</tt> if no process was executing. The pid tuple
+      <tt>{X,Y,Z}</tt> can be transformed into a real pid by usage of the
+      <tt>c:pid/3</tt> function.</p>
+    <p>Various details about memory allocation:</p>
+    <p>Memory blocks are allocated both on the heap segment and on other memory
+      segments. This can cause the instrumentation functionality to report
+      very large holes. Currently the instrumentation functionality doesn't
+      provide any support for distinguishing between holes between memory
+      segments, and holes between allocated blocks inside memory segments.
+      The current size of the process cannot be obtained from within Erlang,
+      but can be seen with one of the system statistics tools, e.g.,
+      <tt>ps</tt> or <tt>top</tt>. The Solaris utility <tt>pmap</tt> can be
+      useful. It reports currently mapped memory segments. </p>
+    <p>Overhead for instrumentation: When the emulator has been started with
+      the <seealso marker="erts:erts_alloc#Mim">"+Mim true"</seealso>
+      flag, each block is preceded by a 24 bytes large
+      header on a 32-bit machine and a 48 bytes large header on a 64-bit
+      machine. When the emulator has been started with the
+      <seealso marker="erts:erts_alloc#Mis">"+Mis true"</seealso>
+      flag, each block is preceded by an 8 bytes large header. These are the header
+      sizes used by the Erlang 5.3/OTP R9C emulator. Other versions of the
+      emulator may use other header sizes. The function
+      <seealso marker="#block_header_size/1">block_header_size/1</seealso>
+      can be used for retrieving the header size used for a specific memory
+      allocation map. The time overhead for managing the instrumentation
+      data is small.</p>
+    <p>Sizes presented by the instrumentation functionality are (by the
+      emulator) requested sizes, i.e. neither instrumentation headers nor
+      headers used by allocators are included.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#allocator_descrMemoryDataTypeNogtAllocDescrinvalid_typeunknown">allocator_descr(MemoryData, TypeNo) -&gt; AllocDescr | invalid_type | "unknown"</a></li>
+        
+        <li><a href="#block_header_sizeMemoryDatagtint">block_header_size(MemoryData) -&gt; int()</a></li>
+        
+        <li><a href="#class_descrMemoryDataTypeNogtClassDescrinvalid_typeunknown">class_descr(MemoryData, TypeNo) -&gt; ClassDescr | invalid_type | "unknown"</a></li>
+        
+        <li><a href="#descrMemoryDatagtDescrMemoryData">descr(MemoryData) -&gt; DescrMemoryData</a></li>
+        
+        <li><a href="#holesMemoryDatagtok">holes(MemoryData) -&gt; ok</a></li>
+        
+        <li><a href="#mem_limitsMemoryDatagtLowHigh">mem_limits(MemoryData) -&gt; {Low, High}</a></li>
+        
+        <li><a href="#memory_datagtMemoryDatafalse">memory_data() -&gt; MemoryData | false</a></li>
+        
+        <li><a href="#memory_statusStatusTypegtStatusInfofalse">memory_status(StatusType) -&gt; [StatusInfo] | false</a></li>
+        
+        <li><a href="#read_memory_dataFilegtMemoryDataerrorReason">read_memory_data(File) -&gt; MemoryData | {error, Reason}</a></li>
+        
+        <li><a href="#read_memory_statusFilegtMemoryStatuserrorReason">read_memory_status(File) -&gt; MemoryStatus | {error, Reason}</a></li>
+        
+        <li><a href="#sortMemoryDatagtMemoryData">sort(MemoryData) -&gt; MemoryData</a></li>
+        
+        <li><a href="#store_memory_dataFilegttruefalse">store_memory_data(File) -&gt; true|false</a></li>
+        
+        <li><a href="#store_memory_statusFilegttruefalse">store_memory_status(File) -&gt; true|false</a></li>
+        
+        <li><a href="#sum_blocksMemoryDatagtint">sum_blocks(MemoryData) -&gt; int()</a></li>
+        
+        <li><a href="#type_descrMemoryDataTypeNogtTypeDescrinvalid_type">type_descr(MemoryData, TypeNo) -&gt; TypeDescr | invalid_type</a></li>
+        
+        <li><a href="#type_no_rangeMemoryDatagtMinMax">type_no_range(MemoryData) -&gt; {Min, Max}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="erts:erts_alloc">erts_alloc(3)</seealso>,
+      <seealso marker="erts:erl">erl(1)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="allocator_descrMemoryDataTypeNogtAllocDescrinvalid_typeunknown"></a><b>allocator_descr(MemoryData, TypeNo) -&gt; AllocDescr | invalid_type | "unknown"</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>TypeNo = int()</b><br/>
+        <b>AllocDescr = atom() | string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the allocator description of the allocator that
+          manages memory blocks of type number <tt>TypeNo</tt> used in
+          <tt>MemoryData</tt>.
+          Valid <tt>TypeNo</tt>s are in the range returned by
+          <seealso marker="#type_no_range/1">type_no_range/1</seealso> on
+          this specific memory allocation map. If <tt>TypeNo</tt> is an
+          invalid integer, <tt>invalid_type</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="block_header_sizeMemoryDatagtint"></a><b>block_header_size(MemoryData) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="block_header_size_1"></marker>
+        <p>Returns the memory block header size used by the
+          emulator that generated the memory allocation map. The block
+          header size may differ between different emulators.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="class_descrMemoryDataTypeNogtClassDescrinvalid_typeunknown"></a><b>class_descr(MemoryData, TypeNo) -&gt; ClassDescr | invalid_type | "unknown"</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>TypeNo = int()</b><br/>
+        <b>ClassDescr = atom() | string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the class description of the class that
+          the type number <tt>TypeNo</tt> used in <tt>MemoryData</tt> belongs
+          to.
+          Valid <tt>TypeNo</tt>s are in the range returned by
+          <seealso marker="#type_no_range/1">type_no_range/1</seealso> on
+          this specific memory allocation map. If <tt>TypeNo</tt> is an
+          invalid integer, <tt>invalid_type</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="descrMemoryDatagtDescrMemoryData"></a><b>descr(MemoryData) -&gt; DescrMemoryData</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>DescrMemoryData = {term(), DescrAllocList}</b><br/>
+        <b>DescrAllocList = [DescrDesc]</b><br/>
+        <b>DescrDesc = {TypeDescr, int(), int(), DescrPidDesc}</b><br/>
+        <b>TypeDescr = atom() | string()</b><br/>
+        <b>DescrPidDesc = pid() | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a memory allocation map where the type numbers (first
+          element of <tt>Desc</tt>) have been replaced by type descriptions,
+          and pid tuples (fourth element of <tt>Desc</tt>) have been
+          replaced by real pids.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="holesMemoryDatagtok"></a><b>holes(MemoryData) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Prints out the size of each hole (i.e., the space between
+          allocated blocks) on the terminal. <em>NOTE:</em> Really large holes
+          are probably holes between memory segments.
+          The memory allocation map has to be sorted (see
+          <seealso marker="#sort/1">sort/1</seealso>).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="mem_limitsMemoryDatagtLowHigh"></a><b>mem_limits(MemoryData) -&gt; {Low, High}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>Low = High = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a tuple <tt>{Low, High}</tt> indicating
+          the lowest and highest address used.
+          The memory allocation map has to be sorted (see
+          <seealso marker="#sort/1">sort/1</seealso>).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memory_datagtMemoryDatafalse"></a><b>memory_data() -&gt; MemoryData | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>MemoryData</tt> (a the memory allocation map)
+          if the emulator has been started with the "<tt>+Mim true</tt>"
+          command-line argument; otherwise, <tt>false</tt>. <em>NOTE:</em><tt>memory_data/0</tt> blocks execution of other processes while
+          the data is collected. The time it takes to collect the data can
+          be substantial.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="memory_statusStatusTypegtStatusInfofalse"></a><b>memory_status(StatusType) -&gt; [StatusInfo] | false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>StatusType = total | allocators | classes | types</b><br/>
+        <b>StatusInfo = {About, [Info]}</b><br/>
+        <b>About = atom()</b><br/>
+        <b>Info = {InfoName, Current, MaxSinceLast, MaxEver}</b><br/>
+        <b>InfoName = sizes|blocks</b><br/>
+        <b>Current = int()</b><br/>
+        <b>MaxSinceLast = int()</b><br/>
+        <b>MaxEver = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of <tt>StatusInfo</tt> if the emulator has been
+          started with the "<tt>+Mis true</tt>" or "<tt>+Mim true</tt>"
+          command-line argument; otherwise, <tt>false</tt>. </p>
+        <p>See the
+          <seealso marker="#read_memory_status/1">read_memory_status/1</seealso>
+          function for a description of the <tt>StatusInfo</tt> term.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_memory_dataFilegtMemoryDataerrorReason"></a><b>read_memory_data(File) -&gt; MemoryData | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string()</b><br/>
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="read_memory_data_1"></marker>
+        <p>Reads a memory allocation map from the file <tt>File</tt> and
+          returns it. The file is assumed to have been created by
+          <tt>store_memory_data/1</tt>. The error codes are the same as for
+          <tt>file:consult/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_memory_statusFilegtMemoryStatuserrorReason"></a><b>read_memory_status(File) -&gt; MemoryStatus | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string()</b><br/>
+        <b>MemoryStatus = [{StatusType, [StatusInfo]}]</b><br/>
+        <b>StatusType = total | allocators | classes | types</b><br/>
+        <b>StatusInfo = {About, [Info]}</b><br/>
+        <b>About = atom()</b><br/>
+        <b>Info = {InfoName, Current, MaxSinceLast, MaxEver}</b><br/>
+        <b>InfoName = sizes|blocks</b><br/>
+        <b>Current = int()</b><br/>
+        <b>MaxSinceLast = int()</b><br/>
+        <b>MaxEver = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="read_memory_status_1"></marker>
+        <p>Reads memory allocation status from the file <tt>File</tt> and
+          returns it. The file is assumed to have been created by
+          <tt>store_memory_status/1</tt>. The error codes are the same as
+          for <tt>file:consult/1</tt>.</p>
+        <p>When <tt>StatusType</tt> is <tt>allocators</tt>, <tt>About</tt> is
+          the allocator that the information is about. When
+          <tt>StatusType</tt> is <tt>types</tt>, <tt>About</tt> is
+          the memory block type that the information is about. Memory
+          block types are not described other than by their name and may
+          vary between emulators. When <tt>StatusType</tt> is <tt>classes</tt>,
+          <tt>About</tt> is the memory block type class that information is
+          presented about. Memory block types are classified after their
+          use. Currently the following classes exist:</p>
+        <taglist>
+          <tag><tt>process_data</tt></tag>
+          <item>Erlang process specific data.</item>
+          <tag><tt>binary_data</tt></tag>
+          <item>Erlang binaries.</item>
+          <tag><tt>atom_data</tt></tag>
+          <item>Erlang atoms.</item>
+          <tag><tt>code_data</tt></tag>
+          <item>Erlang code.</item>
+          <tag><tt>system_data</tt></tag>
+          <item>Other data used by the system</item>
+        </taglist>
+        <p>When <tt>InfoName</tt> is <tt>sizes</tt>, <tt>Current</tt>,
+          <tt>MaxSinceLast</tt>, and <tt>MaxEver</tt> are, respectively, current
+          size, maximum size since last call to
+          <tt>store_memory_status/1</tt> or <tt>memory_status/1</tt> with the
+          specific <tt>StatusType</tt>, and maximum size since the emulator
+          was started. When <tt>InfoName</tt> is <tt>blocks</tt>, <tt>Current</tt>,
+          <tt>MaxSinceLast</tt>, and <tt>MaxEver</tt> are, respectively, current
+          number of blocks, maximum number of blocks since last call to
+          <tt>store_memory_status/1</tt> or <tt>memory_status/1</tt> with the
+          specific <tt>StatusType</tt>, and maximum number of blocks since the
+          emulator was started. </p>
+        <p><em>NOTE:</em>A memory block is accounted for at
+          "the first level" allocator. E.g. <tt>fix_alloc</tt> allocates its
+          memory pools via <tt>ll_alloc</tt>. When a <tt>fix_alloc</tt> block
+          is allocated, neither the block nor the pool in which it resides
+          are accounted for as memory allocated via <tt>ll_alloc</tt> even
+          though it is.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sortMemoryDatagtMemoryData"></a><b>sort(MemoryData) -&gt; MemoryData</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="sort_1"></marker>
+        <p>Sorts a memory allocation map so that the addresses are in
+          ascending order.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="store_memory_dataFilegttruefalse"></a><b>store_memory_data(File) -&gt; true|false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stores the current memory allocation map on the file
+          <tt>File</tt>. Returns <tt>true</tt> if the emulator has been
+          started with the "<tt>+Mim true</tt>" command-line argument, and
+          the map was successfully stored; otherwise, <tt>false</tt>. The
+          contents of the file can later be read using
+          <seealso marker="#read_memory_data/1">read_memory_data/1</seealso>.
+          <em>NOTE:</em><tt>store_memory_data/0</tt> blocks execution of
+          other processes while the data is collected. The time it takes
+          to collect the data can be substantial.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="store_memory_statusFilegttruefalse"></a><b>store_memory_status(File) -&gt; true|false</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stores the current memory status on the file
+          <tt>File</tt>. Returns <tt>true</tt> if the emulator has been
+          started with the "<tt>+Mis true</tt>", or "<tt>+Mim true</tt>"
+          command-line arguments, and the data was successfully stored;
+          otherwise, <tt>false</tt>. The contents of the file can later be
+          read using
+          <seealso marker="#read_memory_status/1">read_memory_status/1</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sum_blocksMemoryDatagtint"></a><b>sum_blocks(MemoryData) -&gt; int()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the total size of the memory blocks in the list.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="type_descrMemoryDataTypeNogtTypeDescrinvalid_type"></a><b>type_descr(MemoryData, TypeNo) -&gt; TypeDescr | invalid_type</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>TypeNo = int()</b><br/>
+        <b>TypeDescr = atom() | string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the type description of a type number used in
+          <tt>MemoryData</tt>.
+          Valid <tt>TypeNo</tt>s are in the range returned by
+          <seealso marker="#type_no_range/1">type_no_range/1</seealso> on
+          this specific memory allocation map. If <tt>TypeNo</tt> is an
+          invalid integer, <tt>invalid_type</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="type_no_rangeMemoryDatagtMinMax"></a><b>type_no_range(MemoryData) -&gt; {Min, Max}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>MemoryData = {term(), AllocList}</b><br/>
+        <b>AllocList = [Desc]</b><br/>
+        <b>Desc = {int(), int(), int(), PidDesc}</b><br/>
+        <b>PidDesc = {int(), int(), int()} | undefined</b><br/>
+        <b>Min = int()</b><br/>
+        <b>Max = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <marker id="type_no_range_1"></marker>
+        <p>Returns the memory block type number range used in
+          <tt>MemoryData</tt>. When the memory allocation map was generated
+          by an Erlang 5.3/OTP R9C or newer emulator, all integers <tt>T</tt>
+          that satisfy <tt>Min</tt> &lt;= <tt>T</tt> &lt;= <tt>Max</tt> are
+          valid type numbers. When the memory allocation map was generated
+          by a pre Erlang 5.3/OTP R9C emulator, all integers in the
+          range are <em>not</em> valid type numbers.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>lname</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />lname</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This interface is a part of the names library which is used to hide the 
+      representation of names. In Orbers Erlang mapping the pseudo-object names 
+      and the real IDL names have the same representation but it is desirable that 
+      the clients uses the names library so they will not be dependent of the representation.
+      The lname interface supports handling of names e.g. adding and removing name 
+      components.</p>
+    <p>Note that the lname interface in orber does not contain a destroy function because 
+      the Names are represented as standard Erlang lists and therefor will be removed 
+      by the garbage collector when not in use.</p>
+    <p>The type <tt>NameComponent</tt> used below is defined as:</p>
+    <code type="none">
+      -record('CosNaming_NameComponent', {id, kind=""}).
+    </code>
+    <p><tt>id</tt> and <tt>kind</tt> are strings. </p>
+    <p>The record is defined in the file <tt>CosNaming.hrl</tt> and it 
+      is included with:</p>
+    <code type="none">
+      -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
+    </code>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#creategtReturn">create() -&gt; Return</a></li>
+        
+        <li><a href="#delete_componentNameNgtReturn">delete_component(Name, N) -&gt; Return</a></li>
+        
+        <li><a href="#equalName1Name2gtReturn">equal(Name1, Name2) -&gt; Return</a></li>
+        
+        <li><a href="#from_idl_formNamegtReturn">from_idl_form(Name) -&gt; Return</a></li>
+        
+        <li><a href="#get_componentNameNgtReturn">get_component(Name, N) -&gt; Return</a></li>
+        
+        <li><a href="#insert_componentNameNNameComponentgtReturn">insert_component(Name, N, NameComponent) -&gt; Return</a></li>
+        
+        <li><a href="#less_thanName1Name2gtReturn">less_than(Name1, Name2) -&gt; Return</a></li>
+        
+        <li><a href="#num_componentsNamegtReturn">num_components(Name) -&gt; Return</a></li>
+        
+        <li><a href="#to_idl_formNamegtReturn">to_idl_form(Name) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="creategtReturn"></a><b>create() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = [NameComponent]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a new name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="insert_componentNameNNameComponentgtReturn"></a><b>insert_component(Name, N, NameComponent) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>N = int()</b><br/>
+        <b>Return = Name</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a name where the new name component has been inserted as 
+          component <tt>N</tt> in Name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_componentNameNgtReturn"></a><b>get_component(Name, N) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>N = int()</b><br/>
+        <b>Return = NameComponent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns the <tt>N:th</tt> name component in Name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_componentNameNgtReturn"></a><b>delete_component(Name, N) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>N = int()</b><br/>
+        <b>Return = Name</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function deletes the <tt>N:th</tt> name component from Name and returns 
+          the new name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="num_componentsNamegtReturn"></a><b>num_components(Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = int()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns a the number of name components in Name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="equalName1Name2gtReturn"></a><b>equal(Name1, Name2) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name1 = Name2 = [NameComponent]</b><br/>
+        <b>Return = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns true if the two names are equal and false otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="less_thanName1Name2gtReturn"></a><b>less_than(Name1, Name2) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name1 = Name2 = [NameComponent]</b><br/>
+        <b>Return = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function returns true if Name1 are lesser than Name2 and false otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_idl_formNamegtReturn"></a><b>to_idl_form(Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = Name</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function just checks if Name is a correct IDL name before returning it
+          because the name representation is the same for pseudo and IDL names in orber.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_idl_formNamegtReturn"></a><b>from_idl_form(Name) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = [NameComponent]</b><br/>
+        <b>Return = Name</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function just returns the Name because the name representation is the 
+          same for pseudo and IDL names in orber.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cover</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cover</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>cover</tt> provides a set of functions for coverage
+      analysis of Erlang programs, counting how many times each
+      <em>executable line</em> of code is executed when a program is run.      <br>
+
+      An executable line contains an Erlang expression such as a matching
+      or a function call. A blank line or a line containing a comment,
+      function head or pattern in a <tt>case</tt>- or <tt>receive</tt> statement
+      is not executable.</p>
+    <p>Coverage analysis can be used to verify test cases, making sure all
+      relevant code is covered, and may also be helpful when looking for
+      bottlenecks in the code.</p>
+    <p>Before any analysis can take place, the involved modules must be
+      <em>Cover compiled</em>. This means that some extra information is
+      added to the module before it is compiled into a binary which then
+      is loaded. The source file of the module is not affected and no
+      <tt>.beam</tt> file is created.</p>
+    <p>Each time a function in a Cover compiled module is called,
+      information about the call is added to an internal database of Cover.
+      The coverage analysis is performed by examining the contents of
+      the Cover database. The output <tt>Answer</tt> is determined by two
+      parameters, <tt>Level</tt> and <tt>Analysis</tt>.</p>
+    <list type="bulleted">
+      <item>
+        <p><tt>Level = module</tt></p>
+        <p><tt>Answer = {Module,Value}</tt>, where <tt>Module</tt> is the module
+          name.</p>
+      </item>
+      <item>
+        <p><tt>Level = function</tt></p>
+        <p><tt>Answer = [{Function,Value}]</tt>, one tuple for each function in
+          the module. A function is specified by its module name <tt>M</tt>,
+          function name <tt>F</tt> and arity <tt>A</tt> as a tuple
+          <tt>{M,F,A}</tt>.</p>
+      </item>
+      <item>
+        <p><tt>Level = clause</tt></p>
+        <p><tt>Answer = [{Clause,Value}]</tt>, one tuple for each clause in
+          the module. A clause is specified by its module name <tt>M</tt>,
+          function name <tt>F</tt>, arity <tt>A</tt> and position in the function
+          definition <tt>C</tt> as a tuple <tt>{M,F,A,C}</tt>.</p>
+      </item>
+      <item>
+        <p><tt>Level = line</tt></p>
+        <p><tt>Answer = [{Line,Value}]</tt>, one tuple for each executable
+          line in the module. A line is specified by its module name <tt>M</tt>
+          and line number in the source file <tt>N</tt> as a tuple
+          <tt>{M,N}</tt>.</p>
+      </item>
+      <item>
+        <p><tt>Analysis = coverage</tt></p>
+        <p><tt>Value = {Cov,NotCov}</tt> where <tt>Cov</tt> is the number of
+          executable lines in the module, function, clause or line that have
+          been executed at least once and <tt>NotCov</tt> is the number of
+          executable lines that have not been executed.</p>
+      </item>
+      <item>
+        <p><tt>Analysis = calls</tt></p>
+        <p><tt>Value = Calls</tt> which is the number of times the module,
+          function, or clause has been called. In the case of line level
+          analysis, <tt>Calls</tt> is the number of times the line has been
+          executed.</p>
+      </item>
+    </list>
+    <p><em>Distribution</em></p>
+    <p>Cover can be used in a distributed Erlang system. One of the
+      nodes in the system must then be selected as the <em>main node</em>, and all Cover commands must be executed from this
+      node. The error reason <tt>not_main_node</tt> is returned if an
+      interface function is called on one of the remote nodes.</p>
+    <p>Use <tt>cover:start/1</tt> and <tt>cover:stop/1</tt> to add or
+      remove nodes. The same Cover compiled code will be loaded on each
+      node, and analysis will collect and sum up coverage data results
+      from all nodes.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#analyseModulegtokAnswererrorError">analyse(Module) -&gt; {ok,Answer} | {error,Error}</a></li>
+        
+        <li><a href="#analyse_to_fileModulegt">analyse_to_file(Module) -&gt; </a></li>
+        
+        <li><a href="#compileModFilegtResult">compile(ModFile) -&gt; Result</a></li>
+        
+        <li><a href="#compile_beamModFilegtResult">compile_beam(ModFile) -&gt; Result</a></li>
+        
+        <li><a href="#compile_beam_directorygtResulterrorReason">compile_beam_directory() -&gt; [Result] | {error,Reason}</a></li>
+        
+        <li><a href="#compile_directorygtResulterrorReason">compile_directory() -&gt; [Result] | {error,Reason}</a></li>
+        
+        <li><a href="#exportExportFile">export(ExportFile)</a></li>
+        
+        <li><a href="#importExportFilegtokerrorReason">import(ExportFile) -&gt; ok | {error,Reason}</a></li>
+        
+        <li><a href="#importedgtFileerrornot_main_node">imported() -&gt; [File] | {error,not_main_node}</a></li>
+        
+        <li><a href="#imported_modulesgtModuleerrornot_main_node">imported_modules() -&gt; [Module] | {error,not_main_node}</a></li>
+        
+        <li><a href="#is_compiledModulegtfileFilefalseerrornot_main_node">is_compiled(Module) -&gt; {file,File} | false |  {error,not_main_node}</a></li>
+        
+        <li><a href="#modulesgtModuleerrornot_main_node">modules() -&gt; [Module] | {error,not_main_node}</a></li>
+        
+        <li><a href="#resetModulegt">reset(Module) -&gt;</a></li>
+        
+        <li><a href="#startgtokPiderrorReason">start() -&gt; {ok,Pid} | {error,Reason}</a></li>
+        
+        <li><a href="#startNodesgtokStartedNodeserrornot_main_node">start(Nodes) -&gt; {ok,StartedNodes} | {error,not_main_node}</a></li>
+        
+        <li><a href="#stopNodesgtokerrornot_main_node">stop(Nodes) -&gt; ok | {error,not_main_node}</a></li>
+        
+        <li><a href="#stopgtokerrornot_main_node">stop() -&gt; ok | {error,not_main_node}</a></li>
+        
+        <li><a href="#which_nodesgtNodeerrornot_main_node">which_nodes() -&gt; [Node] | {error,not_main_node}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p>code(3), compile(3)</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokPiderrorReason"></a><b>start() -&gt; {ok,Pid} | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Pid = pid()</b><br/>
+        <b>Reason = {already_started,Pid}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the Cover server which owns the Cover internal database.
+          This function is called automatically by the other functions in
+          the module.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startNodesgtokStartedNodeserrornot_main_node"></a><b>start(Nodes) -&gt; {ok,StartedNodes} | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = StartedNodes = [atom()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts a Cover server on the each of given nodes, and loads
+          all cover compiled modules.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compileModFilegtResult"></a><b>compile(ModFile) -&gt; Result<br/>compile(ModFile, Options) -&gt; Result<br/>compile_module(ModFile) -&gt; Result<br/>compile_module(ModFile, Options) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ModFile = Module | File</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+        <b>&nbsp;File = string()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>&nbsp;Option = {i,Dir} | {d,Macro} | {d,Macro,Value}</b><br/>
+        <d>See <tt>compile:file/2.</tt></d>
+        <b>Result = {ok,Module} | {error,File} | {error,not_main_node}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles a module for Cover analysis. The module is given by its
+          module name <tt>Module</tt> or by its file name <tt>File</tt>.
+          The <tt>.erl</tt> extension may be omitted. If the module is
+          located in another directory, the path has to be specified.</p>
+        <p><tt>Options</tt> is a list of compiler options which defaults to
+          <tt>[]</tt>. Only options defining include file directories and
+          macros are passed to <tt>compile:file/2</tt>, everything else is
+          ignored.</p>
+        <p>If the module is successfully Cover compiled, the function
+          returns <tt>{ok,Module}</tt>. Otherwise the function returns
+          <tt>{error,File}</tt>. Errors and warnings are printed as they
+          occur.</p>
+        <p>Note that the internal database is (re-)initiated during
+          the compilation, meaning any previously collected coverage data
+          for the module will be lost.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compile_directorygtResulterrorReason"></a><b>compile_directory() -&gt; [Result] | {error,Reason}<br/>compile_directory(Dir) -&gt; [Result] | {error,Reason}<br/>compile_directory(Dir, Options) -&gt; [Result] | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <d>See <tt>compile_module/1,2</tt></d>
+        <b>Result = {ok,Module} | {error,File} | {error,not_main_node}</b><br/>
+        <d>See <tt>compile_module/1,2</tt></d>
+        <b>Reason = eacces | enoent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles all modules (<tt>.erl</tt> files) in a directory
+          <tt>Dir</tt> for Cover analysis the same way as
+          <tt>compile_module/1,2</tt> and returns a list with the return
+          values.</p>
+        <p><tt>Dir</tt> defaults to the current working directory.</p>
+        <p>The function returns <tt>{error,eacces}</tt> if the directory is not
+          readable or <tt>{error,enoent}</tt> if the directory does not exist.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compile_beamModFilegtResult"></a><b>compile_beam(ModFile) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ModFile = Module | BeamFile</b><br/>
+        <b>&nbsp;Module = atom()</b><br/>
+        <b>&nbsp;BeamFile = string()</b><br/>
+        <b>Result = {ok,Module} | {error,BeamFile} | {error,Reason}</b><br/>
+        <b>&nbsp;Reason = non_existing | {no_abstract_code,BeamFile} | {encrypted_abstract_code,BeamFile} | {already_cover_compiled,no_beam_found,Module} | not_main_node</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Does the same as <tt>compile/1,2</tt>, but uses an existing
+          <tt>.beam</tt> file as base, i.e. the module is not compiled
+          from source. Thus <tt>compile_beam/1</tt> is faster than
+          <tt>compile/1,2</tt>.</p>
+        <p>Note that the existing <tt>.beam</tt> file must contain
+          <em>abstract code</em>, i.e. it must have been compiled with
+          the <tt>debug_info</tt> option. If not, the error reason
+          <tt>{no_abstract_code,BeamFile}</tt> is returned.
+          If the abstract code is encrypted, and no key is available
+          for decrypting it, the error reason 
+          <tt>{encrypted_abstract_code,BeamFile} is returned. <p>If only the module name (i.e. not the full name of the <c>.beam</tt> file) is given to this function, the
+          <tt>.beam</tt> file is found by calling
+          <tt>code:which(Module)</tt>. If no <tt>.beam</tt> file is found,
+          the error reason <tt>non_existing</tt> is returned. If the
+          module is already cover compiled with <tt>compile_beam/1</tt>,
+          the <tt>.beam</tt> file will be picked from the same location
+          as the first time it was compiled. If the module is already
+          cover compiled with <tt>compile/1,2</tt>, there is no way to
+          find the correct <tt>.beam</tt> file, so the error reason
+          <tt>{already_cover_compiled,no_beam_found,Module}</tt> is
+          returned.</p>
+        <p><tt>{error,BeamFile}</tt> is returned if the compiled code
+          can not be loaded on the node.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compile_beam_directorygtResulterrorReason"></a><b>compile_beam_directory() -&gt; [Result] | {error,Reason}<br/>compile_beam_directory(Dir) -&gt; [Result] | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Dir = string()</b><br/>
+        <b>Result = See compile_beam/1</b><br/>
+        <b>Reason = eacces | enoent</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Compiles all modules (<tt>.beam</tt> files) in a directory
+          <tt>Dir</tt> for Cover analysis the same way as
+          <tt>compile_beam/1</tt> and returns a list with the return
+          values.</p>
+        <p><tt>Dir</tt> defaults to the current working directory.</p>
+        <p>The function returns <tt>{error,eacces}</tt> if the directory is not
+          readable or <tt>{error,enoent}</tt> if the directory does not exist.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyseModulegtokAnswererrorError"></a><b>analyse(Module) -&gt; {ok,Answer} | {error,Error}<br/>analyse(Module, Analysis) -&gt; {ok,Answer} | {error,Error}<br/>analyse(Module, Level) -&gt; {ok,Answer} | {error,Error}<br/>analyse(Module, Analysis, Level) -&gt; {ok,Answer} | {error,Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>Analysis = coverage | calls</b><br/>
+        <b>Level = line | clause | function | module</b><br/>
+        <b>Answer = {Module,Value} | [{Item,Value}]</b><br/>
+        <b>&nbsp;Item = Line | Clause | Function</b><br/>
+        <b>&nbsp;&nbsp;Line = {M,N}</b><br/>
+        <b>&nbsp;&nbsp;Clause = {M,F,A,C}</b><br/>
+        <b>&nbsp;&nbsp;Function = {M,F,A}</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;M = F = atom()</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;N = A = C = integer()</b><br/>
+        <b>&nbsp;Value = {Cov,NotCov} | Calls</b><br/>
+        <b>&nbsp;&nbsp;Cov = NotCov = Calls = integer()</b><br/>
+        <b>Error = {not_cover_compiled,Module} | not_main_node</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Performs analysis of a Cover compiled module <tt>Module</tt>, as
+          specified by <tt>Analysis</tt> and <tt>Level</tt> (see above), by
+          examining the contents of the internal database.</p>
+        <p><tt>Analysis</tt> defaults to <tt>coverage</tt> and <tt>Level</tt>
+          defaults to <tt>function</tt>.</p>
+        <p>If <tt>Module</tt> is not Cover compiled, the function returns
+          <tt>{error,{not_cover_compiled,Module}}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="analyse_to_fileModulegt"></a><b>analyse_to_file(Module) -&gt; <br/>analyse_to_file(Module,Options) -&gt; <br/>analyse_to_file(Module, OutFile) -&gt; <br/>analyse_to_file(Module, OutFile, Options) -&gt;  {ok,OutFile} | {error,Error}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>OutFile = string()</b><br/>
+        <b>Options = [Option]</b><br/>
+        <b>Option = html</b><br/>
+        <b>Error = {not_cover_compiled,Module} | {file,File,Reason} | no_source_code_found | not_main_node</b><br/>
+        <b>&nbsp;File = string()</b><br/>
+        <b>&nbsp;Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Makes a copy <tt>OutFile</tt> of the source file for a module
+          <tt>Module</tt>, where it for each executable line is specified
+          how many times it has been executed.</p>
+        <p>The output file <tt>OutFile</tt> defaults to
+          <tt>Module.COVER.out</tt>, or <tt>Module.COVER.html</tt> if the
+          option <tt>html</tt> was used.</p>
+        <p>If <tt>Module</tt> is not Cover compiled, the function returns
+          <tt>{error,{not_cover_compiled,Module}}</tt>.</p>
+        <p>If the source file and/or the output file cannot be opened using
+          <tt>file:open/2</tt>, the function returns
+          <tt>{error,{file,File,Reason}}</tt> where <tt>File</tt> is the file
+          name and <tt>Reason</tt> is the error reason.</p>
+        <p>If the module was cover compiled from the <tt>.beam</tt>
+          file, i.e. using <tt>compile_beam/1</tt> or
+          <tt>compile_beam_directory/0,1</tt>, it is assumed that the
+          source code can be found in the same directory as the
+          <tt>.beam</tt> file, or in <tt>../src</tt> relative to that
+          directory. If no source code is found, 
+          <tt>,{error,no_source_code_found}</tt> is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="modulesgtModuleerrornot_main_node"></a><b>modules() -&gt; [Module] | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with all modules that are currently Cover
+          compiled.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="imported_modulesgtModuleerrornot_main_node"></a><b>imported_modules() -&gt; [Module] | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with all modules for which there are
+          imported data.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="importedgtFileerrornot_main_node"></a><b>imported() -&gt; [File] | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>File = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with all imported files.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="which_nodesgtNodeerrornot_main_node"></a><b>which_nodes() -&gt; [Node] | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list with all nodes that are part of the coverage
+          analysis. Note that the current node is not returned. This
+          node is always part of the analysis.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_compiledModulegtfileFilefalseerrornot_main_node"></a><b>is_compiled(Module) -&gt; {file,File} | false |  {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+        <b>Beam = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>{file,File}</tt> if the module <tt>Module</tt> is
+          Cover compiled, or <tt>false</tt> otherwise. <tt>File</tt> is
+          the <tt>.erl</tt> file used by <tt>cover:compile_module/1,2</tt>
+          or the <tt>.beam</tt> file used by <tt>compile_beam/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="resetModulegt"></a><b>reset(Module) -&gt;<br/>reset() -&gt;  ok | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Resets all coverage data for a Cover compiled module
+          <tt>Module</tt> in the Cover database on all nodes. If the
+          argument is omitted, the coverage data will be reset for all
+          modules known by Cover.</p>
+        <p>If <tt>Module</tt> is not Cover compiled, the function returns
+          <tt>{error,{not_cover_compiled,Module}}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exportExportFile"></a><b>export(ExportFile)<br/>export(ExportFile,Module) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ExportFile = string()</b><br/>
+        <b>Module = atom()</b><br/>
+        <b>Reason = {not_cover_compiled,Module} | {cant_open_file,ExportFile,Reason} | not_main_node</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Exports the current coverage data for <tt>Module</tt> to the
+          file <tt>ExportFile</tt>. It is recommended to name the
+          <tt>ExportFile</tt> with the extension <tt>.coverdata</tt>, since
+          other filenames can not be read by the web based interface to
+          cover.</p>
+        <p>If <tt>Module</tt> is not given, data for all Cover compiled
+          or earlier imported modules is exported.</p>
+        <p>This function is useful if coverage data from different
+          systems is to be merged.</p>
+        <p>See also <tt>cover:import/1</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="importExportFilegtokerrorReason"></a><b>import(ExportFile) -&gt; ok | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ExportFile = string()</b><br/>
+        <b>Reason = {cant_open_file,ExportFile,Reason} | not_main_node</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Imports coverage data from the file <tt>ExportFile</tt>
+          created with <tt>cover:export/1,2</tt>. Any analysis performed
+          after this will include the imported data.</p>
+        <p>Note that when compiling a module <em>all existing coverage data is removed</em>, including imported data. If a module is
+          already compiled when data is imported, the imported data is
+          <em>added</em> to the existing coverage data.</p>
+        <p>Coverage data from several export files can be imported
+          into one system. The coverage data is then added up when
+          analysing.</p>
+        <p>Coverage data for a module can not be imported from the
+          same file twice unless the module is first reset or
+          compiled. The check is based on the filename, so you can
+          easily fool the system by renaming your export file.</p>
+        <p>See also <tt>cover:export/1,2</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtokerrornot_main_node"></a><b>stop() -&gt; ok | {error,not_main_node}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the Cover server and unloads all Cover compiled code.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopNodesgtokerrornot_main_node"></a><b>stop(Nodes) -&gt; ok | {error,not_main_node}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Nodes = [atom()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops the Cover server and unloads all Cover compiled code
+          on the given nodes. Data stored in the Cover database on the
+          remote nodes is fetched and stored on the main node.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

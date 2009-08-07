@@ -1,0 +1,3066 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>sofs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />sofs</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>sofs</tt> module implements operations on finite sets and
+      relations represented as sets. Intuitively, a set is a
+      collection of elements; every element belongs to the set, and
+      the set contains every element.</p>
+    <p>Given a set A and a sentence S(x), where x is a free variable,
+      a new set B whose elements are exactly those elements of A for
+      which S(x) holds can be formed, this is denoted B&nbsp;=
+      {x&nbsp;in&nbsp;A&nbsp;: S(x)}. Sentences are expressed using
+      the logical operators "for some" (or "there exists"), "for all",
+      "and", "or", "not". If the existence of a set containing all the
+      specified elements is known (as will always be the case in this
+      module), we write B&nbsp;= {x&nbsp;: S(x)}. </p>
+    <p>The <em>unordered set</em> containing the elements a, b and c
+      is denoted {a,&nbsp;b,&nbsp;c}. This notation is not to be
+      confused with tuples. The <em>ordered pair</em> of a and b, with
+      first <em>coordinate</em> a and second coordinate b, is denoted
+      (a,&nbsp;b). An ordered pair is an <em>ordered set</em> of two
+      elements. In this module ordered sets can contain one, two or
+      more elements, and parentheses are used to enclose the elements.
+      Unordered sets and ordered sets are orthogonal, again in this
+      module; there is no unordered set equal to any ordered set.</p>
+    <p>The set that contains no elements is called the <em>empty set</em>.
+      If two sets A and B contain the same elements, then A 
+      is <marker id="equal"></marker><em>equal</em> to B, denoted
+      A&nbsp;=&nbsp;B. Two ordered sets are equal if they contain the
+      same number of elements and have equal elements at each
+      coordinate. If a set A contains all elements that B contains,
+      then B is a <marker id="subset"></marker><em>subset</em> of A. 
+      The <marker id="union"></marker><em>union</em> of two sets A and B is 
+      the smallest set that contains all elements of A and all elements of
+      B. The <marker id="intersection"></marker><em>intersection</em> of two
+      sets A and B is the set that contains all elements of A that
+      belong to B. 
+      Two sets are <marker id="disjoint"></marker><em>disjoint</em> if their
+      intersection is the empty set. 
+      The <marker id="difference"></marker><em>difference</em> of
+      two sets A and B is the set that contains all elements of A that
+      do not belong to B. 
+      The <marker id="symmetric_difference"></marker><em>symmetric 
+      difference</em> of 
+      two sets is the set that contains those element that belong to
+      either of the two sets, but not both. 
+      The <marker id="union_n"></marker><em>union</em> of a collection 
+      of sets is the smallest set that contains all the elements that 
+      belong to at least one set of the collection. 
+      The <marker id="intersection_n"></marker><em>intersection</em> of 
+      a non-empty collection of sets is the set that contains all elements
+      that belong to every set of the collection.</p>
+    <p>The <marker id="Cartesian_product"></marker><em>Cartesian 
+      product</em> of
+      two sets X and Y, denoted X&nbsp;&times;&nbsp;Y, is the set
+      {a&nbsp;: a&nbsp;= (x,&nbsp;y) for some x&nbsp;in&nbsp;X and for
+      some y&nbsp;in&nbsp;Y}. 
+      A <marker id="relation"></marker><em>relation</em> is a subset of
+      X&nbsp;&times;&nbsp;Y. Let R be a relation. The fact that
+      (x,&nbsp;y) belongs to R is written as x&nbsp;R&nbsp;y. Since
+      relations are sets, the definitions of the last paragraph
+      (subset, union, and so on) apply to relations as well. 
+      The <marker id="domain"></marker><em>domain</em> of R is the 
+      set {x&nbsp;: x&nbsp;R&nbsp;y for some y&nbsp;in&nbsp;Y}. 
+      The <marker id="range"></marker><em>range</em> of R is the 
+      set {y&nbsp;: x&nbsp;R&nbsp;y for some x&nbsp;in&nbsp;X}. 
+      The <marker id="converse"></marker><em>converse</em> of R is the 
+      set {a&nbsp;: a&nbsp;= (y,&nbsp;x) for some 
+      (x,&nbsp;y)&nbsp;in&nbsp;R}. If A is a subset of X, then 
+      the <marker id="image"></marker><em>image</em> of
+      A under R is the set {y&nbsp;: x&nbsp;R&nbsp;y for some
+      x&nbsp;in&nbsp;A}, and if B is a subset of Y, then 
+      the <marker id="inverse_image"></marker><em>inverse image</em> of B is 
+      the set {x&nbsp;: x&nbsp;R&nbsp;y for some y&nbsp;in&nbsp;B}. If R is a
+      relation from X to Y and S is a relation from Y to Z, then 
+      the <marker id="relative_product"></marker><em>relative product</em> of
+      R and S is the relation T from X to Z defined so that x&nbsp;T&nbsp;z
+      if and only if there exists an element y in Y such that
+      x&nbsp;R&nbsp;y and y&nbsp;S&nbsp;z. 
+      The <marker id="restriction"></marker><em>restriction</em> of R to A is
+      the set S defined so that x&nbsp;S&nbsp;y if and only if there exists an
+      element x in A such that x&nbsp;R&nbsp;y. If S is a restriction
+      of R to A, then R is 
+      an <marker id="extension"></marker><em>extension</em> of S to X. 
+      If X&nbsp;=&nbsp;Y then we call R a relation <em>in</em> X. 
+      The <marker id="field"></marker><em>field</em> of a relation R in X
+      is the union of the domain of R and the range of R. 
+      If R is a relation in X, and
+      if S is defined so that x&nbsp;S&nbsp;y if x&nbsp;R&nbsp;y and
+      not x&nbsp;=&nbsp;y, then S is 
+      the <marker id="strict_relation"></marker><em>strict</em> relation 
+      corresponding to
+      R, and vice versa, if S is a relation in X, and if R is defined
+      so that x&nbsp;R&nbsp;y if x&nbsp;S&nbsp;y or x&nbsp;=&nbsp;y,
+      then R is the <marker id="weak_relation"></marker><em>weak</em> relation
+      corresponding to S. A relation R in X is <em>reflexive</em> if
+      x&nbsp;R&nbsp;x for every element x of X; it is
+      <em>symmetric</em> if x&nbsp;R&nbsp;y implies that
+      y&nbsp;R&nbsp;x; and it is <em>transitive</em> if
+      x&nbsp;R&nbsp;y and y&nbsp;R&nbsp;z imply that x&nbsp;R&nbsp;z.</p>
+    <p>A <marker id="function"></marker><em>function</em> F is a relation, a
+      subset of X&nbsp;&times;&nbsp;Y, such that the domain of F is
+      equal to X and such that for every x in X there is a unique
+      element y in Y with (x,&nbsp;y) in F. The latter condition can
+      be formulated as follows: if x&nbsp;F&nbsp;y and x&nbsp;F&nbsp;z
+      then y&nbsp;=&nbsp;z. In this module, it will not be required
+      that the domain of F be equal to X for a relation to be
+      considered a function. Instead of writing
+      (x,&nbsp;y)&nbsp;in&nbsp;F or x&nbsp;F&nbsp;y, we write
+      F(x)&nbsp;=&nbsp;y when F is a function, and say that F maps x
+      onto y, or that the value of F at x is y. Since functions are
+      relations, the definitions of the last paragraph (domain, range,
+      and so on) apply to functions as well. If the converse of a
+      function F is a function F', then F' is called 
+      the <marker id="inverse"></marker><em>inverse</em> of F. 
+      The relative product of two functions F1 and F2 is called 
+      the <marker id="composite"></marker><em>composite</em> of F1 and F2
+      if the range of F1 is a subset of the domain of F2. </p>
+    <p>Sometimes, when the range of a function is more important than
+      the function itself, the function is called a <em>family</em>.
+      The domain of a family is called the <em>index set</em>, and the
+      range is called the <em>indexed set</em>. If x is a family from
+      I to X, then x[i] denotes the value of the function at index i.
+      The notation "a family in X" is used for such a family. When the
+      indexed set is a set of subsets of a set X, then we call x 
+      a <marker id="family"></marker><em>family of subsets</em> of X. If x
+      is a family of subsets of X, then the union of the range of x is
+      called the <em>union of the family</em> x. If x is non-empty
+      (the index set is non-empty), 
+      the <em>intersection of the family</em> x is the intersection of 
+      the range of x. In this
+      module, the only families that will be considered are families
+      of subsets of some set X; in the following the word "family"
+      will be used for such families of subsets.</p>
+    <p>A <marker id="partition"></marker><em>partition</em> of a set X is a
+      collection S of non-empty subsets of X whose union is X and
+      whose elements are pairwise disjoint. A relation in a set is an
+      <em>equivalence relation</em> if it is reflexive, symmetric and
+      transitive. If R is an equivalence relation in X, and x is an
+      element of X, 
+      the <marker id="equivalence_class"></marker><em>equivalence 
+      class</em> of x with respect to R is the set of all those
+      elements y of X for which x&nbsp;R&nbsp;y holds. The equivalence
+      classes constitute a partitioning of X. Conversely, if C is a
+      partition of X, then the relation that holds for any two
+      elements of X if they belong to the same equivalence class, is
+      an equivalence relation induced by the partition C. If R is an
+      equivalence relation in X, then 
+      the <marker id="canonical_map"></marker><em>canonical map</em> is
+      the function that maps every element of X onto its equivalence class.
+      </p>
+    <p>Relations as defined above (as sets of ordered pairs) will from
+      now on be referred to as <em>binary relations</em>. We call a
+      set of ordered sets (x[1],&nbsp;...,&nbsp;x[n]) 
+      an <em>(n-ary) relation</em>, and say that the relation is a subset of
+      the <marker id="Cartesian_product_tuple"></marker>Cartesian product
+      X[1]&nbsp;&times;&nbsp;...&nbsp;&times;&nbsp;X[n] where x[i] is
+      an element of X[i], 1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n. 
+      The <marker id="projection"></marker><em>projection</em> of an n-ary
+      relation R onto coordinate i is the set {x[i]&nbsp;:
+      (x[1],&nbsp;...,&nbsp;x[i],&nbsp;...,&nbsp;x[n]) in R for some
+      x[j]&nbsp;in&nbsp;X[j], 1&nbsp;&lt;=&nbsp;j&nbsp;&lt;=&nbsp;n
+      and not i&nbsp;=&nbsp;j}. The projections of a binary relation R
+      onto the first and second coordinates are the domain and the
+      range of R respectively. The relative product of binary
+      relations can be generalized to n-ary relations as follows. Let
+      TR be an ordered set (R[1],&nbsp;...,&nbsp;R[n]) of binary
+      relations from X to Y[i] and S a binary relation from
+      (Y[1]&nbsp;&times;&nbsp;...&nbsp;&times;&nbsp;Y[n]) to Z. 
+      The <marker id="tuple_relative_product"></marker><em>relative 
+      product</em> of
+      TR and S is the binary relation T from X to Z defined so that
+      x&nbsp;T&nbsp;z if and only if there exists an element y[i] in
+      Y[i] for each 1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n such that
+      x&nbsp;R[i]&nbsp;y[i] and
+      (y[1],&nbsp;...,&nbsp;y[n])&nbsp;S&nbsp;z. Now let TR be a an
+      ordered set (R[1],&nbsp;...,&nbsp;R[n]) of binary relations from
+      X[i] to Y[i] and S a subset of
+      X[1]&nbsp;&times;&nbsp;...&nbsp;&times;&nbsp;X[n]. 
+      The <marker id="multiple_relative_product"></marker><em>multiple 
+      relative product</em> of TR and and S is defined to be the 
+      set {z&nbsp;: z&nbsp;= ((x[1],&nbsp;...,&nbsp;x[n]), (y[1],...,y[n]))
+      for some (x[1],&nbsp;...,&nbsp;x[n])&nbsp;in&nbsp;S and for some
+      (x[i],&nbsp;y[i]) in R[i],
+      1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n}. 
+      The <marker id="natural_join"></marker><em>natural join</em> of 
+      an n-ary relation R
+      and an m-ary relation S on coordinate i and j is defined to be
+      the set {z&nbsp;: z&nbsp;= (x[1],&nbsp;...,&nbsp;x[n],&nbsp;
+      y[1],&nbsp;...,&nbsp;y[j-1],&nbsp;y[j+1],&nbsp;...,&nbsp;y[m])
+      for some (x[1],&nbsp;...,&nbsp;x[n])&nbsp;in&nbsp;R and for some
+      (y[1],&nbsp;...,&nbsp;y[m])&nbsp;in&nbsp;S such that
+      x[i]&nbsp;=&nbsp;y[j]}.</p>
+    <p><marker id="sets_definition"></marker>The sets recognized by this 
+      module will be represented by elements of the relation Sets, defined as
+      the smallest set such that:</p>
+    <list type="bulleted">
+      <item>for every atom T except '_' and for every term X,
+       (T,&nbsp;X) belongs to Sets (<em>atomic sets</em>);
+      </item>
+      <item>(['_'],&nbsp;[]) belongs to Sets (the <em>untyped empty set</em>);
+      </item>
+      <item>for every tuple T&nbsp;= {T[1],&nbsp;...,&nbsp;T[n]} and
+       for every tuple X&nbsp;= {X[1],&nbsp;...,&nbsp;X[n]}, if
+       (T[i],&nbsp;X[i]) belongs to Sets for every
+       1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n then (T,&nbsp;X) belongs
+       to Sets (<em>ordered sets</em>);
+      </item>
+      <item>for every term T, if X is the empty list or a non-empty
+       sorted list [X[1],&nbsp;...,&nbsp;X[n]] without duplicates
+       such that (T,&nbsp;X[i]) belongs to Sets for every
+       1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n, then ([T],&nbsp;X)
+       belongs to Sets (<em>typed unordered sets</em>).</item>
+    </list>
+    <p>An <marker id="external_set"></marker><em>external set</em> is an
+      element of the range of Sets. 
+      A <marker id="type"></marker><em>type</em>
+      is an element of the domain of Sets. If S is an element
+      (T,&nbsp;X) of Sets, then T is 
+      a <marker id="valid_type"></marker><em>valid type</em> of X, 
+      T is the type of S, and X is the external set 
+      of S. <seealso marker="#from_term">from_term/2</seealso> creates a 
+      set from a type and an Erlang term turned into an external set.</p>
+    <p>The actual sets represented by Sets are the elements of the
+      range of the function Set from Sets to Erlang terms and sets of
+      Erlang terms:</p>
+    <list type="bulleted">
+      <item>Set(T,Term)&nbsp;= Term, where T is an atom;</item>
+      <item>Set({T[1],&nbsp;...,&nbsp;T[n]},&nbsp;{X[1],&nbsp;...,&nbsp;X[n]})
+       &nbsp;= (Set(T[1],&nbsp;X[1]),&nbsp;...,&nbsp;Set(T[n],&nbsp;X[n]));</item>
+      <item>Set([T],&nbsp;[X[1],&nbsp;...,&nbsp;X[n]])
+       &nbsp;= {Set(T,&nbsp;X[1]),&nbsp;...,&nbsp;Set(T,&nbsp;X[n])};</item>
+      <item>Set([T],&nbsp;[])&nbsp;= {}.</item>
+    </list>
+    <p>When there is no risk of confusion, elements of Sets will be
+      identified with the sets they represent. For instance, if U is
+      the result of calling <tt>union/2</tt> with S1 and S2 as
+      arguments, then U is said to be the union of S1 and S2. A more
+      precise formulation would be that Set(U) is the union of Set(S1)
+      and Set(S2).</p>
+    <p>The types are used to implement the various conditions that
+      sets need to fulfill. As an example, consider the relative
+      product of two sets R and S, and recall that the relative
+      product of R and S is defined if R is a binary relation to Y and
+      S is a binary relation from Y. The function that implements the relative
+      product, <seealso marker="#relprod_impl">relative_product/2</seealso>, checks 
+      that the arguments represent binary relations by matching [{A,B}]
+      against the type of the first argument (Arg1 say), and [{C,D}]
+      against the type of the second argument (Arg2 say). The fact
+      that [{A,B}] matches the type of Arg1 is to be interpreted as
+      Arg1 representing a binary relation from X to Y, where X is
+      defined as all sets Set(x) for some element x in Sets the type
+      of which is A, and similarly for Y. In the same way Arg2 is
+      interpreted as representing a binary relation from W to Z.
+      Finally it is checked that B matches C, which is sufficient to
+      ensure that W is equal to Y. The untyped empty set is handled
+      separately: its type, ['_'], matches the type of any unordered
+      set.</p>
+    <p>A few functions of this module (<tt>drestriction/3</tt>,
+      <tt>family_projection/2</tt>, <tt>partition/2</tt>,
+      <tt>partition_family/2</tt>, <tt>projection/2</tt>,
+      <tt>restriction/3</tt>, <tt>substitution/2</tt>) accept an Erlang
+      function as a means to modify each element of a given unordered
+      set. Such a function, called SetFun in the following, can be
+      specified as a functional object (fun), a tuple
+      <tt>{external,&nbsp;Fun}</tt>, or an integer. If SetFun is
+      specified as a fun, the fun is applied to each element of the
+      given set and the return value is assumed to be a set. If SetFun
+      is specified as a tuple <tt>{external, Fun}</tt>, Fun is applied
+      to the external set of each element of the given set and the
+      return value is assumed to be an external set. Selecting the
+      elements of an unordered set as external sets and assembling a
+      new unordered set from a list of external sets is in the present
+      implementation more efficient than modifying each element as a
+      set. However, this optimization can only be utilized when the
+      elements of the unordered set are atomic or ordered sets. It
+      must also be the case that the type of the elements matches some
+      clause of Fun (the type of the created set is the result of
+      applying Fun to the type of the given set), and that Fun does
+      nothing but selecting, duplicating or rearranging parts of the
+      elements. Specifying a SetFun as an integer I is equivalent to
+      specifying <tt>{external, fun(X)&nbsp;-&gt; element(I,&nbsp;X)}</tt>,
+      but is to be preferred since it makes it possible to handle this
+      case even more efficiently. Examples of SetFuns:</p>
+    <pre>
+{sofs, union}
+fun(S) -&gt; sofs:partition(1, S) end
+{external, fun(A) -&gt; A end}
+{external, fun({A,_,C}) -&gt; {C,A} end}
+{external, fun({_,{_,C}}) -&gt; C end}
+{external, fun({_,{_,{_,E}=C}}) -&gt; {E,{E,C}} end}
+2</pre>
+    <p>The order in which a SetFun is applied to the elements of an
+      unordered set is not specified, and may change in future
+      versions of sofs.</p>
+    <p>The execution time of the functions of this module is dominated
+      by the time it takes to sort lists. When no sorting is needed,
+      the execution time is in the worst case proportional to the sum
+      of the sizes of the input arguments and the returned value. A
+      few functions execute in constant time: <tt>from_external</tt>,
+      <tt>is_empty_set</tt>, <tt>is_set</tt>, <tt>is_sofs_set</tt>,
+      <tt>to_external</tt>, <tt>type</tt>.</p>
+    <p>The functions of this module exit the process with a
+      <tt>badarg</tt>, <tt>bad_function</tt>, or <tt>type_mismatch</tt>
+      message when given badly formed arguments or sets the types of
+      which are not compatible.</p>
+    <p><em>Types</em></p>
+    <pre>
+anyset() = -&nbsp;an unordered, ordered or atomic set&nbsp;-
+binary_relation() = -&nbsp;a binary relation&nbsp;-
+bool() = true | false
+external_set() = -&nbsp;an external set&nbsp;-
+family() = -&nbsp;a family (of subsets)&nbsp;-
+function() = -&nbsp;a function&nbsp;-
+ordset() = -&nbsp;an ordered set&nbsp;-
+relation() = -&nbsp;an n-ary relation&nbsp;-
+set() = -&nbsp;an unordered set&nbsp;-
+set_of_sets() = -&nbsp;an unordered set of set()&nbsp;-
+set_fun() = integer() &gt;= 1
+          | {external, fun(external_set()) -&gt; external_set()}
+          | fun(anyset()) -&gt; anyset()
+spec_fun() = {external, fun(external_set()) -&gt; bool()}
+           | fun(anyset()) -&gt; bool()
+type() = -&nbsp;a type&nbsp;- </pre>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#a_functionTuplesTypegtFunction">a_function(Tuples [, Type]) -&gt; Function</a></li>
+        
+        <li><a href="#canonical_relationSetOfSetsgtBinRel">canonical_relation(SetOfSets) -&gt; BinRel</a></li>
+        
+        <li><a href="#compositeFunction1Function2gtFunction3">composite(Function1, Function2) -&gt; Function3</a></li>
+        
+        <li><a href="#constant_functionSetAnySetgtFunction">constant_function(Set, AnySet) -&gt; Function</a></li>
+        
+        <li><a href="#converseBinRel1gtBinRel2">converse(BinRel1) -&gt; BinRel2</a></li>
+        
+        <li><a href="#differenceSet1Set2gtSet3">difference(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#digraph_to_familyGraphTypegtFamily">digraph_to_family(Graph [, Type]) -&gt; Family</a></li>
+        
+        <li><a href="#domainBinRelgtSet">domain(BinRel) -&gt; Set</a></li>
+        
+        <li><a href="#drestrictionBinRel1SetgtBinRel2">drestriction(BinRel1, Set) -&gt; BinRel2</a></li>
+        
+        <li><a href="#drestrictionSetFunSet1Set2gtSet3">drestriction(SetFun, Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#empty_setgtSet">empty_set() -&gt; Set</a></li>
+        
+        <li><a href="#extensionBinRel1SetAnySetgtBinRel2">extension(BinRel1, Set, AnySet) -&gt; BinRel2</a></li>
+        
+        <li><a href="#familyTuplesTypegtFamily">family(Tuples [, Type]) -&gt; Family</a></li>
+        
+        <li><a href="#family_differenceFamily1Family2gtFamily3">family_difference(Family1, Family2) -&gt; Family3</a></li>
+        
+        <li><a href="#family_domainFamily1gtFamily2">family_domain(Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_fieldFamily1gtFamily2">family_field(Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_intersectionFamily1gtFamily2">family_intersection(Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_intersectionFamily1Family2gtFamily3">family_intersection(Family1, Family2) -&gt; Family3</a></li>
+        
+        <li><a href="#family_projectionSetFunFamily1gtFamily2">family_projection(SetFun, Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_rangeFamily1gtFamily2">family_range(Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_specificationFunFamily1gtFamily2">family_specification(Fun, Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_to_digraphFamilyGraphTypegtGraph">family_to_digraph(Family [, GraphType]) -&gt; Graph</a></li>
+        
+        <li><a href="#family_to_relationFamilygtBinRel">family_to_relation(Family) -&gt; BinRel</a></li>
+        
+        <li><a href="#family_unionFamily1gtFamily2">family_union(Family1) -&gt; Family2</a></li>
+        
+        <li><a href="#family_unionFamily1Family2gtFamily3">family_union(Family1, Family2) -&gt; Family3</a></li>
+        
+        <li><a href="#fieldBinRelgtSet">field(BinRel) -&gt; Set</a></li>
+        
+        <li><a href="#from_externalExternalSetTypegtAnySet">from_external(ExternalSet, Type) -&gt; AnySet</a></li>
+        
+        <li><a href="#from_setsListOfSetsgtSet">from_sets(ListOfSets) -&gt; Set</a></li>
+        
+        <li><a href="#from_setsTupleOfSetsgtOrdset">from_sets(TupleOfSets) -&gt; Ordset</a></li>
+        
+        <li><a href="#from_termTermTypegtAnySet">from_term(Term [, Type]) -&gt; AnySet</a></li>
+        
+        <li><a href="#imageBinRelSet1gtSet2">image(BinRel, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#intersectionSetOfSetsgtSet">intersection(SetOfSets) -&gt; Set</a></li>
+        
+        <li><a href="#intersectionSet1Set2gtSet3">intersection(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#intersection_of_familyFamilygtSet">intersection_of_family(Family) -&gt; Set</a></li>
+        
+        <li><a href="#inverseFunction1gtFunction2">inverse(Function1) -&gt; Function2</a></li>
+        
+        <li><a href="#inverse_imageBinRelSet1gtSet2">inverse_image(BinRel, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#is_a_functionBinRelgtBool">is_a_function(BinRel) -&gt; Bool</a></li>
+        
+        <li><a href="#is_disjointSet1Set2gtBool">is_disjoint(Set1, Set2) -&gt; Bool</a></li>
+        
+        <li><a href="#is_empty_setAnySetgtBool">is_empty_set(AnySet) -&gt; Bool</a></li>
+        
+        <li><a href="#is_equalAnySet1AnySet2gtBool">is_equal(AnySet1, AnySet2) -&gt; Bool</a></li>
+        
+        <li><a href="#is_setAnySetgtBool">is_set(AnySet) -&gt; Bool</a></li>
+        
+        <li><a href="#is_sofs_setTermgtBool">is_sofs_set(Term) -&gt; Bool</a></li>
+        
+        <li><a href="#is_subsetSet1Set2gtBool">is_subset(Set1, Set2) -&gt; Bool</a></li>
+        
+        <li><a href="#is_typeTermgtBool">is_type(Term) -&gt; Bool</a></li>
+        
+        <li><a href="#joinRelation1IRelation2JgtRelation3">join(Relation1, I, Relation2, J) -&gt; Relation3</a></li>
+        
+        <li><a href="#multiple_relative_productTupleOfBinRelsBinRel1gtBinRel2">multiple_relative_product(TupleOfBinRels, BinRel1) -&gt; BinRel2</a></li>
+        
+        <li><a href="#no_elementsASetgtNoElements">no_elements(ASet) -&gt; NoElements</a></li>
+        
+        <li><a href="#partitionSetOfSetsgtPartition">partition(SetOfSets) -&gt; Partition</a></li>
+        
+        <li><a href="#partitionSetFunSetgtPartition">partition(SetFun, Set) -&gt; Partition</a></li>
+        
+        <li><a href="#partitionSetFunSet1Set2gtSet3Set4">partition(SetFun, Set1, Set2) -&gt; {Set3, Set4}</a></li>
+        
+        <li><a href="#partition_familySetFunSetgtFamily">partition_family(SetFun, Set) -&gt; Family</a></li>
+        
+        <li><a href="#productTupleOfSetsgtRelation">product(TupleOfSets) -&gt; Relation</a></li>
+        
+        <li><a href="#productSet1Set2gtBinRel">product(Set1, Set2) -&gt; BinRel</a></li>
+        
+        <li><a href="#projectionSetFunSet1gtSet2">projection(SetFun, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#rangeBinRelgtSet">range(BinRel) -&gt; Set</a></li>
+        
+        <li><a href="#relationTuplesTypegtRelation">relation(Tuples [, Type]) -&gt; Relation</a></li>
+        
+        <li><a href="#relation_to_familyBinRelgtFamily">relation_to_family(BinRel) -&gt; Family</a></li>
+        
+        <li><a href="#relative_productTupleOfBinRelsBinRel1gtBinRel2">relative_product(TupleOfBinRels [, BinRel1]) -&gt; BinRel2</a></li>
+        
+        <li><a href="#relative_productBinRel1BinRel2gtBinRel3">relative_product(BinRel1, BinRel2) -&gt; BinRel3</a></li>
+        
+        <li><a href="#relative_product1BinRel1BinRel2gtBinRel3">relative_product1(BinRel1, BinRel2) -&gt; BinRel3</a></li>
+        
+        <li><a href="#restrictionBinRel1SetgtBinRel2">restriction(BinRel1, Set) -&gt; BinRel2</a></li>
+        
+        <li><a href="#restrictionSetFunSet1Set2gtSet3">restriction(SetFun, Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#setTermsTypegtSet">set(Terms [, Type]) -&gt; Set</a></li>
+        
+        <li><a href="#specificationFunSet1gtSet2">specification(Fun, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#strict_relationBinRel1gtBinRel2">strict_relation(BinRel1) -&gt; BinRel2</a></li>
+        
+        <li><a href="#substitutionSetFunSet1gtSet2">substitution(SetFun, Set1) -&gt; Set2</a></li>
+        
+        <li><a href="#symdiffSet1Set2gtSet3">symdiff(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#symmetric_partitionSet1Set2gtSet3Set4Set5">symmetric_partition(Set1, Set2) -&gt; {Set3, Set4, Set5}</a></li>
+        
+        <li><a href="#to_externalAnySetgtExternalSet">to_external(AnySet) -&gt; ExternalSet</a></li>
+        
+        <li><a href="#to_setsASetgtSets">to_sets(ASet) -&gt; Sets</a></li>
+        
+        <li><a href="#typeAnySetgtType">type(AnySet) -&gt; Type</a></li>
+        
+        <li><a href="#unionSetOfSetsgtSet">union(SetOfSets) -&gt; Set</a></li>
+        
+        <li><a href="#unionSet1Set2gtSet3">union(Set1, Set2) -&gt; Set3</a></li>
+        
+        <li><a href="#union_of_familyFamilygtSet">union_of_family(Family) -&gt; Set</a></li>
+        
+        <li><a href="#weak_relationBinRel1gtBinRel2">weak_relation(BinRel1) -&gt; BinRel2</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="dict">dict(3)</seealso>, 
+      <seealso marker="digraph">digraph(3)</seealso>,
+      <seealso marker="orddict">orddict(3)</seealso>, 
+      <seealso marker="ordsets">ordsets(3)</seealso>, 
+      <seealso marker="sets">sets(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="a_functionTuplesTypegtFunction"></a><b>a_function(Tuples [, Type]) -&gt; Function</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function = function()</b><br/>
+        <b>Tuples = [tuple()]</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a <seealso marker="#function">function</seealso>.
+          <tt>a_function(F,&nbsp;T)</tt> is equivalent to
+          <tt>from_term(F,&nbsp;T)</tt>, if the result is a function. If
+          no <seealso marker="#type">type</seealso> is explicitly
+          given, <tt>[{atom,&nbsp;atom}]</tt> is used as type of the
+          function.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="canonical_relationSetOfSetsgtBinRel"></a><b>canonical_relation(SetOfSets) -&gt; BinRel</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>SetOfSets = set_of_sets()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the binary relation containing the elements
+          (E,&nbsp;Set) such that Set belongs to SetOfSets and E
+          belongs to Set. If SetOfSets is 
+	  a <seealso marker="#partition">partition</seealso> of a set X and
+	  R is the equivalence relation in X induced by SetOfSets, then the
+          returned relation is 
+	  the <seealso marker="#canonical_map">canonical map</seealso> from 
+	  X onto the equivalence classes with respect to R.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[a,b]},{b,[a,b]},{b,[b,c]},{c,[b,c]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="compositeFunction1Function2gtFunction3"></a><b>composite(Function1, Function2) -&gt; Function3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function1 = Function2 = Function3 = function()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#composite">composite</seealso> of 
+	  the functions Function1 and Function2.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,x},{b,y},{c,y}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="constant_functionSetAnySetgtFunction"></a><b>constant_function(Set, AnySet) -&gt; Function</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>Function = function()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates the <seealso marker="#function">function</seealso>
+          that maps each element of the set Set onto AnySet.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,1},{b,1}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="converseBinRel1gtBinRel2"></a><b>converse(BinRel1) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#converse">converse</seealso>
+          of the binary relation BinRel1.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,1},{a,3},{b,2}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="differenceSet1Set2gtSet3"></a><b>difference(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#difference">difference</seealso> of 
+	  the sets Set1 and Set2.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="digraph_to_familyGraphTypegtFamily"></a><b>digraph_to_family(Graph [, Type]) -&gt; Family</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Graph = digraph() -&nbsp;see digraph(3)&nbsp;-</b><br/>
+        <b>Family = family()</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a <seealso marker="#family">family</seealso> from
+          the directed graph Graph. Each vertex a of Graph is
+          represented by a pair (a,&nbsp;{b[1],&nbsp;...,&nbsp;b[n]})
+          where the b[i]'s are the out-neighbours of a. If no type is
+          explicitly given, [{atom,&nbsp;[atom]}] is used as type of
+          the family. It is assumed that Type is 
+	  a <seealso marker="#valid_type">valid type</seealso> of the 
+	  external set of the family.</p>
+        <p>If G is a directed graph, it holds that the vertices and
+          edges of G are the same as the vertices and edges of
+          <tt>family_to_digraph(digraph_to_family(G))</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="domainBinRelgtSet"></a><b>domain(BinRel) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#domain">domain</seealso> of 
+	  the binary relation BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[1,2]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="drestrictionBinRel1SetgtBinRel2"></a><b>drestriction(BinRel1, Set) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the difference between the binary relation BinRel1
+          and the <seealso marker="#restriction">restriction</seealso>
+          of BinRel1 to Set.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{1,a},{3,c}]</pre>
+        <p><tt>drestriction(R,&nbsp;S)</tt> is equivalent to
+          <tt>difference(R,&nbsp;restriction(R,&nbsp;S))</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="drestrictionSetFunSet1Set2gtSet3"></a><b>drestriction(SetFun, Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a subset of Set1 containing those elements that do
+          not yield an element in Set2 as the result of applying
+          SetFun.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+<input>
+[{a,aa,1}]</pre>
+        <p><tt>drestriction(F,&nbsp;S1,&nbsp;S2)</tt> is equivalent to
+          <tt>difference(S1,&nbsp;restriction(F,&nbsp;S1,&nbsp;S2))</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="empty_setgtSet"></a><b>empty_set() -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#sets_definition">untyped empty 
+          set</seealso>. <tt>empty_set()</tt> is equivalent to
+          <tt>from_term([],&nbsp;['_'])</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="extensionBinRel1SetAnySetgtBinRel2"></a><b>extension(BinRel1, Set, AnySet) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#extension">extension</seealso> of 
+	  BinRel1 such that
+          for each element E in Set that does not belong to the
+          <seealso marker="#domain">domain</seealso> of BinRel1,
+          BinRel2 contains the pair (E,&nbsp;AnySet).</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+<input>
+[{a,[1,2]},{b,[3]},{c,[]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="familyTuplesTypegtFamily"></a><b>family(Tuples [, Type]) -&gt; Family</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>Tuples = [tuple()]</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a <seealso marker="#family">family of subsets</seealso>. 
+	  <tt>family(F,&nbsp;T)</tt> is equivalent to
+          <tt>from_term(F,&nbsp;T)</tt>, if the result is a family. If
+          no <seealso marker="#type">type</seealso> is explicitly
+          given, <tt>[{atom,&nbsp;[atom]}]</tt> is used as type of the
+          family.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_differenceFamily1Family2gtFamily3"></a><b>family_difference(Family1, Family2) -&gt; Family3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = Family3 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 and Family2 
+	  are <seealso marker="#family">families</seealso>, then 
+	  Family3 is the family
+          such that the index set is equal to the index set of
+          Family1, and Family3[i] is the difference between Family1[i]
+          and Family2[i] if Family2 maps i, Family1[i] otherwise.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,[1,2]},{b,[3]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_domainFamily1gtFamily2"></a><b>family_domain(Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          and Family1[i] is a binary relation for every i in the index
+          set of Family1, then Family2 is the family with the same
+          index set as Family1 such that Family2[i] is 
+	  the <seealso marker="#domain">domain</seealso> of Family1[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[1,2,3]},{b,[]},{c,[4,5]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_fieldFamily1gtFamily2"></a><b>family_field(Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          and Family1[i] is a binary relation for every i in the index
+          set of Family1, then Family2 is the family with the same
+          index set as Family1 such that Family2[i] is 
+	  the <seealso marker="#field">field</seealso> of Family1[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[1,2,3,a,b,c]},{b,[]},{c,[4,5,d,e]}]</pre>
+        <p><tt>family_field(Family1)</tt> is equivalent to
+          <tt>family_union(family_domain(Family1), family_range(Family1))</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_intersectionFamily1gtFamily2"></a><b>family_intersection(Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          and Family1[i] is a set of sets for every i in the index set
+          of Family1, then Family2 is the family with the same index
+          set as Family1 such that Family2[i] is 
+	  the <seealso marker="#intersection_n">intersection</seealso> of
+          Family1[i].</p>
+        <p>If Family1[i] is an empty set for some i, then the process
+          exits with a <tt>badarg</tt> message.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[2,3]},{b,[x,y]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_intersectionFamily1Family2gtFamily3"></a><b>family_intersection(Family1, Family2) -&gt; Family3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = Family3 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 and Family2 
+	  are <seealso marker="#family">families</seealso>, then Family3 
+	  is the family such that the index set is the intersection of
+          Family1's and Family2's index sets, and Family3[i] is the
+          intersection of Family1[i] and Family2[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{b,[4]},{c,[]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_projectionSetFunFamily1gtFamily2"></a><b>family_projection(SetFun, Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Family1 = Family2 = family()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          then Family2 is the family with the same index set as
+          Family1 such that Family2[i] is the result of calling SetFun
+          with Family1[i] as argument.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[1,2,3]},{b,[]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_rangeFamily1gtFamily2"></a><b>family_range(Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          and Family1[i] is a binary relation for every i in the index
+          set of Family1, then Family2 is the family with the same
+          index set as Family1 such that Family2[i] is 
+	  the <seealso marker="#range">range</seealso> of Family1[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[a,b,c]},{b,[]},{c,[d,e]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_specificationFunFamily1gtFamily2"></a><b>family_specification(Fun, Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = spec_fun()</b><br/>
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>,
+          then Family2 is 
+	  the <seealso marker="#restriction">restriction</seealso> of 
+	  Family1 to those elements i of the
+          index set for which Fun applied to Family1[i] returns
+          <tt>true</tt>. If Fun is a tuple <tt>{external,&nbsp;Fun2}</tt>,
+          Fun2 is applied to 
+	  the <seealso marker="#external_set">external set</seealso> of 
+	  Family1[i], otherwise Fun is applied to Family1[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{b,[1,2]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_to_digraphFamilyGraphTypegtGraph"></a><b>family_to_digraph(Family [, GraphType]) -&gt; Graph</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Graph = digraph()</b><br/>
+        <b>Family = family()</b><br/>
+        <b>GraphType = -&nbsp;see digraph(3)&nbsp;-</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a directed graph from 
+	  the <seealso marker="#family">family</seealso> Family. For each 
+	  pair (a,&nbsp;{b[1],&nbsp;...,&nbsp;b[n]}) of Family, the vertex
+          a as well the edges (a,&nbsp;b[i]) for
+          1&nbsp;&lt;=&nbsp;i&nbsp;&lt;=&nbsp;n are added to a newly
+          created directed graph.</p>
+        <p>If no graph type is given, <tt>digraph:new/1</tt> is used for
+          creating the directed graph, otherwise the GraphType
+          argument is passed on as second argument to
+          <tt>digraph:new/2</tt>.</p>
+        <p>It F is a family, it holds that F is a subset of
+          <tt>digraph_to_family(family_to_digraph(F),&nbsp;type(F))</tt>.
+          Equality holds if <tt>union_of_family(F)</tt> is a subset of
+          <tt>domain(F)</tt>.</p>
+        <p>Creating a cycle in an acyclic graph exits the process with
+          a <tt>cyclic</tt> message.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_to_relationFamilygtBinRel"></a><b>family_to_relation(Family) -&gt; BinRel</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>BinRel = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family is a <seealso marker="#family">family</seealso>,
+          then BinRel is the binary relation containing all pairs
+          (i,&nbsp;x) such that i belongs to the index set of Family
+          and x belongs to Family[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{b,1},{c,2},{c,3}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_unionFamily1gtFamily2"></a><b>family_union(Family1) -&gt; Family2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 is a <seealso marker="#family">family</seealso>
+          and Family1[i] is a set of sets for each i in the index set
+          of Family1, then Family2 is the family with the same index
+          set as Family1 such that Family2[i] is 
+	  the <seealso marker="#union_n">union</seealso> of Family1[i].</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,[1,2,3]},{b,[]}]</pre>
+        <p><tt>family_union(F)</tt> is equivalent to
+          <tt>family_projection({sofs,union},&nbsp;F)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="family_unionFamily1Family2gtFamily3"></a><b>family_union(Family1, Family2) -&gt; Family3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family1 = Family2 = Family3 = family()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If Family1 and Family2 
+	  are <seealso marker="#family">families</seealso>, then Family3 
+	  is the family such that the index set is the union of Family1's 
+	  and Family2's index sets, and Family3[i] is the union of
+          Family1[i] and Family2[i] if both maps i, Family1[i] or
+          Family2[i] otherwise.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,[1,2]},{b,[3,4,5]},{c,[5,6,7,8]},{d,[9,10]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="fieldBinRelgtSet"></a><b>field(BinRel) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#field">field</seealso> of the
+          binary relation BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[1,2,a,b,c]</pre>
+        <p><tt>field(R)</tt> is equivalent 
+	  to <tt>union(domain(R), range(R))</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_externalExternalSetTypegtAnySet"></a><b>from_external(ExternalSet, Type) -&gt; AnySet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ExternalSet = external_set()</b><br/>
+        <b>AnySet = anyset()</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a set from the <seealso marker="#external_set">external 
+	  set</seealso> ExternalSet
+          and the <seealso marker="#type">type</seealso> Type. It is
+          assumed that Type is a <seealso marker="#valid_type">valid 
+	  type</seealso> of ExternalSet.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_setsListOfSetsgtSet"></a><b>from_sets(ListOfSets) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+        <b>ListOfSets = [anyset()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#sets_definition">unordered 
+	  set</seealso> containing the sets of the list ListOfSets.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[[{a,1},{b,2}],[{x,3},{y,4}]]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_setsTupleOfSetsgtOrdset"></a><b>from_sets(TupleOfSets) -&gt; Ordset</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ordset = ordset()</b><br/>
+        <b>TupleOfSets = tuple-of(anyset())</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#sets_definition">ordered 
+	  set</seealso> containing the sets of the non-empty tuple 
+	  TupleOfSets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="from_termTermTypegtAnySet"></a><b>from_term(Term [, Type]) -&gt; AnySet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>Term = term()</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><marker id="from_term"></marker>Creates an element 
+	  of <seealso marker="#sets_definition">Sets</seealso> by 
+	  traversing the term Term, sorting lists, removing duplicates and
+	  deriving or verifying a <seealso marker="#valid_type">valid 
+	  type</seealso> for the so obtained external set. An
+          explicitly given <seealso marker="#type">type</seealso> Type
+          can be used to limit the depth of the traversal; an atomic
+          type stops the traversal, as demonstrated by this example
+          where "foo" and {"foo"} are left unmodified:</p>
+        <pre>
+1&gt; <input>
+<input>
+[{{"foo"},[1]},{"foo",[2]}]</pre>
+        <p><tt>from_term</tt> can be used for creating atomic or ordered
+          sets. The only purpose of such a set is that of later
+          building unordered sets since all functions in this module
+          that <em>do</em> anything operate on unordered sets.
+          Creating unordered sets from a collection of ordered sets
+          may be the way to go if the ordered sets are big and one
+          does not want to waste heap by rebuilding the elements of
+          the unordered set. An example showing that a set can be
+          built "layer by layer":</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+<input>
+<input>
+[{a,[1,2,3]},{b,[4,5,6]}]</pre>
+        <p>Other functions that create sets are <tt>from_external/2</tt>
+          and <tt>from_sets/1</tt>. Special cases of <tt>from_term/2</tt>
+          are <tt>a_function/1,2</tt>, <tt>empty_set/0</tt>,
+          <tt>family/1,2</tt>, <tt>relation/1,2</tt>, and <tt>set/1,2</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="imageBinRelSet1gtSet2"></a><b>image(BinRel, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#image">image</seealso> of the
+          set Set1 under the binary relation BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[a,b,c]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSetOfSetsgtSet"></a><b>intersection(SetOfSets) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+        <b>SetOfSets = set_of_sets()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns 
+	  the <seealso marker="#intersection_n">intersection</seealso> of 
+	  the set of sets SetOfSets.</p>
+        <p>Intersecting an empty set of sets exits the process with a
+          <tt>badarg</tt> message.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersectionSet1Set2gtSet3"></a><b>intersection(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns 
+	  the <seealso marker="#intersection">intersection</seealso> of 
+	  Set1 and Set2.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="intersection_of_familyFamilygtSet"></a><b>intersection_of_family(Family) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the intersection of 
+	  the <seealso marker="#family">family</seealso> Family.</p>
+        <p>Intersecting an empty family exits the process with a
+          <tt>badarg</tt> message.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[2]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="inverseFunction1gtFunction2"></a><b>inverse(Function1) -&gt; Function2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Function1 = Function2 = function()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#inverse">inverse</seealso>
+          of the function Function1.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{a,1},{b,2},{c,3}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="inverse_imageBinRelSet1gtSet2"></a><b>inverse_image(BinRel, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#inverse_image">inverse 
+	  image</seealso> of Set1 under the binary relation BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[2,3]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_a_functionBinRelgtBool"></a><b>is_a_function(BinRel) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Bool = bool()</b><br/>
+        <b>BinRel = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if the binary relation BinRel is a
+          <seealso marker="#function">function</seealso> or the
+          untyped empty set, <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_disjointSet1Set2gtBool"></a><b>is_disjoint(Set1, Set2) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Bool = bool()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if Set1 and Set2 
+	  are <seealso marker="#disjoint">disjoint</seealso>, <tt>false</tt>
+          otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_empty_setAnySetgtBool"></a><b>is_empty_set(AnySet) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>Bool = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if Set is an empty unordered set,
+          <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_equalAnySet1AnySet2gtBool"></a><b>is_equal(AnySet1, AnySet2) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet1 = AnySet2 = anyset()</b><br/>
+        <b>Bool = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if the AnySet1 and AnySet2 
+	  are <seealso marker="#equal">equal</seealso>, <tt>false</tt> 
+	  otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_setAnySetgtBool"></a><b>is_set(AnySet) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>Bool = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if AnySet is 
+	  an <seealso marker="#sets_definition">unordered set</seealso>, and
+          <tt>false</tt> if AnySet is an ordered set or an atomic set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_sofs_setTermgtBool"></a><b>is_sofs_set(Term) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Bool = bool()</b><br/>
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if Term is 
+          an <seealso marker="#sets_definition">unordered set</seealso>, an
+          ordered set or an atomic set, <tt>false</tt> otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_subsetSet1Set2gtBool"></a><b>is_subset(Set1, Set2) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Bool = bool()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if Set1 is 
+	  a <seealso marker="#subset">subset</seealso> of Set2, <tt>false</tt>
+          otherwise.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_typeTermgtBool"></a><b>is_type(Term) -&gt; Bool</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Bool = bool()</b><br/>
+        <b>Term = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns <tt>true</tt> if the term Term is 
+	  a <seealso marker="#type">type</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinRelation1IRelation2JgtRelation3"></a><b>join(Relation1, I, Relation2, J) -&gt; Relation3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Relation1 = Relation2 = Relation3 = relation()</b><br/>
+        <b>I = J = integer() &gt; 0</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#natural_join">natural 
+	  join</seealso> of the relations Relation1 and Relation2 on
+          coordinates I and J.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,x,1,f,g},{a,x,1,h,i},{b,y,2,3,4}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="multiple_relative_productTupleOfBinRelsBinRel1gtBinRel2"></a><b>multiple_relative_product(TupleOfBinRels, BinRel1) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TupleOfBinRels = tuple-of(BinRel)</b><br/>
+        <b>BinRel = BinRel1 = BinRel2 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If TupleOfBinRels is a non-empty tuple
+          {R[1],&nbsp;...,&nbsp;R[n]} of binary relations and BinRel1
+          is a binary relation, then BinRel2 is 
+	  the <seealso marker="#multiple_relative_product">multiple relative 
+	  product</seealso> of the ordered set
+          (R[i],&nbsp;...,&nbsp;R[n]) and BinRel1.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{1,2},{2,3},{3,1}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="no_elementsASetgtNoElements"></a><b>no_elements(ASet) -&gt; NoElements</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ASet = set() | ordset()</b><br/>
+        <b>NoElements = integer() &gt;= 0 </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of elements of the ordered or unordered
+          set ASet.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="partitionSetOfSetsgtPartition"></a><b>partition(SetOfSets) -&gt; Partition</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetOfSets = set_of_sets()</b><br/>
+        <b>Partition = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#partition">partition</seealso> of 
+	  the union of the set of sets SetOfSets such that two
+	  elements are considered equal if they belong to the same
+	  elements of SetOfSets.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[[a],[b,c],[d],[e,f],[g],[h,i],[j]]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="partitionSetFunSetgtPartition"></a><b>partition(SetFun, Set) -&gt; Partition</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Partition = set()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#partition">partition</seealso> of 
+          Set such that two elements are considered equal if the
+          results of applying SetFun are equal.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[[[a],[b]],[[c,d],[e,f]]]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="partitionSetFunSet1Set2gtSet3Set4"></a><b>partition(SetFun, Set1, Set2) -&gt; {Set3, Set4}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set1 = Set2 = Set3 = Set4 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a pair of sets that, regarded as constituting a
+          set, forms a <seealso marker="#partition">partition</seealso> of 
+	  Set1. If the
+          result of applying SetFun to an element of Set1 yields an
+          element in Set2, the element belongs to Set3, otherwise the
+          element belongs to Set4.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+{[{2,b}],[{1,a},{3,c}]}</pre>
+        <p><tt>partition(F,&nbsp;S1,&nbsp;S2)</tt> is equivalent to
+          <tt>{restriction(F,&nbsp;S1,&nbsp;S2), 
+          drestriction(F,&nbsp;S1,&nbsp;S2)}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="partition_familySetFunSetgtFamily"></a><b>partition_family(SetFun, Set) -&gt; Family</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#family">family</seealso>
+          Family where the indexed set is 
+	  a <seealso marker="#partition">partition</seealso> of Set 
+	  such that two elements are considered equal if the results
+          of applying SetFun are the same value i. This i is the index
+          that Family maps onto 
+	  the <seealso marker="#equivalence_class">equivalence 
+	  class</seealso>.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{{a,a},[{a,a,a,a}]},{{a,b},[{a,a,b,b},{a,b,b,b}]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="productTupleOfSetsgtRelation"></a><b>product(TupleOfSets) -&gt; Relation</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Relation = relation()</b><br/>
+        <b>TupleOfSets = tuple-of(set())</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#Cartesian_product_tuple">Cartesian 
+	  product</seealso> of the non-empty tuple of sets
+          TupleOfSets. If (x[1],&nbsp;...,&nbsp;x[n]) is an element of
+          the n-ary relation Relation, then x[i] is drawn from element
+          i of TupleOfSets.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+<input>
+[{a,1,x},{a,1,y},{a,2,x},{a,2,y},{b,1,x},{b,1,y},{b,2,x},{b,2,y}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="productSet1Set2gtBinRel"></a><b>product(Set1, Set2) -&gt; BinRel</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#Cartesian_product">Cartesian 
+          product</seealso> of Set1 and Set2.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{1,a},{1,b},{2,a},{2,b}]</pre>
+        <p><tt>product(S1,&nbsp;S2)</tt> is equivalent to
+          <tt>product({S1,&nbsp;S2})</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="projectionSetFunSet1gtSet2"></a><b>projection(SetFun, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the set created by substituting each element of
+          Set1 by the result of applying SetFun to the element.</p>
+        <p>If SetFun is a number i&nbsp;&gt;=&nbsp;1 and Set1 is a
+          relation, then the returned set is 
+	  the <seealso marker="#projection">projection</seealso> of Set1 
+	  onto coordinate i.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[a,b]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rangeBinRelgtSet"></a><b>range(BinRel) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#range">range</seealso> of the
+          binary relation BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[a,b,c]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relationTuplesTypegtRelation"></a><b>relation(Tuples [, Type]) -&gt; Relation</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>N = integer()</b><br/>
+        <b>Type = N | type()</b><br/>
+        <b>Relation = relation()</b><br/>
+        <b>Tuples = [tuple()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates a <seealso marker="#relation">relation</seealso>.
+          <tt>relation(R,&nbsp;T)</tt> is equivalent to
+          <tt>from_term(R,&nbsp;T)</tt>, if T is 
+	  a <seealso marker="#type">type</seealso> and the result is a
+	  relation. If Type is an integer N, then
+          <tt>[{atom,&nbsp;...,&nbsp;atom}])</tt>, where the size of the
+          tuple is N, is used as type of the relation. If no type is
+          explicitly given, the size of the first tuple of Tuples is
+          used if there is such a tuple. <tt>relation([])</tt> is
+          equivalent to <tt>relation([],&nbsp;2)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relation_to_familyBinRelgtFamily"></a><b>relation_to_family(BinRel) -&gt; Family</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>BinRel = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#family">family</seealso>
+          Family such that the index set is equal to 
+	  the <seealso marker="#domain">domain</seealso> of the binary
+	  relation BinRel, and Family[i] is 
+	  the <seealso marker="#image">image</seealso> of the set of i 
+	  under BinRel.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{b,[1]},{c,[2,3]}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relative_productTupleOfBinRelsBinRel1gtBinRel2"></a><b>relative_product(TupleOfBinRels [, BinRel1]) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TupleOfBinRels = tuple-of(BinRel)</b><br/>
+        <b>BinRel = BinRel1 = BinRel2 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>If TupleOfBinRels is a non-empty tuple
+          {R[1],&nbsp;...,&nbsp;R[n]} of binary relations and BinRel1
+          is a binary relation, then BinRel2 is 
+	  the <seealso marker="#tuple_relative_product">relative 
+	  product</seealso> of the ordered set (R[i],&nbsp;...,&nbsp;R[n]) 
+	  and BinRel1.</p>
+        <p>If BinRel1 is omitted, the relation of equality between the
+          elements of 
+	  the <seealso marker="#Cartesian_product_tuple">Cartesian 
+	  product</seealso> of the ranges of R[i],
+          range&nbsp;R[1]&nbsp;&times;&nbsp;...&nbsp;&times;&nbsp;range&nbsp;R[n],
+          is used instead (intuitively, nothing is "lost").</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{1,{a,u}},{1,{aa,u}},{2,{b,v}}]</pre>
+        <p>Note that <tt>relative_product({R1},&nbsp;R2)</tt> is
+          different from <tt>relative_product(R1,&nbsp;R2)</tt>; the
+          tuple of one element is not identified with the element
+          itself.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relative_productBinRel1BinRel2gtBinRel3"></a><b>relative_product(BinRel1, BinRel2) -&gt; BinRel3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = BinRel3 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p><marker id="relprod_impl"></marker>Returns
+          the <seealso marker="#relative_product">relative 
+	  product</seealso> of the binary relations BinRel1 and BinRel2.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="relative_product1BinRel1BinRel2gtBinRel3"></a><b>relative_product1(BinRel1, BinRel2) -&gt; BinRel3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = BinRel3 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#relative_product">relative 
+	  product</seealso> of 
+	  the <seealso marker="#converse">converse</seealso> of the
+	  binary relation BinRel1 and the binary relation BinRel2.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{a,u},{aa,u},{b,v}]</pre>
+        <p><tt>relative_product1(R1,&nbsp;R2)</tt> is equivalent to
+          <tt>relative_product(converse(R1),&nbsp;R2)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="restrictionBinRel1SetgtBinRel2"></a><b>restriction(BinRel1, Set) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#restriction">restriction</seealso> of
+          the binary relation BinRel1 to Set.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{1,a},{2,b}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="restrictionSetFunSet1Set2gtSet3"></a><b>restriction(SetFun, Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a subset of Set1 containing those elements that
+          yield an element in Set2 as the result of applying SetFun.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[{2,b},{3,c}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="setTermsTypegtSet"></a><b>set(Terms [, Type]) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+        <b>Terms = [term()]</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an <seealso marker="#sets_definition">unordered 
+	  set</seealso>. <tt>set(L,&nbsp;T)</tt> is equivalent to
+          <tt>from_term(L,&nbsp;T)</tt>, if the result is an unordered
+          set. If no <seealso marker="#type">type</seealso> is
+          explicitly given, <tt>[atom]</tt> is used as type of the set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="specificationFunSet1gtSet2"></a><b>specification(Fun, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Fun = spec_fun()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the set containing every element of Set1 for which
+          Fun returns <tt>true</tt>. If Fun is a tuple
+          <tt>{external,&nbsp;Fun2}</tt>, Fun2 is applied to the
+          <seealso marker="#external_set">external set</seealso> of
+          each element, otherwise Fun is applied to each element.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+<input>
+[[{a,1},{b,2}]]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="strict_relationBinRel1gtBinRel2"></a><b>strict_relation(BinRel1) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#strict_relation">strict 
+          relation</seealso> corresponding to the binary relation BinRel1.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{1,2},{2,1}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="substitutionSetFunSet1gtSet2"></a><b>substitution(SetFun, Set1) -&gt; Set2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SetFun = set_fun()</b><br/>
+        <b>Set1 = Set2 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a function, the domain of which is Set1. The value
+          of an element of the domain is the result of applying SetFun
+          to the element.</p>
+        <pre>
+1&gt; <input>
+[{a,1},{b,2}]
+2&gt; <input>
+[a,b]
+3&gt; <input>
+[{{a,1},a},{{b,2},b}]
+4&gt; <input>
+<input>
+[{{a,1},a},{{b,2},b}]</pre>
+        <p>The relation of equality between the elements of {a,b,c}:</p>
+        <pre>
+1&gt; <input>
+<input>
+[{a,a},{b,b},{c,c}]</pre>
+        <p>Let SetOfSets be a set of sets and BinRel a binary
+          relation. The function that maps each element Set of
+          SetOfSets onto the <seealso marker="#image">image</seealso>
+          of Set under BinRel is returned by this function:</p>
+        <pre>
+images(SetOfSets, BinRel) -&gt;
+   Fun = fun(Set) -&gt; sofs:image(BinRel, Set) end,
+   sofs:substitution(Fun, SetOfSets).</pre>
+        <p>Here might be the place to reveal something that was more
+          or less stated before, namely that external unordered sets
+          are represented as sorted lists. As a consequence, creating
+          the image of a set under a relation R may traverse all
+          elements of R (to that comes the sorting of results, the
+          image). In <tt>images/2</tt>, BinRel will be traversed once
+          for each element of SetOfSets, which may take too long. The
+          following efficient function could be used instead under the
+          assumption that the image of each element of SetOfSets under
+          BinRel is non-empty:</p>
+        <pre>
+images2(SetOfSets, BinRel) -&gt;
+   CR = sofs:canonical_relation(SetOfSets),
+   R = sofs:relative_product1(CR, BinRel),
+   sofs:relation_to_family(R).</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="symdiffSet1Set2gtSet3"></a><b>symdiff(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#symmetric_difference">symmetric 
+          difference</seealso> (or the Boolean sum) of Set1 and Set2.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+<input>
+[1,4]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="symmetric_partitionSet1Set2gtSet3Set4Set5"></a><b>symmetric_partition(Set1, Set2) -&gt; {Set3, Set4, Set5}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = Set4 = Set5 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a triple of sets: Set3 contains the elements
+          of Set1 that do not belong to Set2; Set4 contains the
+          elements of Set1 that belong to Set2; Set5 contains the
+          elements of Set2 that do not belong to Set1.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_externalAnySetgtExternalSet"></a><b>to_external(AnySet) -&gt; ExternalSet</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ExternalSet = external_set()</b><br/>
+        <b>AnySet = anyset()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#external_set">external 
+          set</seealso> of an atomic, ordered or unordered set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_setsASetgtSets"></a><b>to_sets(ASet) -&gt; Sets</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ASet = set() | ordset()</b><br/>
+        <b>Sets = tuple_of(AnySet) | [AnySet]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the elements of the ordered set ASet as a tuple of
+          sets, and the elements of the unordered set ASet as a sorted
+          list of sets without duplicates.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="typeAnySetgtType"></a><b>type(AnySet) -&gt; Type</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>AnySet = anyset()</b><br/>
+        <b>Type = type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#type">type</seealso> of an
+          atomic, ordered or unordered set.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSetOfSetsgtSet"></a><b>union(SetOfSets) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set = set()</b><br/>
+        <b>SetOfSets = set_of_sets()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#union_n">union</seealso> of the
+          set of sets SetOfSets.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unionSet1Set2gtSet3"></a><b>union(Set1, Set2) -&gt; Set3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Set1 = Set2 = Set3 = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <seealso marker="#union">union</seealso> of
+          Set1 and Set2.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="union_of_familyFamilygtSet"></a><b>union_of_family(Family) -&gt; Set</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Family = family()</b><br/>
+        <b>Set = set()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the union of 
+          the <seealso marker="#family">family</seealso> Family.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[0,1,2,3,4]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="weak_relationBinRel1gtBinRel2"></a><b>weak_relation(BinRel1) -&gt; BinRel2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>BinRel1 = BinRel2 = binary_relation()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a subset S of the <seealso marker="#weak_relation">weak
+          relation</seealso> W
+          corresponding to the binary relation BinRel1. Let F be the
+          <seealso marker="#field">field</seealso> of BinRel1. The
+          subset S is defined so that x S y if x W y for some x in F
+          and for some y in F.</p>
+        <pre>
+1&gt; <input>
+<input>
+<input>
+[{1,1},{1,2},{2,2},{3,1},{3,3}]</pre>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

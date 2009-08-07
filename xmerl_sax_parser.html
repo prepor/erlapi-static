@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>xmerl_sax_parser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />xmerl_sax_parser</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>
+      A SAX parser for XML that sends the events through a callback interface.
+     SAX is the <em>Simple API for XML</em>, originally a Java-only API. SAX was the first widely adopted API for 
+     XML in Java, and is a <em>de facto</em> standard where there are versions for several programming language 
+     environments other than Java.
+    </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">DATA TYPES</a></li>
+        
+        <li><a href="#">CALLBACK FUNCTIONS</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ContinuationFunStategtNewBytesNewState">ContinuationFun(State) -&gt; {NewBytes, NewState}</a></li>
+        
+        <li><a href="#EventFunEventLocationStategtNewState">EventFun(Event, Location, State) -&gt; NewState</a></li>
+        
+        <li><a href="#fileFilenameOptionsgtResult">file(Filename, Options) -&gt; Result</a></li>
+        
+        <li><a href="#streamXmlOptionsgtResult">stream(Xml, Options) -&gt; Result</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">DATA TYPES</div>
+    
+    <div class="description">
+        
+    <title>DATA TYPES</title>
+
+    <taglist>
+      <tag><tt>option()</tt></tag>
+       <item>
+       <p>
+         Options used to customize the behaviour of the parser.
+         Possible options are:
+       </p>
+<p></p>
+       <taglist>
+         <tag><tt>{continuation_fun, ContinuationFun}</tt></tag>
+         <item>
+           <seealso marker="#ContinuationFun/1">ContinuationFun</seealso> is a call back function to decide what to do if 
+           the parser runs into EOF before the document is complete. 
+         </item>
+         <tag><tt>{continuation_state, term()}</tt></tag>
+         <item>
+           State that is accessible in the continuation call back function. 
+         </item>
+         <tag><tt>{event_fun, EventFun}</tt></tag>
+         <item>
+           <seealso marker="#EventFun/3">EventFun</seealso> is the call back function for parser events. 
+         </item>
+         <tag><tt>{event_state, term()}</tt></tag>
+         <item>
+           State that is accessible in the event call back function. 
+         </item>
+         <tag><tt>{file_type, FileType}</tt></tag>
+         <item>
+           Flag that tells the parser if it's parsing a DTD or a normal XML file (default normal).
+           <list>
+             <item><tt>FileType = normal | dtd</tt></item>
+           </list>
+         </item>
+         <tag><tt>{encoding, Encoding}</tt></tag>
+         <item>
+           Set default character set used (default UTF-8). This character set is used only if not explicitly 
+           given by the XML document.
+           <list>
+             <item><tt>Encoding = utf8 | {utf16,big} | {utf16,little} | latin1 | list</tt></item>
+           </list>
+         </item>
+       </taglist>
+       </item>
+      <tag></tag>
+ <item>
+<p></p>
+       </item>
+      <tag><tt>event()</tt></tag>
+       <item>
+       <p>
+         The SAX events that are sent to the user via the callback.
+       </p>
+<p></p>
+       <taglist>
+
+         <tag><tt>startDocument</tt></tag>
+         <item>
+           Receive notification of the beginning of a document. The SAX parser will send this event only once 
+           before any other event callbacks.
+         </item>
+
+         <tag><tt>endDocument</tt></tag>
+         <item>
+            Receive notification of the end of a document. The SAX parser will send this event only once, and it will 
+            be the last event during the parse. 
+         </item>
+
+         <tag><tt>{startPrefixMapping, Prefix, Uri}</tt></tag>
+         <item>
+           Begin the scope of a prefix-URI Namespace mapping.
+           Note that start/endPrefixMapping events are not guaranteed to be properly nested relative to each other: 
+           all startPrefixMapping events will occur immediately before the corresponding startElement event, and all 
+           endPrefixMapping  events will occur immediately after the corresponding endElement event, but their 
+           order is not otherwise guaranteed.
+           There will not be start/endPrefixMapping events for the "xml" prefix, since it is predeclared and immutable.
+           <list>
+             <item><tt>Prefix = string()</tt></item>
+             <item><tt>Uri = string()</tt></item>
+           </list>
+         </item>
+
+         <tag><tt>{endPrefixMapping, Prefix}</tt></tag>
+         <item>
+           End the scope of a prefix-URI mapping.
+           <list>
+             <item><tt>Prefix = string()</tt></item>
+           </list>
+         </item>
+
+         <tag><tt>{startElement, Uri, LocalName, QualifiedName, Attributes}</tt></tag>
+         <item>
+          Receive notification of the beginning of an element.
+
+          The Parser will send this event at the beginning of every element in the XML document; 
+          there will be a corresponding endElement event for every startElement event (even when the element is empty). 
+          All of the element's content will be reported, in order, before the corresponding endElement event.
+            <list>
+             <item><tt>Uri = string()</tt></item>
+             <item><tt>LocalName = string()</tt></item>
+             <item><tt>QualifiedName = {Prefix, LocalName}</tt></item>
+             <item><tt>Prefix = string()</tt></item>
+             <item><tt>Attributes = [{Uri, Prefix, AttributeName, Value}]</tt></item>
+             <item><tt>AttributeName = string()</tt></item>
+             <item><tt>Value = string()</tt></item>
+           </list>
+        </item>
+
+         <tag><tt>{endElement, Uri, LocalName, QualifiedName}</tt></tag>
+         <item>
+          Receive notification of the end of an element.
+
+          The SAX parser will send this event at the end of every element in the XML document;
+          there will be a corresponding startElement event for every endElement event (even when the element is empty).
+            <list>
+             <item><tt>Uri = string()</tt></item>
+             <item><tt>LocalName = string()</tt></item>
+             <item><tt>QualifiedName = {Prefix, LocalName}</tt></item>
+             <item><tt>Prefix = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{characters, string()}</tt></tag>
+         <item>
+          Receive notification of character data. 
+         </item>
+
+         <tag><tt>{ignorableWhitespace, string()}</tt></tag>
+         <item>
+           Receive notification of ignorable whitespace in element content.
+         </item>
+
+         <tag><tt>{processingInstruction, Target, Data}</tt></tag>
+         <item>
+           Receive notification of a processing instruction.
+
+           The Parser will send this event once for each processing instruction found: 
+           note that processing instructions may occur before or after the main document element.
+            <list>
+             <item><tt>Target = string()</tt></item>
+             <item><tt>Data = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{comment, string()}</tt></tag>
+         <item>
+           Report an XML comment anywhere in the document (both inside and outside of the document element).
+         </item>
+
+         <tag><tt>startCDATA</tt></tag>
+         <item>
+           Report the start of a CDATA section. The contents of the CDATA section will be reported 
+           through the regular characters event.
+         </item>
+
+         <tag><tt>endCDATA</tt></tag>
+         <item>
+           Report the end of a CDATA section.
+         </item>
+
+         <tag><tt>startDTD</tt></tag>
+         <item>
+           Report the start of DTD declarations, it's reporting the start of the DOCTYPE declaration.
+           If the document has no DOCTYPE declaration, this event will not be sent.
+         </item>
+
+         <tag><tt>endDTD</tt></tag>
+         <item>
+          Report the end of DTD declarations, it's reporting the end of the DOCTYPE declaration.
+         </item>
+
+         <tag><tt>{startEntity, SysId}</tt></tag>
+         <item> 
+           Report the beginning of some internal and external XML entities. ???
+         </item>
+
+         <tag><tt>{endEntity, SysId}</tt></tag>
+         <item>
+           Report the end of an entity. ???
+         </item>
+
+         <tag><tt>{elementDecl, Name, Model}</tt></tag>
+         <item>
+           Report an element type declaration.   
+           The content model will consist of the string "EMPTY", the string "ANY", or a parenthesised group, 
+           optionally followed by an occurrence indicator. The model will be normalized so that all parameter 
+           entities are fully resolved and all whitespace is removed,and will include the enclosing parentheses. 
+           Other normalization (such as removing redundant parentheses or simplifying occurrence indicators) 
+           is at the discretion of the parser.
+            <list>
+             <item><tt>Name = string()</tt></item>
+             <item><tt>Model = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{attributeDecl, ElementName, AttributeName, Type, Mode, Value}</tt></tag>
+         <item>
+           Report an attribute type declaration.
+            <list>
+             <item><tt>ElementName = string()</tt></item>
+             <item><tt>AttributeName = string()</tt></item>
+             <item><tt>Type = string()</tt></item>
+             <item><tt>Mode = string()</tt></item>
+             <item><tt>Value = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{internalEntityDecl, Name, Value}</tt></tag>
+         <item>
+          Report an internal entity declaration.
+            <list>
+             <item><tt>Name = string()</tt></item>
+             <item><tt>Value = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{externalEntityDecl, Name, PublicId, SystemId}</tt></tag>
+         <item>
+          Report a parsed external entity declaration.
+            <list>
+             <item><tt>Name = string()</tt></item>
+             <item><tt>PublicId = string()</tt></item>
+             <item><tt>SystemId = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{unparsedEntityDecl, Name, PublicId, SystemId, Ndata}</tt></tag>
+         <item>
+           Receive notification of an unparsed entity declaration event.
+            <list>
+             <item><tt>Name = string()</tt></item>
+             <item><tt>PublicId = string()</tt></item>
+             <item><tt>SystemId = string()</tt></item>
+             <item><tt>Ndata = string()</tt></item>
+            </list>
+         </item>
+
+         <tag><tt>{notationDecl, Name, PublicId, SystemId}</tt></tag>
+         <item>
+           Receive notification of a notation declaration event.
+            <list>
+             <item><tt>Name = string()</tt></item>
+             <item><tt>PublicId = string()</tt></item>
+             <item><tt>SystemId = string()</tt></item>
+            </list>
+         </item>
+
+       </taglist>
+       </item>
+
+       <tag><tt>unicode_char()</tt></tag>
+       <item>
+         integer representing valid unicode codepoint
+       </item>
+
+
+       <tag><tt>unicode_char()</tt></tag>
+       <item>
+         Integer representing valid unicode codepoint
+       </item>
+
+       <tag><tt>unicode_binary()</tt></tag>
+       <item>
+         Binary with characters encoded in UTF-8 or UTF-16.
+       </item>
+
+       <tag><tt>latin1_binary()</tt></tag>
+       <item>
+         Binary with characters encoded in iso-latin-1.
+       </item>
+
+    </taglist>
+
+  
+    </div>
+    
+    
+    <div class="sectiontitle">CALLBACK FUNCTIONS</div>
+    
+    <div class="description">
+        
+    <title>CALLBACK FUNCTIONS</title>
+    <p>
+      The callback interface is based on that the user sends a fun with the 
+      correct signature to the parser.
+   </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="fileFilenameOptionsgtResult"></a><b>file(Filename, Options) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Filename = string()</b><br/>
+        <b>Options = [option()]</b><br/>
+        <b>Result = {ok, EventState} |</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;{Tag, Location, Reason, EndTags, EventState} |</b><br/>
+        <b>Tag = atom() (fatal_error, or user defined tag)</b><br/>
+        <b>Location = {CurrentLocation, EntityName, LineNo}</b><br/>
+        <b>CurrentLocation = string()</b><br/>
+        <b>EntityName = string()</b><br/>
+        <b>LineNo = integer()</b><br/>
+        <b>EventState = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Parse file containing an XML document. This functions uses a default continuation function to read the file in blocks.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="streamXmlOptionsgtResult"></a><b>stream(Xml, Options) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Xml = unicode_binary() | latin1_binary() | [unicode_char()]</b><br/>
+        <b>Options = [option()]</b><br/>
+        <b>Result = {ok, EventState} |</b><br/>
+        <b>&nbsp;&nbsp;&nbsp;{Tag, Location, Reason, EndTags, EventState} |</b><br/>
+        <b>Tag = atom() (fatal_error or user defined tag)</b><br/>
+        <b>Location = {CurrentLocation, EntityName, LineNo}</b><br/>
+        <b>CurrentLocation = string()</b><br/>
+        <b>EntityName = string()</b><br/>
+        <b>LineNo = integer()</b><br/>
+        <b>EventState = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Parse a stream containing an XML document.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ContinuationFunStategtNewBytesNewState"></a><b>ContinuationFun(State) -&gt; {NewBytes, NewState}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>State = NewState = term()</b><br/>
+        <b>NewBytes = binary() | list() (should be same as start input in stream/2)</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>
+          This function is called whenever the parser runs out of input data.
+          If the function can't get hold of more input an empty list or binary 
+          (depends on start input in stream/2) is returned.
+
+          Other types of errors is handled through exceptions. Use throw/1 to send the 
+          following tuple {Tag = atom(), Reason = string()} if the continuation function encounters a fatal error. 
+          Tag is an atom that identifies the functional entity that sends the exception 
+          and Reason is a string that describes the problem.
+        </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="EventFunEventLocationStategtNewState"></a><b>EventFun(Event, Location, State) -&gt; NewState</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Event = event()</b><br/>
+        <b>Location = {CurrentLocation, Entityname, LineNo}</b><br/>
+        <b>CurrentLocation = string()</b><br/>
+        <b>Entityname = string()</b><br/>
+        <b>LineNo = integer()</b><br/>
+        <b>State = NewState = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>
+          This function is called for every event sent by the parser. 
+
+          The error handling is done through exceptions. Use throw/1 to send the 
+          following tuple {Tag = atom(), Reason = string()} if the application encounters a fatal error. 
+          Tag is an atom that identifies the functional entity that sends the exception 
+          and Reason is a string that describes the problem.
+        </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

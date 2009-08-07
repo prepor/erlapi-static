@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cprof</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cprof</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>cprof</tt> module is used to profile a program
+      to find out how many times different functions are called.
+      Breakpoints similar to local call trace, but containing a
+      counter, are used to minimise runtime performance impact. 
+      </p>
+    <p>Since breakpoints are used there is no need for special
+      compilation of any module to be profiled. For now these
+      breakpoints can only be set on BEAM code so <term id="BIF"></term>s
+      cannot be call count traced.
+      </p>
+    <p>The size of the call counters is the host machine word
+      size. One bit is used when pausing the counter, so the maximum
+      counter value for a 32-bit host is 2147483647.
+      </p>
+    <p>The profiling result is delivered as a term containing a
+      sorted list of entries, one per module. Each module entry
+      contains a sorted list of functions. The sorting order in both
+      cases is of decreasing call count.
+      </p>
+    <p>Call count tracing is very lightweight compared to other forms
+      of tracing since no trace message has to be generated. Some 
+      measurements indicates performance degradation in the vicinity
+      of 10 percent.
+            <marker id="analyse"></marker>
+</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#analysegtAllCallCountModAnalysisList">analyse() -&gt; {AllCallCount, ModAnalysisList}</a></li>
+        
+        <li><a href="#pausegtinteger">pause() -&gt; integer()</a></li>
+        
+        <li><a href="#pauseFuncSpecgtinteger">pause(FuncSpec) -&gt; integer()</a></li>
+        
+        <li><a href="#restartgtinteger">restart() -&gt; integer()</a></li>
+        
+        <li><a href="#startFuncSpecgtinteger">start(FuncSpec) -&gt; integer()</a></li>
+        
+        <li><a href="#startgtinteger">start() -&gt; integer()</a></li>
+        
+        <li><a href="#stopgtinteger">stop() -&gt; integer()</a></li>
+        
+        <li><a href="#stopFuncSpecgtinteger">stop(FuncSpec) -&gt; integer()</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="eprof">eprof</seealso>(3), 
+      <seealso marker="fprof">fprof</seealso>(3), 
+      erlang(3), 
+      <seealso marker="cprof_chapter">User's Guide</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="analysegtAllCallCountModAnalysisList"></a><b>analyse() -&gt; {AllCallCount, ModAnalysisList}<br/>analyse(Limit) -&gt; {AllCallCount, ModAnalysisList}<br/>analyse(Mod) -&gt; ModAnlysis<br/>analyse(Mod, Limit) -&gt; ModAnalysis</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Limit = integer()</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>AllCallCount = integer()</b><br/>
+        <b>ModAnalysisList = [ModAnalysis]</b><br/>
+        <b>ModAnalysis = {Mod, ModCallCount, FuncAnalysisList}</b><br/>
+        <b>ModCallCount = integer()</b><br/>
+        <b>FuncAnalysisList = [{{Mod, Func, Arity}, FuncCallCount}]</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>FuncCallCount = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Collects and analyses the call counters presently in the
+          node for either module <tt>Mod</tt>, or for all modules
+          (except <tt>cprof</tt> itself), and returns: </p>
+        <taglist>
+          <tag><tt>FuncAnalysisList</tt></tag>
+          <item>A list of tuples, one for each function in a module, in
+           decreasing <tt>FuncCallCount</tt> order.</item>
+          <tag><tt>ModCallCount</tt></tag>
+          <item>The sum of <tt>FuncCallCount</tt> values for all
+           functions in module <tt>Mod</tt>.</item>
+          <tag><tt>AllCallCount</tt></tag>
+          <item>The sum of <tt>ModCallCount</tt> values for all modules
+           concerned in <tt>ModAnalysisList</tt>.</item>
+          <tag><tt>ModAnalysisList</tt></tag>
+          <item>A list of tuples, one for each module except
+          <tt>cprof</tt>, in decreasing <tt>ModCallCount</tt> order.</item>
+        </taglist>
+        <p>If call counters are still running while
+          <tt>analyse/0..2</tt> is executing, you might get an
+          inconsistent result. This happens if the process executing
+          <tt>analyse/0..2</tt> gets scheduled out so some other process
+          can increment the counters that are being analysed, Calling
+          <tt>pause()</tt> before analysing takes care of the problem.
+          </p>
+        <p>If the <tt>Mod</tt> argument is given, the result contains a
+          <tt>ModAnalysis</tt> tuple for module <tt>Mod</tt> only,
+          otherwise the result contains one <tt>ModAnalysis</tt> tuple
+          for all  modules returned from <tt>code:all_loaded()</tt>
+          except <tt>cprof</tt> itself.
+          </p>
+        <p>All functions with a <tt>FuncCallCount</tt> lower than
+          <tt>Limit</tt> are excluded from <tt>FuncAnalysisList</tt>. They
+          are still included in <tt>ModCallCount</tt>, though. 
+          The default value for <tt>Limit</tt> is <tt>1</tt>.
+                    <marker id="pause_0"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pausegtinteger"></a><b>pause() -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Pause call count tracing for all functions in all modules
+          and stop it for all functions in modules to be
+          loaded. This is the same as 
+          <tt>(pause({'_','_','_'})+stop({on_load}))</tt>.
+          </p>
+        <p>See also 
+          <seealso marker="#pause">pause/1..3</seealso> below.
+                    <marker id="pause"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pauseFuncSpecgtinteger"></a><b>pause(FuncSpec) -&gt; integer()<br/>pause(Mod, Func) -&gt; integer()<br/>pause(Mod, Func, Arity) -&gt; integer()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FuncSpec = Mod | {Mod,Func,Arity}, {FS}</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>FS = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Pause call counters for matching functions in matching 
+          modules. The <tt>FS</tt> argument can be used to
+          specify the first argument to
+          <tt>erlang:trace_pattern/3</tt>. See erlang(3). 
+          </p>
+        <p>The call counters for all matching functions that
+          has got call count breakpoints are paused at their current
+          count. 
+          </p>
+        <p>Return the number of matching functions that can have
+          call count breakpoints, the same as
+          <tt>start/0..3</tt> with the same arguments would have
+          returned. 
+                    <marker id="restart"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="restartgtinteger"></a><b>restart() -&gt; integer()<br/>restart(FuncSpec) -&gt; integer()<br/>restart(Mod, Func) -&gt; integer()<br/>restart(Mod, Func, Arity) -&gt; integer()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FuncSpec = Mod | {Mod,Func,Arity}, {FS}</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>FS = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Restart call counters for the matching functions in
+          matching modules that are call count traced. The <tt>FS</tt>
+          argument can be used to specify the first argument to
+          <tt>erlang:trace_pattern/3</tt>. See erlang(3).
+          </p>
+        <p>The call counters for all matching functions that has got
+          call count breakpoints are set to zero and running.
+          </p>
+        <p>Return the number of matching functions that can have
+          call count breakpoints, the same as
+          <tt>start/0..3</tt> with the same arguments would have
+          returned. 
+                    <marker id="start_0"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtinteger"></a><b>start() -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Start call count tracing for all functions in all modules, 
+          and also for all functions in modules to be
+          loaded. This is the same as 
+          <tt>(start({'_','_','_'})+start({on_load}))</tt>.
+          </p>
+        <p>See also 
+          <seealso marker="#start">start/1..3</seealso> below.
+                    <marker id="start"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startFuncSpecgtinteger"></a><b>start(FuncSpec) -&gt; integer()<br/>start(Mod, Func) -&gt; integer()<br/>start(Mod, Func, Arity) -&gt; integer()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FuncSpec = Mod | {Mod,Func,Arity}, {FS}</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>FS = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Start call count tracing for matching functions in matching 
+          modules. The <tt>FS</tt> argument can be used to specify the
+          first argument to <tt>erlang:trace_pattern/3</tt>, for example
+          <tt>on_load</tt>. See erlang(3). 
+          </p>
+        <p>Set call count breakpoints on the matching functions that
+          has no call count breakpoints. Call counters 
+          are set to zero and running for all matching functions.
+          </p>
+        <p>Return the number of matching functions that has got
+          call count breakpoints.
+                    <marker id="stop_0"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtinteger"></a><b>stop() -&gt; integer()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stop call count tracing for all functions in all modules, 
+          and also for all functions in modules to be
+          loaded. This is the same as 
+          <tt>(stop({'_','_','_'})+stop({on_load}))</tt>.
+          </p>
+        <p>See also 
+          <seealso marker="#stop">stop/1..3</seealso> below.
+                    <marker id="stop"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopFuncSpecgtinteger"></a><b>stop(FuncSpec) -&gt; integer()<br/>stop(Mod, Func) -&gt; integer()<br/>stop(Mod, Func, Arity) -&gt; integer()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FuncSpec = Mod | {Mod,Func,Arity}, {FS}</b><br/>
+        <b>Mod = atom()</b><br/>
+        <b>Func = atom()</b><br/>
+        <b>Arity = integer()</b><br/>
+        <b>FS = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stop call count tracing for matching functions in matching 
+          modules. The <tt>FS</tt> argument can be used to specify the
+          first argument to <tt>erlang:trace_pattern/3</tt>, for example
+          <tt>on_load</tt>. See erlang(3). 
+          </p>
+        <p>Remove call count breakpoints from the matching functions that
+          has call count breakpoints.
+          </p>
+        <p>Return the number of matching functions that can have
+          call count breakpoints, the same as
+          <tt>start/0..3</tt> with the same arguments would have
+          returned. 
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

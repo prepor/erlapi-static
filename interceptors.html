@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>interceptors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />interceptors</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains the mandatory functions for user supplied native
+      interceptors and their intended behavior. See also the User's Guide.</p>
+    <warning>
+      <p>Using <tt>Interceptors</tt> may reduce the through-put significantly
+        if the supplied interceptors invoke expensive operations. Hence, 
+        one should always supply interceptors which cause as little overhead
+        as possible.</p>
+    </warning>
+    <warning>
+      <p>It is possible to alter the <tt>Data</tt>, <tt>Bin</tt> and <tt>Args</tt>
+        parameter for the <tt>in_reply</tt> and <tt>out_reply</tt>, 
+        <tt>in_reply_encoded</tt>, <tt>in_request_encoded</tt>, 
+        <tt>out_reply_encoded</tt> and <tt>out_request_encoded</tt>,
+        <tt>in_request</tt> and <tt>out_request</tt> respectively. But,
+        if it is done incorrectly, the consequences can be serious.</p>
+    </warning>
+    <note>
+      <p>The <tt>Extra</tt> parameter is set to 'undefined' by Orber when calling
+        the first interceptor and may be set to any Erlang term.  If an
+        interceptor change this parameter it will be passed on to the next
+        interceptor in the list uninterpreted.</p>
+    </note>
+    <note>
+      <p>The <tt>Ref</tt> parameter is set to 'undefined' by Orber when calling
+        <tt>new_in_connection</tt> or <tt>new_out_connection</tt> using
+        the first interceptor. The user supplied interceptor may set <tt>NewRef</tt>
+        to any Erlang term.  If an interceptor change this parameter it will be
+        passed on to the next interceptor in the list uninterpreted.</p>
+    </note>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#closed_in_connectionRefgtNewRef">closed_in_connection(Ref) -&gt; NewRef</a></li>
+        
+        <li><a href="#closed_out_connectionRefgtNewRef">closed_out_connection(Ref) -&gt; NewRef</a></li>
+        
+        <li><a href="#in_replyRefObjCtxOpDataExtragtReply">in_reply(Ref, Obj, Ctx, Op, Data, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#in_reply_encodedRefObjCtxOpBinExtragtReply">in_reply_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#in_requestRefObjCtxOpArgsExtragtReply">in_request(Ref, Obj, Ctx, Op, Args, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#in_request_encodedRefObjCtxOpBinExtragtReply">in_request_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#new_in_connectionRefPeerHostPeerPortgtNewRef">new_in_connection(Ref, PeerHost, PeerPort) -&gt; NewRef</a></li>
+        
+        <li><a href="#new_out_connectionRefPeerHostPeerPortgtNewRef">new_out_connection(Ref, PeerHost, PeerPort) -&gt; NewRef</a></li>
+        
+        <li><a href="#out_replyRefObjCtxOpDataExtragtReply">out_reply(Ref, Obj, Ctx, Op, Data, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#out_reply_encodedRefObjCtxOpBinExtragtReply">out_reply_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#out_requestRefObjCtxOpArgsExtragtReply">out_request(Ref, Obj, Ctx, Op, Args, Extra) -&gt; Reply</a></li>
+        
+        <li><a href="#out_request_encodedRefObjCtxOpBinExtragtReply">out_request_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="new_in_connectionRefPeerHostPeerPortgtNewRef"></a><b>new_in_connection(Ref, PeerHost, PeerPort) -&gt; NewRef<br/>new_in_connection(Ref, PeerHost, PeerPort, SocketHost, SocketPort) -&gt; NewRef</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref    = term() | undefined</b><br/>
+        <b>PeerHost = SocketHost = string(), e.g., "myHost@myServer" or "192.0.0.10"</b><br/>
+        <b>PeerPort = SocketPort = integer()</b><br/>
+        <b>NewRef = term() | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When a new connection is requested by a client side ORB this operation
+          is invoked. If more than one interceptor is supplied, e.g., 
+          <tt>{native, ['myInterceptor1', 'myInterceptor2']}</tt>, the return value
+          from 'myInterceptor1' is passed to 'myInterceptor2' as <tt>Ref</tt>.
+          Initially, Orber uses the atom 'undefined' as <tt>Ref</tt> parameter
+          when calling the first interceptor. The return value from the last
+          interceptor, in the example above 'myInterceptor2', is passed
+          to all other functions exported by the interceptors. Hence,
+          the <tt>Ref</tt> parameter can, for example, be used as a unique 
+          identifier to mnesia or ets where information/restrictions for
+          this connection is stored.</p>
+        <p>The PeerHost and PeerPort variables supplied data of
+          the client ORB which requested a new connection. SocketHost 
+          and SocketPort are the local interface and port the client
+          connected to.</p>
+        <p>If, for some reason, we do not allow the client ORB to connect
+          simply invoke <tt>exit(Reason)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_out_connectionRefPeerHostPeerPortgtNewRef"></a><b>new_out_connection(Ref, PeerHost, PeerPort) -&gt; NewRef<br/>new_out_connection(Ref, PeerHost, PeerPort, SocketHost, SocketPort) -&gt; NewRef</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref    = term() | undefined</b><br/>
+        <b>PeerHost = SocketHost = string(), e.g., "myHost@myServer" or "192.0.0.10"</b><br/>
+        <b>PeerPort = SocketPort = integer()</b><br/>
+        <b>NewRef = term() | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When a new connection is set up this function is invoked. Behaves
+          just like <tt>new_in_connection</tt>; the only difference is that
+          the PeerHost and PeerPort variables identifies the target ORB's bootstrap
+          data and SocketHost and SocketPort are the local interface and port
+          the client ORB connected via.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closed_in_connectionRefgtNewRef"></a><b>closed_in_connection(Ref) -&gt; NewRef</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref    = term()</b><br/>
+        <b>NewRef = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When an existing connection is terminated this operation is invoked.
+          The main purpose of this function is to make it possible for a user
+          to clean up all data associated with the associated connection.</p>
+        <p>The input parameter <tt>Ref</tt> is the return value from 
+          <tt>new_in_connection/3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closed_out_connectionRefgtNewRef"></a><b>closed_out_connection(Ref) -&gt; NewRef</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref    = term()</b><br/>
+        <b>NewRef = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When an existing connection is terminated this operation is invoked.
+          The main purpose of this function is to make it possible for a user
+          to clean up all data associated with the associated connection.</p>
+        <p>The input parameter <tt>Ref</tt> is the return value from 
+          <tt>new_out_connection/3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="in_replyRefObjCtxOpDataExtragtReply"></a><b>in_reply(Ref, Obj, Ctx, Op, Data, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Data  = [Result, OutParameter1, ..., OutPramaterN]</b><br/>
+        <b>Reply = {NewData, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When replies are delivered from the server side ORB to the client side
+          ORB this operation is invoked. The <tt>Data</tt> parameter is a list in which
+          the first element is the return value value from the target object and
+          the rest is a all parameters defined as <tt>out</tt> or <tt>inout</tt> in
+          the IDL-specification.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="in_reply_encodedRefObjCtxOpBinExtragtReply"></a><b>in_reply_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Bin   = #binary</b><br/>
+        <b>Reply = {NewBin, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When replies are delivered from the server side ORB to the client side
+          ORB this operation is invoked. The <tt>Bin</tt> parameter is the reply 
+          body still uncoded.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="in_requestRefObjCtxOpArgsExtragtReply"></a><b>in_request(Ref, Obj, Ctx, Op, Args, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Args  = [Argument] - defined in the IDL-specification</b><br/>
+        <b>Reply = {NewArgs, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When a new request arrives at the server side ORB this operation is 
+          invoked.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="in_request_encodedRefObjCtxOpBinExtragtReply"></a><b>in_request_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Bin   = #binary</b><br/>
+        <b>Reply = {NewBin, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>When a new request arrives at the server side ORB this operation is 
+          invoked before decoding the request body.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="out_replyRefObjCtxOpDataExtragtReply"></a><b>out_reply(Ref, Obj, Ctx, Op, Data, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Data  = [Result, OutParameter1, ..., OutPramaterN]</b><br/>
+        <b>Reply = {NewData, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>After the target object have been invoked this operation is invoked
+          with the result. The <tt>Data</tt> parameter is a list in which
+          the first element is the return value value from the target object and
+          the rest is a all parameters defined as <tt>out</tt> or <tt>inout</tt> in
+          the IDL-specification.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="out_reply_encodedRefObjCtxOpBinExtragtReply"></a><b>out_reply_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Bin   = #binary</b><br/>
+        <b>Reply = {NewBin, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is similar to <tt>out_reply</tt>; the only difference is
+          that the reply body have been encoded.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="out_requestRefObjCtxOpArgsExtragtReply"></a><b>out_request(Ref, Obj, Ctx, Op, Args, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Args  = [Argument] - defined in the IDL-specification</b><br/>
+        <b>Reply = {NewArgs, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Before a request is sent to the server side ORB, <tt>out_request</tt> is
+          invoked.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="out_request_encodedRefObjCtxOpBinExtragtReply"></a><b>out_request_encoded(Ref, Obj, Ctx, Op, Bin, Extra) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref   = term()</b><br/>
+        <b>Obj   = #objref</b><br/>
+        <b>Ctx   = [#'IOP_ServiceContext'{}]</b><br/>
+        <b>Op    = atom()</b><br/>
+        <b>Bin   = #binary</b><br/>
+        <b>Reply = {NewBin, NewExtra}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation is similar to <tt>out_request</tt>; the only
+          difference is that the request body have been encoded.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

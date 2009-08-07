@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>webtool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />webtool</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>WebTool makes it easy to use web based tools with Erlang/OTP. WebTool
+      configures and starts the webserver httpd.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">CALLBACK FUNCTIONS</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ModuleFuncDatagtNameWebDataerror">Module:Func(Data)-&gt; {Name,WebData}|error</a></li>
+        
+        <li><a href="#debug_appModulegtvoid">debug_app(Module)-&gt;void</a></li>
+        
+        <li><a href="#startgtokPidstopReason">start()-&gt; {ok,Pid}| {stop,Reason}</a></li>
+        
+        <li><a href="#startPathDatagtokPidstopReason">start(Path,Data)-&gt;{ok,Pid}|{stop,Reason}</a></li>
+        
+        <li><a href="#stopgtvoid">stop()-&gt;void</a></li>
+        
+        <li><a href="#stop_debuggtvoid">stop_debug()-&gt;void</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">CALLBACK FUNCTIONS</div>
+    
+    <div class="description">
+        
+    <title>CALLBACK FUNCTIONS</title>
+    <p>The following callback function must be implemented by each web
+      based tool that will be used via WebTool. When started, WebTool
+      searches the Erlang code path for *.tool files to locate all web
+      based tools and their callback functions. See the <seealso marker="webtool_chapter">WebTool User's Guide</seealso> for more
+      information about the *.tool files.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="start_webtool">start_webtool(1)</seealso>, 
+      <seealso marker="webtool_chapter">WebTool User's Guide</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokPidstopReason"></a><b>start()-&gt; {ok,Pid}| {stop,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Start WebTool with default data, i.e. port 8888, ip-number
+          127.0.0.1, and server-name <tt>localhost</tt>. If port 8888 is
+          in use, port 8889 is tried instead. If 8889 is also in use,
+          8890 is tried and so on. Max number of ports tried is 256.
+          </p>
+        <p>The <tt>mime.types</tt> file and WebTool's own HTML files
+          are assumed to be in the directory
+          <tt>webtool-<vsn>/priv/root/conf</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startPathDatagtokPidstopReason"></a><b>start(Path,Data)-&gt;{ok,Pid}|{stop,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Path = string() | standard_path</b><br/>
+        <b>Data = [Port,Address,Name] | PortNumber | standard_data</b><br/>
+        <b>Port = {port,PortNumber}</b><br/>
+        <b>Address = {bind_address,IpNumber}</b><br/>
+        <b>Name = {server_name,ServerName}</b><br/>
+        <b>PortNumber = integer()</b><br/>
+        <b>IpNumber = tuple(), e.g. {127,0,0,1}</b><br/>
+        <b>ServerName = string()</b><br/>
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Use this function to start WebTool if the default port, 
+          ip-number,servername or path can not be used.</p>
+        <p><tt>Path</tt> is the directory where the <tt>mime.types</tt>
+          file and WebTool's own HTML files are located. By default
+          this is <tt>webtool-<vsn>/priv</tt>, and in most cases there
+          is no need to change this. If <tt>Path</tt> is set to
+          <tt>standard_path</tt> the default will be used.</p>
+        <p>If <tt>Data</tt> is set to <tt>PortNumber</tt>, the default data
+          will be used for ip-number (<tt>127.0.0.1</tt>) and server
+          name (<tt>localhost</tt>).</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtvoid"></a><b>stop()-&gt;void</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stop WebTool and the tools started by WebTool.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="debug_appModulegtvoid"></a><b>debug_app(Module)-&gt;void</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Module = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Debug a WebTool application by tracing all functions in the
+          given module which are called from WebTool.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_debuggtvoid"></a><b>stop_debug()-&gt;void</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stop the tracing started by <tt>debug_app/1</tt>, and format
+          the trace log.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ModuleFuncDatagtNameWebDataerror"></a><b>Module:Func(Data)-&gt; {Name,WebData}|error</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Data = term()</b><br/>
+        <b>Name = atom()</b><br/>
+        <b>WebData = [WebOptions]</b><br/>
+        <b>WebOptions = LinkData | Alias | Start</b><br/>
+        <b>LinkData = {web_data,{ToolName,Url}}</b><br/>
+        <b>Alias = {alias,{VirtualPath,RealPath}} |  {alias,{erl_alias,Path,[Modules]}</b><br/>
+        <b>Start = {start,StartData}</b><br/>
+        <b>ToolName = Url = VirtualPath = RealPath = Path = string()</b><br/>
+        <b>Modules = atom()</b><br/>
+        <b>StartData = AppData | ChildSpec | Func</b><br/>
+        <b>AppData = {app,AppName}</b><br/>
+        <b>ChildSpec = {child,child_spec()}</b><br/>
+        <d>See the Reference Manual for the module supervisor in the STDLIB application for details about child_spec().</d>
+        <b>Func = {func,{StartMod,StartFunc,StartArg}, {StopMod,StopFunc,StopArg}}</b><br/>
+        <b>AppName = StartMod = StartFunc = StopMod = StopFunc =atom()</b><br/>
+        <b>StartArg = StopArg =  [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This is the configuration function (<tt>config_func</tt>)
+          which must be stated in the <tt>*.tool</tt> file.</p>
+        <p>The function is called by WebTool at startup to retrieve the
+          data needed to start and configure the tool. <tt>LinkData</tt> is
+          used by WebTool to create the link to the tool. <tt>Alias</tt> is
+          used to create the aliases needed by the webserver. <tt>Start</tt>
+          is used to start and stop the tool.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

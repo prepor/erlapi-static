@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br /></td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">IntroductionFeaturesOverview</a></li>
+        
+        <li><a href="#">Features</a></li>
+        
+        <li><a href="#">Overview</a></li>
+        
+        <li><a href="#">xmerl User Interface Data StructureErrors</a></li>
+        
+        <li><a href="#">Errors</a></li>
+        
+        <li><a href="#">Getting Started</a></li>
+        
+        <li><a href="#">Example: Extracting Data From XML Content</a></li>
+        
+        <li><a href="#">Example: Create XML Out Of Arbitrary Data</a></li>
+        
+        <li><a href="#">Example: Transforming XML To HTML</a></li>
+        
+    </ul>
+    
+
+    
+    
+
+     
+    <div class="sectiontitle">IntroductionFeaturesOverview</div>
+    
+    <div class="description">
+        
+    <title>Introduction</title>
+
+    <section>
+      <title>Features</title>
+      <p>The <em>xmerl</em> XML parser is able to parse XML documents
+        according to the XML 1.0 standard. As default it performs
+        well-formed parsing,(syntax checks and checks of well-formed
+        constraints). Optionally one can also use xmerl as a validating
+        parser,(validate according to referenced DTD and validating
+        constraints). By means of for example the xmerl_xs module it is
+        possible to transform the parsed result to other formats,
+        e.g. text, HTML, XML etc.</p>
+    </section>
+
+    <section>
+      <title>Overview</title>
+      <p>This document does not give an introduction to XML. There
+        are a lot of books available that describe XML from
+        different views. At the <url href="http://www.w3.org">www.W3.org</url> site you will find
+        the <url href="http://www.w3.org/TR/REC-xml/">XML 1.0 specification</url> and other related specs. One site were
+        you can find tutorials on XML and related specs is <url href="http://www.zvon.org">ZVON.org</url>.</p>
+      <p>However, here you will find some examples of how to use
+        and to what you can use xmerl. A detailed description of the
+        user interface can be found in the reference manual.</p>
+      <p>There are two known shortcomings in xmerl:</p>
+      <list type="bulleted">
+        <item>It cannot retrieve external entities on the Internet
+         by a URL reference, only resources in the local file
+         system.</item>
+        <item>xmerl can parse Unicode encoded data. But, it fails
+         on tag names, attribute names and other mark-up names that
+         are encoded Unicode characters not mapping on ASCII.</item>
+      </list>
+      <p>By parsing an XML document you will get a record,
+        displaying the structure of the document, as return
+        value. The record also holds the data of the document. xmerl
+        is convenient to use in for instance the following scenarios:</p>
+      <p>You need to retrieve data from XML documents. Your
+        Erlang software can handle information from the XML document
+        by extracting data from the data structure received by
+        parsing.</p>
+      <p>It is also possible to do further processing of parsed
+        XML with xmerl. If you want to change format of the XML
+        document to for instance HTML, text or other XML format you
+        can transform it. There is support for such transformations
+        in xmerl.</p>
+      <p>One may also convert arbitrary data to XML. So it for
+        instance is easy to make it readable by humans. In this case
+        you first create xmerl data structures out of your data, then
+        transform it to XML. </p>
+      <p>You can find examples of these three examples of usage
+        below.</p>
+    </section>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Features</div>
+    
+    <div class="description">
+        
+      <title>Features</title>
+      <p>The <em>xmerl</em> XML parser is able to parse XML documents
+        according to the XML 1.0 standard. As default it performs
+        well-formed parsing,(syntax checks and checks of well-formed
+        constraints). Optionally one can also use xmerl as a validating
+        parser,(validate according to referenced DTD and validating
+        constraints). By means of for example the xmerl_xs module it is
+        possible to transform the parsed result to other formats,
+        e.g. text, HTML, XML etc.</p>
+    
+    </div>
+    
+    
+    <div class="sectiontitle">Overview</div>
+    
+    <div class="description">
+        
+      <title>Overview</title>
+      <p>This document does not give an introduction to XML. There
+        are a lot of books available that describe XML from
+        different views. At the <url href="http://www.w3.org">www.W3.org</url> site you will find
+        the <url href="http://www.w3.org/TR/REC-xml/">XML 1.0 specification</url> and other related specs. One site were
+        you can find tutorials on XML and related specs is <url href="http://www.zvon.org">ZVON.org</url>.</p>
+      <p>However, here you will find some examples of how to use
+        and to what you can use xmerl. A detailed description of the
+        user interface can be found in the reference manual.</p>
+      <p>There are two known shortcomings in xmerl:</p>
+      <list type="bulleted">
+        <item>It cannot retrieve external entities on the Internet
+         by a URL reference, only resources in the local file
+         system.</item>
+        <item>xmerl can parse Unicode encoded data. But, it fails
+         on tag names, attribute names and other mark-up names that
+         are encoded Unicode characters not mapping on ASCII.</item>
+      </list>
+      <p>By parsing an XML document you will get a record,
+        displaying the structure of the document, as return
+        value. The record also holds the data of the document. xmerl
+        is convenient to use in for instance the following scenarios:</p>
+      <p>You need to retrieve data from XML documents. Your
+        Erlang software can handle information from the XML document
+        by extracting data from the data structure received by
+        parsing.</p>
+      <p>It is also possible to do further processing of parsed
+        XML with xmerl. If you want to change format of the XML
+        document to for instance HTML, text or other XML format you
+        can transform it. There is support for such transformations
+        in xmerl.</p>
+      <p>One may also convert arbitrary data to XML. So it for
+        instance is easy to make it readable by humans. In this case
+        you first create xmerl data structures out of your data, then
+        transform it to XML. </p>
+      <p>You can find examples of these three examples of usage
+        below.</p>
+    
+    </div>
+    
+    
+    <div class="sectiontitle">xmerl User Interface Data StructureErrors</div>
+    
+    <div class="description">
+        
+    <title>xmerl User Interface Data Structure</title>
+    <p>The following records used by xmerl to save the parsed
+      data are defined in <tt>xmerl.hrl</tt></p>
+    <p>The result of a successful parsing is a tuple
+      <tt>{DataStructure,M}</tt>. <tt>M</tt> is the XML production Misc,
+      which is the mark-up that comes after the element of the
+      document. It is returned "as is". <tt>DataStructure</tt> is an
+      <tt>xmlElement</tt> record, that among others have the fields
+      <tt>name</tt>, <tt>parents</tt>, <tt>attributes</tt> and
+      <tt>content</tt> like:</p>
+    <pre>
+#xmlElement{name=Name,
+            ...
+            parents=Parents,
+            ...
+            attributes=Attrs,
+            content=Content,
+            ...}    </pre>
+    <p>The name of the element is found in the <tt>name</tt>
+      field. In the <tt>parents</tt> field is the names of the parent
+      elements saved. Parents is a list of tuples where the first
+      element in each tuple is the name of the parent element. The
+      list is in reverse order.</p>
+    <p>The record <tt>xmlAttribute</tt> holds the name and value of
+      an attribute in the fields <tt>name</tt> and <tt>value</tt>. All
+      attributes of an element is a list of xmlAttribute in the
+      field <tt>attributes</tt> of the xmlElement record.
+      </p>
+    <p>The <tt>content</tt> field of the top element is a list of
+      records that shows the structure and data of the document. If
+      it is a simple document like: </p>
+    <pre>
+&lt;?xml version="1.0"?&gt;
+&lt;dog&gt;
+Grand Danois
+&lt;/dog&gt;    </pre>
+    <p>The parse result will be:</p>
+    <pre>
+#xmlElement{name = dog,
+            ...
+            parents = [],
+            ...
+            attributes = [],
+            content = [{xmlText,[{dog,1}],1,[],"\
+Grand Danois\
+",text}],
+            ...
+            }    </pre>
+    <p>Where the content of the top element is:
+      <tt>[{xmlText,[{dog,1}],1,[],"\ Grand Danois\ ",text}]</tt>. Text will be returned in <tt>xmlText</tt> records. Though,
+      usually documents are more complex, and the content of the top
+      element will in that case be a nested structure with
+      xmlElement records that in turn may have complex content. All of
+      this reflects the structure of the XML document.</p>
+    <p>Space characters between mark-up as <tt>space</tt>,
+      <tt>tab</tt> and <tt>line feed</tt> are normalized and returned as
+      xmlText records.</p>
+
+    <section>
+      <title>Errors</title>
+      <p>An unsuccessful parse results in an error, which may be a
+        tuple <tt>{error,Reason}</tt> or an exit:
+        <tt>{'EXIT',Reason}</tt>. According to the XML 1.0 standard
+        there are <tt>fatal error</tt> and <tt>error</tt> situations. The
+        fatal errors <em>must</em> be detected by a conforming parser
+        while an error <em>may</em> be detected. Both categories of
+        errors are reported as fatal errors by this version of xmerl,
+        most often as an exit.</p>
+    </section>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Errors</div>
+    
+    <div class="description">
+        
+      <title>Errors</title>
+      <p>An unsuccessful parse results in an error, which may be a
+        tuple <tt>{error,Reason}</tt> or an exit:
+        <tt>{'EXIT',Reason}</tt>. According to the XML 1.0 standard
+        there are <tt>fatal error</tt> and <tt>error</tt> situations. The
+        fatal errors <em>must</em> be detected by a conforming parser
+        while an error <em>may</em> be detected. Both categories of
+        errors are reported as fatal errors by this version of xmerl,
+        most often as an exit.</p>
+    
+    </div>
+    
+    
+    <div class="sectiontitle">Getting Started</div>
+    
+    <div class="description">
+        
+    <title>Getting Started</title>
+    <p>In the following examples we use the XML file
+      "motorcycles.xml" and the corresponding DTD
+      "motorcycles.dtd". motorcycles.xml looks like:
+            <marker id="motorcyclesxml"></marker>
+</p>
+    <codeinclude file="motorcycles.txt" tag="" type="none"></codeinclude>
+    <p>and motorcycles.dtd looks like: </p>
+    <codeinclude file="motorcycles_dtd.txt" tag="" type="none"></codeinclude>
+    <p>If you want to parse the XML file motorcycles.xml you run
+      it in the Erlang shell like:</p>
+    <pre>
+3&gt; {ParsResult,Misc}=xmerl_scan:file("motorcycles.xml"). 
+{{xmlElement,motorcycles,
+             motorcycles,
+             [],
+             {xmlNamespace,[],[]},
+             [],
+             1,
+             [],
+             [{xmlText,[{motorcycles,1}],1,[],"\
+  ",text},
+              {xmlElement,bike,
+                          bike,
+                          [],
+                          {xmlNamespace,[],[]},
+                          [{motorcycles,1}],
+                          2,
+                          [{xmlAttribute,year,[],[],[],[]|...},
+                           {xmlAttribute,color,[],[],[]|...}],
+                          [{xmlText,[{bike,2},{motorcycles|...}],
+                                    1,
+                                    []|...},
+                           {xmlElement,name,name,[]|...},
+                           {xmlText,[{...}|...],3|...},
+                           {xmlElement,engine|...},
+                           {xmlText|...},
+                           {...}|...],
+                          [],
+                          ".",
+                          undeclared},
+              ...
+              ],
+             [],
+             ".",
+             undeclared},
+ []}
+4&gt;     </pre>
+    <p>If you instead receives the XML doc as a string you can
+      parse it by <tt>xmerl_scan:string/1</tt>. Both file/2 and string/2
+      exists where the second argument is a list of options to the
+      parser, see the <seealso marker="xmerl_scan">reference manual</seealso>.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Example: Extracting Data From XML Content</div>
+    
+    <div class="description">
+        
+    <title>Example: Extracting Data From XML Content</title>
+    <p>In this example consider the situation where you want to
+      examine a particular data in the XML file. For instance, you
+      want to check for how long each motorcycle have been recorded.</p>
+    <p>Take a look at the DTD and observe that the structure of an
+      XML document that is conformant to this DTD must have one
+      motorcycles element (the root element). The motorcycles element
+      must have at least one bike element. After each bike element it
+      may be a date element. The content of the date element is
+      #PCDATA (Parsed Character DATA), i.e. raw text. Observe that if
+      #PCDATA must have a <tt>"<"</tt> or a <tt>"&"</tt> character it must
+      be written as <tt>"&lt;"</tt> and <tt>"&amp;"</tt>
+      respectively. Also other character entities exists similar to
+      the ones in HTML and SGML.</p>
+    <p>If you successfully parse the XML file with the validation
+      on as in:
+      <tt>xmerl_scan:file('motorcycles.xml',[{validation,true}])</tt>
+      you know that the XML document is valid and has the structure
+      according to the DTD.</p>
+    <p>Thus, knowing the allowed structure it is easy to write a
+      program that traverses the data structure and picks the
+      information in the xmlElements records with name date.</p>
+    <p>Observe that white space: each space, tab or line feed,
+      between mark-up results in an xmlText record.</p>
+    <p></p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Example: Create XML Out Of Arbitrary Data</div>
+    
+    <div class="description">
+        
+    <title>Example: Create XML Out Of Arbitrary Data</title>
+    <p>For this task there are more than one way to go. The "brute
+      force" method is to create the records you need and feed your
+      data in the content and attribute fields of the appropriate
+      element.</p>
+    <p>There is support for this in xmerl by the "simple-form"
+      format. You can put your data in a simple-form data structure
+      and feed it into
+      <tt>xmerl:export_simple(Content,Callback,RootAttributes)</tt>. Content
+      may be a mixture of simple-form and xmerl records as xmlElement
+      and xmlText.</p>
+    <p>The Types are:</p>
+    <list type="bulleted">
+      <item>Content = [Element]</item>
+      <item>Callback = atom()</item>
+      <item>RootAttributes = [Attributes]</item>
+    </list>
+    <p>Element is any of:</p>
+    <list type="bulleted">
+      <item>{Tag, Attributes, Content}</item>
+      <item>{Tag, Content}</item>
+      <item>Tag</item>
+      <item>IOString</item>
+      <item>#xmlText{}</item>
+      <item>#xmlElement{}</item>
+      <item>#xmlPI{}</item>
+      <item>#xmlComment{}</item>
+      <item>#xmlDecl{}</item>
+    </list>
+    <p>The simple-form structure is any of <tt>{Tag, Attributes, Content}</tt>, <tt>{Tag, Content}</tt> or <tt>Tag</tt> where:</p>
+    <p></p>
+    <list type="bulleted">
+      <item>Tag = atom()</item>
+      <item>Attributes = [{Name, Value}| #xmlAttribute{}]</item>
+      <item>Name = atom()</item>
+      <item>Value = IOString | atom() | integer()</item>
+    </list>
+    <p>See also reference manual for 
+      <seealso marker="xmerl#export_simple-3">xmerl</seealso></p>
+    <p>If you want to add the information about a black Harley
+      Davidsson 1200 cc Sportster motorcycle from 2003 that is in
+      shape as new in the motorcycles.xml document you can put the
+      data in a simple-form data structure like:</p>
+    <pre>
+Data =
+  {bike,
+     [{year,"2003"},{color,"black"},{condition,"new"}],
+     [{name,
+         [{manufacturer,["Harley Davidsson"]},
+          {brandName,["XL1200C"]},
+          {additionalName,["Sportster"]}]},
+      {engine,
+         ["V-engine, 2-cylinders, 1200 cc"]},
+      {kind,["custom"]},
+      {drive,["belt"]}]}    </pre>
+    <p>In order to append this data to the end of the
+      motorcycles.xml document you have to parse the file and add Data
+      to the end of the root element content.</p>
+    <pre>
+    {RootEl,Misc}=xmerl_scan:file('motorcycles.xml'),
+    #xmlElement{content=Content} = RootEl,
+    NewContent=Content++lists:flatten([Data]),
+    NewRootEl=RootEl#xmlElement{content=NewContent},    </pre>
+    <p>Then you can run it through the export_simple/2 function: </p>
+    <pre>
+    {ok,IOF}=file:open('new_motorcycles.xml',[write]),
+    Export=xmerl:export_simple([NewRootEl],xmerl_xml),
+    io:format(IOF,"~s~n",[lists:flatten(Export)]),    </pre>
+    <marker id="new_motorcyclesxml"></marker>
+    <p>The result would be: </p>
+    <codeinclude file="new_motorcycles.txt" tag="" type="none"></codeinclude>
+    <p>If it is important to get similar indentation and newlines
+      as in the original document you have to add #xmlText{} records
+      with space and newline values in appropriate places. It may also
+      be necessary to keep the original prolog where the DTD is
+      referenced. If so, it is possible to pass a RootAttribute
+      <tt>{prolog,Value}</tt> to <tt>export_simple/3</tt>. The following
+      example code fixes those changes in the previous example:</p>
+    <pre>
+    Data =
+      [#xmlText{value="  "},
+       {bike,[{year,"2003"},{color,"black"},{condition,"new"}],
+             [#xmlText{value="\
+    "},
+              {name,[#xmlText{value="\
+      "},
+                     {manufacturer,["Harley Davidsson"]},
+                     #xmlText{value="\
+      "},
+                     {brandName,["XL1200C"]},
+                     #xmlText{value="\
+      "},
+                     {additionalName,["Sportster"]},
+                     #xmlText{value="\
+    "}]},
+              {engine,["V-engine, 2-cylinders, 1200 cc"]},
+              #xmlText{value="\
+    "},
+              {kind,["custom"]},
+              #xmlText{value="\
+    "},
+              {drive,["belt"]},
+              #xmlText{value="\
+  "}]},
+       #xmlText{value="\
+"}],
+    ...
+    NewContent=Content++lists:flatten([Data]),
+    NewRootEl=RootEl#xmlElement{content=NewContent},
+    ...
+    Prolog = ["&lt;?xml version=\\"1.0\\" encoding=\\"utf-8\\" ?&gt;
+&lt;!DOCTYPE motorcycles SYSTEM \\"motorcycles.dtd\\"&gt;\
+"],
+    Export=xmerl:export_simple([NewRootEl],xmerl_xml,[{prolog,Prolog}]),
+    ...    </pre>
+    <p>The result will be: </p>
+    <codeinclude file="new_motorcycles2.txt" tag="" type="none"></codeinclude>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Example: Transforming XML To HTML</div>
+    
+    <div class="description">
+        
+    <title>Example: Transforming XML To HTML</title>
+    <p>Assume that you want to transform the <seealso marker="#motorcyclesxml">motorcycles.xml</seealso> document to
+      HTML. If you want the same structure and tags of the resulting
+      HTML document as of the XML document then you can use the
+      <tt>xmerl:export/2</tt> function. The following:</p>
+    <pre>
+2&gt; {Doc,Misc}=xmerl_scan:file('motorcycles.xml').
+{{xmlElement,motorcycles,
+             motorcycles,
+             [],
+             {xmlNamespace,[],[]},
+             [],
+             1,
+             [],
+             [{xmlText,[{motorcycles,1}],1,[],"\
+  ",text},
+              {xmlElement,bike,
+...
+3&gt; DocHtml=xmerl:export([Doc],xmerl_html).
+["&lt;!DOCTYPE HTML PUBLIC \\"",
+ "-//W3C//DTD HTML 4.01 Transitional//EN",
+ "\\"",
+ [],
+ "&gt;\
+",
+ [[["&lt;","motorcycles","&gt;"],
+   ["\
+  ",
+    [["&lt;",
+      "bike",
+      [[" ","year","=\\"","2000","\\""],[" ","color","=\\"","black","\\""]],
+      "&gt;"],
+...    </pre>
+    <p>Will give the result <url href="result_export.html">result_export.html</url></p>
+    <p>Perhaps you want to do something more arranged for human
+      reading. Suppose that you want to list all different brands in
+      the beginning with links to each group of motorcycles. You also
+      want all motorcycles sorted by brand, then some flashy colors
+      on top of it. Thus you rearrange the order of the elements and
+      put in arbitrary HTML tags. This is possible to do by means of
+      the <url href="http://www.w3.org/Style/XSL/">XSL Transformation (XSLT)</url> like functionality in xmerl. </p>
+    <p>Even though the following example shows one way to transform data
+      from XML to HTML it also applies to transformations to other
+      formats.</p>
+    <p><tt>xmerl_xs</tt> does not implement the entire XSLT
+      specification but the basic functionality. For all details see
+      the <seealso marker="xmerl_xs">reference manual</seealso></p>
+    <p>First, some words about the xmerl_xs functionality:</p>
+    <p>You need to wright template functions to be able to control
+      what kind of output you want. Thus if you want to encapsulate a
+      <tt>bike</tt> element in &lt;p&gt; tags you simply wright a
+      function:</p>
+    <pre>
+template(E = #xmlElement{name='bike'}) -&gt;
+    ["&lt;p&gt;",xslapply(fun template/1,E),"&lt;/p&gt;"];    </pre>
+    <p>With <tt>xslapply</tt> you tell the XSLT processor in which
+      order it should traverse the XML structure. By default it goes
+      in preorder traversal, but with the following we make a
+      deliberate choice to break that order:</p>
+    <pre>
+template(E = #xmlElement{name='bike'}) -&gt;
+    ["&lt;p&gt;",xslapply(fun template/1,select("bike/name/manufacturer")),"&lt;/p&gt;"];    </pre>
+    <p>If you want to output the content of an XML element or an attribute you will get the value as a string by the <tt>value_of</tt> function:</p>
+    <pre>
+template(E = #xmlElement{name='motorcycles'}) -&gt;
+    ["&lt;p&gt;",value_of(select("bike/name/manufacturer",E),"&lt;/p&gt;"];    </pre>
+    <p>In the xmerl_xs functions you can provide a select(String)
+      call, which is an <url href="http://www.w3.org/TR/xpath">XPath</url>
+      functionality. For more details see the xmerl_xs <url href="xmerl_xs_examples.html">tutorial</url>.</p>
+    <p>Now, back to the example where we wanted to make the output
+      more arranged. With the template:</p>
+    <pre>
+template(E = #xmlElement{name='motorcycles'}) -&gt;
+    [    "&lt;head&gt;\
+&lt;title&gt;motorcycles&lt;/title&gt;\
+&lt;/head&gt;\
+",
+         "&lt;body&gt;\
+",
+\011 "&lt;h1&gt;Used Motorcycles&lt;/h1&gt;\
+",
+\011 "&lt;ul&gt;\
+",
+\011 remove_duplicates(value_of(select("bike/name/manufacturer",E))),
+\011 "\
+&lt;/ul&gt;\
+",
+\011 sort_by_manufacturer(xslapply(fun template/1, E)),
+         "&lt;/body&gt;\
+",
+\011 "&lt;/html&gt;\
+"];    </pre>
+    <p>We match on the top element and embed the inner parts in an
+      HTML body. Then we extract the string values of all motorcycle
+      brands, sort them and removes duplicates by
+      <tt>remove_duplicates(value_of(select("bike/name/manufacturer", E)))</tt>. We also process the substructure of the top element
+      and pass it to a function that sorts all motorcycle information
+      by brand according to the task formulation in the beginning of
+      this example.</p>
+    <p>The next template matches on the <tt>bike</tt> element:</p>
+    <pre>
+template(E = #xmlElement{name='bike'}) -&gt;
+    {value_of(select("name/manufacturer",E)),["&lt;dt&gt;",xslapply(fun template/1,select("name",E)),"&lt;/dt&gt;",
+    "&lt;dd&gt;&lt;ul&gt;\
+",
+    "&lt;li style="color:green"&gt;Manufacturing year: ",xslapply(fun template/1,select("@year",E)),"&lt;/li&gt;\
+",
+    "&lt;li style="color:red"&gt;Color: ",xslapply(fun template/1,select("@color",E)),"&lt;/li&gt;\
+",
+    "&lt;li style="color:blue"&gt;Shape : ",xslapply(fun template/1,select("@condition",E)),"&lt;/li&gt;\
+",
+    "&lt;/ul&gt;&lt;/dd&gt;\
+"]};    </pre>
+    <p>This creates a tuple with the brand of the motorcycle and
+      the output format. We use the brand name only for sorting
+      purpose. We have to end the template function with the "built
+      in clause" <tt>template(E) -&gt; built_in_rules(fun template/1, E).</tt></p>
+    <p>The entire program is motorcycles2html.erl:</p>
+    <codeinclude file="motorcycles2html.erl" tag="" type="erl"></codeinclude>
+    <p>If we run it like this:
+      <tt>motorcycles2html:process_to_file('result_xs.html', 'motorcycles2.xml').</tt> The result will be <url href="result_xs.html">result_xs.html</url>. When the
+      input file is of the same structure as the previous
+      "motorcycles" XML files but it has a little more 'bike'
+      elements and the 'manufacturer' elements are not in order.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

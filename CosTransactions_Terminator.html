@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosTransactions_Terminator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosTransactions_Terminator</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTransactions/include/CosTransactions.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#commitTerminatorReportHeuristicsgtReturn">commit(Terminator, ReportHeuristics) -&gt; Return</a></li>
+        
+        <li><a href="#rollbackTerminatorgtReturn">rollback(Terminator) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="commitTerminatorReportHeuristicsgtReturn"></a><b>commit(Terminator, ReportHeuristics) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Terminator = #objref</b><br/>
+        <b>ReportHeuristics = boolean()</b><br/>
+        <b>Return =  ok | {'EXCEPTION', E}</b><br/>
+        <b>E = #'CosTransactions_HeuristicMixed'{} | #'CosTransactions_HeuristicHazrd'{} | #'CosTransactions_TransactionRolledBack'{}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation initiates the two-phase commit protocol. If the transaction has not been marked
+          <tt>'rollback only'</tt> and all the participants agree to commit, the operation terminates normally. Otherwise,
+          the TransactionRolledBack is raised. If the parameter <tt>ReportHeuristics</tt> is true and inconsistent
+          outcomes by raising an Heuristic Exception.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rollbackTerminatorgtReturn"></a><b>rollback(Terminator) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Terminator = #objref</b><br/>
+        <b>Return = ok</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation roles back the transaction. </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

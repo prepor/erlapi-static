@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>global</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />global</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This documentation describes the Global module which consists
+      of the following functionalities:</p>
+
+    <list type="bulleted">
+      <item>registration of global names;</item>
+      <item>global locks;</item>
+      <item>maintenance of the fully connected network.</item>
+    </list>
+
+    <p>These services are controlled via the process
+      <tt>global_name_server</tt> which exists on every node. The global
+      name server is started automatically when a node is started.
+      With the term <em>global</em> is meant over a system consisting
+      of several Erlang nodes.</p>
+ 
+    <p>The ability to globally register names is a central concept in
+      the programming of distributed Erlang systems. In this module,
+      the equivalent of the <tt>register/2</tt> and <tt>whereis/1</tt>
+      BIFs (for local name registration) are implemented, but for a
+      network of Erlang nodes. A registered name is an alias for a
+      process identifier (pid). The global name server monitors
+      globally registered pids. If a process terminates, the name will
+      also be globally unregistered.</p>
+
+    <p>The registered names are stored in replica global name tables on
+      every node. There is no central storage point. Thus,
+      the translation of a name to a pid is fast, as it is always done
+      locally. When any action in taken which results in a change to
+      the global name table, all tables on other nodes are automatically
+      updated.</p>
+
+    <p>Global locks have lock identities and are set on a specific
+      resource. For instance, the specified resource could be a pid.
+      When a global lock is set, access to the locked resource is
+      denied for all other resources other than the lock requester.</p>
+
+    <p>Both the registration and lock functionalities are atomic. All
+      nodes involved in these actions will have the same view of
+      the information.</p>
+
+    <p>The global name server also performs the critical task of
+      continuously monitoring changes in node configuration: if a node
+      which runs a globally registered process goes down, the name
+      will be globally unregistered. To this end the global name
+      server subscribes to <tt>nodeup</tt> and <tt>nodedown</tt> messages
+      sent from the <tt>net_kernel</tt> module. Relevant Kernel
+      application variables in this context are <tt>net_setuptime</tt>,
+      <tt>net_ticktime</tt>, and <tt>dist_auto_connect</tt>. See also
+      <seealso marker="kernel_app#net_setuptime">kernel(6)</seealso>.</p>
+
+    <p>The name server will also maintain a fully connected network. For
+      example, if node <tt>N1</tt> connects to node <tt>N2</tt> (which is
+      already connected to <tt>N3</tt>), the global name servers on the
+      nodes <tt>N1</tt> and <tt>N3</tt> will make sure that also <tt>N1</tt>
+      and <tt>N3</tt> are connected. If this is not desired, the command
+      line flag <tt>-connect_all false</tt> can be used (see also
+      <seealso marker="erts:erl#connect_all">erl(1)</seealso>). In
+      this case the name registration facility cannot be used, but the
+      lock mechanism will still work.</p>
+
+    <p>If the global name server fails to connect nodes (<tt>N1</tt> and
+      <tt>N3</tt> in the example above) a warning event is sent to the
+      error logger. The presence of such an event does not exclude the
+      possibility that the nodes will later connect--one can for
+      example try the command <tt>rpc:call(N1, net_adm, ping, [N2])</tt> in
+      the Erlang shell--but it indicates some kind of problem with
+      the network.</p>
+
+    <note>
+      <p>If the fully connected network is not set up properly, the
+        first thing to try is to increase the value of
+        <tt>net_setuptime</tt>.</p>
+    </note>
+
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#del_lockId">del_lock(Id)</a></li>
+        
+        <li><a href="#notify_all_nameNamePid1Pid2gtnone">notify_all_name(Name, Pid1, Pid2) -&gt; none</a></li>
+        
+        <li><a href="#random_exit_nameNamePid1Pid2gtPid1Pid2">random_exit_name(Name, Pid1, Pid2) -&gt; Pid1 | Pid2</a></li>
+        
+        <li><a href="#random_notify_nameNamePid1Pid2gtPid1Pid2">random_notify_name(Name, Pid1, Pid2) -&gt; Pid1 | Pid2</a></li>
+        
+        <li><a href="#re_register_nameNamePid">re_register_name(Name, Pid)</a></li>
+        
+        <li><a href="#register_nameNamePid">register_name(Name, Pid)</a></li>
+        
+        <li><a href="#registered_namesgtName">registered_names() -&gt; [Name]</a></li>
+        
+        <li><a href="#sendNameMsggtPid">send(Name, Msg) -&gt; Pid</a></li>
+        
+        <li><a href="#set_lockId">set_lock(Id)</a></li>
+        
+        <li><a href="#syncgtvoid">sync() -&gt; void()</a></li>
+        
+        <li><a href="#transIdFun">trans(Id, Fun)</a></li>
+        
+        <li><a href="#unregister_nameNamegtvoid">unregister_name(Name) -&gt; void()</a></li>
+        
+        <li><a href="#whereis_nameNamegtpidundefined">whereis_name(Name) -&gt; pid() | undefined</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p><seealso marker="global_group">global_group(3)</seealso>,
+       <seealso marker="net_kernel">net_kernel(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="del_lockId"></a><b>del_lock(Id)<br/>del_lock(Id, Nodes) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Id = {ResourceId, LockRequesterId}</b><br/>
+        <b>&nbsp;ResourceId = term()</b><br/>
+        <b>&nbsp;LockRequesterId = term()</b><br/>
+        <b>Nodes = [node()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes the lock <tt>Id</tt> synchronously.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="notify_all_nameNamePid1Pid2gtnone"></a><b>notify_all_name(Name, Pid1, Pid2) -&gt; none</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Pid1 = Pid2 = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used as a name resolving function for
+          <tt>register_name/3</tt> and <tt>re_register_name/3</tt>. It
+          unregisters both pids, and sends the message
+          <tt>{global_name_conflict, Name, OtherPid}</tt> to both
+          processes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="random_exit_nameNamePid1Pid2gtPid1Pid2"></a><b>random_exit_name(Name, Pid1, Pid2) -&gt; Pid1 | Pid2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Pid1 = Pid2 = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used as a name resolving function for
+          <tt>register_name/3</tt> and <tt>re_register_name/3</tt>. It
+          randomly chooses one of the pids for registration and kills
+          the other one.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="random_notify_nameNamePid1Pid2gtPid1Pid2"></a><b>random_notify_name(Name, Pid1, Pid2) -&gt; Pid1 | Pid2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Pid1 = Pid2 = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be used as a name resolving function for
+          <tt>register_name/3</tt> and <tt>re_register_name/3</tt>. It
+          randomly chooses one of the pids for registration, and sends
+          the message <tt>{global_name_conflict, Name}</tt> to the other
+          pid.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="register_nameNamePid"></a><b>register_name(Name, Pid)<br/>register_name(Name, Pid, Resolve) -&gt; yes | no</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>Resolve = fun() or {Module, Function} where</b><br/>
+        <b>&nbsp;&nbsp;Resolve(Name, Pid, Pid2) -&gt; Pid | Pid2 | none</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Globally associates the name <tt>Name</tt> with a pid, that is,
+          Globally notifies all nodes of a new global name in a network
+          of Erlang nodes.</p>
+
+        <p>When new nodes are added to the network, they are informed
+          of the globally registered names that already exist.
+          The network is also informed of any global names in newly
+          connected nodes. If any name clashes are discovered,
+          the <tt>Resolve</tt> function is called. Its purpose is to
+          decide which pid is correct. If the function crashes, or
+          returns anything other than one of the pids, the name is
+          unregistered. This function is called once for each name
+          clash.</p>
+
+        <p>There are three pre-defined resolve functions:
+          <tt>random_exit_name/3</tt>, <tt>random_notify_name/3</tt>, and
+          <tt>notify_all_name/3</tt>. If no <tt>Resolve</tt> function is
+          defined, <tt>random_exit_name</tt> is used. This means that one
+          of the two registered processes will be selected as correct
+          while the other is killed.</p>
+
+        <p>This function is completely synchronous. This means that
+          when this function returns, the name is either registered on
+          all nodes or none.</p>
+
+        <p>The function returns <tt>yes</tt> if successful, <tt>no</tt> if
+          it fails. For example, <tt>no</tt> is returned if an attempt
+          is made to register an already registered process or to
+          register a process with a name that is already in use.</p>
+
+        <note>
+          <p>Releases up to and including OTP R10 did not check if the
+            process was already registered. As a consequence the
+            global name table could become inconsistent. The old
+            (buggy) behavior can be chosen by giving the Kernel
+            application variable <tt>global_multi_name_action</tt> the
+            value <tt>allow</tt>.</p>
+        </note>
+
+        <p>If a process with a registered name dies, or the node goes
+          down, the name is unregistered on all nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="registered_namesgtName"></a><b>registered_names() -&gt; [Name]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a lists of all globally registered names.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="re_register_nameNamePid"></a><b>re_register_name(Name, Pid)<br/>re_register_name(Name, Pid, Resolve) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>Resolve = fun() or {Module, Function} where</b><br/>
+        <b>&nbsp;&nbsp;Resolve(Name, Pid, Pid2) -&gt; Pid | Pid2 | none</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Atomically changes the registered name <tt>Name</tt> on all
+          nodes to refer to <tt>Pid</tt>.</p>
+
+        <p>The <tt>Resolve</tt> function has the same behavior as in
+          <tt>register_name/2,3</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sendNameMsggtPid"></a><b>send(Name, Msg) -&gt; Pid</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+        <b>Msg = term()</b><br/>
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends the message <tt>Msg</tt> to the pid globally registered
+          as <tt>Name</tt>.</p>
+
+        <p>Failure: If <tt>Name</tt> is not a globally registered
+          name, the calling function will exit with reason
+          <tt>{badarg, {Name, Msg}}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_lockId"></a><b>set_lock(Id)<br/>set_lock(Id, Nodes)<br/>set_lock(Id, Nodes, Retries) -&gt; boolean()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Id = {ResourceId, LockRequesterId}</b><br/>
+        <b>&nbsp;ResourceId = term()</b><br/>
+        <b>&nbsp;LockRequesterId = term()</b><br/>
+        <b>Nodes = [node()]</b><br/>
+        <b>Retries = int() &gt;= 0 | infinity</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets a lock on the specified nodes (or on all nodes if none
+          are specified) on <tt>ResourceId</tt> for
+          <tt>LockRequesterId</tt>. If a lock already exists on
+          <tt>ResourceId</tt> for another requester than
+          <tt>LockRequesterId</tt>, and <tt>Retries</tt> is not equal to 0,
+          the process sleeps for a while and will try to execute
+          the action later. When <tt>Retries</tt> attempts have been made,
+          <tt>false</tt> is returned, otherwise <tt>true</tt>. If
+          <tt>Retries</tt> is <tt>infinity</tt>, <tt>true</tt> is eventually
+          returned (unless the lock is never released).</p>
+
+        <p>If no value for <tt>Retries</tt> is given, <tt>infinity</tt> is
+          used.</p>
+
+        <p>This function is completely synchronous.</p>
+
+        <p>If a process which holds a lock dies, or the node goes
+          down, the locks held by the process are deleted.</p>
+
+        <p>The global name server keeps track of all processes sharing
+          the same lock, that is, if two processes set the same lock,
+          both processes must delete the lock.</p>
+
+        <p>This function does not address the problem of a deadlock. A
+          deadlock can never occur as long as processes only lock one
+          resource at a time. But if some processes try to lock two or
+          more resources, a deadlock may occur. It is up to the
+          application to detect and rectify a deadlock.</p>
+
+        <note>
+          <p>Some values of <tt>ResourceId</tt> should be avoided or
+            Erlang/OTP will not work properly. A list of resources to
+            avoid: <tt>global</tt>, <tt>dist_ac</tt>,
+            <tt>mnesia_table_lock</tt>, <tt>mnesia_adjust_log_writes</tt>,
+            <tt>pg2</tt>.</p>
+        </note>
+
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="syncgtvoid"></a><b>sync() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Synchronizes the global name server with all nodes known to
+          this node. These are the nodes which are returned from
+          <tt>erlang:nodes()</tt>. When this function returns,
+          the global name server will receive global information from
+          all nodes. This function can be called when new nodes are
+          added to the network.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="transIdFun"></a><b>trans(Id, Fun)<br/>trans(Id, Fun, Nodes)<br/>trans(Id, Fun, Nodes, Retries) -&gt; Res | aborted</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Id = {ResourceId, LockRequesterId}</b><br/>
+        <b>&nbsp;ResourceId = term()</b><br/>
+        <b>&nbsp;LockRequesterId = term()</b><br/>
+        <b>Fun = fun() | {M, F}</b><br/>
+        <b>Nodes = [node()]</b><br/>
+        <b>Retries = int() &gt;= 0 | infinity</b><br/>
+        <b>Res = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets a lock on <tt>Id</tt> (using <tt>set_lock/3</tt>). If this
+          succeeds, <tt>Fun()</tt> is evaluated and the result <tt>Res</tt>
+          is returned.  Returns <tt>aborted</tt> if the lock attempt
+          failed. If <tt>Retries</tt> is set to <tt>infinity</tt>,
+          the transaction will not abort.</p>
+
+        <p><tt>infinity</tt> is the default setting and will be used if 
+          no value is given for <tt>Retries</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unregister_nameNamegtvoid"></a><b>unregister_name(Name) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Removes the globally registered name <tt>Name</tt> from
+          the network of Erlang nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="whereis_nameNamegtpidundefined"></a><b>whereis_name(Name) -&gt; pid() | undefined</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the pid with the globally registered name
+          <tt>Name</tt>. Returns <tt>undefined</tt> if the name is not
+          globally registered.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

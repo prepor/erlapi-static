@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>inviso_as_lib</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />inviso_as_lib</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The purpose of the Inviso autostart utility library is to facilitate the creation and modification of autostart configuration files used by the standard autostart.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#inhibit_autostartNodegtokerrorReason">inhibit_autostart(Node) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#set_repeatNodeRgtokerrorReason">set_repeat(Node, R) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#setup_autostartNodeROptsTracerDataCmdFilesBindingsTranslRTtaggtokerrorReason">setup_autostart(Node, R, Opts, TracerData, CmdFiles, Bindings, Transl, RTtag) -&gt; ok | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="setup_autostartNodeROptsTracerDataCmdFilesBindingsTranslRTtaggtokerrorReason"></a><b>setup_autostart(Node, R, Opts, TracerData, CmdFiles, Bindings, Transl, RTtag) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = atom()</b><br/>
+        <b>R = int()</b><br/>
+        <b>Opts -- see inviso:add_nodes/2,3</b><br/>
+        <b>TracerData -- see inviso:init_tracing/1,2</b><br/>
+        <b>CmdFiles = [CmdFile]</b><br/>
+        <b>&nbsp;CmdFile = string()</b><br/>
+        <b>Bindings = [{Var,Val}]</b><br/>
+        <b>&nbsp;Var = atom()</b><br/>
+        <b>&nbsp;Val = term()</b><br/>
+        <b>Transl = [{{M1,F1,Arity}, {M2,F2,{Mt,Ft}}}]</b><br/>
+        <b>&nbsp;M1 = F1 = M2 = F2 = Mt = Ft = atom()</b><br/>
+        <b>&nbsp;Arity = int()</b><br/>
+        <b>RTtag = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Creates an autostart configuration file on <tt>Node</tt>. The name of the file is automatically deducted from consulting the Runtime_Tools configuration parameters at <tt>Node</tt>.</p>
+        <p><tt>R</tt> is the number of allowed autostarts remaining.</p>
+        <p><tt>Opts</tt> is the options which shall be given to the runtime component. See <seealso marker="inviso#add_nodes/2">inviso:add_nodes/2,3</seealso>.</p>
+        <p><tt>TracerData</tt> is used when initiating tracing on this node. See <seealso marker="inviso#init_tracing/1">inviso:init_tracing/1,2</seealso>.</p>
+        <p><tt>CmdFiles</tt> points out files containing instructions understood by the <tt>inviso_autostart_server</tt> implementation of an autostart initiator.</p>
+        <p><tt>Bindings</tt> is a list of <tt>{Var, Val}</tt> tuples, where <tt>Var</tt> is the name of a variable and <tt>Val</tt> the actual value of the variable.</p>
+        <p><tt>Transl</tt> means that <tt>M1:F1/Arity</tt> shall be translated into <tt>M2:F2</tt>.</p>
+        <p><tt>RTtag</tt> is the incarnation tag of the runtime component. See See <seealso marker="inviso#add_nodes/2">inviso:add_nodes/2,3</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_repeatNodeRgtokerrorReason"></a><b>set_repeat(Node, R) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = atom()</b><br/>
+        <b>R = int()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the repeat parameter in the autostart file at <tt>Node</tt> without changing any of its other contents. The autostart configuration file must exist.</p>
+        <p><tt>R</tt> is the number of allowed autostarts remaining.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="inhibit_autostartNodegtokerrorReason"></a><b>inhibit_autostart(Node) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sets the repeat parameter in the autostart file at <tt>Node</tt> to 0. Equivalent to <tt>set_repeat(Node, 0)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>erl_eval</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />erl_eval</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides an interpreter for Erlang expressions. The
+      expressions are in the abstract syntax as returned by
+      <tt>erl_parse</tt>, the Erlang parser, or a call to
+      <tt>io:parse_erl_exprs/2</tt>.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Local Function Handler</a></li>
+        
+        <li><a href="#">Non-local Function Handler</a></li>
+        
+        <li><a href="#">Bugs</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_bindingNameValueBindingsgtBindingStruct">add_binding(Name, Value, Bindings) -&gt; BindingStruct</a></li>
+        
+        <li><a href="#bindingNameBindingStructgtBinding">binding(Name, BindingStruct) -&gt; Binding</a></li>
+        
+        <li><a href="#bindingsBindingStructgtBindings">bindings(BindingStruct) -&gt; Bindings</a></li>
+        
+        <li><a href="#del_bindingNameBindingsgtBindingStruct">del_binding(Name, Bindings) -&gt; BindingStruct</a></li>
+        
+        <li><a href="#exprExpressionBindingsgtvalueValueNewBindings">expr(Expression, Bindings) -&gt; { value, Value, NewBindings }</a></li>
+        
+        <li><a href="#expr_listExpressionListBindingsgtValueListNewBindings">expr_list(ExpressionList, Bindings) -&gt;  {ValueList, NewBindings}</a></li>
+        
+        <li><a href="#exprsExpressionsBindingsgtvalueValueNewBindings">exprs(Expressions, Bindings) -&gt; {value, Value, NewBindings}</a></li>
+        
+        <li><a href="#new_bindingsgtBindingStruct">new_bindings() -&gt; BindingStruct</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Local Function Handler</div>
+    
+    <div class="description">
+        
+    <title>Local Function Handler</title>
+    <p>During evaluation of a function, no calls can be made to local
+      functions. An undefined function error would be
+      generated. However, the optional argument
+      <tt>LocalFunctionHandler</tt> may be used to define a function
+      which is called when there is a call to a local function. The
+      argument can have the following formats:</p>
+    <taglist>
+      <tag><tt>{value,Func}</tt></tag>
+      <item>
+        <p>This defines a local function handler which is called with:</p>
+        <code type="none">
+Func(Name, Arguments)        </code>
+        <p><tt>Name</tt> is the name of the local function (an atom) and
+          <tt>Arguments</tt> is a list of the <em>evaluated</em>
+          arguments. The function handler returns the value of the
+          local function. In this case, it is not possible to access
+          the current bindings. To signal an error, the function
+          handler just calls <tt>exit/1</tt> with a suitable exit value.</p>
+      </item>
+      <tag><tt>{eval,Func}</tt></tag>
+      <item>
+        <p>This defines a local function handler which is called with:</p>
+        <code type="none">
+Func(Name, Arguments, Bindings)        </code>
+        <p><tt>Name</tt> is the name of the local function (an atom),
+          <tt>Arguments</tt> is a list of the <em>unevaluated</em>
+          arguments, and <tt>Bindings</tt> are the current variable
+          bindings. The function handler returns:</p>
+        <code type="none">
+{value,Value,NewBindings}        </code>
+        <p><tt>Value</tt> is the value of the local function and
+          <tt>NewBindings</tt> are the updated variable bindings. In
+          this case, the function handler must itself evaluate all the
+          function arguments and manage the bindings. To signal an
+          error, the function handler just calls <tt>exit/1</tt> with a
+          suitable exit value.</p>
+      </item>
+      <tag><tt>none</tt></tag>
+      <item>
+        <p>There is no local function handler.</p>
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Non-local Function Handler</div>
+    
+    <div class="description">
+        
+    <title>Non-local Function Handler</title>
+    <p>The optional argument <tt>NonlocalFunctionHandler</tt> may be
+      used to define a function which is called in the following
+      cases: a functional object (fun) is called; a built-in function
+      is called; a function is called using the M:F syntax, where M
+      and F are atoms or expressions; an operator Op/A is called
+      (this is handled as a call to the function <tt>erlang:Op/A</tt>).
+      Exceptions are calls to <tt>erlang:apply/2,3</tt>; neither of the
+      function handlers will be called for such calls. 
+      The argument can have the following formats:</p>
+    <taglist>
+      <tag><tt>{value,Func}</tt></tag>
+      <item>
+        <p>This defines an nonlocal function handler which is called with:</p>
+        <code type="none">
+Func(FuncSpec, Arguments)        </code>
+        <p><tt>FuncSpec</tt> is the name of the function on the form
+          <tt>{Module,Function}</tt> or a fun, and <tt>Arguments</tt> is a
+          list of the <em>evaluated</em> arguments. The function
+          handler returns the value of the function. To
+          signal an error, the function handler just calls
+          <tt>exit/1</tt> with a suitable exit value.</p>
+      </item>
+      <tag><tt>none</tt></tag>
+      <item>
+        <p>There is no nonlocal function handler.</p>
+      </item>
+    </taglist>
+    <note>
+      <p>For calls such as <tt>erlang:apply(Fun, Args)</tt> or
+        <tt>erlang:apply(Module, Function, Args)</tt> the call of the
+        non-local function handler corresponding to the call to
+        <tt>erlang:apply/2,3</tt> itself--<tt>Func({erlang, apply}, [Fun, Args])</tt> or <tt>Func({erlang, apply}, [Module, Function, Args])</tt>--will never take place. The non-local function
+        handler <em>will</em> however be called with the evaluated
+        arguments of the call to <tt>erlang:apply/2,3</tt>: <tt>Func(Fun, Args)</tt> or <tt>Func({Module, Function}, Args)</tt> (assuming
+        that <tt>{Module, Function}</tt> is not <tt>{erlang, apply}</tt>).</p>
+    </note>
+    <p>The nonlocal function handler argument is probably not used as
+      frequently as the local function handler argument. A possible
+      use is to call <tt>exit/1</tt> on calls to functions that for some
+      reason are not allowed to be called.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">Bugs</div>
+    
+    <div class="description">
+        
+    <title>Bugs</title>
+    <p>The evaluator is not complete. <tt>receive</tt> cannot be
+      handled properly.
+      </p>
+    <p>Any undocumented functions in <tt>erl_eval</tt> should not be used.</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="exprsExpressionsBindingsgtvalueValueNewBindings"></a><b>exprs(Expressions, Bindings) -&gt; {value, Value, NewBindings}<br/>exprs(Expressions, Bindings, LocalFunctionHandler) -&gt;  {value, Value, NewBindings}<br/>exprs(Expressions, Bindings, LocalFunctionHandler, NonlocalFunctionHandler) -&gt; {value, Value, NewBindings}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Expressions = as returned by erl_parse or io:parse_erl_exprs/2</b><br/>
+        <b>Bindings = as returned by bindings/1</b><br/>
+        <b>LocalFunctionHandler = {value, Func} | {eval, Func} | none</b><br/>
+        <b>NonlocalFunctionHandler = {value, Func} | none</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Evaluates <tt>Expressions</tt> with the set of bindings
+          <tt>Bindings</tt>, where <tt>Expressions</tt> is a sequence of
+          expressions (in abstract syntax) of a type which may be
+          returned by <tt>io:parse_erl_exprs/2</tt>. See below for an
+          explanation of how and when to use the arguments
+          <tt>LocalFunctionHandler</tt> and <tt>NonlocalFunctionHandler</tt>.
+          </p>
+        <p>Returns <tt>{value, Value, NewBindings}</tt></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="exprExpressionBindingsgtvalueValueNewBindings"></a><b>expr(Expression, Bindings) -&gt; { value, Value, NewBindings }<br/>expr(Expression, Bindings, LocalFunctionHandler) -&gt; { value, Value, NewBindings }<br/>expr(Expression, Bindings, LocalFunctionHandler, NonlocalFunctionHandler) -&gt; { value, Value, NewBindings }<br/>expr(Expression, Bindings, LocalFunctionHandler, NonlocalFunctionHandler, ReturnFormat) -&gt; { value, Value, NewBindings } | Value</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Expression = as returned by io:parse_erl_form/2, for example</b><br/>
+        <b>Bindings = as returned by bindings/1</b><br/>
+        <b>LocalFunctionHandler = {value, Func} | {eval, Func} | none</b><br/>
+        <b>NonlocalFunctionHandler = {value, Func} | none</b><br/>
+        <b>ReturnFormat = value | none</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Evaluates <tt>Expression</tt> with the set of bindings
+          <tt>Bindings</tt>. <tt>Expression</tt> is an expression (in
+          abstract syntax) of a type which may be returned by
+          <tt>io:parse_erl_form/2</tt>. See below for an explanation of
+          how and when to use the arguments
+          <tt>LocalFunctionHandler</tt> and
+          <tt>NonlocalFunctionHandler</tt>.
+          </p>
+        <p>Returns <tt>{value, Value, NewBindings}</tt> by default. But
+        if the <tt>ReturnFormat</tt> is <tt>value</tt> only the <tt>Value</tt> 
+        is returned.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="expr_listExpressionListBindingsgtValueListNewBindings"></a><b>expr_list(ExpressionList, Bindings) -&gt;  {ValueList, NewBindings}<br/>expr_list(ExpressionList, Bindings, LocalFunctionHandler) -&gt;  {ValueList, NewBindings}<br/>expr_list(ExpressionList, Bindings, LocalFunctionHandler,  NonlocalFunctionHandler) -&gt; {ValueList, NewBindings}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Evaluates a list of expressions in parallel, using the same
+          initial bindings for each expression. Attempts are made to
+          merge the bindings returned from each evaluation.  This
+          function is useful in the <tt>LocalFunctionHandler</tt>. See below.
+          </p>
+        <p>Returns <tt>{ValueList, NewBindings}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="new_bindingsgtBindingStruct"></a><b>new_bindings() -&gt; BindingStruct</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns an empty binding structure.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bindingsBindingStructgtBindings"></a><b>bindings(BindingStruct) -&gt; Bindings</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the list of bindings contained in the binding
+          structure.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bindingNameBindingStructgtBinding"></a><b>binding(Name, BindingStruct) -&gt; Binding</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Returns the binding of <tt>Name</tt> in <tt>BindingStruct</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_bindingNameValueBindingsgtBindingStruct"></a><b>add_binding(Name, Value, Bindings) -&gt; BindingStruct</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Adds the binding <tt>Name = Value</tt> to <tt>Bindings</tt>.
+          Returns an updated binding structure.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="del_bindingNameBindingsgtBindingStruct"></a><b>del_binding(Name, Bindings) -&gt; BindingStruct</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Removes the binding of <tt>Name</tt> in <tt>Bindings</tt>.
+          Returns an updated binding structure.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

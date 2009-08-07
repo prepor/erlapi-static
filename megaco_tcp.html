@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>megaco_tcp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />megaco_tcp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains the public interface to the TPKT (TCP/IP) version
+      transport protocol for Megaco/H.248.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#blockHandlegtok">block(Handle) -&gt; ok</a></li>
+        
+        <li><a href="#closeHandlegtok">close(Handle) -&gt; ok</a></li>
+        
+        <li><a href="#connectTransportRefOptionListgtokHandleControlPiderrorReason">connect(TransportRef, OptionList) -&gt; {ok, Handle, ControlPid} |  {error, Reason}</a></li>
+        
+        <li><a href="#get_statsgtokTotalStatserrorReason">get_stats() -&gt; {ok, TotalStats} | {error, Reason}</a></li>
+        
+        <li><a href="#listenTransportRefListenPortSpecListgtok">listen(TransportRef, ListenPortSpecList) -&gt; ok</a></li>
+        
+        <li><a href="#reset_statsgtvoid">reset_stats() -&gt; void()</a></li>
+        
+        <li><a href="#send_messageHandleMessagegtok">send_message(Handle, Message) -&gt; ok</a></li>
+        
+        <li><a href="#socketHandlegtSocket">socket(Handle) -&gt; Socket</a></li>
+        
+        <li><a href="#start_transportgtokTransportRef">start_transport() -&gt; {ok, TransportRef}</a></li>
+        
+        <li><a href="#unblockHandlegtok">unblock(Handle) -&gt; ok</a></li>
+        
+        <li><a href="#upgrade_receive_handleControlPidgtok">upgrade_receive_handle(ControlPid) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="start_transportgtokTransportRef"></a><b>start_transport() -&gt; {ok, TransportRef}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TransportRef = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for starting the TCP/IP transport service.
+          Use exit(TransportRef, Reason) to stop the transport service.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="listenTransportRefListenPortSpecListgtok"></a><b>listen(TransportRef, ListenPortSpecList) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TransportRef = pid() | regname()</b><br/>
+        <b>OptionListPerPort = [Option]</b><br/>
+        <b>Option = {port, integer()} |{options, list()} |{receive_handle, term()}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for starting new TPKT listening socket
+          for TCP/IP.  The option list contains the socket
+          definitions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connectTransportRefOptionListgtokHandleControlPiderrorReason"></a><b>connect(TransportRef, OptionList) -&gt; {ok, Handle, ControlPid} |  {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TransportRef = pid() | regname()</b><br/>
+        <b>OptionList = [Option]</b><br/>
+        <b>Option = {host, Ipaddr} | {port, integer()}  |{options, list()} |{receive_handle, term()} |{module, atom()}</b><br/>
+        <b>Handle = socket_handle()</b><br/>
+        <b>ControlPid = pid()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to open a TPKT connection.</p>
+        <p>The <tt>module</tt> option makes it possible for the user to provide
+          their own callback module. The <tt>receive_message/4</tt> or
+          <tt>process_received_message/4</tt> functions of this module is called 
+          when a new message is received (which one depends on the size of the 
+          message; small - receive_message, large - process_received_message). 
+          Default value is <em>megaco</em>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="closeHandlegtok"></a><b>close(Handle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used for closing an active TPKT connection.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="socketHandlegtSocket"></a><b>socket(Handle) -&gt; Socket</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+        <b>Socket = inet_socket()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to convert a socket_handle() to
+          a inet_socket(). inet_socket() is a plain socket,
+          see the inet module for more info.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="send_messageHandleMessagegtok"></a><b>send_message(Handle, Message) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+        <b>Message = binary() | iolist()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a message on a connection.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="blockHandlegtok"></a><b>block(Handle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stop receiving incomming messages on the socket.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="unblockHandlegtok"></a><b>unblock(Handle) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handle = socket_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starting to receive incomming messages from the socket again.</p>
+        <marker id="upgrade_receive_handle"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="upgrade_receive_handleControlPidgtok"></a><b>upgrade_receive_handle(ControlPid) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ControlPid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Update the receive handle of the control process (e.g. after
+          having changed protocol version).</p>
+        <marker id="stats"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_statsgtokTotalStatserrorReason"></a><b>get_stats() -&gt; {ok, TotalStats} | {error, Reason}<br/>get_stats(SendHandle) -&gt; {ok, SendHandleStats} | {error, Reason}<br/>get_stats(SendHandle, Counter) -&gt; {ok, CounterStats} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TotalStats = [send_handle_stats()]</b><br/>
+        <b>total_stats() = {send_handle(), [stats()]}</b><br/>
+        <b>SendHandle = send_handle()</b><br/>
+        <b>SendHandleStats = [stats()]</b><br/>
+        <b>Counter = tcp_stats_counter()</b><br/>
+        <b>CounterStats = integer()</b><br/>
+        <b>stats() = {tcp_stats_counter(), integer()}</b><br/>
+        <b>tcp_stats_counter() = medGwyGatewayNumInMessages |  medGwyGatewayNumInOctets | medGwyGatewayNumOutMessages | medGwyGatewayNumOutOctets | medGwyGatewayNumErrors</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Retreive the TCP related (SNMP) statistics counters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reset_statsgtvoid"></a><b>reset_stats() -&gt; void()<br/>reset_stats(SendHandle) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>SendHandle = send_handle()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reset all TCP related (SNMP) statistics counters.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

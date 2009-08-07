@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>inviso_lfm_tpfreader</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />inviso_lfm_tpfreader</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>Implements the standard reader process to the standard logfile merger <tt>inviso_lfm</tt>.</p>
+    <p>The reader process reads logfiles belonging to the same set (normally one node) in chronological order and delivers logged trace messages one by one to the output process. Before any trace messages are delivered, the <tt>inviso_lfm_tpreader</tt> implementation reads the entire trace information file (if in use) and builds a database over pid-to-alias associations.</p>
+    <p>The <tt>inviso_lfm_tpreader</tt> implementation is capable of considering that an alias may have been used for several processes during different times. An alias may also be in use for several pids at the same time, on purpose. If a process has generated a trace message, all associations between that pid and aliases will be presented as the list <tt>PidMappings</tt> in the message sent to the output process.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">The Trace Information File Protocol</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#handle_logfile_sort_wrapsetLogFilesgtFileList2">handle_logfile_sort_wrapset(LogFiles) -&gt; FileList2</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">The Trace Information File Protocol</div>
+    
+    <div class="description">
+        
+    <title>The Trace Information File Protocol</title>
+    <p>The format of a trace information file is dictated by the meta tracer process. The <tt>inviso_lfm_tpfreader</tt> implementation of a reader process understands the following trace information entries. Note that the <tt>inviso_rt_meta</tt> trace information file is on binary format prefixing every entry with a 4 byte length indicator.</p>
+    <taglist>
+      <tag><tt>{Pid, Alias, alias, NowStamp}</tt></tag>
+      <item>
+        <p><tt>Pid = pid()</tt>          <br>
+<tt>Alias = term()</tt>          <br>
+<tt>NowStamp = term()</tt>, but in current implementation as
+          returned from <tt>erlang:now/0</tt></p>
+        <p>This message indicates that from now on shall <tt>Pid</tt> be associated with <tt>Alias</tt>.</p>
+      </item>
+      <tag><tt>{MaybePid, Alias, unalias, NowStamp}</tt></tag>
+      <item>
+        <p><tt>MaybePid = pid() | undefined</tt>          <br>
+<tt>Alias = term()</tt>          <br>
+<tt>NowStamp = term()</tt>, see above</p>
+        <p>This message indicates that, if <tt>MaybePid</tt> is a pid, this pid shall no longer be associated with <tt>Alias</tt>. If it is <tt>undefined</tt>, all associations with <tt>Alias</tt> from now shall be considered invalid.</p>
+        <p>Also note that there are many situations where <tt>unalias</tt> entries will be missing. For instance if a process terminates without making explicit function calls removing its associations first. This is seldom a problem unless the pid is reused.</p>
+      </item>
+    </taglist>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="handle_logfile_sort_wrapsetLogFilesgtFileList2"></a><b>handle_logfile_sort_wrapset(LogFiles) -&gt; FileList2</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>LogFiles = [{trace_log, FileList}]</b><br/>
+        <b>FileList = FileList2 = [FileName]</b><br/>
+        <b>&nbsp;FileName = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Only one <tt>{trace_log, FileList}</tt> tuple is expected in <tt>LogFiles</tt>, all other tuples are ignored. <tt>FileList</tt> must:</p>
+        <list type="bulleted">
+          <item>contain one single file name, or</item>
+          <item>a list of wraplog files, following the naming convention <tt><Prefix><Nr><Suffix></tt>.</item>
+        </list>
+        <p>Sorts the files in <tt>FileList</tt> in chronological order beginning with the oldest. Sorting is only relevant if <tt>FileList</tt> is a list of wraplogs. The sorting is done on finding the modulo-counter in the filename and not on filesystem timestamps.</p>
+        <p>This function is exported for convenience should an own reader process be implemented.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

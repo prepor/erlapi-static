@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>string</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />string</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains functions for string processing.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Notes</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#centreStringNumbergtCentered">centre(String, Number) -&gt; Centered</a></li>
+        
+        <li><a href="#charsCharacterNumbergtString">chars(Character, Number) -&gt; String</a></li>
+        
+        <li><a href="#chrStringCharactergtIndex">chr(String, Character) -&gt; Index</a></li>
+        
+        <li><a href="#concatString1String2gtString3">concat(String1, String2) -&gt; String3</a></li>
+        
+        <li><a href="#copiesStringNumbergtCopies">copies(String, Number) -&gt; Copies</a></li>
+        
+        <li><a href="#equalString1String2gtbool">equal(String1, String2) -&gt; bool()</a></li>
+        
+        <li><a href="#joinStringListSeparatorgtString">join(StringList, Separator) -&gt; String</a></li>
+        
+        <li><a href="#leftStringNumbergtLeft">left(String, Number) -&gt; Left</a></li>
+        
+        <li><a href="#lenStringgtLength">len(String) -&gt; Length</a></li>
+        
+        <li><a href="#rightStringNumbergtRight">right(String, Number) -&gt; Right</a></li>
+        
+        <li><a href="#spanStringCharsgtLength">span(String, Chars) -&gt; Length </a></li>
+        
+        <li><a href="#strStringSubStringgtIndex">str(String, SubString) -&gt; Index</a></li>
+        
+        <li><a href="#stripStringgtStripped">strip(String) -&gt; Stripped</a></li>
+        
+        <li><a href="#sub_stringStringStartgtSubString">sub_string(String, Start) -&gt; SubString</a></li>
+        
+        <li><a href="#sub_wordStringNumbergtWord">sub_word(String, Number) -&gt; Word</a></li>
+        
+        <li><a href="#substrStringStartgtSubString">substr(String, Start) -&gt; SubString</a></li>
+        
+        <li><a href="#to_floatStringgtFloatResterrorReason">to_float(String) -&gt; {Float,Rest} | {error,Reason} </a></li>
+        
+        <li><a href="#to_integerStringgtIntResterrorReason">to_integer(String) -&gt; {Int,Rest} | {error,Reason} </a></li>
+        
+        <li><a href="#to_lowerStringgtResult">to_lower(String) -&gt; Result</a></li>
+        
+        <li><a href="#tokensStringSeparatorListgtTokens">tokens(String, SeparatorList) -&gt; Tokens</a></li>
+        
+        <li><a href="#wordsStringgtCount">words(String) -&gt; Count</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Notes</div>
+    
+    <div class="description">
+        
+    <title>Notes</title>
+    <p>Some of the general string functions may seem to overlap each
+      other. The reason for this is that this string package is the
+      combination of two earlier packages and all the functions of
+      both packages have been retained.
+      </p>
+    <note>
+      <p>Any undocumented functions in <tt>string</tt> should not be used.</p>
+    </note>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="lenStringgtLength"></a><b>len(String) -&gt; Length</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Length = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of characters in the string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="equalString1String2gtbool"></a><b>equal(String1, String2) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String1 = String2 = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tests whether two strings are equal. Returns <tt>true</tt> if
+          they are, otherwise <tt>false</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="concatString1String2gtString3"></a><b>concat(String1, String2) -&gt; String3</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String1 = String2 = String3 = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Concatenates two strings to form a new string. Returns the
+          new string.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="chrStringCharactergtIndex"></a><b>chr(String, Character) -&gt; Index<br/>rchr(String, Character) -&gt; Index</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Character = char()</b><br/>
+        <b>Index = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the index of the first/last occurrence of
+          <tt>Character</tt> in <tt>String</tt>. <tt>0</tt> is returned if <tt>Character</tt> does not
+          occur.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="strStringSubStringgtIndex"></a><b>str(String, SubString) -&gt; Index<br/>rstr(String, SubString) -&gt; Index</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = SubString = string()</b><br/>
+        <b>Index = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the position where the first/last occurrence of
+          <tt>SubString</tt> begins in <tt>String</tt>. <tt>0</tt> is returned if <tt>SubString</tt>
+          does not exist in <tt>String</tt>.
+          For example:</p>
+        <code type="none">
+&gt; string:str(" Hello Hello World World ", "Hello World").
+8        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="spanStringCharsgtLength"></a><b>span(String, Chars) -&gt; Length <br/>cspan(String, Chars) -&gt; Length</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Chars = string()</b><br/>
+        <b>Length = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the length of the maximum initial segment of
+          String, which consists entirely of characters from (not
+          from) Chars.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; string:span("\\t    abcdef", " \\t").
+5
+&gt; string:cspan("\\t    abcdef", " \\t").
+0        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="substrStringStartgtSubString"></a><b>substr(String, Start) -&gt; SubString<br/>substr(String, Start, Length) -&gt; Substring</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = SubString = string()</b><br/>
+        <b>Start = Length = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a substring of <tt>String</tt>, starting at the
+          position <tt>Start</tt>, and ending at the end of the string or
+          at length <tt>Length</tt>.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; substr("Hello World", 4, 5).
+"lo Wo"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tokensStringSeparatorListgtTokens"></a><b>tokens(String, SeparatorList) -&gt; Tokens</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = SeparatorList = string()</b><br/>
+        <b>Tokens = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of tokens in <tt>String</tt>, separated by the
+          characters in <tt>SeparatorList</tt>.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; tokens("abc defxxghix jkl", "x ").
+["abc", "def", "ghi", "jkl"]        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="joinStringListSeparatorgtString"></a><b>join(StringList, Separator) -&gt; String</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>StringList = [string()]</b><br/>
+	<b>Separator = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Returns a string with the elements of <tt>StringList</tt>
+	  seperated by the string in <tt>Seperator</tt>.</p>
+	<p>For example:</p>
+	<code type="none">
+&gt; join(["one", "two", "three"], ", ").
+"one, two, three"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="charsCharacterNumbergtString"></a><b>chars(Character, Number) -&gt; String<br/>chars(Character, Number, Tail) -&gt; String</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Character = char()</b><br/>
+        <b>Number = integer()</b><br/>
+        <b>String = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a string consisting of <tt>Number</tt> of characters
+          <tt>Character</tt>. Optionally, the string can end with the
+          string <tt>Tail</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="copiesStringNumbergtCopies"></a><b>copies(String, Number) -&gt; Copies</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Copies = string()</b><br/>
+        <b>Number = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a string containing <tt>String</tt> repeated
+          <tt>Number</tt> times.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="wordsStringgtCount"></a><b>words(String) -&gt; Count<br/>words(String, Character) -&gt; Count</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Character = char()</b><br/>
+        <b>Count = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the number of words in <tt>String</tt>, separated by
+          blanks or <tt>Character</tt>.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; words(" Hello old boy!", $o).
+4        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sub_wordStringNumbergtWord"></a><b>sub_word(String, Number) -&gt; Word<br/>sub_word(String, Number, Character) -&gt; Word</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Word = string()</b><br/>
+        <b>Character = char()</b><br/>
+        <b>Number = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the word in position <tt>Number</tt> of <tt>String</tt>.
+          Words are separated by blanks or <tt>Character</tt>s.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; string:sub_word(" Hello old boy !",3,$o).
+"ld b"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stripStringgtStripped"></a><b>strip(String) -&gt; Stripped<br/>strip(String, Direction) -&gt; Stripped<br/>strip(String, Direction, Character) -&gt; Stripped</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Stripped = string()</b><br/>
+        <b>Direction = left | right | both</b><br/>
+        <b>Character = char()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a string, where leading and/or trailing blanks or a
+          number of <tt>Character</tt> have been removed.
+          <tt>Direction</tt> can be <tt>left</tt>, <tt>right</tt>, or
+          <tt>both</tt> and indicates from which direction blanks are to be
+          removed. The function <tt>strip/1</tt> is equivalent to
+          <tt>strip(String, both)</tt>.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; string:strip("...Hello.....", both, $.).
+"Hello"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="leftStringNumbergtLeft"></a><b>left(String, Number) -&gt; Left<br/>left(String, Number, Character) -&gt; Left</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Left = string()</b><br/>
+        <b>Character = char</b><br/>
+        <b>Number = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>String</tt> with the length adjusted in
+          accordance with <tt>Number</tt>. The left margin is
+          fixed. If the <tt>length(String)</tt> &lt; <tt>Number</tt>,
+          <tt>String</tt> is padded with blanks or <tt>Character</tt>s.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; string:left("Hello",10,$.).
+"Hello....."        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="rightStringNumbergtRight"></a><b>right(String, Number) -&gt; Right<br/>right(String, Number, Character) -&gt; Right</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Right = string()</b><br/>
+        <b>Character = char</b><br/>
+        <b>Number = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the <tt>String</tt> with the length adjusted in
+          accordance with <tt>Number</tt>. The right margin is
+          fixed. If the length of <tt>(String)</tt> &lt; <tt>Number</tt>,
+          <tt>String</tt> is padded with blanks or <tt>Character</tt>s.</p>
+        <p>For example:</p>
+        <code type="none">
+&gt; string:right("Hello", 10, $.).
+".....Hello"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="centreStringNumbergtCentered"></a><b>centre(String, Number) -&gt; Centered<br/>centre(String, Number, Character) -&gt; Centered</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Centered = string()</b><br/>
+        <b>Character = char</b><br/>
+        <b>Number = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a string, where <tt>String</tt> is centred in the
+          string and surrounded by blanks or characters. The resulting
+          string will have the length <tt>Number</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sub_stringStringStartgtSubString"></a><b>sub_string(String, Start) -&gt; SubString<br/>sub_string(String, Start, Stop) -&gt; SubString</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = SubString = string()</b><br/>
+        <b>Start = Stop = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a substring of <tt>String</tt>, starting at the
+          position <tt>Start</tt> to the end of the string, or to and
+          including the <tt>Stop</tt> position.</p>
+        <p>For example:</p>
+        <code type="none">
+sub_string("Hello World", 4, 8).
+"lo Wo"        </code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_floatStringgtFloatResterrorReason"></a><b>to_float(String) -&gt; {Float,Rest} | {error,Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Float = float()</b><br/>
+        <b>Rest = string()</b><br/>
+        <b>Reason = no_float | not_a_list</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Argument <tt>String</tt> is expected to start with a valid text
+          represented float (the digits being ASCII values). Remaining characters 
+          in the string after the float are returned in <tt>Rest</tt>.</p>
+        <p>Example:</p>
+        <code type="none">
+\011  &gt; {F1,Fs} = string:to_float("1.0-1.0e-1"),
+\011  &gt; {F2,[]} = string:to_float(Fs),
+\011  &gt; F1+F2.
+\011  0.9
+\011  &gt; string:to_float("3/2=1.5").
+\011  {error,no_float}
+\011  &gt; string:to_float("-1.5eX").
+\011  {-1.5,"eX"}</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_integerStringgtIntResterrorReason"></a><b>to_integer(String) -&gt; {Int,Rest} | {error,Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = string()</b><br/>
+        <b>Int = integer()</b><br/>
+        <b>Rest = string()</b><br/>
+        <b>Reason = no_integer | not_a_list</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Argument <tt>String</tt> is expected to start with a valid text
+          represented integer (the digits being ASCII values). Remaining characters 
+          in the string after the integer are returned in <tt>Rest</tt>.</p>
+        <p>Example:</p>
+        <code type="none">
+\011  &gt; {I1,Is} = string:to_integer("33+22"),
+\011  &gt; {I2,[]} = string:to_integer(Is),
+\011  &gt; I1-I2.
+\011  11
+\011  &gt; string:to_integer("0.5").
+\011  {0,".5"}
+\011  &gt; string:to_integer("x=2").
+\011  {error,no_integer}</code>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="to_lowerStringgtResult"></a><b>to_lower(String) -&gt; Result<br/>to_lower(Char) -&gt; CharResult<br/>to_upper(String) -&gt; Result<br/>to_upper(Char) -&gt; CharResult</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>String = Result = string()</b><br/>
+        <b>Char = CharResult = integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The given string or character is case-converted. Note that
+          the supported character set is ISO/IEC 8859-1 (a.k.a. Latin 1),
+          all values outside this set is unchanged</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

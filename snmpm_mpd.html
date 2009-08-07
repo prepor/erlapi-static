@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmpm_mpd</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmpm_mpd</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmpm_mpd</tt> implements the version independent
+      Message Processing and Dispatch functionality in SNMP for the manager. 
+      It is supposed to be used from a Network Interface process 
+      (<seealso marker="snmp_manager_netif">Definition of Manager Net if</seealso>).
+      </p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#generate_msgVsnNoteStorePduMsgDataLoggergtokPacketdiscardedReason">generate_msg(Vsn, NoteStore, Pdu, MsgData, Logger) -&gt; {ok, Packet} | {discarded, Reason}</a></li>
+        
+        <li><a href="#generate_response_msgVsnPduMsgDataLoggergtokPacketdiscardedReason">generate_response_msg(Vsn, Pdu, MsgData, Logger) -&gt; {ok, Packet} | {discarded, Reason}</a></li>
+        
+        <li><a href="#init_mpdVsnsgtmpd_state">init_mpd(Vsns) -&gt; mpd_state()</a></li>
+        
+        <li><a href="#process_msgMsgTDomainAddrPortStateNoteStoreLoggergtokVsnPduPduMSMsgDatadiscardedReason">process_msg(Msg, TDomain, Addr, Port, State, NoteStore, Logger) -&gt; {ok, Vsn, Pdu, PduMS, MsgData} | {discarded, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="init_mpdVsnsgtmpd_state"></a><b>init_mpd(Vsns) -&gt; mpd_state()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsns = [Vsn]</b><br/>
+        <b>Vsn = v1 | v2 | v3</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function can be called from the net_if process at start-up.
+          The options list defines which versions to use.
+          </p>
+        <p>It also initializes some SNMP counters.
+                    <marker id="process_msg"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="process_msgMsgTDomainAddrPortStateNoteStoreLoggergtokVsnPduPduMSMsgDatadiscardedReason"></a><b>process_msg(Msg, TDomain, Addr, Port, State, NoteStore, Logger) -&gt; {ok, Vsn, Pdu, PduMS, MsgData} | {discarded, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Msg = binary()</b><br/>
+        <b>TDomain = snmpUDPDomain</b><br/>
+        <b>Addr = {integer(), integer(), integer(), integer()}</b><br/>
+        <b>Port = integer()</b><br/>
+        <b>State = mpd_state()</b><br/>
+        <b>NoteStore = pid()</b><br/>
+        <b>Logger = function()</b><br/>
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>Pdu = #pdu</b><br/>
+        <b>PduMs = integer()</b><br/>
+        <b>MsgData = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Processes an incoming message. Performs authentication and 
+          decryption as necessary. The return values should be passed the
+          manager server.
+          </p>
+        <p><tt>NoteStore</tt> is the <tt>pid()</tt> of the note-store process.</p>
+        <p><tt>Logger</tt> is the function used for audit trail logging.
+          </p>
+        <p>In the case when the pdu type is <tt>report</tt>, <tt>MsgData</tt> is 
+          either <tt>ok</tt> or <tt>{error, ReqId, Reason}</tt>.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="generate_msgVsnNoteStorePduMsgDataLoggergtokPacketdiscardedReason"></a><b>generate_msg(Vsn, NoteStore, Pdu, MsgData, Logger) -&gt; {ok, Packet} | {discarded, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>NoteStore = pid()</b><br/>
+        <b>Pdu = #pdu</b><br/>
+        <b>MsgData = term()</b><br/>
+        <b>Logger = function()</b><br/>
+        <b>Packet = binary()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a possibly encrypted packet to be sent to the network.
+          </p>
+        <p><tt>NoteStore</tt> is the <tt>pid()</tt> of the note-store process.
+          </p>
+        <p><tt>MsgData</tt> is the message specific data used in the SNMP 
+          message. In SNMPv1 and SNMPv2c, this message data is the community 
+          string. In SNMPv3, it is the context information.
+          </p>
+        <p><tt>Logger</tt> is the function used for audit trail logging.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="generate_response_msgVsnPduMsgDataLoggergtokPacketdiscardedReason"></a><b>generate_response_msg(Vsn, Pdu, MsgData, Logger) -&gt; {ok, Packet} | {discarded, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Vsn = 'version-1' | 'version-2' | 'version-3'</b><br/>
+        <b>Pdu = #pdu</b><br/>
+        <b>MsgData = term()</b><br/>
+        <b>Logger = function()</b><br/>
+        <b>Packet = binary()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a possibly encrypted response packet to be sent to the
+          network.
+          </p>
+        <p><tt>MsgData</tt> is the message specific data used in the SNMP 
+          message. This value is received from the 
+          <seealso marker="snmpm_mpd#process_msg">process_msg</seealso> 
+          function.
+          </p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

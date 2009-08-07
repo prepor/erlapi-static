@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosNotifyChannelAdmin_EventChannelFactory</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosNotifyChannelAdmin_EventChannelFactory</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosNotification/include/*.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#create_channelChannelFactoryInitialQoSInitialAdmingtReturn">create_channel(ChannelFactory, InitialQoS, InitialAdmin) -&gt; Return</a></li>
+        
+        <li><a href="#get_all_channelsChannelFactorygtChannelIDSeq">get_all_channels(ChannelFactory) -&gt; ChannelIDSeq</a></li>
+        
+        <li><a href="#get_event_channelChannelFactoryChannelIDgtReturn">get_event_channel(ChannelFactory, ChannelID) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="create_channelChannelFactoryInitialQoSInitialAdmingtReturn"></a><b>create_channel(ChannelFactory, InitialQoS, InitialAdmin) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+        <b>InitialQoS = CosNotification::QoSProperties</b><br/>
+        <b>InitialAdmin = CosNotification::AdminProperties</b><br/>
+        <b>Return = {EventChannel, ChannelID}</b><br/>
+        <b>EventChannel = #objref</b><br/>
+        <b>ChannelID = long()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation creates a new event channel. Along with the channel
+          reference an id is returned which can be used when invoking other
+          operations exported by this module. The Quality of Service argument
+          supplied will be inherited by objects created by the channel. For more
+          information about QoS settings see the <tt>User's Guide</tt>.</p>
+        <p>If no QoS- and/or Admin-properties are supplied (i.e. empty list),
+          the <em>default</em> settings will be used. For more information, see the 
+          User's Guide.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_channelsChannelFactorygtChannelIDSeq"></a><b>get_all_channels(ChannelFactory) -&gt; ChannelIDSeq</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+        <b>ChannelIDSeq = [long()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns a id sequence of all channel's created by this ChannelFactory.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_event_channelChannelFactoryChannelIDgtReturn"></a><b>get_event_channel(ChannelFactory, ChannelID) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ChannelFactory = #objref</b><br/>
+        <b>ChannelID = long()</b><br/>
+        <b>Retrurn = EventChannel | {'EXCEPTION', #'CosNotifyChannelAdmin_ChannelNotFound'{}}</b><br/>
+        <b>EventChannel = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the EventChannel associated with the given id. If no channel is
+          associated with the id, i.e., never existed or have been terminated, an exception is raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

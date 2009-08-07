@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>net_adm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />net_adm</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module contains various network utility functions.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Files</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#dns_hostnameHostgtokNameerrorHost">dns_hostname(Host) -&gt; {ok, Name} | {error, Host}</a></li>
+        
+        <li><a href="#host_filegtHostserrorReason">host_file() -&gt; Hosts | {error, Reason}</a></li>
+        
+        <li><a href="#localhostgtName">localhost() -&gt; Name</a></li>
+        
+        <li><a href="#namesgtokNamePorterrorReason">names() -&gt; {ok, [{Name, Port}]} | {error, Reason}</a></li>
+        
+        <li><a href="#pingNodegtpongpang">ping(Node) -&gt; pong | pang</a></li>
+        
+        <li><a href="#worldgtnode">world() -&gt; [node()]</a></li>
+        
+        <li><a href="#world_listHostsgtnode">world_list(Hosts) -&gt; [node()]</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Files</div>
+    
+    <div class="description">
+        
+    <title>Files</title>
+    <p>The <tt>.hosts.erlang</tt> file consists of a number of host names
+      written as Erlang terms. It is looked for in the current work
+      directory, the user's home directory, and <tt>$OTP_ROOT</tt>
+      (the root directory of Erlang/OTP), in that order.</p>
+    <p>The format of the <tt>.hosts.erlang</tt> file must be one host
+      name per line. The host names must be within quotes as shown in
+      the following example:</p>
+    <pre>
+'super.eua.ericsson.se'.
+'renat.eua.ericsson.se'.
+'grouse.eua.ericsson.se'.
+'gauffin1.eua.ericsson.se'.
+^ (new line)</pre>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="dns_hostnameHostgtokNameerrorHost"></a><b>dns_hostname(Host) -&gt; {ok, Name} | {error, Host}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Host = atom() | string()</b><br/>
+        <b>Name = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the official name of <tt>Host</tt>, or
+          <tt>{error, Host}</tt> if no such name is found. See also
+          <tt>inet(3)</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="host_filegtHostserrorReason"></a><b>host_file() -&gt; Hosts | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Hosts = [Host]</b><br/>
+        <b>&nbsp;Host = atom()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Reads the <tt>.hosts.erlang</tt> file, see the section
+          <em>Files</em> below. Returns the hosts in this file as a
+          list, or returns <tt>{error, Reason}</tt> if the file could not
+          be read. See <tt>file(3)</tt> for possible values of
+          <tt>Reason</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="localhostgtName"></a><b>localhost() -&gt; Name</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the name of the local host. If Erlang was started
+          with the <tt>-name</tt> command line flag, <tt>Name</tt> is
+          the fully qualified name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="namesgtokNamePorterrorReason"></a><b>names() -&gt; {ok, [{Name, Port}]} | {error, Reason}<br/>names(Host) -&gt; {ok, [{Name, Port}]} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Name = string()</b><br/>
+        <b>Port = int()</b><br/>
+        <b>Reason = address | term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Similar to <tt>epmd -names</tt>, see <tt>epmd(1)</tt>.
+          <tt>Host</tt> defaults to the local host. Returns the names and
+          associated port numbers of the Erlang nodes that <tt>epmd</tt>
+          at the specified host has registered.</p>
+        <p>Returns <tt>{error, address}</tt> if <tt>epmd</tt> is not
+          running. See <tt>inet(3)</tt> for other possible values of
+          <tt>Reason</tt>.</p>
+        <pre>
+(arne@dunn)1&gt; <input>
+{ok,[{"arne",40262}]}</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="pingNodegtpongpang"></a><b>ping(Node) -&gt; pong | pang</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Node = node()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Tries to set up a connection to <tt>Node</tt>. Returns
+          <tt>pang</tt> if it fails, or <tt>pong</tt> if it is successful.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="worldgtnode"></a><b>world() -&gt; [node()]<br/>world(Arg) -&gt; [node()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Arg = silent | verbose</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function calls <tt>names(Host)</tt> for all hosts which
+          are specified in the Erlang host file <tt>.hosts.erlang</tt>,
+          collects the replies and then evaluates <tt>ping(Node)</tt> on
+          all those nodes. Returns the list of all nodes that were,
+	  successfully pinged.</p>
+        <p><tt>Arg</tt> defaults to <tt>silent</tt>.
+	 If <tt>Arg == verbose</tt>, the function writes information about which
+          nodes it is pinging to stdout.</p>
+        <p>This function can be useful when a node is started, and
+          the names of the other nodes in the network are not initially
+          known.</p>
+        <p>Failure: <tt>{error, Reason}</tt> if <tt>host_file()</tt>
+          returns <tt>{error, Reason}</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="world_listHostsgtnode"></a><b>world_list(Hosts) -&gt; [node()]<br/>world_list(Hosts, Arg) -&gt; [node()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Hosts = [Host]</b><br/>
+        <b>&nbsp;Host = atom()</b><br/>
+        <b>Arg = silent | verbose</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>As <tt>world/0,1</tt>, but the hosts are given as argument
+          instead of being read from <tt>.hosts.erlang</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

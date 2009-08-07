@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>inets</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />inets</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This module provides the most basic API to the 
+      clients and servers, that are part of the Inets application,
+      such as start and stop. </p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#service_namesgtService">service_names() -&gt; [Service] </a></li>
+        
+        <li><a href="#servicesgtServicePid">services() -&gt; [{Service, Pid}]</a></li>
+        
+        <li><a href="#services_infogtServicePidInfo">services_info() -&gt; [{Service, Pid, Info}]</a></li>
+        
+        <li><a href="#startServiceServiceConfiggt">start(Service, ServiceConfig) -&gt; </a></li>
+        
+        <li><a href="#startgt">start() -&gt; </a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok </a></li>
+        
+        <li><a href="#stopServiceReferencegt">stop(Service, Reference) -&gt; </a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Type definitions that are used more than once in
+      this module: </p>
+    <p><tt> service() = ftpc | tfptd | httpc | httpd</tt></p>
+    <p><tt> property() = atom() </tt></p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p><seealso marker="ftp">ftp(3)</seealso>,
+      <seealso marker="http">http(3)</seealso>,
+      <seealso marker="httpd">httpd(3)</seealso>,
+      <seealso marker="tftp">tftp(3)</seealso></p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="servicesgtServicePid"></a><b>services() -&gt; [{Service, Pid}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Service = service()</b><br/>
+        <b>Pid = pid()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of currently running services.</p>
+        <note>
+          <p>Services started as <tt>stand_alone</tt> will not
+            be listed.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="services_infogtServicePidInfo"></a><b>services_info() -&gt; [{Service, Pid, Info}]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Service = service()</b><br/>
+        <b>Pid = pid()</b><br/>
+        <b>Info = [{Option, Value}]</b><br/>
+        <b>Option = property()</b><br/>
+        <b>Value = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of currently running services where each
+          service is described by a [{Option, Value}] list. The
+          information given in the list is specific for each service
+          and it is probable that each service will have its own info
+          function that gives you even more details about the
+          service.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="service_namesgtService"></a><b>service_names() -&gt; [Service] </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Service = service()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns a list of available service names.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgt"></a><b>start() -&gt; <br/>start(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type =  permanent | transient | temporary</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the Inets application. Default type
+          is temporary. See also
+          <seealso marker="kernel:application">application(3)</seealso></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok </b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stops the inets application. See also
+          <seealso marker="kernel:application">application(3)</seealso></p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startServiceServiceConfiggt"></a><b>start(Service, ServiceConfig) -&gt; <br/>start(Service, ServiceConfig, How) -&gt; {ok, Pid} |
+	{error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Service = service()</b><br/>
+        <b>ServiceConfig = [{Option, Value}]</b><br/>
+	<b>Option = property()</b><br/>
+	<b>Value = term()</b><br/>
+        <b>How = inets | stand_alone - default is inets</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Dynamically starts an inets service after the inets
+          application has been started.\011</p>
+        <note>
+          <p>Dynamically started services will not be handled by
+            application takeover and failover behavior when inets is
+            run as a distributed application. Nor will they be
+            automaticly restarted when the inets application is
+            restarted, but as long as the inets application is up and
+            running they will be supervised and may be soft code
+            upgraded. Services started as <tt>stand_alone</tt>,
+            e.i. the service is not started as part of the inets
+            application, will lose all OTP application benefits such
+            as soft upgrade. The "stand_alone-service" will be linked to
+            the process that started it. In most cases some of the
+            supervison functionallity will still be in place and in
+            some sense the calling process has now become the top
+            supervisor.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopServiceReferencegt"></a><b>stop(Service, Reference) -&gt; </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Service = service() | stand_alone</b><br/>
+	<b>Reference = pid() | term() - service specified reference  
+	</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Stops a started service of the inets application or takes
+          down a "stand_alone-service" gracefully. When the
+	  <tt>stand_alone</tt> option is used in start,
+	  only the pid is a valid argument to stop.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

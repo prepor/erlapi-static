@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>odbc</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />odbc</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>This application provides an Erlang interface to communicate
+      with relational SQL-databases. It is built on top of Microsofts
+      ODBC interface and therefore requires that you have an ODBC driver
+      to the database that you want to connect to.</p>
+    <note>
+      <p>The functions <tt>first/[1,2]</tt>, <tt>last/[1,2]</tt>,
+        <tt>next/[1,2]</tt>, <tt>prev[1,2]</tt> and <tt>select/[3,4]</tt>
+        assumes there is a result set associated with the connection to
+        work on. Calling the function <tt>select_count/[2,3]</tt>
+        associates such a result set with the connection. Calling
+        select_count again will remove the current result set
+        association and create a new one. Calling a function which dose
+        not operate on an associated result sets, such as
+        <tt>sql_query/[2,3]</tt>, will remove the current result set
+        association.</p>
+      <p>Alas some drivers only support sequential traversal of the
+        result set, e.i. they do not support what in the ODBC world is
+        known as scrollable cursors. This will have the effect that
+        functions such as <tt>first/[1,2]</tt>, <tt>last/[1,2]</tt>,
+        <tt>prev[1,2]</tt>, etc will return <tt>{error, driver_does_not_support_function}</tt></p>
+    </note>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">COMMON DATA TYPES </a></li>
+        
+        <li><a href="#">ERROR HANDLING </a></li>
+        
+        <li><a href="#">REFERENCES</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#commitRefCommitModegt">commit(Ref, CommitMode) -&gt;</a></li>
+        
+        <li><a href="#connectConnectStrOptionsgtokReferrorReason">connect(ConnectStr, Options) -&gt; {ok, Ref} | {error, Reason} </a></li>
+        
+        <li><a href="#describe_tableRefTablegt">describe_table(Ref, Table) -&gt; </a></li>
+        
+        <li><a href="#disconnectRefgtokerrorReason">disconnect(Ref) -&gt; ok | {error, Reason} </a></li>
+        
+        <li><a href="#firstRefgt">first(Ref) -&gt;</a></li>
+        
+        <li><a href="#lastRefgt">last(Ref) -&gt;</a></li>
+        
+        <li><a href="#nextRefgt">next(Ref) -&gt; </a></li>
+        
+        <li><a href="#param_queryRefSQLQueryParamsgt">param_query(Ref, SQLQuery, Params) -&gt; </a></li>
+        
+        <li><a href="#prevRefgt">prev(Ref) -&gt; </a></li>
+        
+        <li><a href="#selectRefPositionNgt">select(Ref, Position, N) -&gt;</a></li>
+        
+        <li><a href="#select_countRefSelectQuerygt">select_count(Ref, SelectQuery) -&gt; </a></li>
+        
+        <li><a href="#sql_queryRefSQLQuerygt">sql_query(Ref, SQLQuery) -&gt; </a></li>
+        
+        <li><a href="#startgt">start() -&gt; </a></li>
+        
+        <li><a href="#stopgtok">stop() -&gt; ok </a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">COMMON DATA TYPES </div>
+    
+    <div class="description">
+        
+    <title>COMMON DATA TYPES </title>
+    <p>Here follows type definitions that are used by more than one
+      function in the ODBC API. </p>
+    <note>
+      <p>The type <tt>TimeOut</tt> has the default value
+        <tt>infinity</tt>, so for instance:        <br>
+
+        commit(Ref, CommitMode) is the same as
+        commit(Ref, CommitMode, infinity). If the
+        timeout expires the client will exit with the reason
+        timeout. </p>
+    </note>
+    <code type="none">
+ connection_reference() - as returned by connect/2    </code>
+    <code type="none">
+ time_out() = milliseconds() | infinity    </code>
+    <code type="none">
+ milliseconds() = integer() &gt;= 0     </code>
+    <code type="none">
+ common_reason() = connection_closed | term() - some kind of
+                 explanation of what went wrong    </code>
+    <code type="none">
+ string() = list of ASCII characters    </code>
+    <code type="none">
+ col_name() = string() - Name of column in the result set    </code>
+    <code type="none">
+ col_names() - [col_name()] - e.g. a list of the names of the
+           selected columns in the result set.     </code>
+    <code type="none">
+ row() = {value()} - Tuple of column values e.g. one row of the
+           result set.     </code>
+    <code type="none">
+ value() = null | term() - A column value.     </code>
+    <code type="none">
+ rows() = [row()] - A list of rows from the result set.    </code>
+    <code type="none">
+ result_tuple() =
+      {updated, n_rows()} | {selected, col_names(), rows()}    </code>
+    <code type="none">
+ n_rows() = integer() - The number of affected rows for UPDATE,
+           INSERT, or DELETE queries. For other query types the value
+           is driver defined, and hence should be ignored.    </code>
+    <code type="none">
+ odbc_data_type() = sql_integer | sql_smallint | sql_tinyint |
+      {sql_decimal, precison(), scale()} |
+      {sql_numeric, precison(), scale()} |
+      {sql_char, size()} | {sql_varchar, size()} | {sql_float, precision()} |
+      {sql_float, precision()} | sql_real | sql_double | sql_bit | atom()
+    </code>
+    <code type="none">
+ precision() = integer()    </code>
+    <code type="none">
+ scale() = integer()    </code>
+    <code type="none">
+ size() = integer()    </code>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">ERROR HANDLING </div>
+    
+    <div class="description">
+        
+    <title>ERROR HANDLING </title>
+    <p>The error handling strategy and possible errors sources are
+      described in the Erlang ODBC <seealso marker="error_handling">User's Guide.</seealso></p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">REFERENCES</div>
+    
+    <div class="description">
+        
+    <title>REFERENCES</title>
+    <p>[1]: Microsoft ODBC 3.0, Programmer's Reference and SDK Guide      <br>
+
+      See also http://msdn.microsoft.com/</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="commitRefCommitModegt"></a><b>commit(Ref, CommitMode) -&gt;<br/>commit(Ref, CommitMode, TimeOut) -&gt; ok | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference() </b><br/>
+        <b>CommitMode = commit | rollback</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>Reason = not_an_explicit_commit_connection | process_not_owner_of_odbc_connection | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Commits or rollbacks a transaction. Needed on connections
+          where automatic commit is turned off.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="connectConnectStrOptionsgtokReferrorReason"></a><b>connect(ConnectStr, Options) -&gt; {ok, Ref} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>ConnectStr = string()</b><br/>
+        <d>An example of a connection string:<tt>"DSN=sql-server;UID=alladin;PWD=sesame"</tt>where DSN is your ODBC Data Source Name, UID is a database user id and PWD is the password for that user. These are usually the attributes required in the connection string, but some drivers have other driver specific attributes, for example<tt>"DSN=Oracle8;DBQ=gandalf;UID=alladin;PWD=sesame"</tt>where DBQ is your TNSNAMES.ORA entry name e.g. some Oracle specific configuration attribute.</d>
+        <b>Options = [] | [option()]</b><br/>
+        <d>All options has default values. </d>
+        <b>option() = {auto_commit, auto_commit_mode()} | {timeout, milliseconds()} | {tuple_row, tuple_mode()} | {scrollable_cursors, use_srollable_cursors()} | {trace_driver, trace_mode()} </b><br/>
+        <d>The default timeout is infinity </d>
+        <b>auto_commit_mode() = on | off </b><br/>
+        <d>Default is on.</d>
+        <b>tuple_mode() = on | off </b><br/>
+        <d>Default is on. The option is deprecated and should not be used in new code.</d>
+        <b>use_srollable_cursors() = on | off </b><br/>
+        <d>Default is on.</d>
+        <b>trace_mode() = on | off </b><br/>
+        <d>Default is off.</d>
+        <b>Ref = connection_reference() - should be used to acess the connection. </b><br/>
+        <b>Reason = port_program_executable_not_found | common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Opens a connection to the database. The connection is
+          associated with the process that created it and can only be
+          accessed through it. This funtion may spawn new processes
+          to handle the connection. These processes will terminate if
+          the process that created the connection dies or if you call
+          disconnect/1.</p>
+        <p>If automatic commit mode is turned on, each query will be
+          considered as an individual transaction and will be
+          automaticly commited after it has been executed. If you want
+          more than one query to be part of the same transaction the automatic
+          commit mode should be turned off. Then you will have to call
+          commit/3 explicitly to end a transaction. </p>
+        <p>As default result sets are returned as a lists of
+          tuples. The <tt>TupleMode</tt> option still exists to keep some
+          degree of backwards compatiblity. If the option is set to
+          off, result sets will be returned as a lists of lists
+          instead of a lists of tuples.</p>
+        <p>Scrollable cursors are nice but causes some overhead. For
+          some connections speed might be more important than flexible
+          data access and then you can disable scrollable cursor for a
+          connection, limiting the API but gaining speed</p>
+        <p>If trace mode is turned on this tells the ODBC driver to
+          write a trace log to the file SQL.LOG that is placed in the
+          current directory of the erlang emulator. This information
+          may be useful if you suspect there might be a bug in the
+          erlang ODBC application, and it might be relevant for you to
+          send this file to our support. Otherwise you will probably
+          not have much use of this.</p>
+        <note>
+          <p>For more information about the <tt>ConnectStr</tt> see
+            description of the function SQLDriverConnect in [1].</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disconnectRefgtokerrorReason"></a><b>disconnect(Ref) -&gt; ok | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>Reason = process_not_owner_of_odbc_connection</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Closes a connection to a database. This will also
+          terminate all processes that may have been spawned 
+          when the connection was opened. This call will always succeed.
+          If the connection can not be disconnected gracefully it will
+          be brutally killed. However you may receive an error message
+          as result if you try to disconnect a connection started by another
+          process.
+                    <marker id="describe_table"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="describe_tableRefTablegt"></a><b>describe_table(Ref, Table) -&gt; <br/>describe_table(Ref, Table, Timeout) -&gt; {ok, Description} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>Table = string() - Name of databas table.</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>Description = [{col_name(), odbc_data_type()}]</b><br/>
+        <b>Reason = common_reason()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Queries the database to find out the ODBC data types of the
+          columns of the table <tt>Table</tt>. </p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="firstRefgt"></a><b>first(Ref) -&gt;<br/>first(Ref, Timeout) -&gt; {selected, ColNames, Rows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>ColNames = col_names() </b><br/>
+        <b>Rows = rows()</b><br/>
+        <b>Reason = result_set_does_not_exist | driver_does_not_support_function | scrollable_cursors_disabled | process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the first row of the result set and positions a
+          cursor at this row.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="lastRefgt"></a><b>last(Ref) -&gt;<br/>last(Ref, TimeOut) -&gt; {selected, ColNames, Rows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>ColNames = col_names() </b><br/>
+        <b>Rows = rows()</b><br/>
+        <b>Reason = result_set_does_not_exist | driver_does_not_support_function | scrollable_cursors_disabled | process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the last row of the result set and positions a
+          cursor at this row.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="nextRefgt"></a><b>next(Ref) -&gt; <br/>next(Ref, TimeOut) -&gt; {selected, ColNames, Rows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>ColNames = col_names() </b><br/>
+        <b>Rows = rows()</b><br/>
+        <b>Reason = result_set_does_not_exist | process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the next row of the result set relative the
+          current cursor position and positions the cursor at this
+          row. If the cursor is positioned at the last row of the
+          result set when this function is called the returned value
+          will be <tt>{selected, ColNames,[]}</tt> e.i. the list of row
+          values is empty indicating that there is no more data to fetch.
+                    <marker id="param_query"></marker>
+</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="param_queryRefSQLQueryParamsgt"></a><b>param_query(Ref, SQLQuery, Params) -&gt; <br/>param_query(Ref, SQLQuery, Params, TimeOut) -&gt; ResultTuple | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>SQLQuery = string() - a SQL query with parameter markers/place holders in form of question marks.</b><br/>
+        <b>Params = [{odbc_data_type(), [value()]}] |[{odbc_data_type(), in_or_out(), [value()]}]  </b><br/>
+	<b>in_or_out = in | out | inout</b><br/>
+	<d>Defines IN, OUT, and IN OUT Parameter Modes for stored procedures.</d>
+	<b>TimeOut = time_out()</b><br/>
+        <b>Values = term() - Must be consistent with the Erlang data type that corresponds to the ODBC data type ODBCDataType</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes a parameterized SQL query. For an
+          example see the <seealso marker="getting_started#param_query">"Using the Erlang API"</seealso> in the Erlang ODBC 
+          User's Guide.</p>
+        <note>
+          <p>Use the function describe_table/[2,3] to find out which
+            ODBC data type that is expected for each column of that
+            table. If a column has a data type that is described with
+            capital letters, alas it is not currently supported by the
+            param_query function. Too know which Erlang data type
+            corresponds to an ODBC data type see the Erlang to ODBC
+            data type<seealso marker="databases#type">mapping</seealso> in the User's Guide.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="prevRefgt"></a><b>prev(Ref) -&gt; <br/>prev(ConnectionReference, TimeOut) -&gt; {selected, ColNames, Rows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>ColNames = col_names() </b><br/>
+        <b>Rows = rows()</b><br/>
+        <b>Reason = result_set_does_not_exist | driver_does_not_support_function | scrollable_cursors_disabled | process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the previous row of the result set relative the
+          current cursor position and positions the
+          cursor at this row.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgt"></a><b>start() -&gt; <br/>start(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+	<b>Type =  permanent | transient | temporary
+	</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p> Starts the odbc application. Default type
+	  is temporary.
+	  <seealso marker="kernel:application">See application(3)</seealso>
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtok"></a><b>stop() -&gt; ok </b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+	<p> Stops the odbc application.
+	  <seealso marker="kernel:application">See application(3)</seealso>
+	</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="sql_queryRefSQLQuerygt"></a><b>sql_query(Ref, SQLQuery) -&gt; <br/>sql_query(Ref, SQLQuery, TimeOut) -&gt; ResultTuple | [ResultTuple] |{error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>SQLQuery = string() - The string may be composed by several SQL-queries separated by a ";", this is called a batch. </b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>ResultTuple = result_tuple() </b><br/>
+        <b>Reason = process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes a SQL query or a batch of SQL queries. If it
+          is a SELECT query the result set is returned, on the format
+          <tt>{selected, ColNames, Rows}</tt>. For other query types the
+          tuple <tt>{updated, NRows}</tt> is returned, and for batched
+          queries, if the driver supports them, this function can also
+          return a list of result tuples.</p>
+        <note>
+          <p>Some drivers may not have the information of the number
+            of affected rows available and then the return value may
+            be <tt>{updated, undefined} </tt>. </p>
+          <p>The list of column names is ordered in the same way as the
+            list of values of a row, e.g. the first <tt>ColName</tt> is
+            associated with the first <tt>Value</tt> in a <tt>Row</tt>.</p>
+        </note>
+        <br>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="select_countRefSelectQuerygt"></a><b>select_count(Ref, SelectQuery) -&gt; <br/>select_count(Ref, SelectQuery, TimeOut) -&gt; {ok, NrRows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>SelectQuery = string()</b><br/>
+        <d>SQL SELECT query.</d>
+        <b>TimeOut = time_out()</b><br/>
+        <b>NrRows = n_rows()</b><br/>
+        <b>Reason = process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Executes a SQL SELECT query and associates the result set
+          with the connection. A cursor is positioned before the first
+          row in the result set and the tuple <tt>{ok, NrRows}</tt> is
+          returned. </p>
+        <note>
+          <p>Some drivers may not have the information of the number of
+            rows in the result set, then <tt>NrRows</tt> will have the value
+            <tt>undefined</tt>. </p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="selectRefPositionNgt"></a><b>select(Ref, Position, N) -&gt;<br/>select(Ref, Position, N, TimeOut) -&gt; {selected, ColNames, Rows} | {error, Reason} </b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Ref = connection_reference()</b><br/>
+        <b>Position = next | {relative, Pos} | {absolute, Pos} </b><br/>
+        <d>Selection strategy, determines at which row in the result set to start the selection.</d>
+        <b>Pos = integer() </b><br/>
+        <d>Should indicate a row number in the result set. When used together with the option <tt>relative</tt>it will be used as an offset from the current cursor position, when used together with the option <tt>absolute</tt>it will be interpreted as a row number.</d>
+        <b>N = integer() </b><br/>
+        <b>TimeOut = time_out()</b><br/>
+        <b>Reason = result_set_does_not_exist | driver_does_not_support_function | scrollable_cursors_disabled | process_not_owner_of_odbc_connection | common_reason() </b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Selects <tt>N</tt> consecutive rows of the result set. If
+          <tt>Position</tt> is <tt>next</tt> it is semanticly equivalent
+          of calling <tt>next/[1,2]</tt><tt>N</tt> times. If
+          <tt>Position</tt> is <tt>{relative, Pos}</tt>, <tt>Pos</tt> will be
+          used as an offset from the current cursor position to
+          determine the first selected row. If <tt>Position</tt> is
+          <tt>{absolute, Pos}</tt>, <tt>Pos</tt> will be the number of the
+          first row selected. After this function has returned the
+          cursor is positioned at the last selected row. If there is
+          less then <tt>N</tt> rows left of the result set the length of
+          <tt>Rows</tt> will be less than <tt>N</tt>. If the first row to
+          select happens to be beyond the last row of the result set,
+          the returned value will be <tt>{selected, ColNames,[]}</tt>
+          e.i. the list of row values is empty indicating that there
+          is no more data to fetch.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>inviso_rt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />inviso_rt</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The <tt>inviso_rt</tt> API is normally only used when programming autostart scripts or similar mechanisms. The reason is that the runtime component is part of the Runtime_tools application and will therefore always be available. But the regular inviso API is part of the Inviso application not necessarily available on the node doing an autostart. It is of course possible to runt a "lean" tracer only using the runtime component manually (i.e not through autostart). The runtime component shall otherwise be controlled through the control component, which is accessed with the <tt>inviso</tt> API.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#ctfPidSpecFlagListgtNodeResulterrorReason">ctf(PidSpec,FlagList) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpModFuncAritygtNodeResulterrorReason">ctp(Mod,Func,Arity) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctplModFuncAritygtNodeResulterrorReason">ctpl(Mod,Func,Arity) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpmModFuncAritygtokNodeResultsNodeResulterrorReason">ctpm(Mod,Func,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#ctpm_msModFuncArityMSnamegtNodeResulterrorReason">ctpm_ms(Mod,Func,Arity,MSname) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#global_registergtNodeResulterrorReason">global_register() -&gt;NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#init_tpmModFuncArityCallFuncgtNodeResulterrorReason">init_tpm(Mod,Func,Arity,CallFunc) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#init_tracingTracerDatagtNodeResulterrorReason">init_tracing(TracerData) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#local_registergtNodeResulterrorReason">local_register() -&gt;NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#remove_global_registergtNodeResulterrorReason">remove_global_register() -&gt;NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#remove_local_registergtNodeResulterrorReason">remove_local_register() -&gt;NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tfPidSpecFlagListgtNodeResulterrorReason">tf(PidSpec,FlagList) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpModFuncArityMatchSpecOptsgt">tp(Mod,Func,Arity,MatchSpec,Opts) -&gt;</a></li>
+        
+        <li><a href="#tplModFuncArityMatchSpecgt">tpl(Mod,Func,Arity,MatchSpec) -&gt;</a></li>
+        
+        <li><a href="#tpmModFuncArityMSgtNodeResulterrorReason">tpm(Mod,Func,Arity,MS) -&gt; NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_msModFuncArityMSnameMSgtdNodeResulterrorReason">tpm_ms(Mod,Func,Arity,MSname,MS) -&gt;d NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_ms_tracerModFuncArityMSnameMSgtdNodeResulterrorReason">tpm_ms_tracer(Mod,Func,Arity,MSname,MS) -&gt;d NodeResult | {error,Reason}</a></li>
+        
+        <li><a href="#tpm_tracerModFuncArityMSgtNodeResulterrorReason">tpm_tracer(Mod,Func,Arity,MS) -&gt; NodeResult | {error,Reason}</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="init_tracingTracerDatagtNodeResulterrorReason"></a><b>init_tracing(TracerData) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#init_tracing/2">inviso:init_tracing/2</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpModFuncArityMatchSpecOptsgt"></a><b>tp(Mod,Func,Arity,MatchSpec,Opts) -&gt;<br/>tp(Mod,Func,Arity,MatchSpec) -&gt; NodeResult | {error,Reason}<br/>tp(PatternList) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod,Func = atom() | '_' | ModRegExp | {DirRegExp,ModRegExp}</b><br/>
+        <b>&nbsp;ModRegExp = regexp_string()</b><br/>
+        <b>&nbsp;DirRegExp = regexp_string()</b><br/>
+        <b>Arity = int() | '_'</b><br/>
+        <b>MatchSpec = true | false | [] | matchspec()</b><br/>
+        <b>PatternList = [Pattern],</b><br/>
+        <b>&nbsp;Pattern = {Mod,Func,Arity,MatchSpec,Opts}</b><br/>
+        <b>Opts = [Opt]</b><br/>
+        <b>&nbsp;Opt = only_loaded</b><br/>
+        <b>NodeResult = {ok,[Ans]} | {error,Reason}</b><br/>
+        <b>&nbsp;&nbsp;Ans = int() | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Set global trace patterns. The integer replied if the call was successfull describes the number of matched functions. Using wildcards follows the rules for wildcards of <tt>erlang:trace_pattern</tt>. It is for instance illegal to specify <tt>M=='_'</tt> while <tt>F</tt> is not <tt>'_'</tt>.</p>
+        <p>Modules can also be specified using Erlang regular expressions as described in the <tt>regexp</tt> module. If <tt>{DirRegExp,ModRegExp}</tt> is used, module selection will further be restricted by that the module must be loaded from a location containing <tt>DirRegExp</tt> somewhere in the path. This can be used to for instance trace on all modules belonging to a certain application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tplModFuncArityMatchSpecgt"></a><b>tpl(Mod,Func,Arity,MatchSpec) -&gt;<br/>tpl(Mod,Func,Arity,MatchSpec,Opts) -&gt; NodeResult | {error,Reason}<br/>tpl(PatternList) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/5">tp/N</seealso> function above for details on arguments and return values.</p>
+        <p>Set local trace pattern on specified functions.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpModFuncAritygtNodeResulterrorReason"></a><b>ctp(Mod,Func,Arity) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/5">tp/N</seealso> for argument descriptions.</p>
+        <p>Clear global trace patterns.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctplModFuncAritygtNodeResulterrorReason"></a><b>ctpl(Mod,Func,Arity) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tp/5">tp/N</seealso> for argument description.</p>
+        <p>Clear local trace patterns.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tfPidSpecFlagListgtNodeResulterrorReason"></a><b>tf(PidSpec,FlagList) -&gt; NodeResult | {error,Reason}<br/>tf(TraceConfList) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TraceConfList = [{PidSpec,FlagList}]</b><br/>
+        <b>FlagList = [Flag]</b><br/>
+        <b>PidSpec = all | new| existing | pid() | locally_registered_name()</b><br/>
+        <b>Flag =  all process trace flags allowed.</b><br/>
+        <b>NodeResult = {ok,[Ans]} | {error,Reason}</b><br/>
+        <b>Ans = int() | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Set process trace flags. The integer returned if the call was successful describes the matched number of processes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctfPidSpecFlagListgtNodeResulterrorReason"></a><b>ctf(PidSpec,FlagList) -&gt; NodeResult | {error,Reason}<br/>ctf(TraceConfList) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="#tf/2">tf/1,2</seealso> for arguments and return value description.</p>
+        <p>Clear process trace flags.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="init_tpmModFuncArityCallFuncgtNodeResulterrorReason"></a><b>init_tpm(Mod,Func,Arity,CallFunc) -&gt; NodeResult | {error,Reason}<br/>init_tpm(Mod,Func,Arity,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Func = atom()</b><br/>
+        <b>Arity = int()</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+        <b>InitFunc = RemoveFunc = {Module,Function} | function()/4 | void</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#init_tpm/4">inviso:init_tpm/5,7</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpmModFuncArityMSgtNodeResulterrorReason"></a><b>tpm(Mod,Func,Arity,MS) -&gt; NodeResult | {error,Reason}<br/>tpm(Mod,Func,Arity,MS,CallFunc) -&gt; NodeResults | {error,Reason}<br/>tpm(Mod,Func,Arity,MS,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; NodeResults | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Func = atom() =/= '_'</b><br/>
+        <b>Arity = int()</b><br/>
+        <b>MS = match_spec()</b><br/>
+        <b>InitFunc = CallFunc = ReturnFunc = RemoveFunc = {Module,Function} | function()</b><br/>
+        <b>NodeResult = {ok,1} | {ok,0} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#tpm/4">inviso:tpm/4,5,8</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_tracerModFuncArityMSgtNodeResulterrorReason"></a><b>tpm_tracer(Mod,Func,Arity,MS) -&gt; NodeResult | {error,Reason}<br/>tpm_tracer(Mod,Func,Arity,MS,CallFunc) -&gt; NodeResults | {error,Reason}<br/>tpm_tracer(Mod,Func,Arity,MS,InitFunc,CallFunc,ReturnFunc,RemoveFunc) -&gt; NodeResults | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See inviso:tpm_tracer/4,5,8 for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_msModFuncArityMSnameMSgtdNodeResulterrorReason"></a><b>tpm_ms(Mod,Func,Arity,MSname,MS) -&gt;d NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Mod = Func = atom()</b><br/>
+        <b>Arity = int()</b><br/>
+        <b>MSname = term()</b><br/>
+        <b>MatchSpec = [match_spec()]</b><br/>
+        <b>NodeResult = {ok,1} | {ok,0} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#tpm_ms/5">inviso:tpm_ms/5</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="tpm_ms_tracerModFuncArityMSnameMSgtdNodeResulterrorReason"></a><b>tpm_ms_tracer(Mod,Func,Arity,MSname,MS) -&gt;d NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>See inviso:tpm_ms_tracer/5 for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpm_msModFuncArityMSnamegtNodeResulterrorReason"></a><b>ctpm_ms(Mod,Func,Arity,MSname) -&gt; NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#ctpm_ms/4">inviso:ctpm_ms/4</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ctpmModFuncAritygtokNodeResultsNodeResulterrorReason"></a><b>ctpm(Mod,Func,Arity) -&gt; {ok,NodeResults} | NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResults = [{Node,NodeResult}]</b><br/>
+        <b>NodeResult = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#ctpm/3">inviso:ctpm/3</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="local_registergtNodeResulterrorReason"></a><b>local_register() -&gt;NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResult = {R1,R2}</b><br/>
+        <b>R1 = R2 = {ok,0} | {ok,1} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#tpm_localnames/0">inviso:tpm_localnames/0</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_local_registergtNodeResulterrorReason"></a><b>remove_local_register() -&gt;NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResult = {R1,R2} | {error,Reason}</b><br/>
+        <b>R1 = R2 = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#ctpm_localnames/0">inviso:ctpm_localnames/0</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="global_registergtNodeResulterrorReason"></a><b>global_register() -&gt;NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResult = {R1,R2} | {error,Reason}</b><br/>
+        <b>R1 = R2 = {ok,0} | {ok,1} | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#tpm_globalnames/0">inviso:tpm_globalnames/0</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="remove_global_registergtNodeResulterrorReason"></a><b>remove_global_register() -&gt;NodeResult | {error,Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>NodeResult = {R1,R2} | {error,Reason}</b><br/>
+        <b>R1 = R2 = ok | {error,Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>See <seealso marker="inviso#ctpm_globalnames/0">inviso:ctpm_globalnames/0</seealso> for details.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

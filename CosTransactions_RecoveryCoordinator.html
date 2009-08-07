@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosTransactions_RecoveryCoordinator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosTransactions_RecoveryCoordinator</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTransactions/include/CosTransactions.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#replay_completionRecoveryCoordinatorTimeoutResourcegtReturn">replay_completion(RecoveryCoordinator, Timeout, Resource) -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="replay_completionRecoveryCoordinatorTimeoutResourcegtReturn"></a><b>replay_completion(RecoveryCoordinator, Timeout, Resource) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>RecoveryCoordinator = #objref</b><br/>
+        <b>Timeout = integer(), milliseconds | 'inifinity'</b><br/>
+        <b>Resource = #objref</b><br/>
+        <b>Return = Status | {'EXCEPTION', E}</b><br/>
+        <b>E = #'CosTransactions_NotPrepared'{}</b><br/>
+        <b>Status = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The <tt>RecoveryCoordinator</tt> object is returned by the operation
+          <tt>CosTransactions_Coordinator:register_resource/3</tt>. The <tt>replay_completion/2</tt>
+          may only be used by the registered Resource and returns the current status
+          of the transaction. The operation is used when recovering after a failure.</p>
+        <p>Possible Status replies:</p>
+        <list type="bulleted">
+          <item>'StatusCommitted'</item>
+          <item>'StatusCommitting'</item>
+          <item>'StatusMarkedRollback'</item>
+          <item>'StatusRollingBack'</item>
+          <item>'StatusRolledBack'</item>
+          <item>'StatusActive'</item>
+          <item>'StatusPrepared'</item>
+          <item>'StatusUnknown'</item>
+          <item>'StatusNoTransaction'</item>
+          <item>'StatusPreparing'</item>
+        </list>
+        <warning>
+          <p><em>replay_completion/3</em> is blocking and may cause dead-lock if a child
+            calls this function at the same time as its parent invokes an operation
+            on the child. Dead-lock will not occur if the timeout has any value except 'infinity'.</p>
+          <p>If the call is external incoming (intra-ORB) the timeout will not be activated.
+            Hence, similar action must be taken if the Resource resides on another vendors ORB.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

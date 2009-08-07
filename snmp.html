@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>snmp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />snmp</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The module <tt>snmp</tt> contains interface functions to the 
+      SNMP toolkit.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Common Data Types</a></li>
+        
+        <li><a href="#">See Also</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#bits_to_octet_stringBgtVal">bits_to_octet_string(B) -&gt; Val</a></li>
+        
+        <li><a href="#change_log_sizeLogNameNewSizegtokerrorReason">change_log_size(LogName, NewSize) -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#configgtokerrorReason">config() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#date_and_timegtDateAndTime">date_and_time() -&gt; DateAndTime</a></li>
+        
+        <li><a href="#date_and_time_to_stringDateAndTimegtstring">date_and_time_to_string(DateAndTime) -&gt; string()</a></li>
+        
+        <li><a href="#date_and_time_to_string2DateAndTimegtstring">date_and_time_to_string2(DateAndTime) -&gt; string()</a></li>
+        
+        <li><a href="#date_and_time_to_universal_time_dstDateAndTimegtutc">date_and_time_to_universal_time_dst(DateAndTime) -&gt; [utc()]</a></li>
+        
+        <li><a href="#disable_tracegtvoid">disable_trace() -&gt; void()</a></li>
+        
+        <li><a href="#enable_tracegtvoid">enable_trace() -&gt; void()</a></li>
+        
+        <li><a href="#local_time_to_date_and_time_dstLocalgtDateAndTime">local_time_to_date_and_time_dst(Local) -&gt; [DateAndTime]</a></li>
+        
+        <li><a href="#log_to_txtLogDirMibsOutFileLogNameLogFilegtokerrorReason">log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile) -&gt;  ok | {error, Reason}</a></li>
+        
+        <li><a href="#octet_string_to_bitsSgtVal">octet_string_to_bits(S) -&gt; Val</a></li>
+        
+        <li><a href="#passwd2localized_keyAlgPasswdEngineIDgtKey">passwd2localized_key(Alg, Passwd, EngineID) -&gt; Key</a></li>
+        
+        <li><a href="#print_version_infogtvoid">print_version_info() -&gt; void()</a></li>
+        
+        <li><a href="#print_versionsVersionInfogtvoid">print_versions(VersionInfo) -&gt; void()</a></li>
+        
+        <li><a href="#read_mibFileNamegtokmiberrorReason">read_mib(FileName) -&gt; {ok, mib()} | {error, Reason}</a></li>
+        
+        <li><a href="#reset_traceTargetsgtvoid">reset_trace(Targets) -&gt; void()</a></li>
+        
+        <li><a href="#set_traceTargetsgtvoid">set_trace(Targets) -&gt; void()</a></li>
+        
+        <li><a href="#set_traceTargetsOptsgtvoid">set_trace(Targets, Opts) -&gt; void()</a></li>
+        
+        <li><a href="#startgtokerrorReason">start() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#start_agentgtokerrorReason">start_agent() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#start_managergtokerrorReason">start_manager() -&gt; ok | {error, Reason}</a></li>
+        
+        <li><a href="#universal_time_to_date_and_timeUTCgtDateAndTime">universal_time_to_date_and_time(UTC) -&gt; DateAndTime</a></li>
+        
+        <li><a href="#validate_date_and_timeDateAndTimegtbool">validate_date_and_time(DateAndTime) -&gt; bool()</a></li>
+        
+        <li><a href="#versions1gtokInfoerrorReason">versions1() -&gt; {ok, Info} | {error, Reason}</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Common Data Types</div>
+    
+    <div class="description">
+        
+    <title>Common Data Types</title>
+    <p>The following data-types are used in the functions below: </p>
+    <list type="bulleted">
+      <item>
+        <p><tt>datetime() = {date(), time()}</tt></p>
+        <p>See <seealso marker="stdlib:calendar">calendar</seealso> 
+          for more info.</p>
+      </item>
+
+    </list>
+    
+    <marker id="config"></marker>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">See Also</div>
+    
+    <div class="description">
+        
+    <title>See Also</title>
+    <p>calendar(3)
+      </p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="configgtokerrorReason"></a><b>config() -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>A simple interactive configuration tool. Simple
+          configuration files can be generated, but more complex
+          configurations still have to be edited manually.
+          </p>
+        <p>The tool is a textual based tool that asks some questions
+          and generates <tt>sys.config</tt> and <tt>*.conf</tt> files.
+          </p>
+        <p><em>Note</em> that if the application shall support version 3, 
+          then the crypto app must be started before running this function 
+          (password generation).</p>
+        <p><em>Note</em> also that some of the configuration files for the 
+          agent and manager share the same names. This means that 
+          they have to be stored in <em>different</em> directories!</p>
+
+        <marker id="start"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtokerrorReason"></a><b>start() -&gt; ok | {error, Reason}<br/>start(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = start_type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Starts the SNMP application.</p>
+        <p>See <seealso marker="kernel:application">application</seealso> for more info.</p>
+
+        <marker id="start_agent"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_agentgtokerrorReason"></a><b>start_agent() -&gt; ok | {error, Reason}<br/>start_agent(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = start_type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The SNMP application consists of several entities, of which the
+          agent is one. This function starts the agent entity of the 
+          application. 
+          </p>
+        <p>Note that the only way to actually start the agent in this way is
+          to add the agent related config after starting the application (e.g
+          it cannot be part of the normal application config; sys.config).
+          This is done by calling: 
+          <tt>application:set_env(snmp, agent, Conf)</tt>.
+          </p>
+        <p>The default value for <tt>Type</tt> is <tt>normal</tt>.</p>
+	
+	<marker id="start_manager"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_managergtokerrorReason"></a><b>start_manager() -&gt; ok | {error, Reason}<br/>start_manager(Type) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = start_type()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>The SNMP application consists of several entities, of which the
+          manager is one. This function starts the manager entity of the 
+          application. 
+          </p>
+        <p>Note that the only way to actually start the manager in this way is
+          to add the manager related config after starting the application (e.g
+          it cannot be part of the normal application config; sys.config).
+          This is done by calling: 
+          <tt>application:set_env(snmp, manager, Conf)</tt>.
+          </p>
+        <p>The default value for <tt>Type</tt> is <tt>normal</tt>.</p>
+
+        <marker id="dat"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="date_and_timegtDateAndTime"></a><b>date_and_time() -&gt; DateAndTime</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DateAndTime = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns current date and time as the data type DateAndTime,
+          as specified in RFC1903. This is an OCTET STRING.</p>
+	  
+	<marker id="dat2ut_dst"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="date_and_time_to_universal_time_dstDateAndTimegtutc"></a><b>date_and_time_to_universal_time_dst(DateAndTime) -&gt; [utc()]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DateAndTime = [int()]</b><br/>
+        <b>utc() = {{Y,Mo,D},{H,M,S}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a DateAndTime list to a list of possible universal 
+          time(s). The universal time value on the same format as defined in
+          calendar(3). </p>
+
+	<marker id="dat2s"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="date_and_time_to_stringDateAndTimegtstring"></a><b>date_and_time_to_string(DateAndTime) -&gt; string()<br/>date_and_time_to_string(DateAndTime, Validate) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DateAndTime = [int()]</b><br/>
+	<b>Validate = fun(Kind, Data) -&gt; boolean()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a DateAndTime list to a printable string, according
+          to the DISPLAY-HINT definition in RFC2579.</p>
+
+        <p>The validation fun,  <tt>Validate</tt>, allows for a more "flexible" 
+          validation of the <tt>DateAndTime</tt> argument. Whenever the data 
+          is found to not follow RFC2579, the fun is called to allow a more
+          "lax" validation. 
+          See the <seealso marker="#vdat">validate_date_and_time/2</seealso> 
+          function for more info on the <tt>Validate</tt> fun. </p>
+
+	<marker id="dat2s2"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="date_and_time_to_string2DateAndTimegtstring"></a><b>date_and_time_to_string2(DateAndTime) -&gt; string()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DateAndTime = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+	<p>Converts a DateAndTime list to a printable string, according
+	  to the DISPLAY-HINT definition in RFC2579, with the extension 
+          that it also allows the values "hours from UTC" = 14 together with 
+          "minutes from UTC" = 0. </p>
+
+	<marker id="lt2dat_dst"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="local_time_to_date_and_time_dstLocalgtDateAndTime"></a><b>local_time_to_date_and_time_dst(Local) -&gt; [DateAndTime]</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Local = {{Y,Mo,D},{H,M,S}}</b><br/>
+        <b>DateAndTime = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a local time value to a list of possible DateAndTime 
+          list(s). The local time value on the same format as defined in 
+          calendar(3).</p>
+
+	<marker id="ut2dat"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="universal_time_to_date_and_timeUTCgtDateAndTime"></a><b>universal_time_to_date_and_time(UTC) -&gt; DateAndTime</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>UTC = {{Y,Mo,D},{H,M,S}}</b><br/>
+        <b>DateAndTime = [int()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts a universal time value to a DateAndTime list.  The
+          universal time value on the same format as defined in calendar(3).</p>
+
+        <marker id="vdat"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="validate_date_and_timeDateAndTimegtbool"></a><b>validate_date_and_time(DateAndTime) -&gt; bool()<br/>validate_date_and_time(DateAndTime, Validate) -&gt; bool()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>DateAndTime = term()</b><br/>
+	<b>Validate = fun(Kind, Data) -&gt; boolean()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Checks if <tt>DateAndTime</tt> is a correct DateAndTime
+          value, as specified in RFC2579.  This function can be used in
+          instrumentation functions to validate a DateAndTime value.</p>
+
+
+        <p>The validation fun,  <tt>Validate</tt>, allows for a more "flexible" 
+          validation of the <tt>DateAndTime</tt> argument. Whenever the data 
+          is found to not follow RFC2579, the fun is called to allow a more
+          "lax" validation. 
+          The input to the validation fun looks like this: </p>
+
+        <pre>
+          Kind             Data
+          --------------   ----------------------
+          year             {Year1, Year2}
+          month            Month
+          day              Day
+          hour             Hour
+          minute           Minute
+          seconds          Seconds
+          deci_seconds     DeciSeconds
+          diff             [Sign, Hour, Minute]
+          valid_date       {Year, Month, Day}
+	</pre>
+
+        <marker id="passwd2localized_key"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="passwd2localized_keyAlgPasswdEngineIDgtKey"></a><b>passwd2localized_key(Alg, Passwd, EngineID) -&gt; Key</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Alg = algorithm()</b><br/>
+        <b>algorithm() = md5 | sha</b><br/>
+        <b>Passwd = string()</b><br/>
+        <b>EngineID = string()</b><br/>
+        <b>Key = list()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Generates a key that can be used as an authentication
+          or privacy key using MD5 och SHA.  The key is
+          localized for EngineID.</p>
+
+        <marker id="octet_string_to_bits"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="octet_string_to_bitsSgtVal"></a><b>octet_string_to_bits(S) -&gt; Val</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Val = bits()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Utility function for converting a value of type 
+          <tt>OCTET-STRING</tt> to <tt>BITS</tt>. </p>
+
+        <marker id="bits_to_octet_string"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="bits_to_octet_stringBgtVal"></a><b>bits_to_octet_string(B) -&gt; Val</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Val = octet_string()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Utility function for converting a value of type <tt>BITS</tt> 
+          to <tt>OCTET-STRING</tt>. </p>
+
+        <marker id="read_mib"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="read_mibFileNamegtokmiberrorReason"></a><b>read_mib(FileName) -&gt; {ok, mib()} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>FileName = string()</b><br/>
+        <b>mib() = #mib{}</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Read a compiled mib.</p>
+
+        <marker id="log_to_txt"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="log_to_txtLogDirMibsOutFileLogNameLogFilegtokerrorReason"></a><b>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile) -&gt;  ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile, Start) -&gt;  ok | {error, Reason}<br/>log_to_txt(LogDir, Mibs, OutFile, LogName, LogFile, Start, Stop) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>LogDir = string()</b><br/>
+        <b>Mibs = [MibName]</b><br/>
+        <b>OutFile = string()</b><br/>
+        <b>MibName = string()</b><br/>
+        <b>LogName = string()</b><br/>
+        <b>LogFile = string()</b><br/>
+        <b>Start = Stop = null | datetime() | {local_time,datetime()} |  {universal_time,datetime()} </b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Converts an Audit Trail Log to a readable text file, where
+          each item has a trailing TAB character, and any TAB
+          character in the body of an item has been replaced by ESC
+          TAB.
+          </p>
+        <p>The function can be used on a running system, or by copying
+          the entire log directory and calling this function. SNMP
+          must be running in order to provide MIB information.
+          </p>
+        <p><tt>LogDir</tt> is the name of the directory where the audit
+          trail log is stored. 
+          <tt>Mibs</tt> is a list of Mibs to be used. The function uses 
+          the information in the Mibs to convert for example object 
+          identifiers to their symbolic name. 
+          <tt>OutFile</tt> is the name of the generated text-file.
+          <tt>LogName</tt> is the name of the log, 
+          <tt>LogFile</tt> is the name of the log file. 
+          <tt>Start</tt> is the start (first) date and time from which 
+          log events will be converted and 
+          <tt>Stop</tt> is the stop (last) date and time to which log 
+          events will be converted.
+          </p>
+        <p>The format of an audit trail log text item is as follows:
+          </p>
+        <p><tt>Tag Addr - Community [TimeStamp] Vsn</tt><br>
+          <tt>PDU</tt></p>
+        <p>where <tt>Tag</tt> is <tt>request</tt>, <tt>response</tt>, 
+          <tt>report</tt>, <tt>trap</tt> or <tt>inform</tt>; Addr is 
+          <tt>IP:Port</tt> (or comma space separated list of such);
+          <tt>Community</tt> is the community parameter (SNMP version
+          v1 and v2), or <tt>SecLevel:"AuthEngineID":"UserName"</tt>
+          (SNMP v3); <tt>TimeStamp</tt> is a date and time stamp,
+          and <tt>Vsn</tt> is the SNMP version. <tt>PDU</tt> is a textual
+          version of the protocol data unit. There is a new line
+          between <tt>Vsn</tt> and <tt>PDU</tt>.</p>
+
+        <marker id="change_log_size"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="change_log_sizeLogNameNewSizegtokerrorReason"></a><b>change_log_size(LogName, NewSize) -&gt; ok | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>LogName = string()</b><br/>
+        <b>NewSize = {MaxBytes, MaxFiles}</b><br/>
+        <b>MaxBytes = integer()</b><br/>
+        <b>MaxFiles = integer()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Changes the log size of the Audit Trail Log.  The
+          application must be configured to use the audit trail log
+          function. Please refer to disk_log(3) in Kernel Reference 
+          Manual for a description of how to change the log size.
+          </p>
+        <p>The change is permanent, as long as the log is not deleted. 
+          That means, the log size is remembered across reboots.</p>
+
+	<marker id="print_version_info"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="print_version_infogtvoid"></a><b>print_version_info() -&gt; void()<br/>print_version_info(Prefix) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Prefix = string() | integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Utility function(s) to produce a formatted printout of the versions
+          info generated by the <tt>versions1</tt> function</p>
+        <p>This is the same as doing, e.g.: </p>
+        <pre>
+           {ok, V} = snmp:versions1(), 
+           snmp:print_versions(V).
+        </pre>
+
+	<marker id="versions1"></marker>
+	<marker id="versions2"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="versions1gtokInfoerrorReason"></a><b>versions1() -&gt; {ok, Info} | {error, Reason}<br/>versions2() -&gt; {ok, Info} | {error, Reason}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Info = [info()]</b><br/>
+        <b>info() = term()</b><br/>
+        <b>Reason = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Utility functions used to retrieve some system and
+          application info.</p>
+        <p>The difference between the two functions is in how they get
+          the modules to check. <tt>versions1</tt> uses the app-file and
+          <tt>versions2</tt> uses the function <tt>application:get_key</tt>.</p>
+
+        <marker id="print_versions"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="print_versionsVersionInfogtvoid"></a><b>print_versions(VersionInfo) -&gt; void()<br/>print_versions(Prefix, VersionInfo) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>VersionInfo = [version_info()]</b><br/>
+        <b>version_info() = term()</b><br/>
+        <b>Prefix = string() | integer()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Utility function to produce a formatted printout of the versions
+          info generated by the <tt>versions1</tt> and <tt>versions2</tt>
+          functions</p>
+        <p>Example: </p>
+        <pre>
+           {ok, V} = snmp:versions1(), 
+           snmp:print_versions(V).
+        </pre>
+
+        <marker id="enable_trace"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="enable_tracegtvoid"></a><b>enable_trace() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Starts a dbg tracer that prints trace events to stdout (using
+          plain io:format after a minor formatting). </p>
+
+        <marker id="disable_trace"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="disable_tracegtvoid"></a><b>disable_trace() -&gt; void()</b>
+                </div>
+
+								
+                
+                <div class="description">
+                  
+        <p>Stop the tracer. </p>
+
+        <marker id="set_trace1"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_traceTargetsgtvoid"></a><b>set_trace(Targets) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Targets = target() | targets()</b><br/>
+        <b>target() = module()</b><br/>
+        <b>module() = atom()</b><br/>
+        <b>targets() = [target() | {target(), target_options()}]</b><br/>
+        <b>target_options() = [target_option()]</b><br/>
+        <b>target_option() = {return_trace, boolean()} | {scope, scope()}</b><br/>
+        <b>scope() = all_functions | exported_functions | function_name() | {function_name(), function_arity()}</b><br/>
+        <b>function_name() = atom()</b><br/>
+        <b>function_arity() = integer() &gt;= 0</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to set up default trace on function(s) 
+          for the given module or modules. The scope of the trace will be 
+          all <em>exported</em> functions (both the call info and the return 
+	  value). Timestamp info will also be included. </p>
+
+        <marker id="reset_trace"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="reset_traceTargetsgtvoid"></a><b>reset_trace(Targets) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Targets = module() | modules()</b><br/>
+        <b>modules() = [module()]</b><br/>
+        <b>module() = atom()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to reset (disable) trace for the 
+	  given module(s). </p>
+      
+	<marker id="set_trace2"></marker>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="set_traceTargetsOptsgtvoid"></a><b>set_trace(Targets, Opts) -&gt; void()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Targets = target() | targets()</b><br/>
+        <b>target() = module()</b><br/>
+        <b>module() = atom()</b><br/>
+        <b>targets() = [target() | {target(), target_options()}]</b><br/>
+        <b>target_options() = [target_option()]</b><br/>
+        <b>target_option() = {return_trace, boolean()} | {scope, scope()}</b><br/>
+        <b>scope() = all_functions | exported_functions | function_name() | {function_name(), function_arity()}</b><br/>
+        <b>function_name() = atom()</b><br/>
+        <b>function_arity() = integer() &gt;= 0</b><br/>
+        <b>Opts = disable | trace_options()</b><br/>
+        <b>trace_options() = [trace_option()]</b><br/>
+        <b>trace_option() = {timestamp, boolean()} | target_option()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This function is used to set up trace on function(s) for the given
+	  module or modules. </p>
+
+	<p>The example below sets up trace on the exported functions (default) 
+	  of module <tt>snmp_generic</tt> and all functions of module 
+	  <tt>snmp_generic_mnesia</tt>. With return values (which is default)
+          and timestamps in both cases (which is also default): </p>
+
+	<pre>
+	  snmp:enable_trace(),
+	  snmp:set_trace([snmp_generic, 
+                          {snmp_generic_mnesia, [{scope, all_functions}]}]),
+	  .
+	  .
+	  .
+          snmp:set_trace(snmp_generic, disable),
+	  .
+	  .
+	  .
+	  snmp:disable_trace(),
+	</pre>
+
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

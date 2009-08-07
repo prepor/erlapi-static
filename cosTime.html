@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>cosTime</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />cosTime</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosTime/include/*.hrl").</tt></p>
+    <p>This module contains the functions for starting and stopping the application.</p>
+    <p>This application use the time base <em>15 october 1582 00:00</em>.
+      Performing operations using other time bases will not yield correct result.</p>
+    <p>The OMG CosTime specification defines the operation 
+      <tt>secure_universal_time</tt>. As of today we cannot provide this functionality
+      considering the criteria demanded to fulfill the OMG specification.</p>
+    <p>When using this application, time and inaccuracy supplied by the user must
+      be given in number of <em>100 nano seconds</em>. The 
+      <em>Time Displacement Factor</em> is positive east of the meridian, while 
+      those to the west are negative.</p>
+    <p>This application use <tt>calender:now_to_universal_time(Now)</tt> to create a 
+      UTC. Hence, the underlying OS must deliver a correct result when calling 
+      <tt>erlang:now()</tt>.</p>
+    <p>When determining the inaccuracy of the system, the user should consider the
+      way the time objects will be used. Communicating with other ORB's, add a
+      substantial overhead and should be taken into consideration.</p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#install_timegtReturn">install_time() -&gt; Return</a></li>
+        
+        <li><a href="#install_timereventgtReturn">install_timerevent() -&gt; Return</a></li>
+        
+        <li><a href="#startgtReturn">start() -&gt; Return</a></li>
+        
+        <li><a href="#start_time_serviceTdfInaccuracygtReturn">start_time_service(Tdf, Inaccuracy) -&gt; Return</a></li>
+        
+        <li><a href="#start_timerevent_serviceTimeServicegtok">start_timerevent_service(TimeService) -&gt; ok</a></li>
+        
+        <li><a href="#stopgtReturn">stop() -&gt; Return</a></li>
+        
+        <li><a href="#stop_time_serviceTimeServicegtok">stop_time_service(TimeService) -&gt; ok</a></li>
+        
+        <li><a href="#stop_timerevent_serviceTimerEventServicegtok">stop_timerevent_service(TimerEventService) -&gt; ok</a></li>
+        
+        <li><a href="#uninstall_timegtReturn">uninstall_time() -&gt; Return</a></li>
+        
+        <li><a href="#uninstall_timereventgtReturn">uninstall_timerevent() -&gt; Return</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="install_timegtReturn"></a><b>install_time() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosTime Time Service part application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstall_timegtReturn"></a><b>uninstall_time() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosTime Time Service part application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="install_timereventgtReturn"></a><b>install_timerevent() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation installs the cosTime Timer Event Service part application.</p>
+        <note>
+          <p>The Timer Event Service part requires <em>Time Service</em> part and 
+            <em>cosEvent</em> or the <em>cosNotification</em> application to be installed 
+            first.</p>
+        </note>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="uninstall_timereventgtReturn"></a><b>uninstall_timerevent() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {'EXIT', Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation uninstalls the cosTime Timer Event Service part application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="startgtReturn"></a><b>start() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts the cosTime application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stopgtReturn"></a><b>stop() -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Return = ok | {error, Reason}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the cosTime application.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_time_serviceTdfInaccuracygtReturn"></a><b>start_time_service(Tdf, Inaccuracy) -&gt; Return</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tdf = short()</b><br/>
+        <b>Inaccuracy = ulonglong(), eq. #100 nano seconds</b><br/>
+        <b>Return = ok | {'EXCEPTION', #'BAD_PARAM'{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts a Time Service server. Please note that there
+          may only be exactly one Time Service active at a time. The <tt>Inaccuracy</tt>
+          parameter defines the inaccuracy the underlying OS will introduce. Remember
+          to take into account latency when passing time object between nodes.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_time_serviceTimeServicegtok"></a><b>stop_time_service(TimeService) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the Time Service object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="start_timerevent_serviceTimeServicegtok"></a><b>start_timerevent_service(TimeService) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimeService = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation starts a Timer Event Service server. Please note that there
+          may only be exactly one Timer Event Service per node active at a time. The
+          supplied TimeServcie reference will be the object Timer Event Service
+          contacts to get access to a new UTC.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="stop_timerevent_serviceTimerEventServicegtok"></a><b>stop_timerevent_service(TimerEventService) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>TimerEventService = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation stops the Timer Event Service object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

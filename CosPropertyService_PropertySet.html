@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CosPropertyService_PropertySet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />CosPropertyService_PropertySet</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>To get access to the record definitions for the structures use:      <br>
+<tt>-include_lib("cosProperty/include/CosPropertyService.hrl").</tt></p>
+  </div>
+    
+
+    
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#define_propertiesPropertySetPropertiesgtReply">define_properties(PropertySet, Properties) -&gt; Reply</a></li>
+        
+        <li><a href="#define_propertyPropertySetNameValuegtReply">define_property(PropertySet, Name, Value) -&gt; Reply</a></li>
+        
+        <li><a href="#delete_all_propertiesPropertySetgtboolean">delete_all_properties(PropertySet) -&gt; boolean()</a></li>
+        
+        <li><a href="#delete_propertiesPropertySetNamesgtReply">delete_properties(PropertySet, Names) -&gt; Reply</a></li>
+        
+        <li><a href="#delete_propertyPropertySetNamegtReply">delete_property(PropertySet, Name) -&gt; Reply</a></li>
+        
+        <li><a href="#get_all_propertiesPropertySetMaxgtReply">get_all_properties(PropertySet, Max) -&gt; Reply</a></li>
+        
+        <li><a href="#get_all_property_namesPropertySetMaxgtReply">get_all_property_names(PropertySet, Max) -&gt; Reply</a></li>
+        
+        <li><a href="#get_number_of_propertiesPropertySetgtulong">get_number_of_properties(PropertySet) -&gt; ulong()</a></li>
+        
+        <li><a href="#get_propertiesPropertySetNamesgtReply">get_properties(PropertySet, Names) -&gt; Reply</a></li>
+        
+        <li><a href="#get_property_valuePropertySetNamegtReply">get_property_value(PropertySet, Name) -&gt; Reply</a></li>
+        
+        <li><a href="#is_property_definedPropertySetNamegtReply">is_property_defined(PropertySet, Name) -&gt; Reply</a></li>
+        
+    </ul>
+    
+
+     
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="define_propertyPropertySetNameValuegtReply"></a><b>define_property(PropertySet, Name, Value) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Name = non-empty string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}} | {'EXCEPTION', #CosPropertyService_ConflictingProperty{}} | {'EXCEPTION', #CosPropertyService_UnsupportedTypeCode{}} | {'EXCEPTION', #CosPropertyService_UnsupportedProperty{}} | {'EXCEPTION', #CosPropertyService_ReadOnlyProperty{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation adds a new property to the given object. Depending on
+          which initial arguments was supplied when starting the object several
+          exceptions may be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="define_propertiesPropertySetPropertiesgtReply"></a><b>define_properties(PropertySet, Properties) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Properties = [#'CosPropertyService_Property'{property_name = Name, property_value = Value}]</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Value = #any</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_MultipleExceptions{exceptions = Excs}}</b><br/>
+        <b>Excs = [#'CosPropertyService_PropertyException{reason = Reason, failing_property_name = Name}]</b><br/>
+        <b>Reason = invalid_property_name | conflicting_property | property_not_found | unsupported_type_code | unsupported_property | unsupported_mode | fixed_property | read_only_property</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation adds several new properties to the given object. Depending on
+          which initial arguments was supplied when starting the object an 
+          exceptions may be raised listing the properties failing.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_number_of_propertiesPropertySetgtulong"></a><b>get_number_of_properties(PropertySet) -&gt; ulong()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the number of properties associated with the target
+          object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_property_namesPropertySetMaxgtReply"></a><b>get_all_property_names(PropertySet, Max) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = NamesIterator = #objref</b><br/>
+        <b>Max = ulong()</b><br/>
+        <b>Reply = {ok, Names, NamesIterator}</b><br/>
+        <b>Names = [string()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns up to <tt>Max</tt> property names. If the target
+          object have additional associated properties they will be put in the
+          returned Iterator, otherwise the Iterator will be a <tt>NIL</tt> object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_property_valuePropertySetNamegtReply"></a><b>get_property_value(PropertySet, Name) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Reply = #any | {'EXCEPTION', #CosPropertyService_PropertyNotFound{}} | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns the property value associated with given name. If no such property
+          exists or the given name is an empty string an exception will be raised.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_propertiesPropertySetNamesgtReply"></a><b>get_properties(PropertySet, Names) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Names = [string()]</b><br/>
+        <b>Reply = {boolean(), Properties}</b><br/>
+        <b>Properties = [#'CosPropertyService_Property'{property_name = Name, property_value = Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns all properties associated with given names. If the
+          boolean flag is true all properties where retrieved correctly, otherwise,
+          all properties with the type <tt>tk_void</tt> was not found.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="get_all_propertiesPropertySetMaxgtReply"></a><b>get_all_properties(PropertySet, Max) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = PropertiesIterator = #objref</b><br/>
+        <b>Reply = {ok, Properties, PropertiesIterator}</b><br/>
+        <b>Properties = [#'CosPropertyService_Property'{property_name = Name, property_value = Value}]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation return a list <tt>Max</tt> properties or less. If more 
+          properties are associated with the target object they will be put in the
+          <tt>PropertiesIterator</tt>. If the object had less than <tt>Max</tt> 
+          associated properties the Iterator will be a <tt>NIL</tt> object.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_propertyPropertySetNamegtReply"></a><b>delete_property(PropertySet, Name) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Name = string()</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_FixedProperty{}} | {'EXCEPTION', #CosPropertyService_PropertyNotFound{}} | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation tries to delete the property with given Name. An exception
+          which indicates why it failed is raised if so needed.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_propertiesPropertySetNamesgtReply"></a><b>delete_properties(PropertySet, Names) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Names = [string()]</b><br/>
+        <b>Reply = ok | {'EXCEPTION', #CosPropertyService_MultipleExceptions{exceptions = Excs}}</b><br/>
+        <b>Excs = [#'CosPropertyService_PropertyException{reason = Reason, failing_property_name = Name}]</b><br/>
+        <b>Reason = invalid_property_name | conflicting_property | property_not_found | unsupported_type_code | unsupported_property | unsupported_mode | fixed_property | read_only_property</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation tries to delete all given Properties. If one or more removal
+          fails an exception is raised which describe why.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_all_propertiesPropertySetgtboolean"></a><b>delete_all_properties(PropertySet) -&gt; boolean()</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation deletes all properties. The boolean flag, if set to false,
+          indicates that it was not possible to remove one or more properties, e.g.,
+          may be read only.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="is_property_definedPropertySetNamegtReply"></a><b>is_property_defined(PropertySet, Name) -&gt; Reply</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>PropertySet = #objref</b><br/>
+        <b>Name = non-empty string()</b><br/>
+        <b>Reply = boolean() | {'EXCEPTION', #CosPropertyService_InvalidPropertyName{}}</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>This operation returns true if the target have an associated property with
+          given name.</p>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    

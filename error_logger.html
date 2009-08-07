@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>error_logger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>     
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+        <tr>
+            <td class="file-title"><span class="file-title-prefix">Module</span><br />error_logger</td>
+            <td align="right">
+
+            </td>
+        </tr>
+    </table>
+    <div id="bodyContent">
+        <div id="content">
+    
+    <div class="description">
+    <p>The Erlang <em>error logger</em> is an event manager (see
+      <seealso marker="doc/design_principles:des_princ">OTP Design Principles</seealso> and
+      <seealso marker="stdlib:gen_event">gen_event(3)</seealso>),
+      registered as <tt>error_logger</tt>. Error, warning and info events
+      are sent to the error logger from the Erlang runtime system and
+      the different Erlang/OTP applications. The events are, by default,
+      logged to tty. Note that an event from a process <tt>P</tt> is
+      logged at the node of the group leader of <tt>P</tt>. This means
+      that log output is directed to the node from which a process was
+      created, which not necessarily is the same node as where it is
+      executing.</p>
+    <p>Initially, <tt>error_logger</tt> only has a primitive event
+      handler, which buffers and prints the raw event messages. During
+      system startup, the application Kernel replaces this with a
+      <em>standard event handler</em>, by default one which writes
+      nicely formatted output to tty. Kernel can also be configured so
+      that events are logged to file instead, or not logged at all, see
+      <seealso marker="kernel_app">kernel(6)</seealso>.</p>
+    <p>Also the SASL application, if started, adds its own event
+      handler, which by default writes supervisor-, crash- and progress
+      reports to tty. See
+      <seealso marker="sasl:sasl_app">sasl(6)</seealso>.</p>
+    <p>It is recommended that user defined applications should report
+      errors through the error logger, in order to get uniform reports.
+      User defined event handlers can be added to handle application
+      specific events. (<tt>add_report_handler/1,2</tt>). Also, there is
+      a useful event handler in STDLIB for multi-file logging of events,
+      see <tt>log_mf_h(3)</tt>.</p>
+    <p>Warning events was introduced in Erlang/OTP R9C. To retain
+      backwards compatibility, these are by default tagged as errors,
+      thus showing up as error reports in the logs. By using
+      the command line flag <tt>+W <w | i></tt>, they can instead
+      be tagged as warnings or info. Tagging them as warnings may
+      require rewriting existing user defined event handlers.</p>
+  </div>
+    
+
+    
+    
+    <div class="sectiontitle">Contents</div>
+    <ul>
+        
+        <li><a href="#">Events</a></li>
+        
+        <li><a href="#">SEE ALSO</a></li>
+        
+    </ul>
+    
+
+    
+    
+    <div class="sectiontitle">Methods</div>
+    <ul>
+        
+        <li><a href="#add_report_handlerHandlergtResult">add_report_handler(Handler) -&gt; Result</a></li>
+        
+        <li><a href="#delete_report_handlerHandlergtResult">delete_report_handler(Handler) -&gt; Result</a></li>
+        
+        <li><a href="#error_msgFormatgtok">error_msg(Format) -&gt; ok</a></li>
+        
+        <li><a href="#error_reportReportgtok">error_report(Report) -&gt; ok</a></li>
+        
+        <li><a href="#error_reportTypeReportgtok">error_report(Type, Report) -&gt; ok</a></li>
+        
+        <li><a href="#info_msgFormatgtok">info_msg(Format) -&gt; ok</a></li>
+        
+        <li><a href="#info_reportReportgtok">info_report(Report) -&gt; ok</a></li>
+        
+        <li><a href="#info_reportTypeReportgtok">info_report(Type, Report) -&gt; ok</a></li>
+        
+        <li><a href="#logfileRequestgtokFilenameerrorWhat">logfile(Request) -&gt; ok | Filename | {error, What}</a></li>
+        
+        <li><a href="#ttyFlaggtok">tty(Flag) -&gt; ok</a></li>
+        
+        <li><a href="#warning_mapgtTag">warning_map() -&gt; Tag</a></li>
+        
+        <li><a href="#warning_msgFormatgtok">warning_msg(Format) -&gt; ok</a></li>
+        
+        <li><a href="#warning_reportReportgtok">warning_report(Report) -&gt; ok</a></li>
+        
+        <li><a href="#warning_reportTypeReportgtok">warning_report(Type, Report) -&gt; ok</a></li>
+        
+    </ul>
+    
+
+     
+    <div class="sectiontitle">Events</div>
+    
+    <div class="description">
+        
+    <marker id="events"></marker>
+    <title>Events</title>
+    <p>All event handlers added to the error logger must handle
+      the following events. <tt>Gleader</tt> is the group leader pid of
+      the process which sent the event, and <tt>Pid</tt> is the process
+      which sent the event.</p>
+    <taglist>
+      <tag><tt>{error, Gleader, {Pid, Format, Data}}</tt></tag>
+      <item>
+        <p>Generated when <tt>error_msg/1,2</tt> or <tt>format</tt> is
+          called.</p>
+      </item>
+      <tag><tt>{error_report, Gleader, {Pid, std_error, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>error_report/1</tt> is called.</p>
+      </item>
+      <tag><tt>{error_report, Gleader, {Pid, Type, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>error_report/2</tt> is called.</p>
+      </item>
+      <tag><tt>{warning_msg, Gleader, {Pid, Format, Data}}</tt></tag>
+      <item>
+        <p>Generated when <tt>warning_msg/1,2</tt> is called, provided
+          that warnings are set to be tagged as warnings.</p>
+      </item>
+      <tag><tt>{warning_report, Gleader, {Pid, std_warning, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>warning_report/1</tt> is called, provided
+          that warnings are set to be tagged as warnings.</p>
+      </item>
+      <tag><tt>{warning_report, Gleader, {Pid, Type, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>warning_report/2</tt> is called, provided
+          that warnings are set to be tagged as warnings.</p>
+      </item>
+      <tag><tt>{info_msg, Gleader, {Pid, Format, Data}}</tt></tag>
+      <item>
+        <p>Generated when <tt>info_msg/1,2</tt> is called.</p>
+      </item>
+      <tag><tt>{info_report, Gleader, {Pid, std_info, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>info_report/1</tt> is called.</p>
+      </item>
+      <tag><tt>{info_report, Gleader, {Pid, Type, Report}}</tt></tag>
+      <item>
+        <p>Generated when <tt>info_report/2</tt> is called.</p>
+      </item>
+    </taglist>
+    <p>Note that also a number of system internal events may be
+      received, a catch-all clause last in the definition of
+      the event handler callback function <tt>Module:handle_event/2</tt>
+      is necessary. This also holds true for
+      <tt>Module:handle_info/2</tt>, as there are a number of system
+      internal messages the event handler must take care of as well.</p>
+  
+    </div>
+    
+    
+    <div class="sectiontitle">SEE ALSO</div>
+    
+    <div class="description">
+        
+    <title>SEE ALSO</title>
+    <p>gen_event(3), log_mf_h(3), kernel(6), sasl(6)</p>
+  
+    </div>
+    
+    
+	<div class="sectiontitle">Exports</div>
+		
+            <div class="method">
+                <div class="title">
+                    <a name="error_msgFormatgtok"></a><b>error_msg(Format) -&gt; ok<br/>error_msg(Format, Data) -&gt; ok<br/>format(Format, Data) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = string()</b><br/>
+        <b>Data = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard error event to the error logger.
+          The <tt>Format</tt> and <tt>Data</tt> arguments are the same as
+          the arguments of <tt>io:format/2</tt>. The event is handled by
+          the standard event handler.</p>
+        <pre>
+1&gt; <input>
+
+=ERROR REPORT==== 11-Aug-2005::14:03:19 ===
+An error occurred in a_module
+ok</pre>
+        <warning>
+          <p>If called with bad arguments, this function can crash
+            the standard event handler, meaning no further events are
+            logged. When in doubt, use <tt>error_report/1</tt> instead.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="error_reportReportgtok"></a><b>error_report(Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard error report event to the error logger.
+          The event is handled by the standard event handler.</p>
+        <pre>
+2&gt; <input>
+
+=ERROR REPORT==== 11-Aug-2005::13:45:41 ===
+    tag1: data1
+    a_term
+    tag2: data
+ok
+3&gt; <input>
+
+=ERROR REPORT==== 11-Aug-2005::13:45:49 ===
+Serious error in my module
+ok</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="error_reportTypeReportgtok"></a><b>error_report(Type, Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = term()</b><br/>
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a user defined error report event to the error logger.
+          An event handler to handle the event is supposed to have been
+          added. The event is ignored by the standard event handler.</p>
+        <p>It is recommended that <tt>Report</tt> follows the same
+          structure as for <tt>error_report/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="warning_mapgtTag"></a><b>warning_map() -&gt; Tag</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Tag = error | warning | info</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Returns the current mapping for warning events. Events sent
+          using <tt>warning_msg/1,2</tt> or <tt>warning_report/1,2</tt>
+          are tagged as errors (default), warnings or info, depending
+          on the value of the command line flag <tt>+W</tt>.</p>
+        <pre>
+os$ <input>
+Erlang (BEAM) emulator version 5.4.8 [hipe] [threads:0] [kernel-poll]
+
+Eshell V5.4.8  (abort with ^G)
+1&gt; <input>
+error
+2&gt; <input>
+
+=ERROR REPORT==== 11-Aug-2005::15:31:23 ===
+Warnings tagged as: error
+ok
+3&gt; 
+User switch command
+ --&gt; q
+os$ <input>
+Erlang (BEAM) emulator version 5.4.8 [hipe] [threads:0] [kernel-poll]
+
+Eshell V5.4.8  (abort with ^G)
+1&gt; <input>
+warning
+2&gt; <input>
+
+=WARNING REPORT==== 11-Aug-2005::15:31:55 ===
+Warnings tagged as: warning
+ok</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="warning_msgFormatgtok"></a><b>warning_msg(Format) -&gt; ok<br/>warning_msg(Format, Data) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = string()</b><br/>
+        <b>Data = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard warning event to the error logger.
+          The <tt>Format</tt> and <tt>Data</tt> arguments are the same as
+          the arguments of <tt>io:format/2</tt>. The event is handled by
+          the standard event handler. It is tagged either as an error,
+          warning or info, see
+          <seealso marker="#warning_map/0">warning_map/0</seealso>.</p>
+        <warning>
+          <p>If called with bad arguments, this function can crash
+            the standard event handler, meaning no further events are
+            logged. When in doubt, use <tt>warning_report/1</tt> instead.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="warning_reportReportgtok"></a><b>warning_report(Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard warning report event to the error logger.
+          The event is handled by the standard event handler. It is
+          tagged either as an error, warning or info, see
+          <seealso marker="#warning_map/0">warning_map/0</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="warning_reportTypeReportgtok"></a><b>warning_report(Type, Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = term()</b><br/>
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a user defined warning report event to the error
+          logger. An event handler to handle the event is supposed to
+          have been added. The event is ignored by the standard event
+          handler. It is tagged either as an error, warning or info,
+          depending on the value of
+          <seealso marker="#warning_map/0">warning_map/0</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="info_msgFormatgtok"></a><b>info_msg(Format) -&gt; ok<br/>info_msg(Format, Data) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Format = string()</b><br/>
+        <b>Data = [term()]</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard information event to the error logger.
+          The <tt>Format</tt> and <tt>Data</tt> arguments are the same as
+          the arguments of <tt>io:format/2</tt>. The event is handled by
+          the standard event handler.</p>
+        <pre>
+1&gt; <input>
+
+=INFO REPORT==== 11-Aug-2005::14:06:15 ===
+Something happened in a_module
+ok</pre>
+        <warning>
+          <p>If called with bad arguments, this function can crash
+            the standard event handler, meaning no further events are
+            logged. When in doubt, use <tt>info_report/1</tt> instead.</p>
+        </warning>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="info_reportReportgtok"></a><b>info_report(Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a standard information report event to the error
+          logger. The event is handled by the standard event handler.</p>
+        <pre>
+2&gt; <input>
+
+=INFO REPORT==== 11-Aug-2005::13:55:09 ===
+    tag1: data1
+    a_term
+    tag2: data
+ok
+3&gt; <input>
+
+=INFO REPORT==== 11-Aug-2005::13:55:36 ===
+Something strange happened
+ok</pre>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="info_reportTypeReportgtok"></a><b>info_report(Type, Report) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Type = term()</b><br/>
+        <b>Report = [{Tag, Data} | term()] | string() | term()</b><br/>
+        <b>&nbsp;Tag = Data = term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Sends a user defined information report event to the error
+          logger. An event handler to handle the event is supposed to
+          have been added. The event is ignored by the standard event
+          handler.</p>
+        <p>It is recommended that <tt>Report</tt> follows the same
+          structure as for <tt>info_report/1</tt>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="add_report_handlerHandlergtResult"></a><b>add_report_handler(Handler) -&gt; Result<br/>add_report_handler(Handler, Args) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handler, Args, Result -- see gen_event:add_handler/3</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Adds a new event handler to the error logger. The event
+          handler must be implemented as a <tt>gen_event</tt> callback
+          module, see
+          <seealso marker="stdlib:gen_event">gen_event(3)</seealso>.</p>
+        <p><tt>Handler</tt> is typically the name of the callback module
+          and <tt>Args</tt> is an optional term (defaults to []) passed
+          to the initialization callback function <tt>Module:init/1</tt>.
+          The function returns <tt>ok</tt> if successful.</p>
+        <p>The event handler must be able to handle the
+          <seealso marker="#events">events</seealso> described below.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="delete_report_handlerHandlergtResult"></a><b>delete_report_handler(Handler) -&gt; Result</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Handler, Result -- see gen_event:delete_handler/3</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Deletes an event handler from the error logger by calling
+          <tt>gen_event:delete_handler(error_logger, Handler, [])</tt>,
+          see <seealso marker="stdlib:gen_event">gen_event(3)</seealso>.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="ttyFlaggtok"></a><b>tty(Flag) -&gt; ok</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Flag = bool()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Enables (<tt>Flag == true</tt>) or disables
+          (<tt>Flag == false</tt>) printout of standard events to the tty.</p>
+        <p>This is done by adding or deleting the standard event handler
+          for output to tty, thus calling this function overrides
+          the value of the Kernel <tt>error_logger</tt> configuration
+          parameter.</p>
+      
+                </div>
+                
+
+            </div>
+      
+            <div class="method">
+                <div class="title">
+                    <a name="logfileRequestgtokFilenameerrorWhat"></a><b>logfile(Request) -&gt; ok | Filename | {error, What}</b>
+                </div>
+
+								
+                <div class="func_types">
+									Types:
+									<p>
+                  
+        <b>Request = {open, Filename} | close | filename</b><br/>
+        <b>&nbsp;Filename = atom() | string()</b><br/>
+        <b>What = allready_have_logfile | no_log_file | term()</b><br/>
+      
+									</p>
+                </div>
+                
+                
+                <div class="description">
+                  
+        <p>Enables or disables printout of standard events to a file.</p>
+        <p>This is done by adding or deleting the standard event handler
+          for output to file, thus calling this function overrides
+          the value of the Kernel <tt>error_logger</tt> configuration
+          parameter.</p>
+        <p>Enabling file logging can be used in combination with calling
+          <tt>tty(false)</tt>, in order to have a silent system, where
+          all standard events are logged to a file only.
+          There can only be one active log file at a time.</p>
+        <p><tt>Request</tt> is one of:</p>
+        <taglist>
+          <tag><tt>{open, Filename}</tt></tag>
+          <item>
+            <p>Opens the log file <tt>Filename</tt>. Returns <tt>ok</tt> if
+              successful, or <tt>{error, allready_have_logfile}</tt> if
+              logging to file is already enabled, or an error tuple if
+              another error occurred. For example, if <tt>Filename</tt>
+              could not be opened.</p>
+          </item>
+          <tag><tt>close</tt></tag>
+          <item>
+            <p>Closes the current log file. Returns <tt>ok</tt>, or
+              <tt>{error, What}</tt>.</p>
+          </item>
+          <tag><tt>filename</tt></tag>
+          <item>
+            <p>Returns the name of the log file <tt>Filename</tt>, or
+              <tt>{error, no_log_file}</tt> if logging to file is not
+              enabled.</p>
+          </item>
+        </taglist>
+      
+                </div>
+                
+
+            </div>
+      
+
+
+    
+</div>
+    </div>
+  </body>
+</html>    
