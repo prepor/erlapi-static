@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#allgtup_to_dateerror">all() -&gt; up_to_date | error</a></li>
@@ -58,9 +58,9 @@
     <p><tt>make:all/0,1</tt> and <tt>make:files/1,2</tt> looks in the
       current working directory for a file named <tt>Emakefile</tt>. If
       it exists, <tt>Emakefile</tt> should contain elements like this:</p>
-    <code type="none">
+    <pre>
 Modules.
-{Modules,Options}.    </code>
+{Modules,Options}.    </pre>
     <p><tt>Modules</tt> is an atom or a list of atoms. It can be 
       </p>
     <list type="bulleted">
@@ -83,10 +83,10 @@ Modules.
       <tt>[debug_info,{i,"../foo"}]</tt>, while all other files in the
       current directory shall be compiled with only the
       <tt>debug_info</tt> flag.</p>
-    <code type="none">
+    <pre>
 {'file1',[debug_info,{i,"../foo"}]}.
-{'*',[debug_info]}.    </code>
-    <p></p>
+{'*',[debug_info]}.    </pre>
+    <p/>
   
     </div>
     
@@ -133,14 +133,14 @@ Modules.
         <p><tt>Options</tt> is a list of make- and compiler options.
           The following make options exist:</p>
         <list type="bulleted">
-          <item><tt>noexec</tt>          <br>
+          <item><tt>noexec</tt>          <br/>
 
            No execution mode. Just prints the name of each module that needs
            to be compiled.</item>
-          <item><tt>load</tt>          <br>
+          <item><tt>load</tt>          <br/>
 
            Load mode. Loads all recompiled modules.</item>
-          <item><tt>netload</tt>          <br>
+          <item><tt>netload</tt>          <br/>
 
            Net load mode. Loads all recompiled modules an all known nodes.</item>
         </list>

@@ -90,7 +90,7 @@
           'ordered_set' or 'bag' semantics. Note: currently 'ordered_set' 
           is not supported for 'disc_only_copies'. If a table is of type
           'set' it means that each key leads to either one or zero
-          records.           <br>
+          records.           <br/>
 If a new item is inserted with the same key as
           an existing record, the old record is overwritten. On the
           other hand, if a table is of type 'bag', each key can map to
@@ -166,13 +166,13 @@ If a new item is inserted with the same key as
     <p>This document uses a table of persons to illustrate various
       examples. The following record definition is assumed:
       </p>
-    <code type="none">
+    <pre>
 -record(person, {name,
                  age = 0,
                  address = unknown,
                  salary = 0,
                  children = []}),
-    </code>
+    </pre>
     <p>The first attribute of the record is the primary key, or key
       for short.
       </p>
@@ -206,7 +206,7 @@ If a new item is inserted with the same key as
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abortReasongttransactionabort">abort(Reason) -&gt; transaction abort </a></li>
@@ -1002,9 +1002,9 @@ If a new item is inserted with the same key as
           <tt>disc_only_copies</tt>. For example, the following call
           ensures that a disc replica of the <tt>person</tt> table  also
           exists at node <tt>Node</tt>.</p>
-        <code type="none">
+        <pre>
 mnesia:add_table_copy(person, Node, disc_copies)
-        </code>
+        </pre>
         <p>This function can also be used to add a replica of the
           table named <tt>schema</tt>.</p>
       
@@ -1031,9 +1031,9 @@ mnesia:add_table_copy(person, Node, disc_copies)
           a specific age, it might be a good idea to have an index on
           the age field. This can be accomplished with the following
           call:</p>
-        <code type="none">
+        <pre>
 mnesia:add_table_index(person, age)
-        </code>
+        </pre>
         <p>Indices do not come free, they occupy space which is 
           proportional to the size of the table. They also cause insertions
           into the table to execute slightly slower. </p>
@@ -1175,11 +1175,11 @@ mnesia:add_table_index(person, age)
             <p><tt>Value</tt> is a list of nodes which Mnesia should try to connect to.
               The <tt>ReturnValue</tt> will be those nodes in 
               <tt>Value</tt> that Mnesia are connected to.
-                            <br>
+                            <br/>
 Note: This function shall only be used to connect to newly started ram nodes
               (N.D.R.S.N.) with an empty schema. If for example it is used after the network 
               have been partitioned it may lead to inconsistent tables.
-                            <br>
+                            <br/>
 Note: Mnesia may be connected to other nodes than those
               returned in <tt>ReturnValue</tt>.</p>
           </item>
@@ -1229,9 +1229,9 @@ Note: Mnesia may be connected to other nodes than those
                 <div class="description">
                   
         <p>For example:</p>
-        <code type="none">
+        <pre>
 mnesia:change_table_copy_type(person, node(), disc_copies)
-        </code>
+        </pre>
         <p>Transforms our <tt>person</tt> table from a RAM table into
           a disc based table at <tt>Node</tt>. 
           </p>
@@ -1443,21 +1443,21 @@ mnesia:change_table_copy_type(person, node(), disc_copies)
         <p>For example, the following call creates the <tt>person</tt> table
           previously defined and replicates it on 2 nodes: 
           </p>
-        <code type="none">
+        <pre>
 mnesia:create_table(person, 
     [{ram_copies, [N1, N2]},
      {attributes, record_info(fields,person)}]).
-        </code>
+        </pre>
         <p>If it was required that Mnesia   build and maintain an extra index
           table on the <tt>address</tt> attribute of all the <tt>person</tt>
           records that are inserted in the table, the following code would be issued:
           </p>
-        <code type="none">
+        <pre>
 mnesia:create_table(person,
     [{ram_copies, [N1, N2]},
      {index, [address]},
      {attributes, record_info(fields,person)}]).
-        </code>
+        </pre>
         <p>The specification of <tt>index</tt> and <tt>attributes</tt> may be
           hard coded as <tt>{index, [2]}</tt> and 
           <tt>{attributes, [name, age, address, salary, children]}</tt> 
@@ -2410,7 +2410,7 @@ mnesia:create_table(person,
           list comprehensions and also when using the low level
           <tt>mnesia:[dirty_]match_object</tt> functions.
           </p>
-        <p></p>
+        <p/>
         <p>The semantics of this function is context sensitive. See
           <tt>mnesia:activity/4</tt> for more information. In transaction
           context it acquires a lock of type <tt>LockKind</tt> on the
@@ -3140,12 +3140,12 @@ mnesia:create_table(person,
           complete description of the select.</p>
         <p>For example to find the names of all male persons with an age over 30 in table
           Tab do:</p>
-        <code type="none">
+        <pre>
 \011  MatchHead = #person{name='$1', sex=male, age='$2', _='_'},
 \011  Guard = {'&gt;', '$2', 30},
 \011  Result = '$1',
 \011  mnesia:select(Tab,[{MatchHead, [Guard], [Result]}]),
-        </code>
+        </pre>
       
                 </div>
                 
@@ -3419,9 +3419,9 @@ mnesia:create_table(person,
           <tt>fix_string</tt>. This means that a string has fixed
           size. For example:
           </p>
-        <code type="none">
+        <pre>
 mnesia:snmp_open_table(person, [{key, string}])
-        </code>
+        </pre>
         <p>causes the <tt>person</tt> table to be ordered as an SNMP
           table.
           </p>
@@ -3429,11 +3429,11 @@ mnesia:snmp_open_table(person, [{key, string}])
           employees. Each employee is identified by department number
           and name. The other table column stores the telephone number:
           </p>
-        <code type="none">
+        <pre>
 mnesia:create_table(employee,
     [{snmp, [{key, {integer, string}}]},
      {attributes, record_info(fields, employees)}]),
-        </code>
+        </pre>
         <p>The corresponding SNMP table would have three columns;
           <tt>department</tt>, <tt>name</tt> and <tt>telno</tt>.
           </p>
@@ -3827,7 +3827,7 @@ mnesia:create_table(employee,
                 
                 <div class="description">
                   
-        <p>          <marker id="qlc_table"></marker>
+        <p>          <marker id="qlc_table"/>
 Returns a QLC (Query List Comprehension) query handle, see
           <seealso marker="stdlib:qlc">qlc(3)</seealso>.The module <tt>qlc</tt> implements a query language, it
           can use mnesia tables as sources of data. Calling
@@ -4087,7 +4087,7 @@ Returns a QLC (Query List Comprehension) query handle, see
         <p>A function which adds a family to the database can be
           written as follows if we have a structure <tt>{family, Father, Mother, ChildrenList}</tt>:
           </p>
-        <code type="none">
+        <pre>
 add_family({family, F, M, Children}) -&gt;
     ChildOids = lists:map(fun oid/1, Children),
     Trans = fun() -&gt;      
@@ -4099,7 +4099,7 @@ add_family({family, F, M, Children}) -&gt;
     mnesia:transaction(Trans).
 
 oid(Rec) -&gt; {element(1, Rec), element(2, Rec)}.
-        </code>
+        </pre>
         <p>This code adds a set of people to the database. Running this code
           within one transaction will ensure that either the whole
           family is added to the database, or the  whole transaction
@@ -4115,7 +4115,7 @@ oid(Rec) -&gt; {element(1, Rec), element(2, Rec)}.
           adds <tt>Amount</tt> to the salary field of a person, should
           be implemented as follows:
           </p>
-        <code type="none">
+        <pre>
 raise(Name, Amount) -&gt;
     mnesia:transaction(fun() -&gt;
         case mnesia:wread({person, Name}) of
@@ -4127,7 +4127,7 @@ raise(Name, Amount) -&gt;
                 mnesia:abort("No such person")
         end
     end).
-        </code>
+        </pre>
         <p>When this function executes within a transaction, 
           several processes running on different nodes can concurrently
           execute the <tt>raise/2</tt> function without interfering 

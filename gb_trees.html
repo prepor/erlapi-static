@@ -45,7 +45,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#balanceTree1gtTree2">balance(Tree1) -&gt; Tree2</a></li>
@@ -104,11 +104,11 @@
         
     <title>Data structure</title>
     <p>Data structure:</p>
-    <code type="none">
+    <pre>
       
 - {Size, Tree}, where `Tree' is composed of nodes of the form:
   - {Key, Value, Smaller, Bigger}, and the "empty tree" node:
-  - nil.</code>
+  - nil.</pre>
     <p>There is no attempt to balance trees after deletions. Since
       deletions do not increase the height of a tree, this should be OK.</p>
     <p>Original balance condition <em>h(T) &lt;= ceil(c * log(|T|))</em>
@@ -127,8 +127,8 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
-gb_tree() = a GB tree</code>
+    <pre>
+gb_tree() = a GB tree</pre>
   
     </div>
     

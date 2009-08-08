@@ -64,7 +64,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#cancel_requestRequestIdgt">cancel_request(RequestId) -&gt; </a></li>
@@ -92,14 +92,14 @@
     <title>COMMON DATA TYPES </title>
     <p>Type definitions that are used more than once in
       this module:</p>
-    <code type="none">
+    <pre><![CDATA[
 boolean()    = true | false 
 string()     = list of ASCII characters 
 request_id() = ref() 
 profile()    = atom()
 path()       = string() representing a file path or directory path 
 ip_address() = See inet(3)
-    </code>
+    ]]></pre>
 
   
     </div>
@@ -113,7 +113,7 @@ ip_address() = See inet(3)
     <p>Type definitions that are related to HTTP:</p>
     <p>For more information about HTTP see rfc 2616</p>
 
-    <code type="none">
+    <pre><![CDATA[
 method()        = head | get | put | post | trace | options | delete
 request()       = {url(), headers()} | 
                   {url(), headers(), content_type(), body()}
@@ -129,7 +129,7 @@ field()         = string()
 value()         = string() 
 body()          = string() | binary() 
 filename()      = string() 
-    </code>
+    ]]></pre>
 
   
     </div>
@@ -142,7 +142,7 @@ filename()      = string()
     <title>SSL DATA TYPES </title>
     <p>Some type definitions relevant when using https,
       for details <seealso marker="ssl:ssl">ssl(3)</seealso>: </p>
-    <code type="none">
+    <pre><![CDATA[
 ssl_options() = {verify,     code()}   | 
                 {depth,      depth()}  | 
                 {certfile,   path()}   | 
@@ -150,7 +150,7 @@ ssl_options() = {verify,     code()}   |
                 {password,   string()} | 
                 {cacertfile, path()}   | 
                 {ciphers,    string()} 
-    </code>
+    ]]></pre>
   
     </div>
     
@@ -180,7 +180,7 @@ ssl_options() = {verify,     code()}   |
     <p>The client can be stopped using inets:stop(httpc, Pid) or
     inets:stop(httpc, Profile).</p>
     
-    <marker id="cancel_request"></marker>
+    <marker id="cancel_request"/>
   
     </div>
     
@@ -221,7 +221,7 @@ ssl_options() = {verify,     code()}   |
                   
         <p>Cancels an asynchronous HTTP-request. </p>
 
-        <marker id="request1"></marker>
+        <marker id="request1"/>
       
                 </div>
                 
@@ -251,7 +251,7 @@ ssl_options() = {verify,     code()}   |
                   
         <p>Equivalent to http:request(get, {Url, []}, [], []).</p>
 
-        <marker id="request2"></marker>
+        <marker id="request2"/>
       
                 </div>
                 
@@ -333,7 +333,7 @@ ssl_options() = {verify,     code()}   |
           {http, {RequestId, stream_end, Headers} or
           {http, {RequestId, saved_to_file}}.</p>
 
-        <marker id="set_options"></marker>
+        <marker id="set_options"/>
       
                 </div>
                 
@@ -437,7 +437,7 @@ ssl_options() = {verify,     code()}   |
             default value of the max_sessions option. </p>
         </note>
 
-        <marker id="stream_next"></marker>
+        <marker id="stream_next"/>
       
                 </div>
                 
@@ -465,7 +465,7 @@ ssl_options() = {verify,     code()}   |
         <p>Triggers the next message to be streamed, e.i.
 	  same behavior as active once for sockets.</p>
 
-        <marker id="verify_cookie"></marker>
+        <marker id="verify_cookie"/>
       
                 </div>
                 
@@ -498,7 +498,7 @@ ssl_options() = {verify,     code()}   |
 	  If no profile is specifed the default profile will be used.
 	</p>
 
-        <marker id="cookie_header"></marker>
+        <marker id="cookie_header"/>
       
                 </div>
                 

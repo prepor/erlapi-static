@@ -23,21 +23,21 @@
     
     <div class="description">
     <p>The following functions should be exported from a 
-      <tt>megaco_transport</tt> callback module:</p>
+      <tt><![CDATA[megaco_transport]]></tt> callback module:</p>
     <list type="bulleted">
       <item>
-        <p><seealso marker="#send_message">send_message/2</seealso> [<tt>mandatory</tt>]</p>
+        <p><seealso marker="#send_message">send_message/2</seealso> [<tt><![CDATA[mandatory]]></tt>]</p>
       </item>
       <item>
         <p><seealso marker="#send_message">send_message/3</seealso> [<tt>optional</tt>]</p> 
       </item>
       <item>
-        <p><seealso marker="#resend_message">resend_message/2</seealso> [<tt>optional</tt>]</p>
+        <p><seealso marker="#resend_message">resend_message/2</seealso> [<tt><![CDATA[optional]]></tt>]</p>
       </item>
       <item>
       </item>
     </list>
-    <marker id="send_message"></marker>
+    <marker id="send_message"/>
   </div>
     
 
@@ -46,7 +46,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#Moduleresend_messageHandleMsggtokcancelReasonError">Module:resend_message(Handle, Msg) -&gt; ok | {cancel, Reason} | Error</a></li>
@@ -82,7 +82,7 @@
                 <div class="description">
                   
         <p>Send a megaco message. </p>
-        <p>If the function returns <tt>{cancel, Reason}</tt>, 
+        <p>If the function returns <tt><![CDATA[{cancel, Reason}]]></tt>, 
           this means the transport module decided not to send the message. 
           This is <em>not</em> an error. No error messages will be issued 
           and no error counters incremented. 
@@ -90,13 +90,13 @@
           message was sent. 
           </p>
         <p>In the case of requests, megaco will cancel the message in much 
-          the same way as if <tt>megaco:cancel</tt> had been called 
+          the same way as if <tt><![CDATA[megaco:cancel]]></tt> had been called 
           (after a successfull send). The information will be propagated
           back to the user differently dependning on how the request(s) where
           issued: For requests issued using 
           <seealso marker="megaco#call">megaco:call</seealso>, the info
           will be delivered in the return value. For requests issued 
-          using <tt>megaco:cast</tt> the info will be delivered 
+          using <tt><![CDATA[megaco:cast]]></tt> the info will be delivered 
           via a call to the callback function 
           <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso>. </p>
         <p>In the case of reply, megaco will cancel the reply and information
@@ -110,7 +110,7 @@
           argument, <tt>Resend</tt> then indicates if the message send is 
           a resend or not. </p>
 
-        <marker id="resend_message"></marker>
+        <marker id="resend_message"/>
       
                 </div>
                 
@@ -141,23 +141,23 @@
         <p>Re-send a megaco message. </p>
         <p>Note that this function will only be called if the user has set the 
           <seealso marker="megaco#ui_resend_indication">resend_indication</seealso> 
-          config option to <tt>true</tt><em>and</em> it is infact a message 
+          config option to <tt><![CDATA[true]]></tt><em>and</em> it is infact a message 
           resend. If not <em>both</em> of these condition's are meet, 
-          <tt>send_message</tt> will be called. </p>
-        <p>If the function returns <tt>{cancel, Reason}</tt>, this means the 
+          <tt><![CDATA[send_message]]></tt> will be called. </p>
+        <p>If the function returns <tt><![CDATA[{cancel, Reason}]]></tt>, this means the 
           transport module decided not to send the message. 
           This is <em>not</em> an error. No error messages will be issued 
           and no error counters incremented. 
           What actions this will result in depends on what kind of
           message was sent. </p>
         <p>In the case of requests, megaco will cancel the message in much 
-          the same way as if <tt>megaco:cancel</tt> had been called 
+          the same way as if <tt><![CDATA[megaco:cancel]]></tt> had been called 
           (after a successfull send). The information will be propagated
           back to the user differently dependning on how the request(s) where
           issued: For requests issued using 
           <seealso marker="megaco#call">megaco:call</seealso>, the info
           will be delivered in the return value. For requests issued 
-          using <tt>megaco:cast</tt> the info will be delivered via a call
+          using <tt><![CDATA[megaco:cast]]></tt> the info will be delivered via a call
           to the callback function 
           <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso>. </p>
         <p>In the case of reply, megaco will cancel the reply and information

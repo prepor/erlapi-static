@@ -56,7 +56,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abort_current_testcaseReasongtokerrorno_testcase_running">abort_current_testcase(Reason) -&gt; ok | {error,no_testcase_running}</a></li>
@@ -177,24 +177,24 @@
         <taglist>
           <tag><tt>{type,PlatformType}</tt></tag>
           <item>This is an atom indicating the target platform type,
-           currently supported: <tt>PlatformType = vxworks</tt>          <br>
+           currently supported: <tt>PlatformType = vxworks</tt>          <br/>
 Mandatory
           </item>
           <tag><tt>{target,TargetHost}</tt></tag>
           <item>This is the name of the target host, can be atom or
            string.
-                    <br>
+                    <br/>
 Mandatory
           </item>
           <tag><tt>{slavetargets,SlaveTargets}</tt></tag>
           <item>This is a list of available hosts where slave nodes
            can be started. The hostnames are given as atoms or strings.
-                    <br>
+                    <br/>
 Optional, default <tt>SlaveTargets = []</tt></item>
           <tag><tt>{longnames,Bool}</tt></tag>
           <item>This indicates if longnames shall be used, i.e. if the
           <tt>-name</tt> option should be used for the target node
-           instead of <tt>-sname</tt>          <br>
+           instead of <tt>-sname</tt>          <br/>
 Optional, default <tt>Bool = false</tt></item>
           <tag><tt>{master, {MasterHost, MasterCookie}}</tt></tag>
           <item>If target is remote and the target node is started as
@@ -204,7 +204,7 @@ Optional, default <tt>Bool = false</tt></item>
           <tt>test_server:start_node/3</tt>. It is expected that the
           <tt>erl_boot_server</tt> is started on the master node before
            the <tt>test_server_ctrl:start/1</tt> function is called.
-                    <br>
+                    <br/>
 Optional, if not given the test server controller node
            is used as master and the <tt>erl_boot_server</tt> is
            automatically started.</item>
@@ -716,9 +716,9 @@ Optional, if not given the test server controller node
           <tt>code:lib_dir(Application)</tt>.
           </p>
         <p>A <tt>CoverFile</tt> can have the following entries:</p>
-        <code type="none">
+        <pre>
 {exclude, all | ExcludeModuleList}.
-{include, IncludeModuleList}.        </code>
+{include, IncludeModuleList}.        </pre>
         <p>Note that each line must end with a full
           stop. <tt>ExcludeModuleList</tt> and <tt>IncludeModuleList</tt>
           are lists of atoms, where each atom is a module name.
@@ -940,12 +940,12 @@ Optional, if not given the test server controller node
           The valid command line flags are listed below.
           </p>
         <p>Under a UNIX command prompt, this function can be invoked like this:
-                    <br>
+                    <br/>
 <tt>erl -noshell -s test_server_ctrl run_test KEY1 Value1 KEY2 Value2 ... -s erlang halt</tt></p>
-        <p>Or make an alias (this is for unix/tcsh)          <br>
+        <p>Or make an alias (this is for unix/tcsh)          <br/>
 <tt>alias erl_test 'erl -noshell -s test_server_ctrl run_test \\!* -s erlang halt'</tt></p>
-        <p>And then use it like this          <br>
-<tt>erl_test KEY1 Value1 KEY2 Value2 ...</tt>          <br>
+        <p>And then use it like this          <br/>
+<tt>erl_test KEY1 Value1 KEY2 Value2 ...</tt>          <br/>
 </p>
         <p>The valid command line flags are</p>
         <taglist>
@@ -1116,9 +1116,9 @@ Optional, if not given the test server controller node
           framework implements a GUI where the progress information is
           constantly updated. The following can be reported:
           </p>
-        <p><tt>What = tests_start, Data = {Name,NumCases}</tt>          <br>
-<tt>What = tests_done, Data = {Ok,Failed,Skipped}</tt>          <br>
-<tt>What = tc_start, Data = {Mod,Func}</tt>          <br>
+        <p><tt>What = tests_start, Data = {Name,NumCases}</tt>          <br/>
+<tt>What = tests_done, Data = {Ok,Failed,Skipped}</tt>          <br/>
+<tt>What = tc_start, Data = {Mod,Func}</tt>          <br/>
 <tt>What = tc_done, Data = {Mod,Func,Result}</tt></p>
       
                 </div>

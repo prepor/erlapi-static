@@ -52,7 +52,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#disablegtokerrorRes">disable() -&gt; ok | {error, Res}</a></li>
@@ -146,7 +146,7 @@
     
     <div class="description">
         
-    <marker id="config"></marker>
+    <marker id="config"/>
     <title>Configuration</title>
     <taglist>
       <tag><tt>os_sup_mfa = {Module, Function, Args}</tt></tag>
@@ -203,7 +203,7 @@
       <seealso marker="os_mon">os_mon(3)</seealso></p>
     <p><tt>syslogd(1M)</tt>, <tt>syslog.conf(4)</tt> in the Solaris
       documentation.</p>
-    <p></p>
+    <p/>
   
     </div>
     
@@ -242,10 +242,10 @@
           defines the full name of the configuration file for
           <tt>syslogd</tt>. Default is <tt>"/etc/syslog.conf"</tt>.</p>
         <p>Results in a OS call to:</p>
-        <code type="none">
+        <pre><![CDATA[
 <PRIVDIR>/bin/mod_syslog otp Dir Conf
-        </code>
-        <p>where <tt><PRIVDIR></tt> is the <tt>priv</tt> directory of
+        ]]></pre>
+        <p>where <tt><![CDATA[<PRIVDIR>]]></tt> is the <tt>priv</tt> directory of
           OS_Mon, <tt>code:priv_dir(os_mon)</tt>.</p>
         <p>Returns <tt>ok</tt> if this yields the expected result
           <tt>"0"</tt>, and <tt>{error, Res}</tt> if it yields anything
@@ -291,10 +291,10 @@
           defines the full name of the configuration file for
           <tt>syslogd</tt>. Default is <tt>"/etc/syslog.conf"</tt>.</p>
         <p>Results in a OS call to:</p>
-        <code type="none">
+        <pre><![CDATA[
 <PRIVDIR>/bin/mod_syslog nootp Dir Conf
-        </code>
-        <p>where <tt><PRIVDIR></tt> is the <tt>priv</tt> directory of
+        ]]></pre>
+        <p>where <tt><![CDATA[<PRIVDIR>]]></tt> is the <tt>priv</tt> directory of
           OS_Mon, <tt>code:priv_dir(os_mon)</tt>.</p>
         <p>Returns <tt>ok</tt> if this yields the expected result
           <tt>"0"</tt>, and <tt>{error, Res}</tt> if it yields anything

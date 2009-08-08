@@ -23,7 +23,7 @@
     
     <div class="description">
     <p>The following functions should be exported from a 
-      <tt>megaco_encoder</tt> callback module:</p>
+      <tt><![CDATA[megaco_encoder]]></tt> callback module:</p>
 
   </div>
     
@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#Moduledecode_messageEncodingConfigVersionBingtokMessageError">Module:decode_message(EncodingConfig, Version, Bin) -&gt; {ok, Message} | Error</a></li>
@@ -64,7 +64,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre><![CDATA[
 megaco_message() = #'MegacoMessage{}'
 transaction() = {transactionRequest,     transaction_request()}      |
                 {transactionPending,     transaction_reply()}        |
@@ -79,9 +79,9 @@ transaction_ack() = #'TransactionAck'{}
 segment_reply() = #'SegmentReply'{}
 action_request() = #'ActionRequest'{}
 action_reply() = #'ActionReply'{}
-    </code>
+    ]]></pre>
 
-    <marker id="encode_message"></marker>
+    <marker id="encode_message"/>
   
     </div>
     
@@ -112,7 +112,7 @@ action_reply() = #'ActionReply'{}
                   
         <p>Encode a megaco message.</p>
 
-	<marker id="decode_message"></marker>
+	<marker id="decode_message"/>
       
                 </div>
                 
@@ -142,14 +142,14 @@ action_reply() = #'ActionReply'{}
                 <div class="description">
                   
         <p>Decode a megaco message. </p>
-        <p>Note that if the Version argument is <tt>dynamic</tt>, the
+        <p>Note that if the Version argument is <tt><![CDATA[dynamic]]></tt>, the
           decoder should try to figure out the actual version from the
           message itself and then use the proper decoder, e.g. version 1.
-          <br>If on the other hand the Version argument is an integer, 
+          <br/>If on the other hand the Version argument is an integer, 
           it means that this is the expected version of the message and 
           the decoder for that version should be used.</p>
 
-	<marker id="decode_mini_message"></marker>
+	<marker id="decode_mini_message"/>
       
                 </div>
                 
@@ -180,15 +180,15 @@ action_reply() = #'ActionReply'{}
                   
         <p>Perform a minimal decode of a megaco message. </p>
         <p>The purpose of this function is to do a minimal decode of
-          Megaco message. A successfull result is a <tt>'MegacoMessage'</tt> 
+          Megaco message. A successfull result is a <tt><![CDATA['MegacoMessage']]></tt> 
           in which only version and mid has been initiated. This function 
           is used by the megaco_messeger module when the 
-          <tt>decode_message/3</tt> function failes to figure out the mid 
+          <tt><![CDATA[decode_message/3]]></tt> function failes to figure out the mid 
           (the actual sender) of the message.</p>
         <p>Note again that a successfull decode only returns a
           partially initiated message.</p>
 
-	<marker id="encode_transaction"></marker>
+	<marker id="encode_transaction"/>
       
                 </div>
                 
@@ -228,7 +228,7 @@ action_reply() = #'ActionReply'{}
           used and for segmentation. So, for either of those to work, this 
           function <em>must</em> be fully supported! </p>
 
-	<marker id="encode_action_requests"></marker>
+	<marker id="encode_action_requests"/>
       
                 </div>
                 
@@ -268,7 +268,7 @@ action_reply() = #'ActionReply'{}
           (the encoding of individual actions), then return with error reason 
           <tt>not_implemented</tt>. </p>
 
-	<marker id="encode_action_reply"></marker>
+	<marker id="encode_action_reply"/>
       
                 </div>
                 

@@ -50,7 +50,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#absnameFilenamegtstring">absname(Filename) -&gt; string()</a></li>
@@ -92,9 +92,9 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 name() = string() | atom() | DeepList
-  DeepList = [char() | atom() | DeepList]</code>
+  DeepList = [char() | atom() | DeepList]</pre>
   
     </div>
     
@@ -125,23 +125,23 @@ name() = string() | atom() | DeepList
           allow links.</p>
         <p>Unix examples:</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>pwd().</tt><br/>
 "/usr/local"
-2&gt; <input>
+2&gt; <tt>filename:absname("foo").</tt><br/>
 "/usr/local/foo"
-3&gt; <input>
+3&gt; <tt>filename:absname("../x").</tt><br/>
 "/usr/local/../x"
-4&gt; <input>
+4&gt; <tt>filename:absname("/").</tt><br/>
 "/"</pre>
         <p>Windows examples:</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>pwd().</tt><br/>
 "D:/usr/local"
-2&gt; <input>
+2&gt; <tt>filename:absname("foo").</tt><br/>
 "D:/usr/local/foo"
-3&gt; <input>
+3&gt; <tt>filename:absname("../x").</tt><br/>
 "D:/usr/local/../x"
-4&gt; <input>
+4&gt; <tt>filename:absname("/").</tt><br/>
 "D:/"</pre>
       
                 </div>
@@ -231,11 +231,11 @@ name() = string() | atom() | DeepList
           <tt>Filename</tt> itself if it does not contain any directory
           separators.</p>
         <pre>
-5&gt; <input>
+5&gt; <tt>filename:basename("foo").</tt><br/>
 "foo"
-6&gt; <input>
+6&gt; <tt>filename:basename("/usr/foo").</tt><br/>
 "foo"
-7&gt; <input>
+7&gt; <tt>filename:basename("/").</tt><br/>
 []</pre>
       
                 </div>
@@ -267,15 +267,15 @@ name() = string() | atom() | DeepList
           there. Use <tt>rootname(basename(Filename))</tt> to remove an
           extension that exists, but you are not sure which one it is.</p>
         <pre>
-8&gt; <input>
+8&gt; <tt>filename:basename("~/src/kalle.erl", ".erl").</tt><br/>
 "kalle"
-9&gt; <input>
+9&gt; <tt>filename:basename("~/src/kalle.beam", ".erl").</tt><br/>
 "kalle.beam"
-10&gt; <input>
+10&gt; <tt>filename:basename("~/src/kalle.old.erl", ".erl").</tt><br/>
 "kalle.old"
-11&gt; <input>
+11&gt; <tt>filename:rootname(filename:basename("~/src/kalle.erl")).</tt><br/>
 "kalle"
-12&gt; <input>
+12&gt; <tt>filename:rootname(filename:basename("~/src/kalle.beam")).</tt><br/>
 "kalle"</pre>
       
                 </div>
@@ -303,12 +303,12 @@ name() = string() | atom() | DeepList
                   
         <p>Returns the directory part of <tt>Filename</tt>.</p>
         <pre>
-13&gt; <input>
+13&gt; <tt>filename:dirname("/usr/src/kalle.erl").</tt><br/>
 "/usr/src"
-14&gt; <input>
+14&gt; <tt>filename:dirname("kalle.erl").</tt><br/>
 "."
 
-5&gt; <input> % Windows
+5&gt; <tt>filename:dirname("\\\\usr\\\\src/kalle.erl").</tt><br/> % Windows
 "/usr/src"</pre>
       
                 </div>
@@ -337,9 +337,9 @@ name() = string() | atom() | DeepList
         <p>Returns the file extension of <tt>Filename</tt>, including
           the period. Returns an empty string if there is no extension.</p>
         <pre>
-15&gt; <input>
+15&gt; <tt>filename:extension("foo.erl").</tt><br/>
 ".erl"
-16&gt; <input>
+16&gt; <tt>filename:extension("beam.src/kalle").</tt><br/>
 []</pre>
       
                 </div>
@@ -403,12 +403,12 @@ name() = string() | atom() | DeepList
            slashes and the drive letter is in lower case.</item>
         </list>
         <pre>
-17&gt; <input>
+17&gt; <tt>filename:join(["/usr", "local", "bin"]).</tt><br/>
 "/usr/local/bin"
-18&gt; <input>
+18&gt; <tt>filename:join(["a/b///c/"]).</tt><br/>
 "a/b/c"
 
-6&gt; <input> % Windows
+6&gt; <tt>filename:join(["B:a\\\\b///c/"]).</tt><br/> % Windows
 "b:a/b/c"</pre>
       
                 </div>
@@ -465,10 +465,10 @@ name() = string() | atom() | DeepList
           forward slashes is converted to backward slashes. On all
           platforms, the name is normalized as done by <tt>join/1</tt>.</p>
         <pre>
-19&gt; <input> % Unix
+19&gt; <tt>filename:nativename("/usr/local/bin/").</tt><br/> % Unix
 "/usr/local/bin"
 
-7&gt; <input> % Windows
+7&gt; <tt>filename:nativename("/usr/local/bin/").</tt><br/> % Windows
 "\\\\usr\\\\local\\\\bin"</pre>
       
                 </div>
@@ -537,13 +537,13 @@ name() = string() | atom() | DeepList
           <tt>rootname/1</tt>, except that the extension is removed only
           if it is <tt>Ext</tt>.</p>
         <pre>
-20&gt; <input>
+20&gt; <tt>filename:rootname("/beam.src/kalle").</tt><br/>
 /beam.src/kalle"
-21&gt; <input>
+21&gt; <tt>filename:rootname("/beam.src/foo.erl").</tt><br/>
 "/beam.src/foo"
-22&gt; <input>
+22&gt; <tt>filename:rootname("/beam.src/foo.erl", ".erl").</tt><br/>
 "/beam.src/foo"
-23&gt; <input>
+23&gt; <tt>filename:rootname("/beam.src/foo.beam", ".erl").</tt><br/>
 "/beam.src/foo.beam"</pre>
       
                 </div>
@@ -573,11 +573,11 @@ name() = string() | atom() | DeepList
         <p>Returns a list whose elements are the path components of
           <tt>Filename</tt>.</p>
         <pre>
-24&gt; <input>
+24&gt; <tt>filename:split("/usr/local/bin").</tt><br/>
 ["/","usr","local","bin"]
-25&gt; <input>
+25&gt; <tt>filename:split("foo/bar").</tt><br/>
 ["foo","bar"]
-26&gt; <input>
+26&gt; <tt>filename:split("a:\\\\msdev\\\\include").</tt><br/>
 ["a:/","msdev","include"]</pre>
       
                 </div>
@@ -624,8 +624,8 @@ name() = string() | atom() | DeepList
           is located matches <tt>BinSuffix</tt>, then the source code
           directory has the same name, but with <tt>BinSuffix</tt>
           replaced by <tt>SourceSuffix</tt>. <tt>Rules</tt> defaults to:</p>
-        <code type="none">
-[{"", ""}, {"ebin", "src"}, {"ebin", "esrc"}]</code>
+        <pre>
+[{"", ""}, {"ebin", "src"}, {"ebin", "esrc"}]</pre>
         <p>If the source file is found in the resulting directory, then
           the function returns that location together with
           <tt>Options</tt>. Otherwise, the next rule is tried, and so on.</p>

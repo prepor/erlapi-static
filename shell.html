@@ -78,8 +78,8 @@
       definitions in the modules <tt>shell_default</tt> and
       <tt>user_default</tt> (if loaded) are read each time a new job is
       started. For instance, adding the line</p>
-    <code type="none">
-\011  -include_lib("kernel/include/file.hrl").</code>
+    <pre>
+\011  -include_lib("kernel/include/file.hrl").</pre>
     <p>to <tt>user_default</tt> makes the definition of <tt>file_info</tt>
       readily available in the shell.
       </p>
@@ -116,7 +116,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#catch_exceptionBoolgtBool">catch_exception(Bool) -&gt; Bool</a></li>
@@ -303,101 +303,101 @@
       are output from the shell. All commands in this example are explained at the end of the dialogue.
       .</p>
     <pre>
-strider 1&gt; <input>
+strider 1&gt; <tt>erl</tt><br/>
 Erlang (BEAM) emulator version 5.3 [hipe] [threads:0]
 
 Eshell V5.3  (abort with ^G)
-1&gt;<input>
+1&gt;<tt>Str = "abcd".</tt><br/>
 "abcd"
-2&gt; <input>
+2&gt; <tt>L = length(Str).</tt><br/>
 4
-3&gt; <input>
+3&gt; <tt>Descriptor = {L, list_to_atom(Str)}.</tt><br/>
 {4,abcd}
-4&gt; <input> 
+4&gt; <tt>L.</tt><br/> 
 4
-5&gt; <input>
+5&gt; <tt>b().</tt><br/>
 Descriptor = {4,abcd}
 L = 4
 Str = "abcd"
 ok
-6&gt; <input> 
+6&gt; <tt>f(L).</tt><br/> 
 ok
-7&gt; <input>
+7&gt; <tt>b().</tt><br/>
 Descriptor = {4,abcd}
 Str = "abcd"
 ok
-8&gt; <input>
+8&gt; <tt>f(L).</tt><br/>
 ok
-9&gt; <input>
+9&gt; <tt>{L, _} = Descriptor.</tt><br/>
 {4,abcd}
-10&gt; <input>
+10&gt; <tt>L.</tt><br/>
 4
-11&gt; <input>
+11&gt; <tt>{P, Q, R} = Descriptor.</tt><br/>
 ** exception error: no match of right hand side value {4,abcd}
-12&gt; <input>
+12&gt; <tt>P.</tt><br/>
 * 1: variable 'P' is unbound **
-13&gt; <input>
+13&gt; <tt>Descriptor.</tt><br/>
 {4,abcd}
-14&gt;<input>
+14&gt;<tt>{P, Q} = Descriptor.</tt><br/>
 {4,abcd}
-15&gt; <input>
+15&gt; <tt>P.</tt><br/>
 4
-16&gt; <input>
+16&gt; <tt>f().</tt><br/>
 ok
-17&gt; <input>
+17&gt; <tt>put(aa, hello).</tt><br/>
 undefined
-18&gt; <input>
+18&gt; <tt>get(aa).</tt><br/>
 hello
-19&gt; <input>
+19&gt; <tt>Y = test1:demo(1).</tt><br/>
 11
-20&gt; <input>
+20&gt; <tt>get().</tt><br/>
 [{aa,worked}]
-21&gt; <input>
+21&gt; <tt>put(aa, hello).</tt><br/>
 worked
-22&gt; <input>
+22&gt; <tt>Z = test1:demo(2).</tt><br/>
 ** exception error: no match of right hand side value 1
      in function  test1:demo/1
-23&gt; <input>
+23&gt; <tt>Z.</tt><br/>
 * 1: variable 'Z' is unbound **
-24&gt; <input>
+24&gt; <tt>get(aa).</tt><br/>
 hello
-25&gt; <input>
+25&gt; <tt>erase(), put(aa, hello).</tt><br/>
 undefined
-26&gt; <input>
+26&gt; <tt>spawn(test1, demo, [1]).</tt><br/>
 &lt;0.57.0&gt;
-27&gt; <input>
+27&gt; <tt>get(aa).</tt><br/>
 hello
-28&gt; <input>
+28&gt; <tt>io:format("hello hello\ ").</tt><br/>
 hello hello ok
-29&gt; <input>
+29&gt; <tt>e(28).</tt><br/>
 hello hello ok
-30&gt; <input>
+30&gt; <tt>v(28).</tt><br/>
 ok
-31&gt; <input>
+31&gt; <tt>c(ex).</tt><br/>
 {ok,ex}
-32&gt; <input>
+32&gt; <tt>rr(ex).</tt><br/>
 [rec]
-33&gt; <input>
+33&gt; <tt>rl(rec).</tt><br/>
 -record(rec,{a,b = val()}).
 ok
-34&gt; <input>
+34&gt; <tt>#rec{}.</tt><br/>
 ** exception error: undefined shell command val/0
-35&gt; <input>
+35&gt; <tt>#rec{b = 3}.</tt><br/>
 #rec{a = undefined,b = 3}
-36&gt; <input>
+36&gt; <tt>rp(v(-1)).</tt><br/>
 #rec{a = undefined,b = 3}
 ok
-37&gt; <input>
+37&gt; <tt>rd(rec, {f = orddict:new()}).</tt><br/>
 rec
-38&gt; <input>
+38&gt; <tt>#rec{}.</tt><br/>
 #rec{f = []}
 ok
-39&gt; <input>
+39&gt; <tt>rd(rec, {c}), A.</tt><br/>
 * 1: variable 'A' is unbound **
-40&gt; <input>
+40&gt; <tt>#rec{}.</tt><br/>
 #rec{c = undefined}
 ok
-41&gt; <input>
+41&gt; <tt>test1:loop(0).</tt><br/>
 Hello Number: 0
 Hello Number: 1
 Hello Number: 2
@@ -415,25 +415,25 @@ Hello Number: 3376
 Hello Number: 3377
 Hello Number: 3378
 ** exception exit: killed
-42&gt; <input>
+42&gt; <tt>E = ets:new(t, []).</tt><br/>
 17
-43&gt; <input>
+43&gt; <tt>ets:insert({d,1,2}).</tt><br/>
 ** exception error: undefined function ets:insert/1
-44&gt; <input>
+44&gt; <tt>ets:insert(E, {d,1,2}).</tt><br/>
 ** exception error: argument is of wrong type
      in function  ets:insert/2
         called as ets:insert(16,{d,1,2})
-45&gt; <input>
+45&gt; <tt>f(E).</tt><br/>
 ok
-46&gt; <input>
+46&gt; <tt>catch_exception(true).</tt><br/>
 false
-47&gt; <input>
+47&gt; <tt>E = ets:new(t, []).</tt><br/>
 18
-48&gt; <input>
+48&gt; <tt>ets:insert({d,1,2}).</tt><br/>
 * exception error: undefined function ets:insert/1
-49&gt; <input>
+49&gt; <tt>ets:insert(E, {d,1,2}).</tt><br/>
 true
-50&gt; <input>
+50&gt; <tt>halt().</tt><br/>
 strider 2&gt;</pre>
   
     </div>
@@ -629,7 +629,7 @@ loop(N) -&gt;
     <taglist>
       <tag><tt>c [nn]</tt></tag>
       <item>
-        <p>Connects to job number <tt><nn></tt> or the current
+        <p>Connects to job number <tt><![CDATA[<nn>]]></tt> or the current
           job. The standard shell is resumed. Operations which use
           standard IO by the current job will be interleaved with
           user inputs to the shell.
@@ -730,10 +730,18 @@ loop(N) -&gt;
       function returns <tt>true</tt> to let the shell go ahead with the
       evaluation, or <tt>false</tt> to abort it. There are two possible
       callback functions for the user to implement:</p>
-    <p><em><tt>local_allowed(Func, ArgList, State) -&gt; {true,NewState} | {false,NewState}</tt></em></p>
+    <p>
+  <em>
+    <tt>local_allowed(Func, ArgList, State) -&gt; {true,NewState} | {false,NewState}</tt>
+  </em>
+</p>
     <p>to determine if the call to the local function <tt>Func</tt>
       with arguments <tt>ArgList</tt> should be allowed.</p>
-    <p><em><tt>non_local_allowed(FuncSpec, ArgList, State) -&gt; {true,NewState} | {false,NewState} |  {{redirect,NewFuncSpec,NewArgList},NewState}</tt></em></p>
+    <p>
+  <em>
+    <tt>non_local_allowed(FuncSpec, ArgList, State) -&gt; {true,NewState} | {false,NewState} |  {{redirect,NewFuncSpec,NewArgList},NewState}</tt>
+  </em>
+</p>
     <p>to determine if the call to non-local function
       <tt>FuncSpec</tt> (<tt>{Module,Func}</tt> or a fun) with arguments
       <tt>ArgList</tt> should be allowed. The return value 
@@ -761,7 +769,9 @@ loop(N) -&gt;
       <tt>shell:start_restricted/1</tt>. This exits the current evaluator
        and starts a new one in restricted mode.</item>
     </list>
-    <p><em>Notes:</em></p>
+    <p>
+  <em>Notes:</em>
+</p>
     <list type="bulleted">
       <item>When restricted shell mode is activated or
        deactivated, new jobs started on the node will run in restricted

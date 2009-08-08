@@ -32,7 +32,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#default_indexConfigDBPathgtNewPath">default_index(ConfigDB, Path) -&gt; NewPath</a></li>
@@ -68,7 +68,7 @@
                 
                 <div class="description">
                   
-        <marker id="default_index"></marker>
+        <marker id="default_index"/>
         <p>If <tt>Path</tt> is a directory, <tt>default_index/2</tt>, it starts
           searching for resources or files that are specified in the config
           directive DirectoryIndex.
@@ -105,7 +105,7 @@
                 
                 <div class="description">
                   
-        <marker id="path"></marker>
+        <marker id="path"/>
         <p><tt>path/3</tt> returns the actual file <tt>Path</tt> in the
           <tt>RequestURI</tt> (See RFC 1945). If the interaction data
           <tt>{real_name,{Path,AfterPath}}</tt> has been exported by
@@ -142,7 +142,7 @@
                 
                 <div class="description">
                   
-        <marker id="real_name"></marker>
+        <marker id="real_name"/>
         <p><tt>real_name/3</tt> traverses <tt>Aliases</tt>, typically
           extracted from <tt>ConfigDB</tt>, and matches each
           <tt>FakeName</tt> with <tt>RequestURI</tt>. If a match is found 
@@ -182,7 +182,7 @@
                 
                 <div class="description">
                   
-        <marker id="real_script_name"></marker>
+        <marker id="real_script_name"/>
         <p><tt>real_name/3</tt> traverses <tt>ScriptAliases</tt>,
           typically extracted from <tt>ConfigDB</tt>, and matches each
           <tt>FakeName</tt> with <tt>RequestURI</tt>. If a match is found

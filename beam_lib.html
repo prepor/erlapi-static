@@ -59,7 +59,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#chunksBeamChunkRefgtokModuleChunkDataerrorbeam_libReason">chunks(Beam, [ChunkRef]) -&gt;  {ok, {Module, [ChunkData]}} | {error, beam_lib, Reason}</a></li>
@@ -98,7 +98,7 @@
     
     <div class="description">
         
-    <marker id="debug_info"></marker>
+    <marker id="debug_info"/>
     <title>Debug Information/Abstract Code</title>
     <p>The option <tt>debug_info</tt> can be given to the compiler (see
       <seealso marker="compiler:compile#debug_info">compile(3)</seealso>)
@@ -115,13 +115,17 @@
       using <seealso marker="#strip/1">strip/1</seealso>,
       <seealso marker="#strip_files/1">strip_files/1</seealso> and/or
       <seealso marker="#strip_release/1">strip_release/1</seealso>.</p>
-    <p><em>Reconstructing source code</em></p>
+    <p>
+  <em>Reconstructing source code</em>
+</p>
     <p>Here is an example of how to reconstruct source code from
       the debug information in a BEAM file <tt>Beam</tt>:</p>
-    <code type="none">
+    <pre>
       {ok,{_,[{abstract_code,{_,AC}}]}} = beam_lib:chunks(Beam,[abstract_code]).
-      io:fwrite("~s~n", [erl_prettypr:format(erl_syntax:form_list(AC))]).</code>
-    <p><em>Encrypted debug information</em></p>
+      io:fwrite("~s~n", [erl_prettypr:format(erl_syntax:form_list(AC))]).</pre>
+    <p>
+  <em>Encrypted debug information</em>
+</p>
     <p>The debug information can be encrypted in order to keep
       the source code secret, but still being able to use tools such as
       Xref or Debugger. </p>
@@ -130,7 +134,7 @@
       it is recommended that it contains at least 32 characters and
       that both upper and lower case letters as well as digits and
       special characters are used.</p>
-    <p></p>
+    <p/>
     <p>The default type -- and currently the only type -- of crypto
       algorithm is <tt>des3_cbc</tt>, three rounds of DES. The key string
       will be scrambled using <tt>erlang:md5/1</tt> to generate
@@ -161,15 +165,17 @@
           <seealso marker="compiler:compile#encrypt_debug_info">compile(3)</seealso>.</p>
       </item>
     </list>
-    <p><em>.erlang.crypt</em></p>
+    <p>
+  <em>.erlang.crypt</em>
+</p>
     <p><tt>beam_lib</tt> searches for <tt>.erlang.crypt</tt> in the current
       directory and then the home directory for the current user. If
       the file is found and contains a key, <tt>beam_lib</tt> will
       implicitly create a crypto key fun and register it.</p>
     <p>The <tt>.erlang.crypt</tt> file should contain a single list of
       tuples:</p>
-    <code type="none">
-      {debug_info, Mode, Module, Key}</code>
+    <pre>
+      {debug_info, Mode, Module, Key}</pre>
     <p><tt>Mode</tt> is the type of crypto algorithm; currently, the only
       allowed value thus is <tt>des3_cbc</tt>. <tt>Module</tt> is either an
       atom, in which case <tt>Key</tt> will only be used for the module
@@ -179,14 +185,14 @@
       <tt>Module</tt> matches will be used.</p>
     <p>Here is an example of an <tt>.erlang.crypt</tt> file that returns
       the same key for all modules:</p>
-    <code type="none">
-[{debug_info, des3_cbc, [], "%>7}|pc/DM6Cga*68$Mw]L#&_Gejr]G^"}].</code>
+    <pre><![CDATA[
+[{debug_info, des3_cbc, [], "%>7}|pc/DM6Cga*68$Mw]L#&_Gejr]G^"}].]]></pre>
     <p>And here is a slightly more complicated example of an
       <tt>.erlang.crypt</tt> which provides one key for the module
       <tt>t</tt>, and another key for all other modules:</p>
-    <code type="none">
+    <pre><![CDATA[
 [{debug_info, des3_cbc, t, "My KEY"},
- {debug_info, des3_cbc, [], "%>7}|pc/DM6Cga*68$Mw]L#&_Gejr]G^"}].</code>
+ {debug_info, des3_cbc, [], "%>7}|pc/DM6Cga*68$Mw]L#&_Gejr]G^"}].]]></pre>
     <note>
       <p>Do not use any of the keys in these examples. Use your own
         keys.</p>
@@ -200,13 +206,13 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 beam() -&gt; Module | Filename | binary()
   Module = atom()
-  Filename = string() | atom()</code>
+  Filename = string() | atom()</pre>
     <p>Each of the functions described below accept either the module
       name, the filename, or a binary containing the beam module.</p>
-    <code type="none">
+    <pre>
 chunkdata() = {ChunkId, DataB} | {ChunkName, DataT}
   ChunkId = chunkid()
   DataB = binary()
@@ -227,7 +233,7 @@ chunkdata() = {ChunkId, DataB} | {ChunkName, DataT}
   AttributeValue = term()
   Module = Function = atom()
   Arity = int()
-  Label = int()</code>
+  Label = int()</pre>
     <p>It is not checked that the forms conform to the abstract format
       indicated by <tt>AbstVersion</tt>. <tt>no_abstract_code</tt> means
       that the <tt>"Abst"</tt> chunk is present, but empty.</p>
@@ -235,7 +241,7 @@ chunkdata() = {ChunkId, DataB} | {ChunkName, DataT}
       attribute name occurs once in the list. The attribute values
       occur in the same order as in the file. The lists of functions
       are also sorted.</p>
-    <code type="none">
+    <pre>
 chunkid() = "Abst" | "Attr" | "CInf"
             | "ExpT" | "ImpT" | "LocT"
             | "Atom"
@@ -246,7 +252,7 @@ chunkname() = abstract_code | attributes | compile_info
             | locals | labeled_locals
             | atoms
       
-chunkref() = chunkname() | chunkid()</code>
+chunkref() = chunkname() | chunkid()</pre>
   
     </div>
     
@@ -360,13 +366,13 @@ chunkref() = chunkname() | chunkid()</code>
           returned. If there are several <tt>-vsn</tt> module attributes,
           the result is the concatenated list of versions. Examples:</p>
         <pre>
-1&gt; <input> % -vsn(1).
+1&gt; <tt>beam_lib:version(a).</tt><br/> % -vsn(1).
 {ok,{a,[1]}}
-2&gt; <input> % -vsn([1]).
+2&gt; <tt>beam_lib:version(b).</tt><br/> % -vsn([1]).
 {ok,{b,[1]}}
-3&gt; <input> % -vsn([1]). -vsn(2).
+3&gt; <tt>beam_lib:version(c).</tt><br/> % -vsn([1]). -vsn(2).
 {ok,{c,[1,2]}}
-4&gt; <input> % no -vsn attribute
+4&gt; <tt>beam_lib:version(d).</tt><br/> % no -vsn attribute
 {ok,{d,[275613208176997377698094100858909383631]}}</pre>
       
                 </div>
@@ -707,8 +713,8 @@ chunkref() = chunkname() | chunkid()</code>
         <p>If there already is a fun registered when attempting to
           register a fun, <tt>{error, exists}</tt> is returned.</p>
         <p>The fun must handle the following arguments:</p>
-        <code type="none">
-\011  CryptoKeyFun(init) -&gt; ok | {ok, NewCryptoKeyFun} | {error, Term}</code>
+        <pre>
+\011  CryptoKeyFun(init) -&gt; ok | {ok, NewCryptoKeyFun} | {error, Term}</pre>
         <p>Called when the fun is registered, in the process that holds
           the fun. Here the crypto key fun can do any necessary
           initializations. If <tt>{ok, NewCryptoKeyFun}</tt> is returned
@@ -716,15 +722,15 @@ chunkref() = chunkname() | chunkid()</code>
           <tt>CryptoKeyFun</tt>. If <tt>{error, Term}</tt> is returned,
           the registration is aborted and <tt>crypto_key_fun/1</tt>
           returns <tt>{error, Term}</tt> as well.</p>
-        <code type="none">
-\011  CryptoKeyFun({debug_info, Mode, Module, Filename}) -&gt; Key</code>
+        <pre>
+\011  CryptoKeyFun({debug_info, Mode, Module, Filename}) -&gt; Key</pre>
         <p>Called when the key is needed for the module <tt>Module</tt>
           in the file named <tt>Filename</tt>. <tt>Mode</tt> is the type of
           crypto algorithm; currently, the only possible value thus is
           <tt>des3_cbc</tt>. The call should fail (raise an exception) if
           there is no key available.</p>
-        <code type="none">
-\011  CryptoKeyFun(clear) -&gt; term()</code>
+        <pre>
+\011  CryptoKeyFun(clear) -&gt; term()</pre>
         <p>Called before the fun is unregistered. Here any cleaning up
           can be done. The return value is not important, but is passed
           back to the caller of <tt>clear_crypto_key_fun/0</tt> as part

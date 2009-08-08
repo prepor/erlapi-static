@@ -37,7 +37,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#compileAsn1modulegtokerrorReason">compile(Asn1module) -&gt; ok | {error,Reason}</a></li>
@@ -89,7 +89,7 @@
           <tt>".py"</tt> (to be compatible with the old ASN.1 compiler).
           Of course <tt>Asn1module</tt> can be a full pathname (relative or
           absolute) including filename with (or without) extension.
-                    <marker id="asn1set"></marker>
+                    <marker id="asn1set"/>
 </p>
         <p>If one wishes to compile a set of Asn1 modules into one
           Erlang file with encode/decode functions one has to list all
@@ -414,17 +414,17 @@ Binary = binary()            </pre>
           The generated functions are called by this function.
           This function is useful during test to secure that the generated
           encode and decode functions and the general runtime support work 
-          as expected.          <br>
-<tt>test/1</tt> iterates over all types in <tt>Module</tt>.          <br>
-<tt>test/2</tt> tests type <tt>Type</tt> with a random value.          <br>
-<tt>test/3 tests type <c>Type</tt> with <tt>Value</tt>.          <br>
+          as expected.          <br/>
+<tt>test/1</tt> iterates over all types in <tt>Module</tt>.          <br/>
+<tt>test/2</tt> tests type <tt>Type</tt> with a random value.          <br/>
+<tt><![CDATA[test/3 tests type <c>Type]]></tt> with <tt>Value</tt>.          <br/>
 
           Schematically the following happens for each type in the module.</p>
-        <p></p>
-        <code type="none">
+        <p/>
+        <pre>
 {ok,Value} = asn1ct:value(Module,Type),
 {ok,Bytes} = asn1ct:encode(Module,Type,Value),
-{ok,Value} = asn1:decode(Module,Type,Bytes).         </code>
+{ok,Value} = asn1:decode(Module,Type,Bytes).         </pre>
       
                 </div>
                 

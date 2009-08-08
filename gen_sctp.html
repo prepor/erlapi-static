@@ -63,7 +63,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abortsctp_socketAssocgtokerrorposix">abort(sctp_socket(), Assoc) -&gt; ok | {error, posix()}</a></li>
@@ -98,7 +98,7 @@
     
     <div class="description">
         
-    <marker id="contents"></marker>
+    <marker id="contents"/>
     <title>CONTENTS</title>
     <list type="bulleted">
       <item><seealso marker="#types">DATA TYPES</seealso></item>
@@ -116,9 +116,9 @@
     
     <div class="description">
         
-    <marker id="types"></marker>
+    <marker id="types"/>
     <title>DATA TYPES</title>
-    <marker id="type-assoc_id"></marker>
+    <marker id="type-assoc_id"/>
     <taglist>
       <tag><tt>assoc_id()</tt></tag>
       <item>
@@ -126,47 +126,47 @@
           that identifies an association for an SCTP socket. The term
           is opaque except for the special value <tt>0</tt> that has a
           meaning such as "the whole endpoint" or "all future associations".</p>
-        <marker id="type-charlist"></marker>
+        <marker id="type-charlist"/>
       </item>
       <tag><tt>charlist() = [char()]</tt></tag>
-      <item>      <marker id="type-iolist"></marker>
+      <item>      <marker id="type-iolist"/>
 </item>
       <tag><tt>iolist() = [char() | binary()]</tt></tag>
-      <item>      <marker id="type-ip_address"></marker>
+      <item>      <marker id="type-ip_address"/>
 </item>
       <tag><tt>ip_address()</tt></tag>
       <item>
         <p>Represents an address of an SCTP socket. 
           It is a tuple as explained in
           <seealso marker="inet">inet(3)</seealso>.</p>
-        <marker id="type-port_number"></marker>
+        <marker id="type-port_number"/>
       </item>
       <tag><tt>port_number() = 0 .. 65535</tt></tag>
-      <item>      <marker id="type-posix"></marker>
+      <item>      <marker id="type-posix"/>
 </item>
       <tag><tt>posix()</tt></tag>
       <item>
         <p>See 
           <seealso marker="inet#error_codes">inet(3); POSIX Error Codes.</seealso></p>
-        <marker id="type-sctp_option"></marker>
+        <marker id="type-sctp_option"/>
       </item>
       <tag><tt>sctp_option()</tt></tag>
       <item>
         <p>One of the 
           <seealso marker="#options">SCTP Socket Options.</seealso></p>
-        <marker id="type-sctp_socket"></marker>
+        <marker id="type-sctp_socket"/>
       </item>
       <tag><tt>sctp_socket()</tt></tag>
       <item>
         <p>Socket identifier returned from <tt>open/*</tt>.</p>
-        <marker id="type-timeout"></marker>
+        <marker id="type-timeout"/>
       </item>
       <tag><tt>timeout() = int() | infinity</tt></tag>
       <item>
         <p>Timeout used in SCTP connect and receive calls.</p>
       </item>
     </taglist>
-    <marker id="exports"></marker>
+    <marker id="exports"/>
   
     </div>
     
@@ -175,7 +175,7 @@
     
     <div class="description">
         
-    <marker id="options"></marker>
+    <marker id="options"/>
     <title>SCTP SOCKET OPTIONS</title>
     <p>The set of admissible SCTP socket options is by construction
       orthogonal to the sets of TCP, UDP and generic INET options:
@@ -184,13 +184,13 @@
       <tt>gen_sctp:open/1,2</tt> or <tt>inet:setopts/2</tt>,
       retrieved using <tt>inet:getopts/2</tt>, and when calling
       <tt>gen_sctp:connect/4,5</tt> options can be changed.</p>
-    <marker id="option-binary"></marker>
-    <marker id="option-list"></marker>
+    <marker id="option-binary"/>
+    <marker id="option-list"/>
     <taglist>
       <tag><tt>{mode, list|binary}</tt>or just <tt>list</tt> or <tt>binary</tt>.</tag>
       <item>
         <p>Determines the type of data returned from <tt>gen_sctp:recv/1,2</tt>.</p>
-        <marker id="option-active"></marker>
+        <marker id="option-active"/>
       </item>
       <tag><tt>{active, true|false|once}</tt></tag>
       <item>
@@ -215,7 +215,7 @@
               SCTP data interleaved with other inter-process messages.</p>
           </item>
         </list>
-        <marker id="option-buffer"></marker>
+        <marker id="option-buffer"/>
       </item>
       <tag><tt>{buffer, int()}</tt></tag>
       <item>
@@ -252,7 +252,7 @@
           <tt>{IP,Port}</tt> of the socket can be re-used immediately:
           no waiting in the CLOSE_WAIT state is performed (may be
           required for high-throughput servers).</p>
-        <marker id="option-linger"></marker>
+        <marker id="option-linger"/>
       </item>
       <tag><tt>{linger, {true|false, int()}</tt></tag>
       <item>
@@ -262,7 +262,7 @@
           <tt>gen_sctp:close/1</tt> returns immediately not waiting
           for data to be flushed. Otherwise, the 2nd component is
           the flushing time-out in seconds.</p>
-        <marker id="option-sndbuf"></marker>
+        <marker id="option-sndbuf"/>
       </item>
       <tag><tt>{sndbuf, int()}</tt></tag>
       <item>
@@ -340,7 +340,7 @@
               for establishing an association.</p>
           </item>
         </list>
-        <p></p>
+        <p/>
       </item>
       <tag><tt>{sctp_autoclose, int()|infinity}</tt></tag>
       <item>
@@ -398,11 +398,11 @@
         <p>When set, informs the peer that it should use <tt>{IP, Port}</tt>
           as the primary address of the local endpoint for the association
           given by <tt>assoc_id</tt>.</p>
-        <marker id="option-sctp_adaptation_layer"></marker>
+        <marker id="option-sctp_adaptation_layer"/>
       </item>
       <tag><tt>{sctp_adaptation_layer, #sctp_setadaptation{}}</tt></tag>
       <item>
-        <marker id="record-sctp_setadaptation"></marker>
+        <marker id="record-sctp_setadaptation"/>
         <pre>
   #sctp_setadaptation{
         adaptation_ind = int()
@@ -473,14 +473,14 @@
                 <p><tt>sackdelay_disable</tt>: disable SAC delay.</p>
               </item>
             </list>
-            <p></p>
+            <p/>
           </item>
         </list>
-        <p></p>
+        <p/>
       </item>
       <tag><tt>{sctp_default_send_param, #sctp_sndrcvinfo{}}</tt></tag>
       <item>
-        <marker id="record-sctp_sndrcvinfo"></marker>
+        <marker id="record-sctp_sndrcvinfo"/>
         <pre>
   #sctp_sndrcvinfo{
         stream     = int(),
@@ -524,18 +524,18 @@
                   association, with flushing of unsent data.</p>
               </item>
             </list>
-            <p></p>
+            <p/>
             <p>Other fields are rarely used. See 
               <url href="http://www.rfc-archive.org/getrfc.php?rfc=2960">RFC2960</url> and 
               <url href="http://tools.ietf.org/html/draft-ietf-tsvwg-sctpsocket-13">Sockets API Extensions for SCTP</url> for full information.</p>
           </item>
         </list>
-        <p></p>
-        <marker id="option-sctp_events"></marker>
+        <p/>
+        <marker id="option-sctp_events"/>
       </item>
       <tag><tt>{sctp_events, #sctp_event_subscribe{}}</tt></tag>
       <item>
-        <marker id="record-sctp_event_subscribe"></marker>
+        <marker id="record-sctp_event_subscribe"/>
         <pre>
   #sctp_event_subscribe{
           data_io_event          = true | false,
@@ -647,12 +647,12 @@
               address (see below for the format of <tt>#sctp_paddrinfo{}</tt>).</p>
           </item>
         </list>
-        <p></p>
-        <marker id="option-sctp_get_peer_addr_info"></marker>
+        <p/>
+        <marker id="option-sctp_get_peer_addr_info"/>
       </item>
       <tag><tt>{sctp_get_peer_addr_info, #sctp_paddrinfo{}}</tt></tag>
       <item>
-        <marker id="record-sctp_paddrinfo"></marker>
+        <marker id="record-sctp_paddrinfo"/>
         <pre>
   #sctp_paddrinfo{
         assoc_id  = assoc_id(),
@@ -684,7 +684,7 @@
     
     <div class="description">
         
-    <marker id="examples"></marker>
+    <marker id="examples"/>
     <title>SCTP EXAMPLES</title>
     <list type="bulleted">
       <item>
@@ -720,7 +720,7 @@
           io:format("Received: ~p~n", [Data])
       end,
       server_loop(S).        </pre>
-        <p></p>
+        <p/>
       </item>
       <item>
         <p>Example of an Erlang SCTP Client which interacts with the above Server.
@@ -764,7 +764,7 @@
       
       timer:sleep(1000),
       gen_sctp:close(S).        </pre>
-        <p></p>
+        <p/>
       </item>
     </list>
   
@@ -775,14 +775,14 @@
     
     <div class="description">
         
-    <marker id="seealso"></marker>
+    <marker id="seealso"/>
     <title>SEE ALSO</title>
     <p><seealso marker="inet">inet(3)</seealso>,
       <seealso marker="gen_tcp">gen_tcp(3)</seealso>,
       <seealso marker="gen_udp">gen_upd(3)</seealso>,
       <url href="http://www.rfc-archive.org/getrfc.php?rfc=2960">RFC2960</url> (Stream Control Transmission Protocol),
       <url href="http://tools.ietf.org/html/draft-ietf-tsvwg-sctpsocket-13">Sockets API Extensions for SCTP.</url></p>
-    <marker id="authors"></marker>
+    <marker id="authors"/>
   
     </div>
     
@@ -884,7 +884,7 @@
           <tt>Addr</tt> and <tt>Port</tt>. The <tt>Timeout</tt>,
           is expressed in milliseconds.</p>
         <p>A socket can be associated with multiple peers.
-                    <marker id="record-sctp_assoc_change"></marker>
+                    <marker id="record-sctp_assoc_change"/>
 
           The result of <tt>connect/*</tt> is an <tt>#sctp_assoc_change{}</tt>
           event which contains, in particular, the new 
@@ -1110,7 +1110,7 @@
         <p>The actual <tt>Data</tt> received may be a <tt>binary()</tt>,
           or <tt>list()</tt> of bytes (integers in the range 0 through 255)
           depending on the socket mode, or an SCTP Event.
-                    <marker id="sctp_events"></marker>
+                    <marker id="sctp_events"/>
 
           The following SCTP Events are possible:</p>
         <list type="bulleted">

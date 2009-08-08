@@ -53,7 +53,7 @@
     <p>Warning events was introduced in Erlang/OTP R9C. To retain
       backwards compatibility, these are by default tagged as errors,
       thus showing up as error reports in the logs. By using
-      the command line flag <tt>+W <w | i></tt>, they can instead
+      the command line flag <tt><![CDATA[+W <w | i>]]></tt>, they can instead
       be tagged as warnings or info. Tagging them as warnings may
       require rewriting existing user defined event handlers.</p>
   </div>
@@ -73,7 +73,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_report_handlerHandlergtResult">add_report_handler(Handler) -&gt; Result</a></li>
@@ -112,7 +112,7 @@
     
     <div class="description">
         
-    <marker id="events"></marker>
+    <marker id="events"/>
     <title>Events</title>
     <p>All event handlers added to the error logger must handle
       the following events. <tt>Gleader</tt> is the group leader pid of
@@ -206,7 +206,7 @@
           the arguments of <tt>io:format/2</tt>. The event is handled by
           the standard event handler.</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>error_logger:error_msg("An error occurred in ~p~n", [a_module]).</tt><br/>
 
 =ERROR REPORT==== 11-Aug-2005::14:03:19 ===
 An error occurred in a_module
@@ -244,14 +244,14 @@ ok</pre>
         <p>Sends a standard error report event to the error logger.
           The event is handled by the standard event handler.</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>error_logger:error_report([{tag1,data1},a_term,{tag2,data}]).</tt><br/>
 
 =ERROR REPORT==== 11-Aug-2005::13:45:41 ===
     tag1: data1
     a_term
     tag2: data
 ok
-3&gt; <input>
+3&gt; <tt>error_logger:error_report("Serious error in my module").</tt><br/>
 
 =ERROR REPORT==== 11-Aug-2005::13:45:49 ===
 Serious error in my module
@@ -316,13 +316,13 @@ ok</pre>
           are tagged as errors (default), warnings or info, depending
           on the value of the command line flag <tt>+W</tt>.</p>
         <pre>
-os$ <input>
+os$ <tt>erl</tt><br/>
 Erlang (BEAM) emulator version 5.4.8 [hipe] [threads:0] [kernel-poll]
 
 Eshell V5.4.8  (abort with ^G)
-1&gt; <input>
+1&gt; <tt>error_logger:warning_map().</tt><br/>
 error
-2&gt; <input>
+2&gt; <tt>error_logger:warning_msg("Warnings tagged as: ~p~n", [error]).</tt><br/>
 
 =ERROR REPORT==== 11-Aug-2005::15:31:23 ===
 Warnings tagged as: error
@@ -330,13 +330,13 @@ ok
 3&gt; 
 User switch command
  --&gt; q
-os$ <input>
+os$ <tt>erl +W w</tt><br/>
 Erlang (BEAM) emulator version 5.4.8 [hipe] [threads:0] [kernel-poll]
 
 Eshell V5.4.8  (abort with ^G)
-1&gt; <input>
+1&gt; <tt>error_logger:warning_map().</tt><br/>
 warning
-2&gt; <input>
+2&gt; <tt>error_logger:warning_msg("Warnings tagged as: ~p~n", [warning]).</tt><br/>
 
 =WARNING REPORT==== 11-Aug-2005::15:31:55 ===
 Warnings tagged as: warning
@@ -468,7 +468,7 @@ ok</pre>
           the arguments of <tt>io:format/2</tt>. The event is handled by
           the standard event handler.</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>error_logger:info_msg("Something happened in ~p~n", [a_module]).</tt><br/>
 
 =INFO REPORT==== 11-Aug-2005::14:06:15 ===
 Something happened in a_module
@@ -506,14 +506,14 @@ ok</pre>
         <p>Sends a standard information report event to the error
           logger. The event is handled by the standard event handler.</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>error_logger:info_report([{tag1,data1},a_term,{tag2,data}]).</tt><br/>
 
 =INFO REPORT==== 11-Aug-2005::13:55:09 ===
     tag1: data1
     a_term
     tag2: data
 ok
-3&gt; <input>
+3&gt; <tt>error_logger:info_report("Something strange happened").</tt><br/>
 
 =INFO REPORT==== 11-Aug-2005::13:55:36 ===
 Something strange happened

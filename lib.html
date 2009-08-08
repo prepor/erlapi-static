@@ -34,7 +34,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#error_messageFormatArgsgtok">error_message(Format, Args) -&gt; ok</a></li>
@@ -192,12 +192,12 @@
                   
         <p>As <tt>send/2</tt>, but waits for an answer. It is implemented
           as follows:</p>
-        <code type="none">
+        <pre>
 sendw(To, Msg) -&gt;
     To ! {self(),Msg},
     receive
         Reply -&gt; Reply
-    end.</code>
+    end.</pre>
         <p>The message returned is not necessarily a reply to the
           message sent.</p>
       

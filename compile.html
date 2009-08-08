@@ -49,7 +49,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#fileFile">file(File)</a></li>
@@ -186,15 +186,15 @@ pi() -&gt; 3.1416.
     <p>The <tt>ErrorInfo</tt> mentioned above is the standard
       <tt>ErrorInfo</tt> structure which is returned from all IO modules.
       It has the following format:</p>
-    <code>
+    <pre>
 {ErrorLine, Module, ErrorDescriptor}
-    </code>
+    </pre>
 
     <p>A string describing the error is obtained with the following
       call:</p>
-    <code>
+    <pre>
 apply(Module, format_error, ErrorDescriptor)
-    </code>
+    </pre>
   
     </div>
     
@@ -313,7 +313,7 @@ apply(Module, format_error, ErrorDescriptor)
 
           <tag><tt>debug_info</tt></tag>
           <item>
-            <marker id="debug_info"></marker>
+            <marker id="debug_info"/>
             <p>Include debug information in the form of abstract code
               (see
               <seealso marker="erts:absform">The Abstract Format</seealso>
@@ -331,10 +331,10 @@ apply(Module, format_error, ErrorDescriptor)
           </item>
 
           <tag><tt>{debug_info_key,KeyString}</tt></tag>
-          <item></item>
+          <item/>
           <tag><tt>{debug_info_key,{Mode,KeyString}}</tt></tag>
           <item>
-            <marker id="debug_info_key"></marker>
+            <marker id="debug_info_key"/>
             <p>Include debug information, but encrypt it, so that it
               cannot be accessed without supplying the key. (To give
               the <tt>debug_info</tt> option as well is allowed, but is
@@ -351,7 +351,7 @@ apply(Module, format_error, ErrorDescriptor)
 
           <tag><tt>encrypt_debug_info</tt></tag>
           <item>
-            <marker id="encrypt_debug_info"></marker>
+            <marker id="encrypt_debug_info"/>
             <p>Like the <tt>debug_info_key</tt> option above, except that
 	      the key will be read from an <tt>.erlang.crypt</tt> file.
 	    </p>
@@ -365,7 +365,7 @@ apply(Module, format_error, ErrorDescriptor)
           <item>
             <p>Produces a listing of the parsed code after preprocessing
 	      and parse transforms, in the file
-	      <tt><File>.P</tt>. No object file is produced.
+	      <tt><![CDATA[<File>.P]]></tt>. No object file is produced.
 	    </p>
           </item>
 
@@ -373,14 +373,14 @@ apply(Module, format_error, ErrorDescriptor)
           <item>
             <p>Produces a listing of the code after all source code
 	      transformations have been performed, in the file
-	      <tt><File>.E</tt>. No object file is produced.
+	      <tt><![CDATA[<File>.E]]></tt>. No object file is produced.
 	    </p>
           </item>
 
           <tag><tt>'S'</tt></tag>
           <item>
             <p>Produces a listing of the assembler code in the file
-              <tt><File>.S</tt>. No object file is produced.
+              <tt><![CDATA[<File>.S]]></tt>. No object file is produced.
 	    </p>
           </item>
 
@@ -456,7 +456,7 @@ apply(Module, format_error, ErrorDescriptor)
           </item>
 
           <tag><tt>{d,Macro}</tt></tag>
-          <item></item>
+          <item/>
           <tag><tt>{d,Macro,Value}</tt></tag>
           <item>
             <p>Defines a macro <tt>Macro</tt> to have the value
@@ -506,7 +506,7 @@ apply(Module, format_error, ErrorDescriptor)
         <p>If warnings are turned on (the <tt>report_warnings</tt> option
           described above), the following options control what type of
           warnings that will be generated.
-	  <marker id="erl_lint_options"></marker>
+	  <marker id="erl_lint_options"/>
           With the exception of <tt>{warn_format,Verbosity}</tt> all
 	  options below have two forms; one <tt>warn_xxx</tt> form to
 	  turn on the warning and one <tt>nowarn_xxx</tt> form to turn off
@@ -709,13 +709,15 @@ apply(Module, format_error, ErrorDescriptor)
 	  executed. If more than one listing option is used, the one
 	  representing the earliest pass takes effect.</p>
 
-        <p><em>Unrecognized options are ignored.</em></p>
+        <p>
+  <em>Unrecognized options are ignored.</em>
+</p>
 
         <p>Both <tt>WarningList</tt> and <tt>ErrorList</tt> have
 	  the following format:</p>
-        <code>
+        <pre>
 [{FileName,[ErrorInfo]}].
-        </code>
+        </pre>
 
 	<p><tt>ErrorInfo</tt> is described below. The file name has been
 	  included here as the compiler uses the Erlang pre-processor

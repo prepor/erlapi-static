@@ -24,9 +24,9 @@
     <div class="description">
     <p>This module contains functions that gives an interface to the CORBA fixed type.</p>
     <p>The type <tt>Fixed</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record(fixed, {digits, scale, value}).
-    </code>
+    </pre>
     <p>where <tt>digits</tt> is the total amount of digits it consists of and 
       <tt>scale</tt> is the number of fractional digits. The <tt>value</tt> field
       contains the actual Fixed value represented as an integer. The limitations
@@ -54,10 +54,10 @@
       compliant with the OMG CORBA specification. Each binary operation have
       the following upper bounds:</p>
     <list type="bulleted">
-      <item><em>Fixed1 + Fixed2</em> - <tt>fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)></tt></item>
-      <item><em>Fixed1 - Fixed2</em> - <tt>fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)></tt></item>
-      <item><em>Fixed1 * Fixed2</em> - <tt>fixed<d1+d2, s1+s2></tt></item>
-      <item><em>Fixed1 / Fixed2</em> - <tt>fixed<(d1-s1+s2) + Sinf ,Sinf ></tt></item>
+      <item><em>Fixed1 + Fixed2</em> - <tt><![CDATA[fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)>]]></tt></item>
+      <item><em>Fixed1 - Fixed2</em> - <tt><![CDATA[fixed<max(d1-s1,d2-s2) + max(s1,s2) + 1, max(s1,s2)>]]></tt></item>
+      <item><em>Fixed1 * Fixed2</em> - <tt><![CDATA[fixed<d1+d2, s1+s2>]]></tt></item>
+      <item><em>Fixed1 / Fixed2</em> - <tt><![CDATA[fixed<(d1-s1+s2) + Sinf ,Sinf >]]></tt></item>
     </list>
     <p>A quotient may have an arbitrary number of decimal places, which is 
       denoted by a scale of Sinf.</p>
@@ -69,7 +69,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#addFixed1Fixed2gtResult">add(Fixed1, Fixed2) -&gt; Result</a></li>

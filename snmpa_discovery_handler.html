@@ -33,7 +33,7 @@
     <p>The semantics of them and their exact signatures are explained
       below. </p>
 
-     <marker id="stage1_finish"></marker>
+     <marker id="stage1_finish"/>
   </div>
     
 
@@ -42,7 +42,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#stage1_finishTargetNameManagerEngineIDgtignoreokusm_entry">stage1_finish(TargetName, ManagerEngineID) -&gt; ignore | {ok, usm_entry()}</a></li>
@@ -103,8 +103,10 @@
         <p>When an <tt>usm_entry()</tt> tuple is returned, this data is
           then added to the <tt>usmUserTable</tt> by the (master-) agent. </p>
 
-        <note><p>Note that this function is executed in the context of 
-          the master-agent process. </p></note>
+        <note>
+  <p>Note that this function is executed in the context of 
+          the master-agent process. </p>
+</note>
 
       
                 </div>

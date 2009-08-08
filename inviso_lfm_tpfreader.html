@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#handle_logfile_sort_wrapsetLogFilesgtFileList2">handle_logfile_sort_wrapset(LogFiles) -&gt; FileList2</a></li>
@@ -58,16 +58,16 @@
     <taglist>
       <tag><tt>{Pid, Alias, alias, NowStamp}</tt></tag>
       <item>
-        <p><tt>Pid = pid()</tt>          <br>
-<tt>Alias = term()</tt>          <br>
+        <p><tt>Pid = pid()</tt>          <br/>
+<tt>Alias = term()</tt>          <br/>
 <tt>NowStamp = term()</tt>, but in current implementation as
           returned from <tt>erlang:now/0</tt></p>
         <p>This message indicates that from now on shall <tt>Pid</tt> be associated with <tt>Alias</tt>.</p>
       </item>
       <tag><tt>{MaybePid, Alias, unalias, NowStamp}</tt></tag>
       <item>
-        <p><tt>MaybePid = pid() | undefined</tt>          <br>
-<tt>Alias = term()</tt>          <br>
+        <p><tt>MaybePid = pid() | undefined</tt>          <br/>
+<tt>Alias = term()</tt>          <br/>
 <tt>NowStamp = term()</tt>, see above</p>
         <p>This message indicates that, if <tt>MaybePid</tt> is a pid, this pid shall no longer be associated with <tt>Alias</tt>. If it is <tt>undefined</tt>, all associations with <tt>Alias</tt> from now shall be considered invalid.</p>
         <p>Also note that there are many situations where <tt>unalias</tt> entries will be missing. For instance if a process terminates without making explicit function calls removing its associations first. This is seldom a problem unless the pid is reused.</p>
@@ -102,7 +102,7 @@
         <p>Only one <tt>{trace_log, FileList}</tt> tuple is expected in <tt>LogFiles</tt>, all other tuples are ignored. <tt>FileList</tt> must:</p>
         <list type="bulleted">
           <item>contain one single file name, or</item>
-          <item>a list of wraplog files, following the naming convention <tt><Prefix><Nr><Suffix></tt>.</item>
+          <item>a list of wraplog files, following the naming convention <tt><![CDATA[<Prefix><Nr><Suffix>]]></tt>.</item>
         </list>
         <p>Sorts the files in <tt>FileList</tt> in chronological order beginning with the oldest. Sorting is only relevant if <tt>FileList</tt> is a list of wraplogs. The sorting is done on finding the modulo-counter in the filename and not on filesystem timestamps.</p>
         <p>This function is exported for convenience should an own reader process be implemented.</p>

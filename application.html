@@ -58,7 +58,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#Moduleconfig_changeChangedNewRemovedgtok">Module:config_change(Changed, New, Removed) -&gt; ok</a></li>
@@ -353,8 +353,8 @@
           may run, in priority from left to right. Node names can be
           grouped using tuples to indicate that they have the same
           priority. Example:</p>
-        <code type="none">
-Nodes = [cp1@cave, {cp2@cave, cp3@cave}]</code>
+        <pre>
+Nodes = [cp1@cave, {cp2@cave, cp3@cave}]</pre>
         <p>This means that the application should preferably be started
           at <tt>cp1@cave</tt>. If <tt>cp1@cave</tt> is down,
           the application should be started at either <tt>cp2@cave</tt>

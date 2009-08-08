@@ -106,7 +106,7 @@
        left margin.</item>
       <item><em><tt>C-c C-q</tt></em> (<tt>erlang-indent-function</tt>) -
        Indents the current Erlang function. </item>
-      <item><em><tt>M-x erlang-indent-clause RET</tt></em>      <br>
+      <item><em><tt>M-x erlang-indent-clause RET</tt></em>      <br/>
  -Indent the
        current Erlang clause.</item>
       <item><em><tt>M-x erlang-indent-current-buffer RET</tt></em> -
@@ -127,16 +127,16 @@
     <p>The Erlang editing mode provides a command that knows about the
       Erlang comment structure and can be used to fill text paragraphs
       in comments. Ex:</p>
-    <code type="none">
+    <pre>
       %% This is   just a very simple test to show
       %% how the Erlang fill
-      %% paragraph   command works.</code>
+      %% paragraph   command works.</pre>
     <p>Clearly, the text is badly formatted.  Instead of formatting this
       paragraph line by line, let's try <tt>erlang-fill-paragraph</tt> by
       pressing <em><tt>M-q</tt></em>. The result is:</p>
-    <code type="none">
+    <pre>
       %% This is just a very simple test to show how the Erlang fill
-      %% paragraph command works.</code>
+      %% paragraph command works.</pre>
   
     </div>
     
@@ -229,7 +229,7 @@
       <item>
         <p><em><tt>C-c C-a</tt></em> (<tt>erlang-align-arrows</tt>) -
           aligns arrows after clauses inside a region.</p>
-        <code type="none">
+        <pre>
 \011Example:
 \011
 \011sum(L) -&gt; sum(L, 0).
@@ -240,7 +240,7 @@
 \011
 \011sum(L)          -&gt; sum(L, 0).
 \011sum([H|T], Sum) -&gt; sum(T, Sum + H);
-\011sum([], Sum)    -&gt; Sum."</code>
+\011sum([], Sum)    -&gt; Sum."</pre>
       </item>
     </list>
   
@@ -277,7 +277,7 @@
     <title>Tags</title>
     <p>For the tag commands to work it requiers that you have
       generated a tag file. See <seealso marker="erlang_mode_chapter#tags">Erlang mode users guide</seealso></p>
-    <p></p>
+    <p/>
     <list type="bulleted">
       <item><em><tt>M-. </tt></em> (<tt>find-tag</tt>) -
        Find a function definition. The default value is the function name
@@ -394,8 +394,8 @@
       installation.  The name should not include the final slash.
       Practically, you should add a line on the following form to
       your ~/.emacs,</p>
-    <code type="none">
-      (setq erlang-root-dir "/the/erlang/root/dir/goes/here")</code>
+    <pre>
+      (setq erlang-root-dir "/the/erlang/root/dir/goes/here")</pre>
   
     </div>
     

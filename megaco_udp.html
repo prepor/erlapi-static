@@ -32,7 +32,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#blockHandlegtok">block(Handle) -&gt; ok</a></li>
@@ -114,9 +114,9 @@
                 <div class="description">
                   
         <p>This function is used to open an UDP/IP socket.</p>
-        <p>The <tt>module</tt> option makes it possible for the user to provide
-          their own callback module. The functions <tt>receive_message/4</tt> or
-          <tt>process_received_message/4</tt> of this module is called when a new 
+        <p>The <tt><![CDATA[module]]></tt> option makes it possible for the user to provide
+          their own callback module. The functions <tt><![CDATA[receive_message/4]]></tt> or
+          <tt><![CDATA[process_received_message/4]]></tt> of this module is called when a new 
           message is received (which one depends on the size of the message; 
           small - receive_message, large - process_received_message). 
           Default value is <em>megaco</em>.</p>
@@ -282,7 +282,7 @@
                 <div class="description">
                   
         <p>Starting to receive incoming messages from the socket again.</p>
-        <marker id="upgrade_receive_handle"></marker>
+        <marker id="upgrade_receive_handle"/>
       
                 </div>
                 
@@ -311,7 +311,7 @@
                   
         <p>Update the receive handle of the control process (e.g. after
           having changed protocol version).</p>
-        <marker id="stats"></marker>
+        <marker id="stats"/>
       
                 </div>
                 

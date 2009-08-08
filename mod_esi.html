@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#ModuleFunctionEnvInputgtResponse">Module:Function(Env, Input)-&gt; Response </a></li>
@@ -84,19 +84,21 @@
                 
                 <div class="description">
                   
-        <marker id="deliver"></marker>
+        <marker id="deliver"/>
 	<p>This function is <em>only</em> intended to be used from
 	functions called by the Erl Scheme interface to deliver
 	parts of the content to the user.</p>
 	<p>Sends data from a Erl Scheme script back to the client.</p>
 	
-	<note><p>Note
+	<note>
+  <p>Note
           that if any HTTP-header fields should be added by the
           script they must be in the first call to deliver/2  and the
           data in the call must be a string. Do not
           assume anything about the data type of SessionID, the
           SessionID must be the value given as input to the esi
-          call back function that you implemented.</p></note>
+          call back function that you implemented.</p>
+</note>
       
                 </div>
                 

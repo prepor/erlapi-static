@@ -82,45 +82,45 @@
         in this file, as it may change at any time.
         </p>
     <list>
-        <item><tt>longnames</tt><br>
+        <item><tt>longnames</tt><br/>
         Set to true if the system is using fully qualified
          nodenames.
         </item>
-        <item><tt>platform_id</tt><br>
+        <item><tt>platform_id</tt><br/>
         This is the currently installed platform identification
          string.
         </item>
-        <item><tt>platform_filename</tt><br>
+        <item><tt>platform_filename</tt><br/>
         This is the name used to create the final save directory
          for test runs.
         </item>
-        <item><tt>platform_label</tt><br>
+        <item><tt>platform_label</tt><br/>
         This is the string presented in the generated test
          results index page.
         </item>
-        <item><tt>rsh_name</tt><br>
+        <item><tt>rsh_name</tt><br/>
         This is the rsh program to use when starting slave or
          peer nodes on a remote host.
         </item>
-        <item><tt>erl_flags</tt><br>
+        <item><tt>erl_flags</tt><br/>
         Compile time flags used when compiling test suites.
         </item>
-        <item><tt>erl_release</tt><br>
+        <item><tt>erl_release</tt><br/>
         The Erlang/OTP release being tested.
         </item>
-        <item><tt>'EMULATOR'</tt><br>
+        <item><tt>'EMULATOR'</tt><br/>
         The emulator being tested (e.g. beam)
         </item>
-        <item><tt>'CPU'</tt><br>
+        <item><tt>'CPU'</tt><br/>
         The CPU in the machine running the tests, e.g. sparc.
         </item>
-        <item><tt>target_host</tt><br>
+        <item><tt>target_host</tt><br/>
         The target host name
         </item>
-        <item><tt>os</tt><br>
+        <item><tt>os</tt><br/>
         The target operating system, e.g. solaris2.8
         </item>
-        <item><tt>target</tt><br>
+        <item><tt>target</tt><br/>
         The current target platform, e.g. sparc-sun-solaris2.8
         </item>
       </list>
@@ -132,7 +132,7 @@
         under your $TESTROOT directory. The test server implementation
         shall be located in the directory <tt>$TESTROOT/test_server</tt>
         and for each application there must be a directory named
-        <tt>$TESTROOT/<application>_test</tt> containing the .spec file
+        <tt><![CDATA[$TESTROOT/<application>_test]]></tt> containing the .spec file
         and all test suites and data directories for the
         application. Note that there shall only be one .spec file for
         each application.
@@ -142,7 +142,7 @@
         </p>
       <p>All available tests can be found with <tt>ts:tests()</tt>. This
         will list all applications for which a test specification file
-        <tt>../<application>_test/<application>.spec</tt> can be found.
+        <tt><![CDATA[../<application>_test/<application>.spec]]></tt> can be found.
         </p>
       <p>To run all these tests, use <tt>ts:run()</tt>.
         </p>
@@ -230,7 +230,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#cleangtok">clean() -&gt; ok</a></li>
@@ -272,27 +272,27 @@
       <tt>{Key,Value}</tt> found in the <tt>variables</tt> file. Example:
       </p>
     <p>Cut from <tt>variables</tt>:</p>
-    <code type="none">
+    <pre>
     ...
     {'EMULATOR',"beam"}.
     {'CFLAGS',"-g -O2"}.
     {'LD',"$(CC) $(CFLAGS)"}.
     {'CC',"gcc"}.
     ...
-    </code>
+    </pre>
     <p><tt>Makefile.src</tt> for compiling erlang code could look
       something like this:</p>
-    <code type="none">
+    <pre>
     EFLAGS=+debug_info
     
     all: ordsets1.@EMULATOR@
     
     ordsets1.@EMULATOR@: ordsets1.erl
            erlc $(EFLAGS) ordsets1.erl
-    </code>
+    </pre>
     <p><tt>Makefile.src</tt> for compiling c code could look
       something like this:</p>
-    <code type="none">
+    <pre>
     CC = @CC@
     LD = @LD@
     CFLAGS = @CFLAGS@ -I@erl_include@ @DEFS@
@@ -307,7 +307,7 @@
 
     nfs_check@obj@: nfs_check.c
 \011   $(CC) -c -o nfs_check@obj@ $(CFLAGS) nfs_check.c
-    </code>
+    </pre>
   
     </div>
     
@@ -347,15 +347,15 @@
         <p>Opts may be one or more of
           </p>
         <list>
-          <item><tt>{longnames, Bool}</tt><br>
+          <item><tt>{longnames, Bool}</tt><br/>
           Use fully qualified hostnames for test_server and
            slave nodes. Bool is <tt>true</tt> or <tt>false</tt> (default).
           </item>
-          <item><tt>{verbose, Level}</tt><br>
+          <item><tt>{verbose, Level}</tt><br/>
           Verbosity level for test server output, set to 0, 1 or
            2, where 0 is quiet(default).
           </item>
-          <item><tt>{hosts, Hosts}</tt><br>
+          <item><tt>{hosts, Hosts}</tt><br/>
           This is a list of available hosts on which to start
            slave nodes. It is used when the <tt>{remote, true}</tt>
            option is given to the <tt>test_server:start_node/3</tt>
@@ -365,7 +365,7 @@
           <tt>Hosts</tt> list. The hostnames are given as atoms or
            strings.
           </item>
-          <item><tt>{slavetargets, SlaveTarges}</tt><br>
+          <item><tt>{slavetargets, SlaveTarges}</tt><br/>
           For VxWorks and OSE/Delta only. This is a list of
            available hosts where slave nodes can be started. This is
            necessary because only one node can run per host in the
@@ -374,12 +374,12 @@
            - not only the ones started with <tt>{remote, true}</tt>. The
            hostnames are given as atoms or strings.
           </item>
-          <item><tt>{crossroot, TargetErlRoot}</tt><br>
+          <item><tt>{crossroot, TargetErlRoot}</tt><br/>
           Erlang root directory on target host
-                    <br>
+                    <br/>
 This option is mandatory for remote targets
           </item>
-          <item><tt>{master, {MasterHost, MasterCookie}}</tt><br>
+          <item><tt>{master, {MasterHost, MasterCookie}}</tt><br/>
           If target is remote and the target node is started as
            a slave node, this option
            indicates which master and cookie to use. The given master
@@ -390,7 +390,7 @@ This option is mandatory for remote targets
            server controller node is used as master and the
           <tt>erl_boot_server</tt> is automatically started.
           </item>
-          <item><tt>{erl_start_args, ArgString}</tt><br>
+          <item><tt>{erl_start_args, ArgString}</tt><br/>
           Additional arguments to be used when starting the test
            server controller node. <tt>ArgString</tt> will be appended to
            the command line when starting the erlang node. Note that
@@ -398,7 +398,7 @@ This option is mandatory for remote targets
 	   i.e. not the target node or any slave nodes
            startet from a test case.
           </item>
-          <item><tt>{ipv6_hosts, HostList}</tt><br>
+          <item><tt>{ipv6_hosts, HostList}</tt><br/>
           This option will be inserted in the
           <tt>Config</tt> parameter for each test case. <tt>HostList</tt>
            is a list of hosts supporting IPv6.
@@ -504,7 +504,7 @@ This option is mandatory for remote targets
           only be used if you don't give the <tt>Module</tt> or
           <tt>Case</tt> parameters to <tt>ts:run</tt>. The
           <tt>keep_topcase</tt> option is necessary if your topcase
-          contains anything other than <tt>{dir,"../<Name>_test"}</tt>. If
+          contains anything other than <tt><![CDATA[{dir,"../<Name>_test"}]]></tt>. If
           the option is not used, <tt>ts</tt> will modify your topcase.
           </p>
         <p>The <tt>cover</tt> and <tt>cover_details</tt> options indicates
@@ -527,16 +527,16 @@ This option is mandatory for remote targets
           compiled. The <tt>CoverFile</tt> can exclude modules that belong
           to the application and add modules that don't belong to the
           application. The file can have the following entries:</p>
-        <code type="none">
+        <pre>
 {exclude, all | ExcludeModuleList}.
-{include, IncludeModuleList}.        </code>
+{include, IncludeModuleList}.        </pre>
         <p>Note that each line must end with a full
           stop. <tt>ExcludeModuleList</tt> and <tt>IncludeModuleList</tt>
           are lists of atoms, where each atom is a module name.
           </p>
         <p>If the <tt>cover</tt> or <tt>cover_details</tt> options are
-          given on their own, the directory <tt>../<Spec>_test</tt> is
-          searched for a <tt>CoverFile</tt> named <tt><Spec>.cover</tt>. If
+          given on their own, the directory <tt><![CDATA[../<Spec>_test]]></tt> is
+          searched for a <tt>CoverFile</tt> named <tt><![CDATA[<Spec>.cover]]></tt>. If
           this file is not found, <tt>Spec</tt> is assumed to be the name
           of an OTP application, and all modules in the <tt>ebin</tt>
           directory for the application are cover compiled. The
@@ -621,9 +621,9 @@ This option is mandatory for remote targets
           for the <tt>add_dir</tt>, <tt>add_spec</tt>, <tt>add_module</tt> and 
           <tt>add_case</tt> functions in <tt>test_server_ctrl</tt>:
           </p>
-        <p><tt>r() -&gt; add_dir(".")</tt>          <br>
-<tt>r(Spec) -&gt; add_spec(Spec)</tt>          <br>
-<tt>r(Suite) -&gt; add_module(Suite)</tt>          <br>
+        <p><tt>r() -&gt; add_dir(".")</tt>          <br/>
+<tt>r(Spec) -&gt; add_spec(Spec)</tt>          <br/>
+<tt>r(Suite) -&gt; add_module(Suite)</tt>          <br/>
 <tt>r(Suite,Case) -&gt; add_case(Suite,Case)</tt></p>
         <p>To use this function, it is required that the test suite is
           compiled and in the code path of the node where the function

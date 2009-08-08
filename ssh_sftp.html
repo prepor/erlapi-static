@@ -42,7 +42,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#areadChannelPidHandleLengtasyncNerrorError">aread(ChannelPid, Handle, Len) -&gt; {async, N} | {error, Error}</a></li>
@@ -101,9 +101,13 @@
     <p>Type definitions that are used more than once in this module
     and/or abstractions to indicate the intended use of the data type:
     </p>
-    <p><tt>ssh_connection_ref() - opaque to the user
-    returned by ssh:connect/[1,2,3]</tt></p>
-    <p><tt>timeout() =  infinity | integer() - in milliseconds.</tt></p>    
+    <p>
+  <tt>ssh_connection_ref() - opaque to the user
+    returned by ssh:connect/[1,2,3]</tt>
+</p>
+    <p>
+  <tt>timeout() =  infinity | integer() - in milliseconds.</tt>
+</p>    
    
     </div>
     
@@ -154,7 +158,7 @@
 
 	<p>Options are:</p>
 	<taglist>
-          <tag><tt>{timeout, timeout()}</tt></tag>
+          <tag><tt><![CDATA[{timeout, timeout()}]]></tt></tag>
 	  <item>
 	    <p>The timeout is passed to the ssh_channel start function,
 	    and defaults to infinity.</p>
@@ -218,7 +222,7 @@
                 <div class="description">
                   
         <p>Reads a file from the server, and returns the data in a binary,
-          like <tt>file:read_file/1</tt>.</p>
+          like <tt><![CDATA[file:read_file/1]]></tt>.</p>
       
                 </div>
                 
@@ -247,7 +251,7 @@
                 
                 <div class="description">
                   
-        <p>Writes a file to the server, like <tt>file:write_file/2</tt>.
+        <p>Writes a file to the server, like <tt><![CDATA[file:write_file/2]]></tt>.
           The file is created if it's not there.</p>
       
                 </div>
@@ -399,15 +403,15 @@
                 
                 <div class="description">
                   
-        <p>Reads <tt>Len</tt> bytes from the file referenced by
-          <tt>Handle</tt>. Returns <tt>{ok, Data}</tt>, or <tt>eof</tt>, or
-          <tt>{error, Reason}</tt>. If the file is opened with <tt>binary</tt>,
-          <tt>Data</tt> is a binary, otherwise it is a string.</p>
+        <p>Reads <tt><![CDATA[Len]]></tt> bytes from the file referenced by
+          <tt><![CDATA[Handle]]></tt>. Returns <tt><![CDATA[{ok, Data}]]></tt>, or <tt><![CDATA[eof]]></tt>, or
+          <tt><![CDATA[{error, Reason}]]></tt>. If the file is opened with <tt><![CDATA[binary]]></tt>,
+          <tt><![CDATA[Data]]></tt> is a binary, otherwise it is a string.</p>
         <p>If the file is read past eof, only the remaining bytes
-          will be read and returned. If no bytes are read, <tt>eof</tt>
+          will be read and returned. If no bytes are read, <tt><![CDATA[eof]]></tt>
           is returned.</p>
-        <p>The <tt>pread</tt> function reads from a specified position,
-          combining the <tt>position</tt> and <tt>read</tt> functions.</p>
+        <p>The <tt><![CDATA[pread]]></tt> function reads from a specified position,
+          combining the <tt><![CDATA[position]]></tt> and <tt><![CDATA[read]]></tt> functions.</p>
       
                 </div>
                 
@@ -438,14 +442,14 @@
                 <div class="description">
                   
         <p>Reads from an open file, without waiting for the result. If the
-          handle is valid, the function returns <tt>{async, N}</tt>, where N
-          is a term guaranteed to be unique between calls of <tt>aread</tt>. 
+          handle is valid, the function returns <tt><![CDATA[{async, N}]]></tt>, where N
+          is a term guaranteed to be unique between calls of <tt><![CDATA[aread]]></tt>. 
           The actual data is sent as a message to the calling process. This
-          message has the form <tt>{async_reply, N, Result}</tt>, where
-          <tt>Result</tt> is the result from the read, either <tt>{ok, Data}</tt>,
-          or <tt>eof</tt>, or <tt>{error, Error}</tt>.</p>
-        <p>The <tt>apread</tt> function reads from a specified position,
-          combining the <tt>position</tt> and <tt>aread</tt> functions.</p>
+          message has the form <tt><![CDATA[{async_reply, N, Result}]]></tt>, where
+          <tt><![CDATA[Result]]></tt> is the result from the read, either <tt><![CDATA[{ok, Data}]]></tt>,
+          or <tt><![CDATA[eof]]></tt>, or <tt><![CDATA[{error, Error}]]></tt>.</p>
+        <p>The <tt><![CDATA[apread]]></tt> function reads from a specified position,
+          combining the <tt><![CDATA[position]]></tt> and <tt><![CDATA[aread]]></tt> functions.</p>
       
                 </div>
                 
@@ -475,17 +479,17 @@
                 
                 <div class="description">
                   
-        <p>Write <tt>data</tt> to the file referenced by <tt>Handle</tt>.
-          The file should be opened with <tt>write</tt> or <tt>append</tt>
-          flag. Returns <tt>ok</tt> if successful and <tt>{error, Reason}</tt>
+        <p>Write <tt><![CDATA[data]]></tt> to the file referenced by <tt><![CDATA[Handle]]></tt>.
+          The file should be opened with <tt><![CDATA[write]]></tt> or <tt><![CDATA[append]]></tt>
+          flag. Returns <tt><![CDATA[ok]]></tt> if successful and <tt><![CDATA[{error, Reason}]]></tt>
           otherwise.</p>
         <p>Typical error reasons are:</p>
         <taglist>
-          <tag><tt>ebadf</tt></tag>
+          <tag><tt><![CDATA[ebadf]]></tt></tag>
           <item>
             <p>The file is not opened for writing.</p>
           </item>
-          <tag><tt>enospc</tt></tag>
+          <tag><tt><![CDATA[enospc]]></tt></tag>
           <item>
             <p>There is a no space left on the device.</p>
           </item>
@@ -521,14 +525,14 @@
                 <div class="description">
                   
         <p>Writes to an open file, without waiting for the result. If the
-          handle is valid, the function returns <tt>{async, N}</tt>, where N
+          handle is valid, the function returns <tt><![CDATA[{async, N}]]></tt>, where N
           is a term guaranteed to be unique between calls of
-          <tt>awrite</tt>. The result of the <tt>write</tt> operation is sent
+          <tt><![CDATA[awrite]]></tt>. The result of the <tt><![CDATA[write]]></tt> operation is sent
           as a message to the calling process. This message has the form
-          <tt>{async_reply, N, Result}</tt>, where <tt>Result</tt> is the result
-          from the write, either <tt>ok</tt>, or <tt>{error, Error}</tt>.</p>
-        <p>The <tt>apwrite</tt> writes on a specified position, combining
-          the <tt>position</tt> and <tt>awrite</tt> operations.</p>
+          <tt><![CDATA[{async_reply, N, Result}]]></tt>, where <tt><![CDATA[Result]]></tt> is the result
+          from the write, either <tt><![CDATA[ok]]></tt>, or <tt><![CDATA[{error, Error}]]></tt>.</p>
+        <p>The <tt><![CDATA[apwrite]]></tt> writes on a specified position, combining
+          the <tt><![CDATA[position]]></tt> and <tt><![CDATA[awrite]]></tt> operations.</p>
       
                 </div>
                 
@@ -559,30 +563,30 @@
                 
                 <div class="description">
                   
-        <p>Sets the file position of the file referenced by <tt>Handle</tt>.
-          Returns <tt>{ok, NewPosition</tt> (as an absolute offset) if
-          successful, otherwise <tt>{error, Reason}</tt>. <tt>Location</tt> is
+        <p>Sets the file position of the file referenced by <tt><![CDATA[Handle]]></tt>.
+          Returns <tt><![CDATA[{ok, NewPosition]]></tt> (as an absolute offset) if
+          successful, otherwise <tt><![CDATA[{error, Reason}]]></tt>. <tt><![CDATA[Location]]></tt> is
           one of the following:</p>
         <taglist>
-          <tag><tt>Offset</tt></tag>
+          <tag><tt><![CDATA[Offset]]></tt></tag>
           <item>
-            <p>The same as <tt>{bof, Offset}</tt>.</p>
+            <p>The same as <tt><![CDATA[{bof, Offset}]]></tt>.</p>
           </item>
-          <tag><tt>{bof, Offset}</tt></tag>
+          <tag><tt><![CDATA[{bof, Offset}]]></tt></tag>
           <item>
             <p>Absolute offset.</p>
           </item>
-          <tag><tt>{cur, Offset}</tt></tag>
+          <tag><tt><![CDATA[{cur, Offset}]]></tt></tag>
           <item>
             <p>Offset from the current position.</p>
           </item>
-          <tag><tt>{eof, Offset}</tt></tag>
+          <tag><tt><![CDATA[{eof, Offset}]]></tt></tag>
           <item>
             <p>Offset from the end of file.</p>
           </item>
-          <tag><tt>bof | cur | eof</tt></tag>
+          <tag><tt><![CDATA[bof | cur | eof]]></tt></tag>
           <item>
-            <p>The same as above with <tt>Offset</tt> 0.</p>
+            <p>The same as above with <tt><![CDATA[Offset]]></tt> 0.</p>
           </item>
         </taglist>
       
@@ -614,8 +618,8 @@
                 
                 <div class="description">
                   
-        <p>Returns a <tt>file_info</tt> record from the file specified by
-          <tt>Name</tt> or <tt>Handle</tt>, like <tt>file:read_file_info/2</tt>.</p>
+        <p>Returns a <tt><![CDATA[file_info]]></tt> record from the file specified by
+          <tt><![CDATA[Name]]></tt> or <tt><![CDATA[Handle]]></tt>, like <tt><![CDATA[file:read_file_info/2]]></tt>.</p>
       
                 </div>
                 
@@ -645,9 +649,9 @@
                 
                 <div class="description">
                   
-        <p>Returns a <tt>file_info</tt> record from the symbolic
-          link specified by <tt>Name</tt> or <tt>Handle</tt>, like
-          <tt>file:read_link_info/2</tt>.</p>
+        <p>Returns a <tt><![CDATA[file_info]]></tt> record from the symbolic
+          link specified by <tt><![CDATA[Name]]></tt> or <tt><![CDATA[Handle]]></tt>, like
+          <tt><![CDATA[file:read_link_info/2]]></tt>.</p>
       
                 </div>
                 
@@ -676,8 +680,8 @@
                 
                 <div class="description">
                   
-        <p>Writes file information from a <tt>file_info</tt> record to the
-          file specified by <tt>Name</tt>, like <tt>file:write_file_info</tt>.</p>
+        <p>Writes file information from a <tt><![CDATA[file_info]]></tt> record to the
+          file specified by <tt><![CDATA[Name]]></tt>, like <tt><![CDATA[file:write_file_info]]></tt>.</p>
       
                 </div>
                 
@@ -706,7 +710,7 @@
                 <div class="description">
                   
         <p>Read the link target from the symbolic link specified
-          by <tt>name</tt>, like <tt>file:read_link/1</tt>.</p>
+          by <tt><![CDATA[name]]></tt>, like <tt><![CDATA[file:read_link/1]]></tt>.</p>
       
                 </div>
                 
@@ -734,8 +738,8 @@
                 
                 <div class="description">
                   
-        <p>Creates a symbolic link pointing to <tt>Target</tt> with the
-          name <tt>Name</tt>, like <tt>file:make_symlink/2</tt>.</p>
+        <p>Creates a symbolic link pointing to <tt><![CDATA[Target]]></tt> with the
+          name <tt><![CDATA[Name]]></tt>, like <tt><![CDATA[file:make_symlink/2]]></tt>.</p>
       
                 </div>
                 
@@ -764,8 +768,8 @@
                 
                 <div class="description">
                   
-        <p>Renames a file named <tt>OldName</tt>, and gives it the name
-          <tt>NewName</tt>, like <tt>file:rename/2</tt></p>
+        <p>Renames a file named <tt><![CDATA[OldName]]></tt>, and gives it the name
+          <tt><![CDATA[NewName]]></tt>, like <tt><![CDATA[file:rename/2]]></tt></p>
       
                 </div>
                 
@@ -793,8 +797,8 @@
                 
                 <div class="description">
                   
-        <p>Deletes the file specified by <tt>Name</tt>, like
-          <tt>file:delete/1</tt></p>
+        <p>Deletes the file specified by <tt><![CDATA[Name]]></tt>, like
+          <tt><![CDATA[file:delete/1]]></tt></p>
       
                 </div>
                 
@@ -822,7 +826,7 @@
                 
                 <div class="description">
                   
-        <p>Creates a directory specified by <tt>Name</tt>. <tt>Name</tt> should
+        <p>Creates a directory specified by <tt><![CDATA[Name]]></tt>. <tt><![CDATA[Name]]></tt> should
           be a full path to a new directory. The directory can only be
           created in an existing directory.</p>
       
@@ -852,7 +856,7 @@
                 
                 <div class="description">
                   
-        <p>Deletes a directory specified by <tt>Name</tt>. The directory
+        <p>Deletes a directory specified by <tt><![CDATA[Name]]></tt>. The directory
           should be empty.</p>
       
                 </div>

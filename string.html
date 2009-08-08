@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#centreStringNumbergtCentered">centre(String, Number) -&gt; Centered</a></li>
@@ -236,9 +236,9 @@
           <tt>SubString</tt> begins in <tt>String</tt>. <tt>0</tt> is returned if <tt>SubString</tt>
           does not exist in <tt>String</tt>.
           For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:str(" Hello Hello World World ", "Hello World").
-8        </code>
+8        </pre>
       
                 </div>
                 
@@ -268,11 +268,11 @@
           String, which consists entirely of characters from (not
           from) Chars.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:span("\\t    abcdef", " \\t").
 5
 &gt; string:cspan("\\t    abcdef", " \\t").
-0        </code>
+0        </pre>
       
                 </div>
                 
@@ -302,9 +302,9 @@
           position <tt>Start</tt>, and ending at the end of the string or
           at length <tt>Length</tt>.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; substr("Hello World", 4, 5).
-"lo Wo"        </code>
+"lo Wo"        </pre>
       
                 </div>
                 
@@ -333,9 +333,9 @@
         <p>Returns a list of tokens in <tt>String</tt>, separated by the
           characters in <tt>SeparatorList</tt>.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; tokens("abc defxxghix jkl", "x ").
-["abc", "def", "ghi", "jkl"]        </code>
+["abc", "def", "ghi", "jkl"]        </pre>
       
                 </div>
                 
@@ -364,9 +364,9 @@
 	<p>Returns a string with the elements of <tt>StringList</tt>
 	  seperated by the string in <tt>Seperator</tt>.</p>
 	<p>For example:</p>
-	<code type="none">
+	<pre>
 &gt; join(["one", "two", "three"], ", ").
-"one, two, three"        </code>
+"one, two, three"        </pre>
       
                 </div>
                 
@@ -452,9 +452,9 @@
         <p>Returns the number of words in <tt>String</tt>, separated by
           blanks or <tt>Character</tt>.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; words(" Hello old boy!", $o).
-4        </code>
+4        </pre>
       
                 </div>
                 
@@ -484,9 +484,9 @@
         <p>Returns the word in position <tt>Number</tt> of <tt>String</tt>.
           Words are separated by blanks or <tt>Character</tt>s.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:sub_word(" Hello old boy !",3,$o).
-"ld b"        </code>
+"ld b"        </pre>
       
                 </div>
                 
@@ -520,9 +520,9 @@
           removed. The function <tt>strip/1</tt> is equivalent to
           <tt>strip(String, both)</tt>.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:strip("...Hello.....", both, $.).
-"Hello"        </code>
+"Hello"        </pre>
       
                 </div>
                 
@@ -554,9 +554,9 @@
           fixed. If the <tt>length(String)</tt> &lt; <tt>Number</tt>,
           <tt>String</tt> is padded with blanks or <tt>Character</tt>s.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:left("Hello",10,$.).
-"Hello....."        </code>
+"Hello....."        </pre>
       
                 </div>
                 
@@ -588,9 +588,9 @@
           fixed. If the length of <tt>(String)</tt> &lt; <tt>Number</tt>,
           <tt>String</tt> is padded with blanks or <tt>Character</tt>s.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 &gt; string:right("Hello", 10, $.).
-".....Hello"        </code>
+".....Hello"        </pre>
       
                 </div>
                 
@@ -649,9 +649,9 @@
           position <tt>Start</tt> to the end of the string, or to and
           including the <tt>Stop</tt> position.</p>
         <p>For example:</p>
-        <code type="none">
+        <pre>
 sub_string("Hello World", 4, 8).
-"lo Wo"        </code>
+"lo Wo"        </pre>
       
                 </div>
                 
@@ -683,7 +683,7 @@ sub_string("Hello World", 4, 8).
           represented float (the digits being ASCII values). Remaining characters 
           in the string after the float are returned in <tt>Rest</tt>.</p>
         <p>Example:</p>
-        <code type="none">
+        <pre>
 \011  &gt; {F1,Fs} = string:to_float("1.0-1.0e-1"),
 \011  &gt; {F2,[]} = string:to_float(Fs),
 \011  &gt; F1+F2.
@@ -691,7 +691,7 @@ sub_string("Hello World", 4, 8).
 \011  &gt; string:to_float("3/2=1.5").
 \011  {error,no_float}
 \011  &gt; string:to_float("-1.5eX").
-\011  {-1.5,"eX"}</code>
+\011  {-1.5,"eX"}</pre>
       
                 </div>
                 
@@ -723,7 +723,7 @@ sub_string("Hello World", 4, 8).
           represented integer (the digits being ASCII values). Remaining characters 
           in the string after the integer are returned in <tt>Rest</tt>.</p>
         <p>Example:</p>
-        <code type="none">
+        <pre>
 \011  &gt; {I1,Is} = string:to_integer("33+22"),
 \011  &gt; {I2,[]} = string:to_integer(Is),
 \011  &gt; I1-I2.
@@ -731,7 +731,7 @@ sub_string("Hello World", 4, 8).
 \011  &gt; string:to_integer("0.5").
 \011  {0,".5"}
 \011  &gt; string:to_integer("x=2").
-\011  {error,no_integer}</code>
+\011  {error,no_integer}</pre>
       
                 </div>
                 

@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#callConnHandleActionsOptionsgtProtocolVersionUserReply">call(ConnHandle, Actions, Options) -&gt; {ProtocolVersion, UserReply}</a></li>
@@ -120,7 +120,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre><![CDATA[
 action_request() = #'ActionRequest'{}
 action_reply() = #'ActionReply'{}
 error_desc() = #'ErrorDescriptor'{}
@@ -161,31 +161,31 @@ sdp_property_groups() = [sdp_property_group()]
 
 megaco_timer() = infinity | integer() >= 0 | megaco_incr_timer()
 megaco_incr_timer() = #megaco_incr_timer{}
-    </code>
-    <p>The record <tt>megaco_incr_timer</tt> contains the following fields: </p>
+    ]]></pre>
+    <p>The record <tt><![CDATA[megaco_incr_timer]]></tt> contains the following fields: </p>
     <taglist>
-      <tag><tt>wait_for = integer() >= 0</tt></tag>
+      <tag><tt><![CDATA[wait_for = integer() >= 0]]></tt></tag>
       <item>
         <p>The actual timer time.</p>
       </item>
-      <tag><tt>factor = integer() >= 0</tt></tag>
+      <tag><tt><![CDATA[factor = integer() >= 0]]></tt></tag>
       <item>
         <p>The factor when calculating the new timer time 
-          (<tt>wait_for</tt>).</p>
+          (<tt><![CDATA[wait_for]]></tt>).</p>
       </item>
-      <tag><tt>incr = integer()</tt></tag>
+      <tag><tt><![CDATA[incr = integer()]]></tt></tag>
       <item>
         <p>The increment value when calculating the new timer time 
-          (<tt>wait_for</tt>). Note that this value <em>can</em> be negative
-          and that a timer restart can therefor lead to a <tt>wait_for</tt>
+          (<tt><![CDATA[wait_for]]></tt>). Note that this value <em>can</em> be negative
+          and that a timer restart can therefor lead to a <tt><![CDATA[wait_for]]></tt>
           value of zero! It is up to the user to be aware of the 
-          consequences of a <tt>wait_for</tt> value of zero. </p>
+          consequences of a <tt><![CDATA[wait_for]]></tt> value of zero. </p>
       </item>
-      <tag><tt>max_retries = infinity | infinity_restartable | integer() >= 0</tt></tag>
+      <tag><tt><![CDATA[max_retries = infinity | infinity_restartable | integer() >= 0]]></tt></tag>
       <item>
         <p>The maximum number of repetitions of the timer.</p>
         <p>There is a special case for this field. When the 
-          <tt>max_retries</tt> has the value <tt>infinity_restartable</tt>, 
+          <tt><![CDATA[max_retries]]></tt> has the value <tt><![CDATA[infinity_restartable]]></tt>, 
           it means that the timer is restartable as long as some 
           external event occurs (e.g. receipt of a pending 
           message for instance). But the timer will never be
@@ -194,12 +194,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
           Whenever the timer is restarted, the timeout time will 
           be calculated in the usual way! Also, as mentioned 
           above, beware the consequences of setting the value to
-          <tt>infinity</tt> if <em>incr</em> has been set to an 
+          <tt><![CDATA[infinity]]></tt> if <em>incr</em> has been set to an 
           negative value.</p>
       </item>
     </taglist>
 
-    <marker id="start"></marker>
+    <marker id="start"/>
   
     </div>
     
@@ -231,7 +231,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           list of {UserMid, Config} tuples. See the function
           megaco:start_user/2 for details.</p>
 
-        <marker id="stop"></marker>
+        <marker id="stop"/>
       
                 </div>
                 
@@ -258,7 +258,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>Stops the Megaco application</p>
 
-        <marker id="start_user"></marker>
+        <marker id="start_user"/>
       
                 </div>
                 
@@ -294,7 +294,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Config is a list of {Item, Value} tuples.  See
           megaco:user_info/2 about which items and values that are valid.</p>
 
-        <marker id="stop_user"></marker>
+        <marker id="stop_user"/>
       
                 </div>
                 
@@ -323,7 +323,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Delete the configuration of a user</p>
         <p>Requires that the user does not have any active connection.</p>
 
-        <marker id="user_info"></marker>
+        <marker id="user_info"/>
       
                 </div>
                 
@@ -354,81 +354,81 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>Lookup user information</p>
         <p>The following Item's are valid:</p>
-        <marker id="ui_connections"></marker>
+        <marker id="ui_connections"/>
         <taglist>
-          <tag><tt>connections</tt></tag>
+          <tag><tt><![CDATA[connections]]></tt></tag>
           <item>
             <p>Lists all active connections for this user. Returns a
               list of megaco_conn_handle records.</p>
-            <marker id="ui_receive_handle"></marker>
+            <marker id="ui_receive_handle"/>
           </item>
 
-          <tag><tt>receive_handle</tt></tag>
+          <tag><tt><![CDATA[receive_handle]]></tt></tag>
           <item>
             <p>Construct a megaco_receive_handle record from user config</p>
-            <marker id="ui_trans_id"></marker>
+            <marker id="ui_trans_id"/>
           </item>
 
-          <tag><tt>trans_id</tt></tag>
+          <tag><tt><![CDATA[trans_id]]></tt></tag>
           <item>
             <p>Current transaction id. </p>
             <p>A positive integer or the atom 
-              <tt>undefined_serial</tt> (in case no messages has been sent).</p>
-            <marker id="ui_min_trans_id"></marker>
+              <tt><![CDATA[undefined_serial]]></tt> (in case no messages has been sent).</p>
+            <marker id="ui_min_trans_id"/>
           </item>
 
-          <tag><tt>min_trans_id</tt></tag>
+          <tag><tt><![CDATA[min_trans_id]]></tt></tag>
           <item>
             <p>First trans id. </p>
             <p>A positive integer, defaults to 1.</p>
-            <marker id="ui_max_trans_id"></marker>
+            <marker id="ui_max_trans_id"/>
           </item>
 
-          <tag><tt>max_trans_id</tt></tag>
+          <tag><tt><![CDATA[max_trans_id]]></tt></tag>
           <item>
             <p>Last trans id. </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>.</p>
-            <marker id="ui_request_timer"></marker>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>.</p>
+            <marker id="ui_request_timer"/>
           </item>
 
-          <tag><tt>request_timer</tt></tag>
+          <tag><tt><![CDATA[request_timer]]></tt></tag>
           <item>
             <p>Wait for reply. </p>
             <p>The timer is cancelled when a reply is received. </p>
             <p>When a pending message is received, the timer is 
-              cancelled and the <tt>long_request_timer</tt> is started instead 
+              cancelled and the <tt><![CDATA[long_request_timer]]></tt> is started instead 
               (see below). No resends will be performed from this point 
               (since we now know that the other side has received the 
               request). </p>
             <p>When the timer reaches an intermediate expire, the request
               is resent and the timer is restarted. </p>
             <p>When the timer reaches the final expire, either the function 
-              <tt>megaco:call</tt> will return with <tt>{error, timeout}</tt>
-              or the callback function <tt>handle_trans_reply</tt> will be 
-              called with <tt>UserReply = {error, timeout}</tt> (if 
-              <tt>megaco:cast</tt> was used).</p>
+              <tt><![CDATA[megaco:call]]></tt> will return with <tt><![CDATA[{error, timeout}]]></tt>
+              or the callback function <tt><![CDATA[handle_trans_reply]]></tt> will be 
+              called with <tt><![CDATA[UserReply = {error, timeout}]]></tt> (if 
+              <tt><![CDATA[megaco:cast]]></tt> was used).</p>
             <p>A Megaco Timer (see explanation above), 
-              defaults to <tt>#megaco_incr_timer{}</tt>.</p>
-            <marker id="ui_long_request_timer"></marker>
+              defaults to <tt><![CDATA[#megaco_incr_timer{}]]></tt>.</p>
+            <marker id="ui_long_request_timer"/>
           </item>
 
-          <tag><tt>long_request_timer</tt></tag>
+          <tag><tt><![CDATA[long_request_timer]]></tt></tag>
           <item>
             <p>Wait for reply after having received a pending message. </p>
             <p>When the timer reaches an intermediate expire, the timer 
               is restarted. </p>
             <p>When a pending message is received, and the 
-              <tt>long_request_timer</tt>  
+              <tt><![CDATA[long_request_timer]]></tt>  
               is <em>not</em> "on it's final leg", the timer will be 
-              restarted, and, if <tt>long_request_resend = true</tt>, the
+              restarted, and, if <tt><![CDATA[long_request_resend = true]]></tt>, the
               request will be re-sent. </p>
             <p>A Megaco Timer (see explanation above), 
-              defaults to <tt>60 seconds</tt>.</p>
-            <marker id="ui_long_request_resend"></marker>
+              defaults to <tt><![CDATA[60 seconds]]></tt>.</p>
+            <marker id="ui_long_request_resend"/>
           </item>
 
-          <tag><tt>long_request_resend</tt></tag>
+          <tag><tt><![CDATA[long_request_resend]]></tt></tag>
           <item>
             <p>This option indicates weather the request should be 
               resent until the reply is received,
@@ -439,14 +439,14 @@ megaco_incr_timer() = #megaco_incr_timer{}
               request has been received). But since the reply (to the 
               request) can be lost, this behaviour has it's values.</p>
             <p>It is ofcourse pointless to set this value to <em>true</em>
-              unless the <tt>long_request_timer</tt> (see above) is also set
-              to an incremental timer (<tt>#megaco_incr_timer{}</tt>). </p>
-            <p>A <tt>boolean</tt>, 
-              defaults to <tt>false</tt>.</p>
-            <marker id="ui_reply_timer"></marker>
+              unless the <tt><![CDATA[long_request_timer]]></tt> (see above) is also set
+              to an incremental timer (<tt><![CDATA[#megaco_incr_timer{}]]></tt>). </p>
+            <p>A <tt><![CDATA[boolean]]></tt>, 
+              defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ui_reply_timer"/>
           </item>
 
-          <tag><tt>reply_timer</tt></tag>
+          <tag><tt><![CDATA[reply_timer]]></tt></tag>
           <item>
             <p>Wait for an ack. </p>
             <p>When a request is received, some info
@@ -456,112 +456,112 @@ megaco_incr_timer() = #megaco_incr_timer{}
               if the same request is received again (e.g. a request
               with the same transaction id), the (stored) reply will
               be (re-) sent automatically by megaco.</p>
-            <p>If the timer is of type <tt>#megaco_incr_timer{}</tt>, 
+            <p>If the timer is of type <tt><![CDATA[#megaco_incr_timer{}]]></tt>, 
               then for each intermediate timout, the reply will be resent
               (this is valid until the ack is received or 
               the timer expires). </p>
             <p>A Megaco Timer (see explanation above), defaults to 30000.</p>
-            <marker id="ui_auto_ack"></marker>
+            <marker id="ui_auto_ack"/>
           </item>
 
-          <tag><tt>auto_ack</tt></tag>
+          <tag><tt><![CDATA[auto_ack]]></tt></tag>
           <item>
             <p>Automatic send transaction ack when the transaction
-              reply has been received (see <tt>trans_ack</tt> below). </p>
+              reply has been received (see <tt><![CDATA[trans_ack]]></tt> below). </p>
             <p>This is used for <em>three-way-handshake</em>.</p>
-            <p>A <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
-            <marker id="ui_trans_ack"></marker>
+            <p>A <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ui_trans_ack"/>
           </item>
 
-          <tag><tt>trans_ack</tt></tag>
+          <tag><tt><![CDATA[trans_ack]]></tt></tag>
           <item>
             <p>Shall ack's be accumulated or not. </p>
-            <p>This property is only valid if <tt>auto_ack</tt> is true.</p>
-            <p>If <tt>auto_ack</tt> is true, then if <tt>trans_ack</tt> is
-              <tt>false</tt>, ack's will be sent immediatelly. 
-              If <tt>trans_ack</tt> is <tt>true</tt>, then 
+            <p>This property is only valid if <tt><![CDATA[auto_ack]]></tt> is true.</p>
+            <p>If <tt><![CDATA[auto_ack]]></tt> is true, then if <tt><![CDATA[trans_ack]]></tt> is
+              <tt><![CDATA[false]]></tt>, ack's will be sent immediatelly. 
+              If <tt><![CDATA[trans_ack]]></tt> is <tt><![CDATA[true]]></tt>, then 
               ack's will instead be sent to the transaction 
               sender process for accumulation and later sending 
-              (see <tt>trans_ack_maxcount</tt>, <tt>trans_req_maxcount</tt>, 
-              <tt>trans_req_maxsize</tt>, <tt>trans_ack_maxcount</tt> and 
-              <tt>trans_timer</tt>). </p>
+              (see <tt><![CDATA[trans_ack_maxcount]]></tt>, <tt><![CDATA[trans_req_maxcount]]></tt>, 
+              <tt><![CDATA[trans_req_maxsize]]></tt>, <tt><![CDATA[trans_ack_maxcount]]></tt> and 
+              <tt><![CDATA[trans_timer]]></tt>). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info.</p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
-            <marker id="ui_trans_ack_maxcount"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ui_trans_ack_maxcount"/>
           </item>
 
-          <tag><tt>trans_ack_maxcount</tt></tag>
+          <tag><tt><![CDATA[trans_ack_maxcount]]></tt></tag>
           <item>
             <p>Maximum number of accumulated ack's. At most this many ack's
               will be accumulated by the transaction sender (if started and 
               configured to accumulate ack's).</p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>integer</tt>, defaults to 10.</p>
-            <marker id="ui_trans_req"></marker>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 10.</p>
+            <marker id="ui_trans_req"/>
           </item>
 
-          <tag><tt>trans_req</tt></tag>
+          <tag><tt><![CDATA[trans_req]]></tt></tag>
           <item>
             <p>Shall requests be accumulated or not. </p>
-            <p>If <tt>trans_req</tt> is <tt>false</tt>, then request(s)
+            <p>If <tt><![CDATA[trans_req]]></tt> is <tt><![CDATA[false]]></tt>, then request(s)
               will be sent immediatelly (in it's own message).</p>
-            <p>If <tt>trans_req</tt> is true, then request(s) will 
+            <p>If <tt><![CDATA[trans_req]]></tt> is true, then request(s) will 
               instead be sent to the transaction sender process for 
               accumulation and later sending 
-              (see <tt>trans_ack_maxcount</tt>, <tt>trans_req_maxcount</tt>, 
-              <tt>trans_req_maxsize</tt>, <tt>trans_ack_maxcount</tt> and 
-              <tt>trans_timer</tt>). </p>
+              (see <tt><![CDATA[trans_ack_maxcount]]></tt>, <tt><![CDATA[trans_req_maxcount]]></tt>, 
+              <tt><![CDATA[trans_req_maxsize]]></tt>, <tt><![CDATA[trans_ack_maxcount]]></tt> and 
+              <tt><![CDATA[trans_timer]]></tt>). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
-            <marker id="ui_trans_req_maxcount"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ui_trans_req_maxcount"/>
           </item>
 
-          <tag><tt>trans_req_maxcount</tt></tag>
+          <tag><tt><![CDATA[trans_req_maxcount]]></tt></tag>
           <item>
             <p>Maximum number of accumulated requests. At most this many 
               requests will be accumulated by the transaction sender 
               (if started and configured to accumulate requests). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info.</p>
-            <p>An <tt>integer</tt>, defaults to 10.</p>
-            <marker id="ui_trans_req_maxsize"></marker>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 10.</p>
+            <marker id="ui_trans_req_maxsize"/>
           </item>
-          <tag><tt>trans_req_maxsize</tt></tag>
+          <tag><tt><![CDATA[trans_req_maxsize]]></tt></tag>
           <item>
             <p>Maximum size of the accumulated requests. At most this much
               requests will be accumulated by the transaction sender 
               (if started and configured to accumulate requests).</p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info.</p>
-            <p>An <tt>integer</tt>, defaults to 2048.</p>
-            <marker id="ui_trans_timer"></marker>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 2048.</p>
+            <marker id="ui_trans_timer"/>
           </item>
 
-          <tag><tt>trans_timer</tt></tag>
+          <tag><tt><![CDATA[trans_timer]]></tt></tag>
           <item>
             <p>Transaction sender timeout time. Has two functions. First, if 
               the value is 0, then transactions will not be accumulated 
               (e.g. the transaction sender process will not be started). 
-              Second, if the value is greater then 0 and <tt>auto_ack</tt> 
-              and <tt>trans_ack</tt> are both true or 
-              if <tt>trans_req</tt> is true, 
+              Second, if the value is greater then 0 and <tt><![CDATA[auto_ack]]></tt> 
+              and <tt><![CDATA[trans_ack]]></tt> are both true or 
+              if <tt><![CDATA[trans_req]]></tt> is true, 
               then transaction sender will be started and transactions 
-              (which is depending on the values of <tt>auto_ack</tt>, 
-              <tt>trans_ack</tt> and <tt>trans_req</tt>) will be accumulated,
+              (which is depending on the values of <tt><![CDATA[auto_ack]]></tt>, 
+              <tt><![CDATA[trans_ack]]></tt> and <tt><![CDATA[trans_req]]></tt>) will be accumulated,
               for later sending. </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>integer</tt>, defaults to 0.</p>
-            <marker id="ui_pending_timer"></marker>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 0.</p>
+            <marker id="ui_pending_timer"/>
           </item>
 
-          <tag><tt>pending_timer</tt></tag>
+          <tag><tt><![CDATA[pending_timer]]></tt></tag>
           <item>
             <p>Automatically send pending if the timer expires before a
               transaction reply has been sent. This timer is also called 
               provisional response timer. </p>
             <p>A Megaco Timer (see explanation above), defaults to 30000.</p>
-            <marker id="ui_sent_pending_limit"></marker>
+            <marker id="ui_sent_pending_limit"/>
           </item>
 
-          <tag><tt>sent_pending_limit</tt></tag>
+          <tag><tt><![CDATA[sent_pending_limit]]></tt></tag>
           <item>
             <p>Sent pending limit (see the MGOriginatedPendingLimit
               and the MGCOriginatedPendingLimit of the megaco root package).
@@ -575,12 +575,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
               receiving a re-sent transaction request for a request which
               is beeing processed) or controlled by the pending_timer,
               see above. </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>.</p>
-            <marker id="ui_recv_pending_limit"></marker>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>.</p>
+            <marker id="ui_recv_pending_limit"/>
           </item>
 
-          <tag><tt>recv_pending_limit</tt></tag>
+          <tag><tt><![CDATA[recv_pending_limit]]></tt></tag>
           <item>
             <p>Receive pending limit (see the MGOriginatedPendingLimit
               and the MGCOriginatedPendingLimit of the megaco root package).
@@ -589,22 +589,22 @@ megaco_incr_timer() = #megaco_incr_timer{}
               When the limit is exceeded, the transaction is considered
               lost, and an error returned to the user (through the call-back
               function <em>handle_trans_reply</em>). </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>. </p>
-            <marker id="ui_send_mod"></marker>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>. </p>
+            <marker id="ui_send_mod"/>
           </item>
 
-          <tag><tt>send_mod</tt></tag>
+          <tag><tt><![CDATA[send_mod]]></tt></tag>
           <item>
             <p>Send callback module which exports send_message/2. The
               function SendMod:send_message(SendHandle, Binary) is
               invoked when the bytes needs to be transmitted to the
               remote user. </p>
-            <p>An <tt>atom</tt>, defaults to <tt>megaco_tcp</tt>.</p>
-            <marker id="ui_encoding_mod"></marker>
+            <p>An <tt><![CDATA[atom]]></tt>, defaults to <tt><![CDATA[megaco_tcp]]></tt>.</p>
+            <marker id="ui_encoding_mod"/>
           </item>
 
-          <tag><tt>encoding_mod</tt></tag>
+          <tag><tt><![CDATA[encoding_mod]]></tt></tag>
           <item>
             <p>Encoding callback module which exports encode_message/2
               and decode_message/2. The function
@@ -614,66 +614,66 @@ megaco_incr_timer() = #megaco_incr_timer{}
               function EncodingMod:decode_message(EncodingConfig,
               Binary) is invoked whenever an Erlang binary needs to be
               translated into a 'MegacoMessage' record. </p>
-            <p>An <tt>atom</tt>, defaults to <tt>megaco_pretty_text_encoder</tt>.</p>
-            <marker id="ui_encoding_config"></marker>
+            <p>An <tt><![CDATA[atom]]></tt>, defaults to <tt><![CDATA[megaco_pretty_text_encoder]]></tt>.</p>
+            <marker id="ui_encoding_config"/>
           </item>
 
-          <tag><tt>encoding_config</tt></tag>
+          <tag><tt><![CDATA[encoding_config]]></tt></tag>
           <item>
             <p>Encoding module config. </p>
-            <p>A <tt>list</tt>, defaults to <tt>[]</tt>.</p>
-            <marker id="ui_protocol_version"></marker>
+            <p>A <tt><![CDATA[list]]></tt>, defaults to <tt><![CDATA[[]]]></tt>.</p>
+            <marker id="ui_protocol_version"/>
           </item>
 
-          <tag><tt>protocol_version</tt></tag>
+          <tag><tt><![CDATA[protocol_version]]></tt></tag>
           <item>
             <p>Actual protocol version. </p>
-            <p>An <tt>integer</tt>, default is 1.</p>
-            <marker id="ui_strict_version"></marker>
+            <p>An <tt><![CDATA[integer]]></tt>, default is 1.</p>
+            <marker id="ui_strict_version"/>
           </item>
 
-          <tag><tt>strict_version</tt></tag>
+          <tag><tt><![CDATA[strict_version]]></tt></tag>
           <item>
             <p>Strict version control, i.e. when a message is received,
               verify that the version is that which was negotiated. </p>
-            <p>An <tt>boolean</tt>, default is true.</p>
-            <marker id="ui_reply_data"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, default is true.</p>
+            <marker id="ui_reply_data"/>
           </item>
 
-          <tag><tt>reply_data</tt></tag>
+          <tag><tt><![CDATA[reply_data]]></tt></tag>
           <item>
             <p>Default reply data. </p>
-            <p>Any term, defaults to the atom <tt>undefined</tt>.</p>
-            <marker id="ui_user_mod"></marker>
+            <p>Any term, defaults to the atom <tt><![CDATA[undefined]]></tt>.</p>
+            <marker id="ui_user_mod"/>
           </item>
 
-          <tag><tt>user_mod</tt></tag>
+          <tag><tt><![CDATA[user_mod]]></tt></tag>
           <item>
             <p>Name of the user callback module. See the the reference
               manual for megaco_user for more info.</p>
-            <marker id="ui_user_args"></marker>
+            <marker id="ui_user_args"/>
           </item>
 
-          <tag><tt>user_args</tt></tag>
+          <tag><tt><![CDATA[user_args]]></tt></tag>
           <item>
             <p>List of extra arguments to the user callback
               functions. See the the reference manual for megaco_user
               for more info.</p>
-            <marker id="ui_threaded"></marker>
+            <marker id="ui_threaded"/>
           </item>
 
-          <tag><tt>threaded</tt></tag>
+          <tag><tt><![CDATA[threaded]]></tt></tag>
           <item>
             <p>If a received message contains several transaction requests, 
               this option indicates whether the requests should be handled
-              sequencially in the same process (<tt>false</tt>), or if each 
-              request should be handled by it's own process (<tt>true</tt>
+              sequencially in the same process (<tt><![CDATA[false]]></tt>), or if each 
+              request should be handled by it's own process (<tt><![CDATA[true]]></tt>
               i.e. a separate process is spawned for each request). </p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>. </p>
-            <marker id="ui_resend_indication"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>. </p>
+            <marker id="ui_resend_indication"/>
           </item>
 
-          <tag><tt>resend_indication</tt></tag>
+          <tag><tt><![CDATA[resend_indication]]></tt></tag>
           <item>
             <p>This option indicates weather the transport module
               should be told if a message send is a resend or not. </p>
@@ -690,79 +690,79 @@ megaco_incr_timer() = #megaco_incr_timer{}
               <seealso marker="megaco_transport#send_message">send_message/3</seealso> 
               shall be used. </p>
             <p>A <tt>resend_indication()</tt>, 
-              defaults to <tt>false</tt>.</p>
-            <marker id="ui_segment_reply_ind"></marker>
+              defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ui_segment_reply_ind"/>
           </item>
 
-          <tag><tt>segment_reply_ind</tt></tag>
+          <tag><tt><![CDATA[segment_reply_ind]]></tt></tag>
           <item>
             <p>This option specifies if the user shall be notified of received
               segment replies or not. </p>
             <p>See 
               <seealso marker="megaco_user#segment_reply">handle_segment_reply</seealso> 
               callback function for more information. </p>
-            <p>A <tt>boolean</tt>, 
-              defaults to <tt>false</tt>. </p>
-            <marker id="ui_segment_recv_timer"></marker>
+            <p>A <tt><![CDATA[boolean]]></tt>, 
+              defaults to <tt><![CDATA[false]]></tt>. </p>
+            <marker id="ui_segment_recv_timer"/>
           </item>
 
-          <tag><tt>segment_recv_timer</tt></tag>
+          <tag><tt><![CDATA[segment_recv_timer]]></tt></tag>
           <item>
             <p>This timer is started when the segment indicated by the
-              <tt>segmentation complete token</tt> is received, but all 
+              <tt><![CDATA[segmentation complete token]]></tt> is received, but all 
               segments has not yet been received.</p>
             <p>When the timer finally expires, a "megaco segments not
               received" (459) error message is sent to the other side
-              and the user is notified with a <tt>segment timeout</tt><tt>UserReply</tt> in either the 
+              and the user is notified with a <tt><![CDATA[segment timeout]]></tt><tt><![CDATA[UserReply]]></tt> in either the 
               <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso> callback function or 
               the return value of the 
               <seealso marker="megaco#call">call</seealso> function. </p>
             <p>A Megaco Timer (see explanation above),
-              defaults to <tt>10000</tt>. </p>
-            <marker id="ui_segment_send"></marker>
+              defaults to <tt><![CDATA[10000]]></tt>. </p>
+            <marker id="ui_segment_send"/>
           </item>
 
-          <tag><tt>segment_send</tt></tag>
+          <tag><tt><![CDATA[segment_send]]></tt></tag>
           <item>
             <p>Shall outgoing messages be segmented or not: </p>
             <taglist>
-              <tag><tt>none</tt></tag>
+              <tag><tt><![CDATA[none]]></tt></tag>
               <item>
                 <p>Do not segment outgoing reply messages. This is usefull when
                   either it is known that messages are never to large or
                   that the transport protocol can handle such things
                   on it's own (e.g. TCP or SCTP).</p>
               </item>
-              <tag><tt>integer() > 0</tt></tag>
+              <tag><tt><![CDATA[integer() > 0]]></tt></tag>
               <item>
                 <p>Outgoing reply messages will be segmented as needed 
-                  (see <tt>max_pdu_size</tt> below). This value, K, indicate 
+                  (see <tt><![CDATA[max_pdu_size]]></tt> below). This value, K, indicate 
                   the outstanding window, i.e. how many segments can be 
                   outstanding (not acknowledged) at any given time. </p>
               </item>
-              <tag><tt>infinity</tt></tag>
+              <tag><tt><![CDATA[infinity]]></tt></tag>
               <item>
                 <p>Outgoing reply messages will be segmented as needed 
-                  (see <tt>max_pdu_size</tt> below). Segment messages 
+                  (see <tt><![CDATA[max_pdu_size]]></tt> below). Segment messages 
                   are sent all at once (i.e. no acknowledgement awaited 
                   before sending the next segment). </p>
               </item>
             </taglist>
-            <p>Defaults to <tt>none</tt>. </p>
-            <marker id="ui_max_pdu_size"></marker>
+            <p>Defaults to <tt><![CDATA[none]]></tt>. </p>
+            <marker id="ui_max_pdu_size"/>
           </item>
 
-          <tag><tt>max_pdu_size</tt></tag>
+          <tag><tt><![CDATA[max_pdu_size]]></tt></tag>
           <item>
             <p>Max message size. If the encoded message (PDU) exceeds 
               this size, the message should be segmented, and then 
               encoded. </p>
-            <p>A positive integer or <tt>infinity</tt>,
-              defaults to <tt>infinity</tt>. </p>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>,
+              defaults to <tt><![CDATA[infinity]]></tt>. </p>
           </item>
         </taglist>
 
-        <marker id="update_user_info"></marker>
+        <marker id="update_user_info"/>
       
                 </div>
                 
@@ -794,7 +794,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Requires that the user is started. See megaco:user_info/2
           about which items and values that are valid.</p>
 
-        <marker id="conn_info"></marker>
+        <marker id="conn_info"/>
       
                 </div>
                 
@@ -824,109 +824,109 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>Lookup information about an active connection</p>
         <p>Requires that the connection is active.</p>
-        <marker id="ci_control_pid"></marker>
+        <marker id="ci_control_pid"/>
         <taglist>
 
-          <tag><tt>control_pid</tt></tag>
+          <tag><tt><![CDATA[control_pid]]></tt></tag>
           <item>
             <p>The process identifier of the controlling process for a
               connenction.</p>
 
-            <marker id="ci_send_handle"></marker>
+            <marker id="ci_send_handle"/>
           </item>
 
-          <tag><tt>send_handle</tt></tag>
+          <tag><tt><![CDATA[send_handle]]></tt></tag>
           <item>
             <p>Opaque send handle whose contents is internal for the
               send module. May be any term.</p>
 
-            <marker id="ci_local_mid"></marker>
+            <marker id="ci_local_mid"/>
           </item>
 
-          <tag><tt>local_mid</tt></tag>
+          <tag><tt><![CDATA[local_mid]]></tt></tag>
           <item>
             <p>The local mid (of the connection, i.e. the own mid). 
-              <tt>megaco_mid()</tt>.</p>
+              <tt><![CDATA[megaco_mid()]]></tt>.</p>
 
-            <marker id="ci_remote_mid"></marker>
+            <marker id="ci_remote_mid"/>
           </item>
 
-          <tag><tt>remote_mid</tt></tag>
+          <tag><tt><![CDATA[remote_mid]]></tt></tag>
           <item>
             <p>The remote mid (of the connection). 
-              <tt>megaco_mid()</tt>.</p>
+              <tt><![CDATA[megaco_mid()]]></tt>.</p>
 
-            <marker id="ci_receive_handle"></marker>
+            <marker id="ci_receive_handle"/>
           </item>
 
-          <tag><tt>receive_handle</tt></tag>
+          <tag><tt><![CDATA[receive_handle]]></tt></tag>
           <item>
             <p>Construct a megaco_receive_handle record.</p>
 
-            <marker id="ci_trans_id"></marker>
+            <marker id="ci_trans_id"/>
           </item>
 
-          <tag><tt>trans_id</tt></tag>
+          <tag><tt><![CDATA[trans_id]]></tt></tag>
           <item>
             <p>Next transaction id. A positive integer or the atom 
-              <tt>undefined_serial</tt> (only in case of error). </p>
+              <tt><![CDATA[undefined_serial]]></tt> (only in case of error). </p>
             <p>Note that transaction id's are (currently) maintained 
               on a per user basis so there is no way to be sure that 
               the value returned will actually be used for a transaction 
               sent on this connection (in case a user has several 
               connections, which is not at all unlikely). </p>
 
-            <marker id="ci_max_trans_id"></marker>
+            <marker id="ci_max_trans_id"/>
           </item>
 
-          <tag><tt>max_trans_id</tt></tag>
+          <tag><tt><![CDATA[max_trans_id]]></tt></tag>
           <item>
             <p>Last trans id. </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>.</p>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>.</p>
 
-            <marker id="ci_request_time"></marker>
+            <marker id="ci_request_time"/>
           </item>
 
-          <tag><tt>request_timer</tt></tag>
+          <tag><tt><![CDATA[request_timer]]></tt></tag>
           <item>
             <p>Wait for reply. </p>
             <p>The timer is cancelled when a reply is received. </p>
             <p>When a pending message is received, the timer is 
-              cancelled and the <tt>long_request_timer</tt> is started instead 
+              cancelled and the <tt><![CDATA[long_request_timer]]></tt> is started instead 
               (see below). No resends will be performed from this point 
               (since we now know that the other side has received the 
               request). </p>
             <p>When the timer reaches an intermediate expire, the request
               is resent and the timer is restarted. </p>
             <p>When the timer reaches the final expire, either the function 
-              <tt>megaco:call</tt> will return with <tt>{error, timeout}</tt>
-              or the callback function <tt>handle_trans_reply</tt> will be 
-              called with <tt>UserReply = {error, timeout}</tt> (if 
-              <tt>megaco:cast</tt> was used).</p>
+              <tt><![CDATA[megaco:call]]></tt> will return with <tt><![CDATA[{error, timeout}]]></tt>
+              or the callback function <tt><![CDATA[handle_trans_reply]]></tt> will be 
+              called with <tt><![CDATA[UserReply = {error, timeout}]]></tt> (if 
+              <tt><![CDATA[megaco:cast]]></tt> was used).</p>
             <p>A Megaco Timer (see explanation above), 
               defaults to #megaco_incr_timer{}.</p>
 
-            <marker id="ci_long_request_timer"></marker>
+            <marker id="ci_long_request_timer"/>
           </item>
 
-          <tag><tt>long_request_timer</tt></tag>
+          <tag><tt><![CDATA[long_request_timer]]></tt></tag>
           <item>
             <p>Wait for reply after having received a pending message. </p>
             <p>When the timer reaches an intermediate expire, the timer 
               restarted. </p>
             <p>When a pending message is received, and the 
-              <tt>long_request_timer</tt> 
+              <tt><![CDATA[long_request_timer]]></tt> 
               is <em>not</em> "on it's final leg", the timer will be 
-              restarted, and, if <tt>long_request_resend = true</tt>, the
+              restarted, and, if <tt><![CDATA[long_request_resend = true]]></tt>, the
               request will be re-sent. </p>
             <p>A Megaco Timer (see explanation above), 
-              defaults to <tt>60 seconds</tt>.</p>
+              defaults to <tt><![CDATA[60 seconds]]></tt>.</p>
 
-            <marker id="ci_long_request_resend"></marker>
+            <marker id="ci_long_request_resend"/>
           </item>
 
-          <tag><tt>long_request_resend</tt></tag>
+          <tag><tt><![CDATA[long_request_resend]]></tt></tag>
           <item>
             <p>This option indicates weather the request should be 
               resent until the reply is received,
@@ -938,15 +938,15 @@ megaco_incr_timer() = #megaco_incr_timer{}
               request) can be
               lost, this behaviour has it's values.</p>
             <p>It is ofcourse pointless to set this value to <em>true</em>
-              unless the <tt>long_request_timer</tt> (see above) is also set
-              to an incremental timer (<tt>#megaco_incr_timer{}</tt>). </p>
-            <p>A <tt>boolean</tt>, 
-              defaults to <tt>false</tt>.</p>
+              unless the <tt><![CDATA[long_request_timer]]></tt> (see above) is also set
+              to an incremental timer (<tt><![CDATA[#megaco_incr_timer{}]]></tt>). </p>
+            <p>A <tt><![CDATA[boolean]]></tt>, 
+              defaults to <tt><![CDATA[false]]></tt>.</p>
 
-            <marker id="ci_reply_timer"></marker>
+            <marker id="ci_reply_timer"/>
           </item>
 
-          <tag><tt>reply_timer</tt></tag>
+          <tag><tt><![CDATA[reply_timer]]></tt></tag>
           <item>
             <p>Wait for an ack. </p>
             <p>When a request is received, some info
@@ -956,44 +956,44 @@ megaco_incr_timer() = #megaco_incr_timer{}
               if the same request is received again (e.g. a request
               with the same transaction id), the (stored) reply will
               be (re-) sent automatically by megaco.</p>
-            <p>If the timer is of type <tt>#megaco_incr_timer{}</tt>, 
+            <p>If the timer is of type <tt><![CDATA[#megaco_incr_timer{}]]></tt>, 
               then for each intermediate timout, the reply will be resent
               (this is valid until the ack is received or 
               the timer expires). </p>
             <p>A Megaco Timer (see explanation above), defaults to 30000.</p>
 
-            <marker id="ci_auto_ack"></marker>
+            <marker id="ci_auto_ack"/>
           </item>
 
-          <tag><tt>auto_ack</tt></tag>
+          <tag><tt><![CDATA[auto_ack]]></tt></tag>
           <item>
             <p>Automatic send transaction ack when the transaction
-              reply has been received (see <tt>trans_ack</tt> below). </p>
+              reply has been received (see <tt><![CDATA[trans_ack]]></tt> below). </p>
             <p>This is used for <em>three-way-handshake</em>. </p>
-            <p>A <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
+            <p>A <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
 
-            <marker id="ci_trans_ack"></marker>
+            <marker id="ci_trans_ack"/>
           </item>
 
-          <tag><tt>trans_ack</tt></tag>
+          <tag><tt><![CDATA[trans_ack]]></tt></tag>
           <item>
             <p>Shall ack's be accumulated or not. </p>
-            <p>This property is only valid if <tt>auto_ack</tt> is true. </p>
-            <p>If <tt>auto_ack</tt> is true, then if <tt>trans_ack</tt> is
-              <tt>false</tt>, ack's will be sent immediatelly. 
-              If <tt>trans_ack</tt> is
-              <tt>true</tt>, then ack's will instead be sent to the transaction 
+            <p>This property is only valid if <tt><![CDATA[auto_ack]]></tt> is true. </p>
+            <p>If <tt><![CDATA[auto_ack]]></tt> is true, then if <tt><![CDATA[trans_ack]]></tt> is
+              <tt><![CDATA[false]]></tt>, ack's will be sent immediatelly. 
+              If <tt><![CDATA[trans_ack]]></tt> is
+              <tt><![CDATA[true]]></tt>, then ack's will instead be sent to the transaction 
               sender process for accumulation and later sending 
-              (see <tt>trans_ack_maxcount</tt>, <tt>trans_req_maxcount</tt>, 
-              <tt>trans_req_maxsize</tt>, <tt>trans_ack_maxcount</tt> and 
-              <tt>trans_timer</tt>). </p>
+              (see <tt><![CDATA[trans_ack_maxcount]]></tt>, <tt><![CDATA[trans_req_maxcount]]></tt>, 
+              <tt><![CDATA[trans_req_maxsize]]></tt>, <tt><![CDATA[trans_ack_maxcount]]></tt> and 
+              <tt><![CDATA[trans_timer]]></tt>). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
 
-            <marker id="ci_trans_ack_maxcount"></marker>
+            <marker id="ci_trans_ack_maxcount"/>
           </item>
 
-          <tag><tt>trans_ack_maxcount</tt></tag>
+          <tag><tt><![CDATA[trans_ack_maxcount]]></tt></tag>
           <item>
             <p>Maximum number of accumulated ack's. At most this many ack's
               will be accumulated by the transaction sender (if started and 
@@ -1001,76 +1001,76 @@ megaco_incr_timer() = #megaco_incr_timer{}
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info.</p>
             <p>An integer, defaults to 10.</p>
 
-            <marker id="ci_trans_req"></marker>
+            <marker id="ci_trans_req"/>
           </item>
 
-          <tag><tt>trans_req</tt></tag>
+          <tag><tt><![CDATA[trans_req]]></tt></tag>
           <item>
             <p>Shall requests be accumulated or not. </p>
-            <p>If <tt>trans_req</tt> is <tt>false</tt>, then request(s)
+            <p>If <tt><![CDATA[trans_req]]></tt> is <tt><![CDATA[false]]></tt>, then request(s)
               will be sent immediatelly (in it's own message). </p>
-            <p>If <tt>trans_req</tt> is true, then request(s) will 
+            <p>If <tt><![CDATA[trans_req]]></tt> is true, then request(s) will 
               instead be sent to the transaction sender process for 
               accumulation and later sending 
-              (see <tt>trans_ack_maxcount</tt>, <tt>trans_req_maxcount</tt>, 
-              <tt>trans_req_maxsize</tt>, <tt>trans_ack_maxcount</tt> and 
-              <tt>trans_timer</tt>). </p>
+              (see <tt><![CDATA[trans_ack_maxcount]]></tt>, <tt><![CDATA[trans_req_maxcount]]></tt>, 
+              <tt><![CDATA[trans_req_maxsize]]></tt>, <tt><![CDATA[trans_ack_maxcount]]></tt> and 
+              <tt><![CDATA[trans_timer]]></tt>). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>.</p>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>.</p>
 
-            <marker id="ci_trans_req_maxcount"></marker>
+            <marker id="ci_trans_req_maxcount"/>
           </item>
 
-          <tag><tt>trans_req_maxcount</tt></tag>
+          <tag><tt><![CDATA[trans_req_maxcount]]></tt></tag>
           <item>
             <p>Maximum number of accumulated requests. At most this many 
               requests will be accumulated by the transaction sender 
               (if started and configured to accumulate requests). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>integer</tt>, defaults to 10.</p>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 10.</p>
 
-            <marker id="ci_trans_req_maxsize"></marker>
+            <marker id="ci_trans_req_maxsize"/>
           </item>
 
-          <tag><tt>trans_req_maxsize</tt></tag>
+          <tag><tt><![CDATA[trans_req_maxsize]]></tt></tag>
           <item>
             <p>Maximum size of the accumulated requests. At most this much
               requests will be accumulated by the transaction sender 
               (if started and configured to accumulate requests). </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>integer</tt>, defaults to 2048.</p>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 2048.</p>
 
-            <marker id="ci_trans_timer"></marker>
+            <marker id="ci_trans_timer"/>
           </item>
 
-          <tag><tt>trans_timer</tt></tag>
+          <tag><tt><![CDATA[trans_timer]]></tt></tag>
           <item>
             <p>Transaction sender timeout time. Has two functions. First, if 
               the value is 0, then transactions will not be accumulated 
               (e.g. the transaction sender process will not be started). 
-              Second, if the value is greater then 0 and <tt>auto_ack</tt> 
-              and <tt>trans_ack</tt> is true or if <tt>trans_req</tt> is true, 
+              Second, if the value is greater then 0 and <tt><![CDATA[auto_ack]]></tt> 
+              and <tt><![CDATA[trans_ack]]></tt> is true or if <tt><![CDATA[trans_req]]></tt> is true, 
               then transaction sender will be started and transactions 
-              (which is depending on the values of <tt>auto_ack</tt>, 
-              <tt>trans_ack</tt> and <tt>trans_req</tt>) will be accumulated,
+              (which is depending on the values of <tt><![CDATA[auto_ack]]></tt>, 
+              <tt><![CDATA[trans_ack]]></tt> and <tt><![CDATA[trans_req]]></tt>) will be accumulated,
               for later sending. </p>
             <p>See also <seealso marker="megaco_run#transaction_sender">transaction sender</seealso> for more info. </p>
-            <p>An <tt>integer</tt>, defaults to 0.</p>
+            <p>An <tt><![CDATA[integer]]></tt>, defaults to 0.</p>
 
-            <marker id="ci_pending_timer"></marker>
+            <marker id="ci_pending_timer"/>
           </item>
 
-          <tag><tt>pending_timer</tt></tag>
+          <tag><tt><![CDATA[pending_timer]]></tt></tag>
           <item>
             <p>Automatic send transaction pending if the timer expires
               before a transaction reply has been sent. This timer is
               also called provisional response timer. </p>
             <p>A Megaco Timer (see explanation above), defaults to 30000.</p>
 
-            <marker id="ci_sent_pending_limit"></marker>
+            <marker id="ci_sent_pending_limit"/>
           </item>
 
-          <tag><tt>sent_pending_limit</tt></tag>
+          <tag><tt><![CDATA[sent_pending_limit]]></tt></tag>
           <item>
             <p>Sent pending limit (see the MGOriginatedPendingLimit
               and the MGCOriginatedPendingLimit of the megaco root package).
@@ -1084,13 +1084,13 @@ megaco_incr_timer() = #megaco_incr_timer{}
               receiving a re-sent transaction request for a request which
               is beeing processed) or controlled by the pending_timer,
               see above. </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>.</p>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>.</p>
 
-            <marker id="ci_recv_pending_limit"></marker>
+            <marker id="ci_recv_pending_limit"/>
           </item>
 
-          <tag><tt>recv_pending_limit</tt></tag>
+          <tag><tt><![CDATA[recv_pending_limit]]></tt></tag>
           <item>
             <p>Receive pending limit (see the MGOriginatedPendingLimit
               and the MGCOriginatedPendingLimit of the megaco root package).
@@ -1099,24 +1099,24 @@ megaco_incr_timer() = #megaco_incr_timer{}
               When the limit is exceeded, the transaction is considered
               lost, and an error returned to the user (through the call-back
               function <em>handle_trans_reply</em>). </p>
-            <p>A positive integer or <tt>infinity</tt>, 
-              defaults to <tt>infinity</tt>.</p>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>, 
+              defaults to <tt><![CDATA[infinity]]></tt>.</p>
 
-            <marker id="ci_send_mod"></marker>
+            <marker id="ci_send_mod"/>
           </item>
 
-          <tag><tt>send_mod</tt></tag>
+          <tag><tt><![CDATA[send_mod]]></tt></tag>
           <item>
             <p>Send callback module which exports send_message/2. The
               function SendMod:send_message(SendHandle, Binary) is
               invoked when the bytes needs to be transmitted to
               the remote user. </p>
-            <p>An <tt>atom</tt>, defaults to <tt>megaco_tcp</tt>.</p>
+            <p>An <tt><![CDATA[atom]]></tt>, defaults to <tt><![CDATA[megaco_tcp]]></tt>.</p>
 
-            <marker id="ci_encoding_mod"></marker>
+            <marker id="ci_encoding_mod"/>
           </item>
 
-          <tag><tt>encoding_mod</tt></tag>
+          <tag><tt><![CDATA[encoding_mod]]></tt></tag>
           <item>
             <p>Encoding callback module which exports encode_message/2
               and decode_message/2. The function
@@ -1126,52 +1126,52 @@ megaco_incr_timer() = #megaco_incr_timer{}
               EncodingMod:decode_message(EncodingConfig, Binary) is
               invoked whenever an Erlang binary needs to be translated
               into a 'MegacoMessage' record. </p>
-            <p>An <tt>atom</tt>, 
-              defaults to <tt>megaco_pretty_text_encoder</tt>.</p>
+            <p>An <tt><![CDATA[atom]]></tt>, 
+              defaults to <tt><![CDATA[megaco_pretty_text_encoder]]></tt>.</p>
 
-            <marker id="ci_encoding_confi"></marker>
+            <marker id="ci_encoding_confi"/>
           </item>
 
-          <tag><tt>encoding_config</tt></tag>
+          <tag><tt><![CDATA[encoding_config]]></tt></tag>
           <item>
             <p>Encoding module config. </p>
-            <p>A <tt>list</tt>, defaults to [].</p>
+            <p>A <tt><![CDATA[list]]></tt>, defaults to [].</p>
 
-            <marker id="ci_protocol_version"></marker>
+            <marker id="ci_protocol_version"/>
           </item>
 
-          <tag><tt>protocol_version</tt></tag>
+          <tag><tt><![CDATA[protocol_version]]></tt></tag>
           <item>
             <p>Actual protocol version. </p>
             <p>An positive integer, Current default is 1.</p>
-            <marker id="ci_strict_version"></marker>
+            <marker id="ci_strict_version"/>
           </item>
-          <tag><tt>strict_version</tt></tag>
+          <tag><tt><![CDATA[strict_version]]></tt></tag>
           <item>
             <p>Strict version control, i.e. when a message is received,
               verify that the version is that which was negotiated. </p>
-            <p>An <tt>boolean</tt>, default is true.</p>
-            <marker id="ci_reply_data"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, default is true.</p>
+            <marker id="ci_reply_data"/>
           </item>
-          <tag><tt>reply_data</tt></tag>
+          <tag><tt><![CDATA[reply_data]]></tt></tag>
           <item>
             <p>Default reply data. </p>
-            <p>Any term, defaults to the atom <tt>undefined</tt>.</p>
+            <p>Any term, defaults to the atom <tt><![CDATA[undefined]]></tt>.</p>
 
-            <marker id="ci_threaded"></marker>
+            <marker id="ci_threaded"/>
           </item>
 
-          <tag><tt>threaded</tt></tag>
+          <tag><tt><![CDATA[threaded]]></tt></tag>
           <item>
             <p>If a received message contains several transaction requests, 
               this option indicates whether the requests should be handled
-              sequencially in the same process (<tt>false</tt>), or if each 
-              request should be handled by it's own process (<tt>true</tt>
+              sequencially in the same process (<tt><![CDATA[false]]></tt>), or if each 
+              request should be handled by it's own process (<tt><![CDATA[true]]></tt>
               i.e. a separate process is spawned for each request). </p>
-            <p>An <tt>boolean</tt>, defaults to <tt>false</tt>. </p>
-            <marker id="ci_resend_indication"></marker>
+            <p>An <tt><![CDATA[boolean]]></tt>, defaults to <tt><![CDATA[false]]></tt>. </p>
+            <marker id="ci_resend_indication"/>
           </item>
-          <tag><tt>resend_indication</tt></tag>
+          <tag><tt><![CDATA[resend_indication]]></tt></tag>
           <item>
             <p>This option indicates weather the transport module
               should be told if a message send is a resend or not. </p>
@@ -1188,84 +1188,84 @@ megaco_incr_timer() = #megaco_incr_timer{}
               <seealso marker="megaco_transport#send_message">send_message/3</seealso> 
               shall be used. </p>
             <p>A <tt>resend_indication()</tt>, 
-              defaults to <tt>false</tt>.</p>
-            <marker id="ci_segment_reply_ind"></marker>
+              defaults to <tt><![CDATA[false]]></tt>.</p>
+            <marker id="ci_segment_reply_ind"/>
           </item>
 
-          <tag><tt>segment_reply_ind</tt></tag>
+          <tag><tt><![CDATA[segment_reply_ind]]></tt></tag>
           <item>
             <p>This option specifies if the user shall be notified of received
               segment replies or not. </p>
             <p>See 
               <seealso marker="megaco_user#segment_reply">handle_segment_reply</seealso> 
               callback function for more information. </p>
-            <p>A <tt>boolean</tt>, 
-              defaults to <tt>false</tt>. </p>
+            <p>A <tt><![CDATA[boolean]]></tt>, 
+              defaults to <tt><![CDATA[false]]></tt>. </p>
 
-            <marker id="ci_segment_recv_timer"></marker>
+            <marker id="ci_segment_recv_timer"/>
           </item>
 
-          <tag><tt>segment_recv_timer</tt></tag>
+          <tag><tt><![CDATA[segment_recv_timer]]></tt></tag>
           <item>
             <p>This timer is started when the segment indicated by the
-              <tt>segmentation complete token</tt> (e.g. the last of the segment
+              <tt><![CDATA[segmentation complete token]]></tt> (e.g. the last of the segment
               which makes up the reply) is received, but all 
               segments has not yet been received.</p>
             <p>When the timer finally expires, a "megaco segments not
               received" (459) error message is sent to the other side
               and the user is notified with a 
-              <tt>segment timeout</tt><tt>UserReply</tt> in either the 
+              <tt><![CDATA[segment timeout]]></tt><tt><![CDATA[UserReply]]></tt> in either the 
               <seealso marker="megaco_user#trans_reply">handle_trans_reply</seealso> 
               callback function or 
               the return value of the 
               <seealso marker="megaco#call">call</seealso> function. </p>
             <p>A Megaco Timer (see explanation above),
-              defaults to <tt>10000</tt>. </p>
+              defaults to <tt><![CDATA[10000]]></tt>. </p>
 
-            <marker id="ci_segment_send"></marker>
+            <marker id="ci_segment_send"/>
           </item>
 
-          <tag><tt>segment_send</tt></tag>
+          <tag><tt><![CDATA[segment_send]]></tt></tag>
           <item>
             <p>Shall outgoing messages be segmented or not: </p>
             <taglist>
-              <tag><tt>none</tt></tag>
+              <tag><tt><![CDATA[none]]></tt></tag>
               <item>
                 <p>Do not segment outgoing reply messages. This is usefull when
                   either it is known that messages are never to large or
                   that the transport protocol can handle such things
                   on it's own (e.g. TCP or SCTP).</p>
               </item>
-              <tag><tt>integer() > 0</tt></tag>
+              <tag><tt><![CDATA[integer() > 0]]></tt></tag>
               <item>
                 <p>Outgoing reply messages will be segmented as needed 
-                  (see <tt>max_pdu_size</tt> below). This value, K, indicate 
+                  (see <tt><![CDATA[max_pdu_size]]></tt> below). This value, K, indicate 
                   the outstanding window, i.e. how many segments can be 
                   outstanding (not acknowledged) at any given time. </p>
               </item>
-              <tag><tt>infinity</tt></tag>
+              <tag><tt><![CDATA[infinity]]></tt></tag>
               <item>
                 <p>Outgoing reply messages will be segmented as needed 
-                  (see <tt>max_pdu_size</tt> below). Segment messages 
+                  (see <tt><![CDATA[max_pdu_size]]></tt> below). Segment messages 
                   are sent all at once (i.e. no acknowledgement awaited 
                   before sending the next segment). </p>
               </item>
             </taglist>
-            <p>Defaults to <tt>none</tt>. </p>
-            <marker id="ci_max_pdu_size"></marker>
+            <p>Defaults to <tt><![CDATA[none]]></tt>. </p>
+            <marker id="ci_max_pdu_size"/>
           </item>
 
-          <tag><tt>max_pdu_size</tt></tag>
+          <tag><tt><![CDATA[max_pdu_size]]></tt></tag>
           <item>
             <p>Max message size. If the encoded message (PDU) exceeds 
               this size, the message should be segmented, and then 
               encoded. </p>
-            <p>A positive integer or <tt>infinity</tt>,
-              defaults to <tt>infinity</tt>. </p>
+            <p>A positive integer or <tt><![CDATA[infinity]]></tt>,
+              defaults to <tt><![CDATA[infinity]]></tt>. </p>
           </item>
         </taglist>
 
-        <marker id="update_conn_info"></marker>
+        <marker id="update_conn_info"/>
       
                 </div>
                 
@@ -1298,7 +1298,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           megaco:conn_info/2 about which items and values that are
           valid.</p>
 
-        <marker id="system_info"></marker>
+        <marker id="system_info"/>
       
                 </div>
                 
@@ -1326,40 +1326,40 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Lookup system information</p>
         <p>The following items are valid:</p>
         <taglist>
-          <tag><tt>text_config</tt></tag>
+          <tag><tt><![CDATA[text_config]]></tt></tag>
           <item>
             <p>The text encoding config.</p>
           </item>
-          <tag><tt>connections</tt></tag>
+          <tag><tt><![CDATA[connections]]></tt></tag>
           <item>
             <p>Lists all active connections. Returns a list of
               megaco_conn_handle records.</p>
           </item>
-          <tag><tt>users</tt></tag>
+          <tag><tt><![CDATA[users]]></tt></tag>
           <item>
             <p>Lists all active users. Returns a list of
               megaco_mid()'s.</p>
           </item>
-          <tag><tt>n_active_requests</tt></tag>
+          <tag><tt><![CDATA[n_active_requests]]></tt></tag>
           <item>
             <p>Returns an integer representing the number of requests
               that has originated from this Erlang node and still are
               active (and therefore consumes system resources).</p>
           </item>
-          <tag><tt>n_active_replies</tt></tag>
+          <tag><tt><![CDATA[n_active_replies]]></tt></tag>
           <item>
             <p>Returns an integer representing the number of replies
               that has originated from this Erlang node and still are
               active (and therefore consumes system resources).</p>
           </item>
-          <tag><tt>n_active_connections</tt></tag>
+          <tag><tt><![CDATA[n_active_connections]]></tt></tag>
           <item>
             <p>Returns an integer representing the number of active
               connections.</p>
           </item>
         </taglist>
 
-        <marker id="info"></marker>
+        <marker id="info"/>
       
                 </div>
                 
@@ -1395,7 +1395,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           <seealso marker="#get_stats">get_stats</seealso> 
           but this is a simple way to get it all at once.</p>
 
-        <marker id="connect"></marker> <!-- Belongs to NEXT function(s) -->
+        <marker id="connect"/> <!-- Belongs to NEXT function(s) -->
       
                 </div>
                 
@@ -1460,12 +1460,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
           arguments.</p>
         <p>A connection may be established in several ways:</p>
         <taglist>
-          <tag><tt>provisioned MID</tt></tag>
+          <tag><tt><![CDATA[provisioned MID]]></tt></tag>
           <item>
             <p>The MG may explicitely invoke megaco:connect/4 and use
               a provisioned MID of the MGC as the RemoteMid.</p>
           </item>
-          <tag><tt>upgrade preliminary MID</tt></tag>
+          <tag><tt><![CDATA[upgrade preliminary MID]]></tt></tag>
           <item>
             <p>The MG may explicitely invoke megaco:connect/4 with the
               atom 'preliminary_mid' as a temporary MID of the MGC,
@@ -1482,14 +1482,14 @@ megaco_incr_timer() = #megaco_incr_timer{}
               done with the remote_mid-field set to the actual MID of
               the MGC.</p>
           </item>
-          <tag><tt>automatic</tt></tag>
+          <tag><tt><![CDATA[automatic]]></tt></tag>
           <item>
             <p>When the MGC receives its first message, the Service
               Change Request, the Megaco application will
               automatically establish the connection by using the MG
               MID found in the message header as remote mid.</p>
           </item>
-          <tag><tt>distributed</tt></tag>
+          <tag><tt><![CDATA[distributed]]></tt></tag>
           <item>
             <p>When a user (MG/MGC) is distributed over several nodes,
               it is required that the node hosting the connection
@@ -1528,12 +1528,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
 
 	</taglist>
 
-        <p><tt>Extra</tt> can be any <tt>term()</tt> 
-          except the atom <tt>ignore_extra</tt>. 
+        <p><tt><![CDATA[Extra]]></tt> can be any <tt><![CDATA[term()]]></tt> 
+          except the atom <tt><![CDATA[ignore_extra]]></tt>. 
           It is passed (back) to the user via the callback function 
           <seealso marker="megaco_user#connect">handle_connect/3</seealso>. </p>
 
-        <marker id="disconnect"></marker> <!-- Belongs to NEXT function(s) -->
+        <marker id="disconnect"/> <!-- Belongs to NEXT function(s) -->
       
                 </div>
                 
@@ -1565,7 +1565,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           be invoked. See the megaco_user module for more info about
           the callback arguments.</p>
 
-        <marker id="call"></marker> <!-- Belongs to NEXT function(s) -->
+        <marker id="call"/> <!-- Belongs to NEXT function(s) -->
       
                 </div>
                 
@@ -1622,41 +1622,41 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>Sends one or more transaction request(s) and waits for the 
           reply.</p>
-        <p>When sending one transaction in a message, <tt>Actions</tt> should be 
-          <tt>action_reqs()</tt> (<tt>UserReply</tt> will then be 
-          <tt>user_reply()</tt>). When sending several transactions in a message,
-          <tt>Actions</tt> should be <tt>[action_reqs()]</tt> (<tt>UserReply</tt> 
-          will then be <tt>[user_reply()]</tt>). Each element of the list is 
+        <p>When sending one transaction in a message, <tt><![CDATA[Actions]]></tt> should be 
+          <tt><![CDATA[action_reqs()]]></tt> (<tt><![CDATA[UserReply]]></tt> will then be 
+          <tt><![CDATA[user_reply()]]></tt>). When sending several transactions in a message,
+          <tt><![CDATA[Actions]]></tt> should be <tt><![CDATA[[action_reqs()]]]></tt> (<tt><![CDATA[UserReply]]></tt> 
+          will then be <tt><![CDATA[[user_reply()]]]></tt>). Each element of the list is 
           part of one transaction.</p>
         <p>For some of <em>our</em> codecs (not binary), it is also possible 
-          to pre-encode the actions, in which case <tt>Actions</tt> will be 
-          either a <tt>binary()</tt> or <tt>[binary()]</tt>.</p>
+          to pre-encode the actions, in which case <tt><![CDATA[Actions]]></tt> will be 
+          either a <tt><![CDATA[binary()]]></tt> or <tt><![CDATA[[binary()]]]></tt>.</p>
         <p>The function returns when the reply arrives, when the
           request timer eventually times out or when the outstanding
           requests are explicitly cancelled.</p>
         <p>The default values of the send options are obtained by
-          <tt>megaco:conn_info(ConnHandle, Item)</tt>. But the send options 
+          <tt><![CDATA[megaco:conn_info(ConnHandle, Item)]]></tt>. But the send options 
           above, may explicitly be overridden.</p>
-        <p>The <tt>ProtocolVersion</tt> version is the version actually encoded
+        <p>The <tt><![CDATA[ProtocolVersion]]></tt> version is the version actually encoded
           in the reply message.</p>
-        <p>At <tt>success()</tt>, the <tt>UserReply</tt> contains a list of 
+        <p>At <tt><![CDATA[success()]]></tt>, the <tt><![CDATA[UserReply]]></tt> contains a list of 
           'ActionReply' records possibly containing error indications.</p>
-        <p>A <tt>message_error()</tt>, indicates that the remote user has
+        <p>A <tt><![CDATA[message_error()]]></tt>, indicates that the remote user has
           replied with an explicit transactionError.</p>
-        <p>A <tt>user_cancel_error()</tt>, indicates that the request has been
-          canceled by the user. <tt>reason_for_user_cancel()</tt> is the reason
+        <p>A <tt><![CDATA[user_cancel_error()]]></tt>, indicates that the request has been
+          canceled by the user. <tt><![CDATA[reason_for_user_cancel()]]></tt> is the reason
           given in the call to the <seealso marker="#cancel">cancel</seealso>
           function. </p>
-        <p>A <tt>send_error()</tt>, indicates that the send function of the 
+        <p>A <tt><![CDATA[send_error()]]></tt>, indicates that the send function of the 
           megaco transport callback module failed to send the request. 
-          There are two separate cases: <tt>send_cancelled_reason()</tt> and 
-          <tt>send_failed_reason()</tt>. 
+          There are two separate cases: <tt><![CDATA[send_cancelled_reason()]]></tt> and 
+          <tt><![CDATA[send_failed_reason()]]></tt>. 
           The first is the result of the send function returning 
-          <tt>{cancel, Reason}</tt> and the second is some other kind of 
+          <tt><![CDATA[{cancel, Reason}]]></tt> and the second is some other kind of 
           erroneous return value. See the 
           <seealso marker="megaco_transport#send_message">send_message</seealso>
           function for more info. </p>
-        <p>An <tt>other_error()</tt>, indicates some other error such as 
+        <p>An <tt><![CDATA[other_error()]]></tt>, indicates some other error such as 
           timeout.</p>
 
         <p>For more info abount the <tt>extra()</tt> part of the 
@@ -1666,7 +1666,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
 
 
 
-        <marker id="cast"></marker>
+        <marker id="cast"/>
       
                 </div>
                 
@@ -1697,13 +1697,13 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>Sends one or more transaction request(s) but does NOT wait for a reply</p>
-        <p>When sending one transaction in a message, <tt>Actions</tt> should be 
-          <tt>action_reqs()</tt>. When sending several transactions in a message,
-          <tt>Actions</tt> should be <tt>[action_reqs()]</tt>. Each element of the 
+        <p>When sending one transaction in a message, <tt><![CDATA[Actions]]></tt> should be 
+          <tt><![CDATA[action_reqs()]]></tt>. When sending several transactions in a message,
+          <tt><![CDATA[Actions]]></tt> should be <tt><![CDATA[[action_reqs()]]]></tt>. Each element of the 
           list is part of one transaction.</p>
         <p>For some of <em>our</em> codecs (not binary), it is also possible 
-          to pre-encode the actions, in which case <tt>Actions</tt> will be 
-          either a <tt>binary()</tt> or <tt>[binary()]</tt>.</p>
+          to pre-encode the actions, in which case <tt><![CDATA[Actions]]></tt> will be 
+          either a <tt><![CDATA[binary()]]></tt> or <tt><![CDATA[[binary()]]]></tt>.</p>
         <p>The default values of the send options are obtained by
           megaco:conn_info(ConnHandle, Item). But the send options above,
           may explicitly be overridden.</p>
@@ -1716,7 +1716,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           the callback arguments.</p>
         <p>Given as UserData argument to UserMod:handle_trans_reply/4.</p>
 
-        <marker id="encode_actions"></marker>
+        <marker id="encode_actions"/>
       
                 </div>
                 
@@ -1750,12 +1750,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Encodes lists of action requests for one or more transaction 
           request(s).</p>
         <p>When encoding action requests for one transaction, 
-          <tt>Actions</tt> should be <tt>action_reqs()</tt>. 
+          <tt><![CDATA[Actions]]></tt> should be <tt><![CDATA[action_reqs()]]></tt>. 
           When encoding action requests for several transactions,
-          <tt>Actions</tt> should be <tt>[action_reqs()]</tt>. Each element 
+          <tt><![CDATA[Actions]]></tt> should be <tt><![CDATA[[action_reqs()]]]></tt>. Each element 
           of the list is part of one transaction.</p>
 
-        <marker id="token_tag2string"></marker>
+        <marker id="token_tag2string"/>
       
                 </div>
                 
@@ -1792,10 +1792,10 @@ megaco_incr_timer() = #megaco_incr_timer{}
           (which is pretty).</p>
         <p>If no or an unknown version is given, 
           the <em>best</em> version is used (which is v3).</p>
-        <p>If no match is found for <tt>Tag</tt>, <tt>Result</tt> will be the 
-          empty string (<tt>[]</tt>).</p>
+        <p>If no match is found for <tt><![CDATA[Tag]]></tt>, <tt><![CDATA[Result]]></tt> will be the 
+          empty string (<tt><![CDATA[[]]]></tt>).</p>
 
-        <marker id="cancel"></marker>
+        <marker id="cancel"/>
       
                 </div>
                 
@@ -1829,7 +1829,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           applies.  See the megaco_user module for more info about the
           callback arguments.</p>
 
-        <marker id="process_received_message"></marker>
+        <marker id="process_received_message"/>
       
                 </div>
                 
@@ -1882,8 +1882,8 @@ megaco_incr_timer() = #megaco_incr_timer{}
           <seealso marker="megaco_user">megaco_user</seealso>, for more info. </p> 
         <p>Note that all processing is done in the context of the calling 
           process. A transport module could call this function via one of the
-          <tt>spawn</tt> functions (e.g. <tt>spawn_opt</tt>). See also 
-          <tt>receive_message/4,5</tt>.
+          <tt><![CDATA[spawn]]></tt> functions (e.g. <tt><![CDATA[spawn_opt]]></tt>). See also 
+          <tt><![CDATA[receive_message/4,5]]></tt>.
           </p>
         <p>If the message cannot be decoded the following callback
           function will be invoked:</p>
@@ -1942,7 +1942,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>See the megaco_user module for more info about the callback
           arguments.</p>
 
-        <marker id="receive_message"></marker>
+        <marker id="receive_message"/>
       
                 </div>
                 
@@ -1977,13 +1977,13 @@ megaco_incr_timer() = #megaco_incr_timer{}
           transport that actually is used is up to the user to
           choose.</p>
         <p>In principle, this function calls the 
-          <tt>process_received_message/4</tt> function via a <tt>spawn</tt> to
+          <tt><![CDATA[process_received_message/4]]></tt> function via a <tt><![CDATA[spawn]]></tt> to
           perform the actual processing.</p>
         <p>For further information see the 
           <seealso marker="#process_received_message">process_received_message/4</seealso> 
           function.</p>
 
-        <marker id="parse_digit_map"></marker>
+        <marker id="parse_digit_map"/>
       
                 </div>
                 
@@ -2016,7 +2016,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           characters, into a list of state transitions suited to
           be evaluated by megaco:eval_digit_map/1,2.</p>
 
-        <marker id="eval_digit_map"></marker>
+        <marker id="eval_digit_map"/>
       
                 </div>
                 
@@ -2066,7 +2066,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           events may either be ignored or rejected. The latter means
           that the evaluation is aborted and an error is returned. </p>
 
-        <marker id="report_digit_event"></marker>
+        <marker id="report_digit_event"/>
       
                 </div>
                 
@@ -2103,11 +2103,11 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Send one or more events to a process that is evaluating a
           digit map, that is a process that is executing
           megaco:eval_digit_map/1,2.</p>
-        <p>Note that the events <tt>$s | $S</tt>, <tt>l | $L</tt> and
-          <tt>$z | $Z</tt> has nothing to do with the timers using
+        <p>Note that the events <tt><![CDATA[$s | $S]]></tt>, <tt><![CDATA[l | $L]]></tt> and
+          <tt><![CDATA[$z | $Z]]></tt> has nothing to do with the timers using
           the same characters.</p>
 
-        <marker id="test_digit_event"></marker>
+        <marker id="test_digit_event"/>
       
                 </div>
                 
@@ -2155,7 +2155,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           megaco:report_digit_event/2 in order to simplify testing of
           digit maps.</p>
 
-        <marker id="encode_sdp"></marker>
+        <marker id="encode_sdp"/>
       
                 </div>
                 
@@ -2183,8 +2183,8 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>Encode (generate) an SDP construct.</p>
-        <p>If a <tt>property_parm()</tt> is found as part of the input
-          (<tt>SDP</tt>) then it is left unchanged.</p>
+        <p>If a <tt><![CDATA[property_parm()]]></tt> is found as part of the input
+          (<tt><![CDATA[SDP]]></tt>) then it is left unchanged.</p>
         <p>This function performs the following transformation:</p>
         <list type="bulleted">
           <item>
@@ -2198,7 +2198,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           </item>
         </list>
 
-        <marker id="decode_sdp"></marker>
+        <marker id="decode_sdp"/>
       
                 </div>
                 
@@ -2230,8 +2230,8 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>Decode (parse) a property parameter construct.</p>
-        <p>When decoding <tt>property_group()</tt> or 
-          <tt>property_groups()</tt>, 
+        <p>When decoding <tt><![CDATA[property_group()]]></tt> or 
+          <tt><![CDATA[property_groups()]]></tt>, 
           those property parameter constructs that cannot be decoded
           (either because of decode error or because they are unknown),
           will be returned as a two-tuple. The first element of which 
@@ -2252,7 +2252,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           </item>
         </list>
 
-	<marker id="get_sdp_record_from_PG"></marker>
+	<marker id="get_sdp_record_from_PG"/>
       
                 </div>
                 
@@ -2282,8 +2282,8 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Retreive all the sdp records of type <tt>Type</tt> from the
           property group <tt>PG</tt>.</p>
 
-        <marker id="versions1"></marker>
-        <marker id="versions2"></marker>
+        <marker id="versions1"/>
+        <marker id="versions2"/>
       
                 </div>
                 
@@ -2313,11 +2313,11 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Utility functions used to retreive some system and
           application info.</p>
         <p>The difference between the two functions is in how they get
-          the modules to check. <tt>versions1</tt> uses the 
-          app-file and <tt>versions2</tt> uses the function 
-          <tt>application:get_key</tt>.</p>
+          the modules to check. <tt><![CDATA[versions1]]></tt> uses the 
+          app-file and <tt><![CDATA[versions2]]></tt> uses the function 
+          <tt><![CDATA[application:get_key]]></tt>.</p>
 
-        <marker id="print_version_info"></marker>
+        <marker id="print_version_info"/>
       
                 </div>
                 
@@ -2344,15 +2344,15 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>Utility function to produce a formated printout of the versions 
-          info generated by the <tt>versions1</tt> and <tt>versions2</tt> 
+          info generated by the <tt><![CDATA[versions1]]></tt> and <tt><![CDATA[versions2]]></tt> 
           functions.</p>
         <p>The function print_version_info/0 uses the result of function
-          version1/0 as <tt>VersionInfo</tt>.</p>
+          version1/0 as <tt><![CDATA[VersionInfo]]></tt>.</p>
         <p>Example: </p>
         <pre>
            {ok, V} = megaco:versions1(), megaco:format_versions(V). 
         </pre>
-        <marker id="enable_trace"></marker>
+        <marker id="enable_trace"/>
       
                 </div>
                 
@@ -2384,17 +2384,17 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>This function is used to start megaco tracing at a given 
-          <tt>Level</tt> and direct result to the given <tt>Destination</tt>.</p>
+          <tt><![CDATA[Level]]></tt> and direct result to the given <tt><![CDATA[Destination]]></tt>.</p>
         <p>It starts a tracer server and then sets the proper match spec 
-          (according to <tt>Level</tt>).</p>
-        <p>In the case when <tt>Destination</tt> is <tt>File</tt>, the printable 
-          megaco trace events will be printed to the file <tt>File</tt> using
-          plain <tt>io:format/2</tt>. </p>
-        <p>In the case when <tt>Destination</tt> is <tt>io</tt>, the printable 
+          (according to <tt><![CDATA[Level]]></tt>).</p>
+        <p>In the case when <tt><![CDATA[Destination]]></tt> is <tt><![CDATA[File]]></tt>, the printable 
+          megaco trace events will be printed to the file <tt><![CDATA[File]]></tt> using
+          plain <tt><![CDATA[io:format/2]]></tt>. </p>
+        <p>In the case when <tt><![CDATA[Destination]]></tt> is <tt><![CDATA[io]]></tt>, the printable 
           megaco trace events will be printed on stdout using plain 
-          <tt>io:format/2</tt>. </p>
-        <p>See <tt>dbg</tt> for further information.</p>
-        <marker id="disable_trace"></marker>
+          <tt><![CDATA[io:format/2]]></tt>. </p>
+        <p>See <tt><![CDATA[dbg]]></tt> for further information.</p>
+        <marker id="disable_trace"/>
       
                 </div>
                 
@@ -2411,7 +2411,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>This function is used to stop megaco tracing.</p>
-        <marker id="set_trace"></marker>
+        <marker id="set_trace"/>
       
                 </div>
                 
@@ -2438,10 +2438,10 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>This function is used to change the megaco trace level.</p>
         <p>It is assumed that tracing has already been enabled (see 
-          <tt>enable_trace</tt> above).</p>
+          <tt><![CDATA[enable_trace]]></tt> above).</p>
 
-        <marker id="stats"></marker>
-        <marker id="get_stats"></marker>
+        <marker id="stats"/>
+        <marker id="get_stats"/>
       
                 </div>
                 
@@ -2481,7 +2481,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
           counters handle events that cannot be attributed to 
           a single connection (e.g. protocol errors that occur 
           before the connection has been properly setup).</p>
-        <marker id="reset_stats"></marker>
+        <marker id="reset_stats"/>
       
                 </div>
                 
@@ -2507,7 +2507,7 @@ megaco_incr_timer() = #megaco_incr_timer{}
                 <div class="description">
                   
         <p>Reset all related (SNMP) statistics counters.</p>
-        <marker id="test_request"></marker>
+        <marker id="test_request"/>
       
                 </div>
                 
@@ -2543,12 +2543,12 @@ megaco_incr_timer() = #megaco_incr_timer{}
         <p>Tests if the Actions argument is correctly composed.</p>
         <p>This function is only intended for testing purposes. It's
           supposed to have a same kind of interface as the <seealso marker="#call">call</seealso> or <seealso marker="#cast">cast</seealso> functions (with the additions
-          of the <tt>EncodingMod</tt> and <tt>EncodingConfig</tt>
+          of the <tt><![CDATA[EncodingMod]]></tt> and <tt><![CDATA[EncodingConfig]]></tt>
           arguments). It composes a complete megaco message end
           attempts to encode it. The return value, will be a tuple of
           the composed megaco message and the encode result. </p>
 
-        <marker id="test_reply"></marker>
+        <marker id="test_reply"/>
       
                 </div>
                 
@@ -2583,13 +2583,13 @@ megaco_incr_timer() = #megaco_incr_timer{}
                   
         <p>Tests if the Reply argument is correctly composed.</p>
         <p>This function is only intended for testing purposes. It's
-          supposed to test the <tt>actual_reply()</tt> return value of
+          supposed to test the <tt><![CDATA[actual_reply()]]></tt> return value of
           the callback functions 
           <seealso marker="megaco_user#trans_request">handle_trans_request</seealso>
           and 
           <seealso marker="megaco_user#trans_long_request">handle_trans_long_request</seealso>
-          functions (with the additions of the <tt>EncodingMod</tt> and
-          <tt>EncodingConfig</tt> arguments). It composes a complete
+          functions (with the additions of the <tt><![CDATA[EncodingMod]]></tt> and
+          <tt><![CDATA[EncodingConfig]]></tt> arguments). It composes a complete
           megaco message end attempts to encode it. The return value,
           will be a tuple of the composed megaco message and the
           encode result.</p>

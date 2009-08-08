@@ -51,7 +51,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#change_groupFilenameGidgtokerrorReason">change_group(Filename, Gid) -&gt; ok | {error, Reason}</a></li>
@@ -157,7 +157,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 iodata() = iolist() | binary()
   iolist() = [char() | binary() | iolist()]
 
@@ -175,7 +175,7 @@ ext_posix() = posix() | badarg
 
 time() = {{Year, Month, Day}, {Hour, Minute, Second}}
   Year = Month = Day = Hour = Minute = Second = int()
-  Must denote a valid date and time</code>
+  Must denote a valid date and time</pre>
   
     </div>
     
@@ -264,7 +264,7 @@ time() = {{Year, Month, Day}, {Hour, Minute, Second}}
       the number of calls to the file driver, will generally increase
       performance. The following function writes 4 MBytes in 23
       seconds when tested:</p>
-    <code type="none">
+    <pre><![CDATA[
 create_file_slow(Name, N) when integer(N), N >= 0 ->
     {ok, FD} = file:open(Name, [raw, write, delayed_write, binary]),
     ok = create_file_slow(FD, 0, N),
@@ -275,12 +275,12 @@ create_file_slow(FD, M, M) ->
     ok;
 create_file_slow(FD, M, N) ->
     ok = file:write(FD, <<M:32/unsigned>>),
-    create_file_slow(FD, M+1, N).</code>
+    create_file_slow(FD, M+1, N).]]></pre>
     <p>The following, functionally equivalent, function collects 1024
       entries into a list of 128 32-byte binaries before each call to
       <tt>file:write/2</tt> and so does the same work in 0.52 seconds,
       which is 44 times faster.</p>
-    <code type="none">
+    <pre><![CDATA[
 create_file(Name, N) when integer(N), N >= 0 ->
     {ok, FD} = file:open(Name, [raw, write, delayed_write, binary]),
     ok = create_file(FD, 0, N),
@@ -307,7 +307,7 @@ create_file(FD, M, N0, R) when M + 8 =&lt; N0 ->
                    N2:32/unsigned,  N1:32/unsigned>> | R]);
 create_file(FD, M, N0, R) ->
     N1 = N0-1,
-    create_file(FD, M, N1, [<<N1:32/unsigned>> | R]).</code>
+    create_file(FD, M, N1, [<<N1:32/unsigned>> | R]).]]></pre>
     <note>
       <p>Trust only your own benchmarks. If the list length in 
         <tt>create_file/2</tt> above is increased, it will run slightly
@@ -372,7 +372,9 @@ create_file(FD, M, N0, R) ->
     <div class="description">
         
     <title>SEE ALSO</title>
-    <p><seealso marker="stdlib:filename">filename(3)</seealso></p>
+    <p>
+  <seealso marker="stdlib:filename">filename(3)</seealso>
+</p>
   
     </div>
     
@@ -596,11 +598,11 @@ create_file(FD, M, N0, R) ->
           </item>
         </taglist>
         <p>Example:</p>
-        <code type="none">
-f.txt:  {person, "kalle", 25}.
-        {person, "pelle", 30}.</code>
         <pre>
-1&gt; <input>
+f.txt:  {person, "kalle", 25}.
+        {person, "pelle", 30}.</pre>
+        <pre>
+1&gt; <tt>file:consult("f.txt").</tt><br/>
 {ok,[{person,"kalle",25},{person,"pelle",30}]}</pre>
       
                 </div>
@@ -763,7 +765,7 @@ f.txt:  {person, "kalle", 25}.
         <warning>
           <p>In a future release, a bad type for the <tt>Filename</tt>
             argument will probably generate an exception.</p>
-          <p></p>
+          <p/>
         </warning>
       
                 </div>
@@ -2070,8 +2072,8 @@ f.txt:  {person, "kalle", 25}.
           <tt>file_info</tt>, defined in the Kernel include file
           <tt>file.hrl</tt>. Include the following directive in the module
           from which the function is called:</p>
-        <code type="none">
--include_lib("kernel/include/file.hrl").</code>
+        <pre>
+-include_lib("kernel/include/file.hrl").</pre>
         <p>The record <tt>file_info</tt> contains the following fields.</p>
         <taglist>
           <tag><tt>size = int()</tt></tag>
@@ -2474,7 +2476,7 @@ f.txt:  {person, "kalle", 25}.
         <warning>
           <p>In a future release, a bad type for the <tt>Filename</tt>
             argument will probably generate an exception.</p>
-          <p></p>
+          <p/>
         </warning>
       
                 </div>
@@ -2700,8 +2702,8 @@ f.txt:  {person, "kalle", 25}.
           <tt>file_info</tt>, defined in the Kernel include file
           <tt>file.hrl</tt>. Include the following directive in the module
           from which the function is called:</p>
-        <code type="none">
--include_lib("kernel/include/file.hrl").</code>
+        <pre>
+-include_lib("kernel/include/file.hrl").</pre>
         <p>The following fields are used from the record, if they are
           given.</p>
         <taglist>

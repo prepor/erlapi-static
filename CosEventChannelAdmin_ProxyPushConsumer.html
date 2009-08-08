@@ -27,7 +27,7 @@
       but includes an additional method for connecting a supplier to the proxy
       consumer.</p>
     <p>To get access to all definitions, e.g., exceptions,
-      include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+      include necessary <tt><![CDATA[hrl]]></tt> files by using:<br/><tt><![CDATA[-include_lib("cosEvent/include/*.hrl").]]></tt></p>
     <p>Any object that possesses an object reference that supports the ProxyPushConsumer
       interface can perform the following operations:</p>
   </div>
@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#connect_push_supplierObjectPushSuppliergtReturn">connect_push_supplier(Object, PushSupplier) -&gt; Return</a></li>
@@ -78,7 +78,7 @@
           cannot invoke the disconnect_push_supplier operation on the supplier;
           the supplier may be disconnected from the channel without being 
           informed. If the ProxyPushConsumer is already connected to a 
-          PushSupplier, then the <tt>CosEventChannelAdmin_AlreadyConnected</tt> 
+          PushSupplier, then the <tt><![CDATA[CosEventChannelAdmin_AlreadyConnected]]></tt> 
           exception is raised.</p>
       
                 </div>
@@ -137,7 +137,7 @@
                   
         <p>This operation sends event data to all connected consumers via the 
           event channel. If the event communication has already been disconnected,
-          the <tt>CosEventComm_Disconnected</tt> is raised.</p>
+          the <tt><![CDATA[CosEventComm_Disconnected]]></tt> is raised.</p>
       
                 </div>
                 

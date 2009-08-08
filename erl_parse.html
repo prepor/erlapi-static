@@ -45,7 +45,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abstractDatagtAbsTerm">abstract(Data) -&gt; AbsTerm</a></li>
@@ -75,12 +75,12 @@
       <tt>ErrorInfo</tt> structure which is returned from all IO
       modules. It has the format:
       </p>
-    <code type="none">
-    {ErrorLine, Module, ErrorDescriptor}    </code>
+    <pre>
+    {ErrorLine, Module, ErrorDescriptor}    </pre>
     <p>A string which describes the error is obtained with the following call:
       </p>
-    <code type="none">
-apply(Module, format_error, ErrorDescriptor)    </code>
+    <pre>
+apply(Module, format_error, ErrorDescriptor)    </pre>
   
     </div>
     

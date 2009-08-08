@@ -58,7 +58,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#create_tableTabgtokexitReason">create_table(Tab) -&gt; ok | exit(Reason)</a></li>
@@ -123,10 +123,10 @@
           <tt>mnesia:create_table/2</tt>.  For example, if the table should
           reside as <tt>disc_only_copies</tt> on all nodes a call would
           look like:</p>
-        <code type="none">
+        <pre>
           TabDef = [{{disc_only_copies, node()|nodes()]}],
           mnesia_registry:create_table(my_reg, TabDef)
-        </code>
+        </pre>
       
                 </div>
                 

@@ -64,7 +64,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#format_errorErrorDescriptorgtChars">format_error(ErrorDescriptor) -&gt; Chars</a></li>
@@ -86,12 +86,12 @@
       <tt>ErrorInfo</tt> structure which is returned from all IO
       modules. It has the following format:
       </p>
-    <code type="none">
-    {ErrorLine, Module, ErrorDescriptor}    </code>
+    <pre>
+    {ErrorLine, Module, ErrorDescriptor}    </pre>
     <p>A string which describes the error is obtained with the following call:
       </p>
-    <code type="none">
-apply(Module, format_error, ErrorDescriptor)    </code>
+    <pre>
+apply(Module, format_error, ErrorDescriptor)    </pre>
   
     </div>
     
@@ -156,8 +156,8 @@ apply(Module, format_error, ErrorDescriptor)    </code>
           errors must include the file name (see <seealso marker="epp">epp(3)</seealso>, or parser <seealso marker="erl_parse">erl_parse(3)</seealso> The warnings and
           errors returned have the following format:
           </p>
-        <code type="none">
-    [{FileName2,[ErrorInfo]}]        </code>
+        <pre>
+    [{FileName2,[ErrorInfo]}]        </pre>
         <p>The errors and warnings are listed in the order in which
           they are encountered in the forms. This means that the
           errors from one file may be split into different entries in

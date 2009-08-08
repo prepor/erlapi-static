@@ -40,7 +40,7 @@
        header bytes is defined as follows: if <tt>B</tt> is a binary
        containing a header only, the size <tt>Size</tt> of the binary
        is calculated as
-      <tt><<Size:HeaderLength/unit:8>> = B</tt>.
+      <tt><![CDATA[<<Size:HeaderLength/unit:8>> = B]]></tt>.
       </item>
       <item><tt>{format, Format}</tt>. The format determines the
        function that is applied to binaries in order to create the
@@ -237,7 +237,9 @@ output(L) -&gt;
           encountered inside some binary term.</p>
       </item>
     </list>
-    <p><em>Types</em></p>
+    <p>
+  <em>Types</em>
+</p>
     <pre>
 Binary = binary()
 FileName = file_name()
@@ -264,7 +266,7 @@ Value = Term</pre>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#checkFileNamegtReply">check(FileName) -&gt; Reply</a></li>
@@ -311,7 +313,7 @@ Value = Term</pre>
         <p><tt>sort(Input, Output)</tt> is equivalent to
           <tt>sort(Input, Output, [])</tt>.
           </p>
-        <p></p>
+        <p/>
       
                 </div>
                 
@@ -347,7 +349,7 @@ Value = Term</pre>
         <p><tt>keysort(N, Input, Output)</tt> is equivalent to
           <tt>keysort(N, Input, Output, [])</tt>.
           </p>
-        <p></p>
+        <p/>
       
                 </div>
                 
@@ -408,7 +410,7 @@ Value = Term</pre>
         <p><tt>keymerge(KeyPos, FileNames, Output)</tt> is equivalent
           to <tt>keymerge(KeyPos, FileNames, Output, [])</tt>.
           </p>
-        <p></p>
+        <p/>
       
                 </div>
                 
@@ -475,7 +477,7 @@ Value = Term</pre>
         <p><tt>keycheck(KeyPos, FileName)</tt> is equivalent
           to <tt>keycheck(KeyPos, [FileName], [])</tt>.
           </p>
-        <p></p>
+        <p/>
       
                 </div>
                 

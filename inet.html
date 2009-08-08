@@ -41,9 +41,9 @@
       might be specified in this way. An example of starting an Erlang
       node with all sockets using delayed send could look like this:</p>
     <pre>
-$ <input>
-<input>
-<input></pre>
+$ <tt>erl -sname test -kernel \\</tt><br/>
+<tt>inet_default_connect_options '[{delay_send,true}]' \\</tt><br/>
+<tt>inet_default_listen_options '[{delay_send,true}]'</tt><br/></pre>
     <p>Note that the default option <tt>{active, true}</tt> currently
       cannot be changed, for internal reasons.</p>
   </div>
@@ -63,7 +63,7 @@ $ <input>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#closeSocketgtok">close(Socket) -&gt; ok</a></li>
@@ -105,7 +105,7 @@ $ <input>
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 #hostent{h_addr_list = [ip_address()]  % list of addresses for this host
          h_addrtype  = inet | inet6
          h_aliases = [hostname()]      % list of aliases
@@ -127,19 +127,19 @@ posix()
   Unix, and in the runtime libraries of most C compilers
 
 socket()
-  see gen_tcp(3), gen_udp(3)</code>
+  see gen_tcp(3), gen_udp(3)</pre>
     <p>Addresses as inputs to functions can be either a string or a
       tuple. For instance, the IP address 150.236.20.73 can be passed to
       <tt>gethostbyaddr/1</tt> either as the string "150.236.20.73"
       or as the tuple <tt>{150, 236, 20, 73}</tt>.</p>
     <p>IPv4 address examples:</p>
-    <code type="none">
+    <pre>
 Address          ip_address()
 -------          ------------
 127.0.0.1        {127,0,0,1}
-192.168.42.2     {192,168,42,2}</code>
+192.168.42.2     {192,168,42,2}</pre>
     <p>IPv6 address examples:</p>
-    <code type="none">
+    <pre>
 Address          ip_address()
 -------          ------------
 ::1             {0,0,0,0,0,0,0,1}
@@ -149,12 +149,12 @@ FFFF::192.168.42.2
 3ffe:b80:1f8d:2:204:acff:fe17:bf38
                 {16#3ffe,16#b80,16#1f8d,16#2,16#204,16#acff,16#fe17,16#bf38}
 fe80::204:acff:fe17:bf38
-                {16#fe80,0,0,0,0,16#204,16#acff,16#fe17,16#bf38}</code>
+                {16#fe80,0,0,0,0,16#204,16#acff,16#fe17,16#bf38}</pre>
     <p>A function that may be useful is <tt>inet_parse:address/1</tt>:</p>
     <pre>
-1&gt; <input>
+1&gt; <tt>inet_parse:address("192.168.42.2").</tt><br/>
 {ok,{192,168,42,2}}
-2&gt; <input>
+2&gt; <tt>inet_parse:address("FFFF::192.168.42.2").</tt><br/>
 {ok,{65535,0,0,0,0,0,49320,10754}}</pre>
   
     </div>
@@ -164,7 +164,7 @@ fe80::204:acff:fe17:bf38
     
     <div class="description">
         
-    <marker id="error_codes"></marker>
+    <marker id="error_codes"/>
     <title>POSIX Error Codes</title>
     <list type="bulleted">
       <item><tt>e2big</tt> - argument list too long</item>
@@ -634,11 +634,11 @@ fe80::204:acff:fe17:bf38
           the offset of <tt>tcpi_sacked</tt> to be 28 bytes and the actual
           value to be a 32 bit integer. We could use the following
           code to retrieve the value:</p>
-        <code type="none">
+        <pre><![CDATA[
 \011get_tcpi_sacked(Sock) -> 
 \011    {ok,[{raw,_,_,Info}]} = inet:getopts(Sock,[{raw,6,11,92}]),
 \011    <<_:28/binary,TcpiSacked:32/native,_/binary>> = Info,
-            TcpiSacked.</code>
+            TcpiSacked.]]></pre>
         <p>Preferably, you would check the machine type, the OS
           and the kernel version prior to executing anything similar to the
           code above.</p>
@@ -957,17 +957,17 @@ fe80::204:acff:fe17:bf38
                   <tt>gen_tcp:recv/2,3</tt> returns one complete packet.
                   The header is <em>not</em> stripped off.</p>
                 <p>The meanings of the packet types are as follows:
-                                    <br>
+                                    <br/>
 <tt>asn1</tt> - ASN.1 BER,
-                                    <br>
+                                    <br/>
 <tt>sunrm</tt> - Sun's RPC encoding,
-                                    <br>
+                                    <br/>
 <tt>cdr</tt> - CORBA (GIOP 1.1),
-                                    <br>
+                                    <br/>
 <tt>fcgi</tt> - Fast CGI,
-                                    <br>
+                                    <br/>
 <tt>tpkt</tt> - TPKT format [RFC1006],
-                                    <br>
+                                    <br/>
 <tt>line</tt> - Line mode, a packet is a line
                   terminated with newline, lines longer than
                   the receive buffer are truncated.</p>
@@ -1078,14 +1078,14 @@ fe80::204:acff:fe17:bf38
           and the value is to be given as a 32 bit integer. You can use
           this line of code to set the option for the socket named
           <tt>Sock</tt>:</p>
-        <code type="none">
-\011inet:setopts(Sock,[{raw,6,8,<<30:32/native>>}]),</code>
+        <pre><![CDATA[
+\011inet:setopts(Sock,[{raw,6,8,<<30:32/native>>}]),]]></pre>
         <p>As many options are silently discarded by the stack if they
           are given out of range, it could be a good idea to check that
           a raw option really got accepted. This code places the value
           in the variable TcpLinger2:</p>
-        <code type="none">
-\011{ok,[{raw,6,8,<<TcpLinger2:32/native>>}]}=inet:getopts(Sock,[{raw,6,8,4}]),</code>
+        <pre><![CDATA[
+\011{ok,[{raw,6,8,<<TcpLinger2:32/native>>}]}=inet:getopts(Sock,[{raw,6,8,4}]),]]></pre>
         <p>Code such as the examples above is inherently non portable,
           even different versions of the same  OS on the same platform
           may respond differently to this kind of option

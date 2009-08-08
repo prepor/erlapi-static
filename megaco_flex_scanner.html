@@ -33,13 +33,13 @@
     <p>By default the flex scanner reports line-number of an error.
       But it can be built without line-number reporting. Instead
       token number is used. This will speed up the scanning some
-      5-10%. Use <tt>--disable-megaco-flex-scanner-lineno</tt> when
+      5-10%. Use <tt><![CDATA[--disable-megaco-flex-scanner-lineno]]></tt> when
       configuring the application.</p>
 
     <p>The scanner will, by default, be built as a reentrant scanner <em>if</em> the 
       flex utility supports this (it depends on the version of flex). 
       It is possible to explicitly disable this even when flex support this.
-      Use <tt>--disable-megaco-reentrant-flex-scanner</tt> when
+      Use <tt><![CDATA[--disable-megaco-reentrant-flex-scanner]]></tt> when
       configuring the application.</p>
 
   </div>
@@ -57,7 +57,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#is_reentrant_enabledgtBoolean">is_reentrant_enabled() -&gt; Boolean</a></li>
@@ -79,14 +79,14 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre><![CDATA[
 
 megaco_ports() = term()
 megaco_version() = integer() >= 1
  
-    </code>
+    ]]></pre>
 
-    <marker id="start"></marker>
+    <marker id="start"/>
   
     </div>
     
@@ -122,7 +122,7 @@ megaco_version() = integer() >= 1
         <p>Note that the process that calls this function <em>must</em> 
           be permament. If it dies, the port(s) will exit and the driver unload.</p>
 
-        <marker id="stop"></marker>
+        <marker id="stop"/>
       
                 </div>
                 
@@ -150,7 +150,7 @@ megaco_version() = integer() >= 1
         <p>This function is used to stop the flex scanner. It also
           unloads the driver.</p>
 
-        <marker id="is_reentrant_enabled"></marker>
+        <marker id="is_reentrant_enabled"/>
       
                 </div>
                 
@@ -177,7 +177,7 @@ megaco_version() = integer() >= 1
                   
         <p>Is the flex scanner reentrant or not.</p>
 
-        <marker id="is_scanner_port"></marker>
+        <marker id="is_scanner_port"/>
       
                 </div>
                 
@@ -207,7 +207,7 @@ megaco_version() = integer() >= 1
         <p>Checks if a port is a flex scanner port or not (usefull when 
           if a port exits). </p>
 
-        <marker id="scan"></marker>
+        <marker id="scan"/>
       
                 </div>
                 

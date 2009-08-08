@@ -27,62 +27,62 @@
       naming contexts. Name context may be named in other contexts and cycles are
       permitted.</p>
     <p>The type <tt>NameComponent</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record('CosNaming_NameComponent', {id, kind=""}).
-    </code>
+    </pre>
     <p>where <tt>id</tt> and <tt>kind</tt> are strings. </p>
     <p>The type <tt>Binding</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record('CosNaming_Binding', {binding_name, binding_type}).
-    </code>
+    </pre>
     <p>where <tt>binding_name</tt> is a Name and <tt>binding_type</tt> is an enum which 
       has the values <tt>nobject</tt> and <tt>ncontext</tt>.</p>
     <p>Both these records are defined in the file <tt>CosNaming.hrl</tt> and it 
       is included with:</p>
-    <code type="none">
+    <pre>
       -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
-    </code>
+    </pre>
     <p>There are a number of exceptions that can be returned from functions in this 
       interface.</p>
     <list type="bulleted">
       <item>
         <p>NotFound is defined as </p>
-        <code type="none">
+        <pre>
 -record('CosNaming_NamingContext_NotFound', 
-                      {rest_of_name, why}).        </code>
+                      {rest_of_name, why}).        </pre>
       </item>
       <item>
         <p>CannotProceed is defined as </p>
-        <code type="none">
+        <pre>
 -record('CosNaming_NamingContext_CannotProceed', 
-                      {rest_of_name, cxt}).        </code>
+                      {rest_of_name, cxt}).        </pre>
       </item>
       <item>
         <p>InvalidName is defined as </p>
-        <code type="none">
--record('CosNaming_NamingContext_InvalidName', {}).        </code>
+        <pre>
+-record('CosNaming_NamingContext_InvalidName', {}).        </pre>
       </item>
       <item>
         <p>NotFound is defined as </p>
-        <code type="none">
--record('CosNaming_NamingContext_NotFound', {}).        </code>
+        <pre>
+-record('CosNaming_NamingContext_NotFound', {}).        </pre>
       </item>
       <item>
         <p>AlreadyBound is defined as </p>
-        <code type="none">
--record('CosNaming_NamingContext_AlreadyBound', {}).        </code>
+        <pre>
+-record('CosNaming_NamingContext_AlreadyBound', {}).        </pre>
       </item>
       <item>
         <p>NotEmpty is defined as </p>
-        <code type="none">
--record('CosNaming_NamingContext_NotEmpty', {).        </code>
+        <pre>
+-record('CosNaming_NamingContext_NotEmpty', {).        </pre>
       </item>
     </list>
     <p>These exceptions are defined in the file <tt>CosNaming_NamingContext.hrl</tt> and it 
       is included with:</p>
-    <code type="none">
+    <pre>
       -include_lib("orber/COSS/CosNaming/CosNaming_NamingContext.hrl").
-    </code>
+    </pre>
   </div>
     
 
@@ -91,7 +91,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#bindNamingContextNameObjectgtReturn">bind(NamingContext, Name, Object) -&gt; Return</a></li>
@@ -407,7 +407,7 @@
           step through the list. If the total number of existing bindings are less
           than, or equal to, the <tt>HowMany</tt> parameter a NIL object reference
           is returned.</p>
-        <p></p>
+        <p/>
         <note>
           <p>One must destroy the BindingIterator, unless it is a NIL object
             reference, by using 'BindingIterator':destroy(). Otherwise one can get

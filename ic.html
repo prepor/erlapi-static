@@ -57,7 +57,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#icgenFileNamegtResult">ic:gen(FileName) -&gt; Result</a></li>
@@ -138,14 +138,14 @@
           will generate calls to the <em>ModName</em> module in the
           server behavior.  Note that the <em>IntfName</em> must be a
           fully scoped name as in <tt>"M1::I1"</tt>.</p>
-        <p></p>
+        <p/>
       </item>
       <tag><em>this</em></tag>
       <item>
         <p>Adds the object reference as the first parameter to the
           object implementation functions. This makes the
           implementation aware of its own object reference. 
-                    <br>
+                    <br/>
 The option
           comes in three varieties: <tt>this</tt> which activates the
           parameter for all interfaces in the source file, <tt>{this, IntfName}</tt> which activates the parameter for a specified
@@ -169,7 +169,7 @@ The option
           parameter. This makes it possible for the implementation to
           respond to a request and continue executing
           afterwards. Consult the <tt>gen_server</tt> and <tt>Orber</tt>
-          documentation how this option may be used.            <br>
+          documentation how this option may be used.            <br/>
 The option
           comes in three varieties: <tt>from</tt> which activates the
           parameter for all interfaces in the source file, <tt>{from, IntfName}</tt> which activates the parameter for a specified
@@ -445,10 +445,10 @@ The option
       <tt>file:consult</tt>.</p>
     <p>An example of a configuration file, note the "." after each
       line.</p>
-    <code type="none">
+    <pre>
 {outdir, gen_dir}.
 {{impl, "M1::M2::object"}, "obj"}.
-    </code>
+    </pre>
   
     </div>
     
@@ -485,14 +485,14 @@ The option
 									<p>
                   
         <b>Result = ok | error | {ok, [Warning]} | {error, [Warning], [Error]}</b><br/>
-        <b></b><br/>
-        <b>Option = [ GeneralOption | CodeOption | WarningOption | BackendOption]</b><br/>
-        <b></b><br/>
-        <b>GeneralOption = </b><br/>
+        <b>
+        <v>Option = [ GeneralOption | CodeOption | WarningOption | BackendOption]</b><br/>
+        <b>
+        <v>GeneralOption = </b><br/>
         <b>{outdir, String()} | {cfgfile, String()} | {use_preproc, bool()} |</b><br/>
         <b>{preproc_cmd, String()} | {preproc_flags, String()}</b><br/>
-        <b></b><br/>
-        <b>CodeOption =</b><br/>
+        <b>
+        <v>CodeOption =</b><br/>
         <b>{gen_hrl, bool()} | {serv_last_call, exception | exit} | {{impl, String()}, String()} | {light_ifr, bool()}</b><br/>
         <b>this | {this, String()} | {{this, String()}, bool()} |</b><br/>
         <b>from | {from, String()} | {{from, String()}, bool()} |</b><br/>
@@ -504,18 +504,18 @@ The option
         <b>{c_report, bool()} |</b><br/>
         <b>{precond, {atom(), atom()}} | {{precond, String()} {atom(), atom()}} |</b><br/>
         <b>{postcond, {atom(), atom()}} | {{postcond, String()} {atom(), atom()}}</b><br/>
-        <b></b><br/>
-        <b>WarningOption =</b><br/>
+        <b>
+        <v>WarningOption =</b><br/>
         <b>{'Wall', bool()} | {maxerrs, int() | infinity} |</b><br/>
         <b>{maxwarns, int() | infinity} | {nowarn, bool()} |</b><br/>
         <b>{warn_name_shadow, bool()} | {pedantic, bool()} |</b><br/>
         <b>{silent, bool()}</b><br/>
-        <b></b><br/>
-        <b>BackendOption = {be, Backend}</b><br/>
-        <b></b><br/>
-        <b>Backend = erl_corba | erl_template | erl_plain | erl_genserv | c_client | c_server | java</b><br/>
-        <b></b><br/>
-        <b>DirNAme = string() | atom()</b><br/>
+        <b>
+        <v>BackendOption = {be, Backend}</b><br/>
+        <b>
+        <v>Backend = erl_corba | erl_template | erl_plain | erl_genserv | c_client | c_server | java</b><br/>
+        <b>
+        <v>DirNAme = string() | atom()</b><br/>
         <b>FileName = string() | atom()</b><br/>
       
 									</p>
@@ -528,9 +528,13 @@ The option
           <tt>Option</tt> for boolean values.</p>
         <p>The <tt>ic:gen/2</tt> function can be called from the command 
           line as follows:</p>
-        <p><tt>erlc "+Option" ... File.idl</tt></p>
+        <p>
+  <tt>erlc "+Option" ... File.idl</tt>
+</p>
         <p>Example:</p>
-        <p><tt>erlc "+{be,c_client}"  '+{outdir, "../out"}' File.idl</tt></p>
+        <p>
+  <tt>erlc "+{be,c_client}"  '+{outdir, "../out"}' File.idl</tt>
+</p>
       
                 </div>
                 

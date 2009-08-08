@@ -45,7 +45,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#attributes_infoAttributesgtAttributesInfo">attributes_info(Attributes) -&gt; AttributesInfo</a></li>
@@ -75,7 +75,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 category() = atom()
 column() = integer() &gt; 0
 line() = integer()
@@ -84,7 +84,7 @@ reserved_word_fun() -&gt; fun(atom()) -&gt; bool()
 set_attribute_fun() -&gt; fun(term()) -&gt; term()
 symbol() = atom() | float() | integer() | string()
 token() = {category(), attributes()} | {category(), attributes(), symbol()}
-attributes() = line() | list() | tuple()</code>
+attributes() = line() | list() | tuple()</pre>
   
     </div>
     
@@ -97,12 +97,12 @@ attributes() = line() | list() | tuple()</code>
     <p>The <tt>ErrorInfo</tt> mentioned above is the standard
       <tt>ErrorInfo</tt> structure which is returned from all IO
       modules. It has the following format:</p>
-    <code type="none">
-{ErrorLocation, Module, ErrorDescriptor}</code>
+    <pre>
+{ErrorLocation, Module, ErrorDescriptor}</pre>
     <p>A string which describes the error is obtained with the
       following call:</p>
-    <code type="none">
-Module:format_error(ErrorDescriptor)</code>
+    <pre>
+Module:format_error(ErrorDescriptor)</pre>
   
     </div>
     

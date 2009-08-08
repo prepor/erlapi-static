@@ -33,7 +33,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_alternate_iiop_addressObjectHostPortgtNewObjectEXCEPTIONE">add_alternate_iiop_address(Object, Host, Port) -&gt; NewObject | {'EXCEPTION', E}</a></li>
@@ -145,12 +145,12 @@
           the data is correct, when invoking operations on CORBA Objects within
           the same Orber domain. Due to the extra overhead, this option 
           <em>MAY ONLY</em> be used during testing and development.</p>
-        <code type="none">
+        <pre>
 Example: 
 \011  
   corba:create('StackModule_Stack', "IDL:StackModule/Stack:1.0",
 \011       {10, test})
-        </code>
+        </pre>
       
                 </div>
                 
@@ -357,7 +357,7 @@ Example:
           a reply to a client that invoked a two-way operation. If this operation
           is used, it is <em>not</em> possible to return a reply in the call-back
           module.
-                    <br>
+                    <br/>
 <em>To</em> must be the <em>From</em> argument provided to the 
           callback function, which requires that the IC option <em>from</em> 
           was used when compiling the IDL-file.</p>
@@ -717,7 +717,7 @@ Example:
           the main address.</p>
         <p>The ALTERNATE_IIOP_ADDRESS component requires that IIOP-1.2 is used.
           Hence, make sure both Orber and the other ORB is correctly configured.</p>
-        <p></p>
+        <p/>
         <note>
           <p>Make sure that the given <tt>Object</tt> is accessible via the
             alternate Host/port. For example, if the object is correctly started as 

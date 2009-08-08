@@ -35,7 +35,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#cmdCommandgtstring">cmd(Command) -&gt; string()</a></li>
@@ -86,9 +86,9 @@
           the previous <tt>unix:cmd/1</tt>; on a Unix platform they are
           equivalent.</p>
         <p>Examples:</p>
-        <code type="none">
+        <pre>
 LsOut = os:cmd("ls"), % on unix platform
-DirOut = os:cmd("dir"), % on Win32 platform</code>
+DirOut = os:cmd("dir"), % on Win32 platform</pre>
         <p>Note that in some cases, standard output of a command when
           called from another program (for example, <tt>os:cmd/1</tt>)
           may differ, compared to the standard output of the command
@@ -263,7 +263,7 @@ DirOut = os:cmd("dir"), % on Win32 platform</code>
       <p>The most obvious use for this function is logging. The tuple can be used together with the function <seealso marker="stdlib:calendar#now_to_universal_time/1">calendar:now_to_universal_time/1</seealso> 
 or <seealso marker="stdlib:calendar#now_to_local_time/1">calendar:now_to_local_time/1</seealso> to get calendar time. Using the calendar time together with the <tt>MicroSecs</tt> part of the return tuple from this function allows you to log timestams in high resolution and consistent with the time in the rest of the operating system.</p>
       <p>Example of code formatting a string in the format "DD Mon YYYY HH:MM:SS.mmmmmm", where DD is the day of month, Mon is the textual month name, YYYY is the year, HH:MM:SS is the time and mmmmmm is the microseconds in six positions:</p>
-<code>
+<pre>
 -module(print_time).
 -export([format_utc_timestamp/0]).
 format_utc_timestamp() -&gt;
@@ -274,11 +274,11 @@ format_utc_timestamp() -&gt;
 			  "Aug","Sep","Oct","Nov","Dec"}),
     io_lib:format("~2w ~s ~4w ~2w:~2..0w:~2..0w.~6..0w",
 		  [Day,Mstr,Year,Hour,Minute,Second,Micro]).
-</code>
+</pre>
 
        <p>The module above could be used in the following way:</p>
 <pre>
-1&gt; <input>
+1&gt; <tt>io:format("~s~n",[print_time:format_utc_timestamp()]).</tt><br/>
 29 Apr 2009  9:55:30.051711
 </pre>
       

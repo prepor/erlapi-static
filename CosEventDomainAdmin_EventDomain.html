@@ -22,7 +22,7 @@
         <div id="content">
     
     <div class="description">
-    <p>To get access to all definitions include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEventDomain/include/*.hrl").</tt></p>
+    <p>To get access to all definitions include necessary <tt><![CDATA[hrl]]></tt> files by using:<br/><tt><![CDATA[-include_lib("cosEventDomain/include/*.hrl").]]></tt></p>
     <p>This module also exports the functions described in:</p>
     <list type="bulleted">
       <item><em>CosNotification_QoSAdmin</em></item>
@@ -36,7 +36,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_channelEventDomainChannelgtMemberID">add_channel(EventDomain, Channel) -&gt; MemberID</a></li>
@@ -143,7 +143,7 @@
                 <div class="description">
                   
         <p>Adds the given channel to the target domain. The channel
-          must be a <tt>CosNotifyChannelAdmin::EventChannel</tt>.</p>
+          must be a <tt><![CDATA[CosNotifyChannelAdmin::EventChannel]]></tt>.</p>
       
                 </div>
                 
@@ -198,7 +198,7 @@
                 
                 <div class="description">
                   
-        <p>If the target domain have a <tt>CosNotifyChannelAdmin::EventChannel</tt>
+        <p>If the target domain have a <tt><![CDATA[CosNotifyChannelAdmin::EventChannel]]></tt>
           represented by the given id this channel is returned. Otherwise,
           an exception is raised.</p>
       
@@ -227,8 +227,8 @@
                 
                 <div class="description">
                   
-        <p>If a  <tt>CosNotifyChannelAdmin::EventChannel</tt> with the 
-          <tt>MemberID</tt> exists it will removed and all its <tt>Connections</tt>
+        <p>If a  <tt><![CDATA[CosNotifyChannelAdmin::EventChannel]]></tt> with the 
+          <tt><![CDATA[MemberID]]></tt> exists it will removed and all its <tt><![CDATA[Connections]]></tt>
           terminated. Otherwise an exception is raised.</p>
       
                 </div>
@@ -265,11 +265,11 @@
                   
         <p>The Connection parameter must contain valid data to enable
           the target domain to setup a connection between two channels.
-          The struct members <tt>supplier_id</tt> and <tt>consumer_id</tt>
+          The struct members <tt><![CDATA[supplier_id]]></tt> and <tt><![CDATA[consumer_id]]></tt>
           determines which channel should produce and consume events.
           which type of events and if the supplier should push or the
-          consumer pull events is determined by <tt>ctype</tt> and
-          <tt>notification_style</tt> respectively.</p>
+          consumer pull events is determined by <tt><![CDATA[ctype]]></tt> and
+          <tt><![CDATA[notification_style]]></tt> respectively.</p>
         <p>If the target domain is not able to setup the connection
           the appropriate exception is raised.</p>
       
@@ -330,7 +330,7 @@
                 <div class="description">
                   
         <p>If a connection identified by the given id exists within the
-          target domain, a <tt>#'CosEventDomainAdmin_Connection'{}</tt> which
+          target domain, a <tt><![CDATA[#'CosEventDomainAdmin_Connection'{}]]></tt> which
           describe the connection is returned. Otherwise, an exception
           is raised.</p>
       
@@ -416,7 +416,7 @@
                 
                 <div class="description">
                   
-        <p>This operations behaves like <tt>get_subscription_channels</tt>;
+        <p>This operations behaves like <tt><![CDATA[get_subscription_channels]]></tt>;
           the difference is that the id's returned identifies channels
           which will consume events supplied by the channel associated
           with the given id.</p>
@@ -590,7 +590,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           PushConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -619,7 +619,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           PullConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -648,7 +648,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           PushSupplier to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -677,7 +677,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           PullSupplier to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -706,7 +706,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           StructuredPushConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -735,7 +735,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           StructuredPullConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -764,7 +764,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           StructuredPushSupplier to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -793,7 +793,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           StructuredPullSupplier to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -822,7 +822,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           SequencePushConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -851,7 +851,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           SequencePullConsumer to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -880,7 +880,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           SequencePushSupplier to it. Otherwise, the
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -909,7 +909,7 @@
                   
         <p>If a default Channel have been set, this operation connects the given
           SequencePullSupplier to it. Otherwise, the 
-          <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt> exception is raised.</p>
+          <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt> exception is raised.</p>
       
                 </div>
                 
@@ -939,7 +939,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given PushConsumer 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -970,7 +970,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given PullConsumer 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1001,7 +1001,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given PushSupplier 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1032,7 +1032,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given PullSupplier 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1063,7 +1063,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given StructuredPushConsumer 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1094,7 +1094,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given StructuredPullConsumer 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1125,7 +1125,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given StructuredPushSupplier 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1156,7 +1156,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given StructuredPullSupplier 
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1187,7 +1187,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given SequencePushConsumer
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1218,7 +1218,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given SequencePullConsumer
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1249,7 +1249,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given SequencePushSupplier
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>
@@ -1280,7 +1280,7 @@
                   
         <p>If a Channel associated with the given MemberID exists within the
           target Domain, this operation connects the given SequencePullSupplier
-          to it. Otherwise, the <tt>#'CosNotifyChannelAdmin_ChannelNotFound'{}</tt>
+          to it. Otherwise, the <tt><![CDATA[#'CosNotifyChannelAdmin_ChannelNotFound'{}]]></tt>
           exception is raised.</p>
       
                 </div>

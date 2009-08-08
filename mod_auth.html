@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_group_memberGroupNameUserNameOptionsgttrueerrorReason">add_group_member(GroupName, UserName, Options) -&gt; true | {error, Reason}</a></li>
@@ -70,7 +70,7 @@
     
     <div class="description">
         
-    <marker id="see_also"></marker>
+    <marker id="see_also"/>
     <title>SEE ALSO</title>
     <p><seealso marker="httpd">httpd(3)</seealso>,
       <seealso marker="mod_alias">mod_alias(3)</seealso>,</p>
@@ -107,8 +107,8 @@
                 
                 <div class="description">
                   
-        <marker id="user_api"></marker>
-        <marker id="add_user"></marker>
+        <marker id="user_api"/>
+        <marker id="add_user"/>
         <p><tt>add_user/2, add_user/5</tt> and <tt>add_user/6</tt> adds a user to the user 
           database. If the operation is succesful, this function returns 
           <tt>true</tt>. If an error occurs, <tt>{error,Reason}</tt> is returned. When <tt>add_user/2</tt> 
@@ -144,7 +144,7 @@
                 
                 <div class="description">
                   
-        <marker id="delete_user"></marker>
+        <marker id="delete_user"/>
         <p><tt>delete_user/2, delete_user/3</tt> and <tt>delete_user/4</tt> deletes a user 
           from the user database. If the operation is succesful, this 
           function returns <tt>true</tt>. If an error occurs, 
@@ -181,7 +181,7 @@
                 
                 <div class="description">
                   
-        <marker id="get_user"></marker>
+        <marker id="get_user"/>
         <p><tt>get_user/2, get_user/3</tt> and <tt>get_user/4</tt> returns a 
           <tt>httpd_user</tt> record containing the userdata for a 
           specific user. If the user cannot be found, <tt>{error, Reason}</tt> 
@@ -218,7 +218,7 @@
                 
                 <div class="description">
                   
-        <marker id="list_users"></marker>
+        <marker id="list_users"/>
         <p><tt>list_users/1, list_users/2</tt> and <tt>list_users/3</tt> returns a list 
           of users in the user database for a specific <tt>Port/Dir</tt>.
           When <tt>list_users/1</tt> is called the Port and Dir 
@@ -255,7 +255,7 @@
                 
                 <div class="description">
                   
-        <marker id="add_group_member"></marker>
+        <marker id="add_group_member"/>
         <p><tt>add_group_member/3, add_group_member/4</tt> and <tt>add_group_member/5</tt> 
           adds a user to a group. If the group does not exist, it 
           is created and the user is added to the group. Upon successful 
@@ -293,7 +293,7 @@
                 
                 <div class="description">
                   
-        <marker id="delete_group_member"></marker>
+        <marker id="delete_group_member"/>
         <p><tt>delete_group_member/3, delete_group_member/4</tt> and <tt>delete_group_member/5</tt>  deletes a user from a group. 
           If the group or the user does not exist, 
           this function returns an error, otherwise it returns <tt>true</tt>.
@@ -331,7 +331,7 @@
                 
                 <div class="description">
                   
-        <marker id="list_group_members"></marker>
+        <marker id="list_group_members"/>
         <p><tt>list_group_members/2, list_group_members/3</tt> and <tt>list_group_members/4</tt> 
           lists the members of a specified group. If the group does not 
           exist or there is an error, <tt>{error, Reason}</tt> is returned.
@@ -368,7 +368,7 @@
                 
                 <div class="description">
                   
-        <marker id="list_groups"></marker>
+        <marker id="list_groups"/>
         <p><tt>list_groups/1, list_groups/2</tt> and <tt>list_groups/3</tt> lists all 
           the groups available. If there is an error, <tt>{error, Reason}</tt> 
           is returned. When <tt>list_groups/1</tt> is called the Port and Dir options
@@ -404,7 +404,7 @@
                 
                 <div class="description">
                   
-        <marker id="delete_group"></marker>
+        <marker id="delete_group"/>
         <p><tt>delete_group/2, delete_group/3</tt> and <tt>delete_group/4</tt> deletes the 
           group specified and returns <tt>true</tt>. If there is an error, 
           <tt>{error, Reason}</tt> is returned. When <tt>delete_group/2</tt> is called the 
@@ -439,7 +439,7 @@
                 
                 <div class="description">
                   
-        <marker id="update_password"></marker>
+        <marker id="update_password"/>
         <p><tt>update_password/5</tt> and <tt>update_password/6</tt> Updates the AuthAccessPassword
           for the specified directory. If NewPassword is equal to "NoPassword" no password is requires to
           change authorisation data. If NewPassword is equal to "DummyPassword" no changes can be done 

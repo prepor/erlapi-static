@@ -34,7 +34,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#formatFileOptionsgtokerrorReason">format(File,Options) -&gt; ok | {error, Reason}</a></li>
@@ -497,14 +497,14 @@
             started with <tt>ttb:tracer/0/1/2</tt>.</p>
         </note>
         <p>Example of how to use the <tt>seq_trigger_ms/0/1</tt> function:</p>
-        <code type="none">
+        <pre>
 (tiger@durin)5&gt; ttb:tracer().
 {ok,[tiger@durin]}
 (tiger@durin)6&gt; ttb:p(all,call).
 {ok,{[all],[call]}}
 (tiger@durin)7&gt; ttb:tp(mod,func,ttb:seq_trigger_ms()).
 {ok,[{matched,1},{saved,1}]}
-(tiger@durin)8&gt;         </code>
+(tiger@durin)8&gt;         </pre>
         <p>Whenever <tt>mod:func(...)</tt> is called after this, the
           seq_trace token will be set on the executing process.</p>
       

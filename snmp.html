@@ -41,7 +41,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#bits_to_octet_stringBgtVal">bits_to_octet_string(B) -&gt; Val</a></li>
@@ -113,7 +113,7 @@
 
     </list>
     
-    <marker id="config"></marker>
+    <marker id="config"/>
   
     </div>
     
@@ -154,7 +154,7 @@
           agent and manager share the same names. This means that 
           they have to be stored in <em>different</em> directories!</p>
 
-        <marker id="start"></marker>
+        <marker id="start"/>
       
                 </div>
                 
@@ -182,7 +182,7 @@
         <p>Starts the SNMP application.</p>
         <p>See <seealso marker="kernel:application">application</seealso> for more info.</p>
 
-        <marker id="start_agent"></marker>
+        <marker id="start_agent"/>
       
                 </div>
                 
@@ -219,7 +219,7 @@
           </p>
         <p>The default value for <tt>Type</tt> is <tt>normal</tt>.</p>
 	
-	<marker id="start_manager"></marker>
+	<marker id="start_manager"/>
       
                 </div>
                 
@@ -256,7 +256,7 @@
           </p>
         <p>The default value for <tt>Type</tt> is <tt>normal</tt>.</p>
 
-        <marker id="dat"></marker>
+        <marker id="dat"/>
       
                 </div>
                 
@@ -284,7 +284,7 @@
         <p>Returns current date and time as the data type DateAndTime,
           as specified in RFC1903. This is an OCTET STRING.</p>
 	  
-	<marker id="dat2ut_dst"></marker>
+	<marker id="dat2ut_dst"/>
       
                 </div>
                 
@@ -314,7 +314,7 @@
           time(s). The universal time value on the same format as defined in
           calendar(3). </p>
 
-	<marker id="dat2s"></marker>
+	<marker id="dat2s"/>
       
                 </div>
                 
@@ -350,7 +350,7 @@
           See the <seealso marker="#vdat">validate_date_and_time/2</seealso> 
           function for more info on the <tt>Validate</tt> fun. </p>
 
-	<marker id="dat2s2"></marker>
+	<marker id="dat2s2"/>
       
                 </div>
                 
@@ -380,7 +380,7 @@
           that it also allows the values "hours from UTC" = 14 together with 
           "minutes from UTC" = 0. </p>
 
-	<marker id="lt2dat_dst"></marker>
+	<marker id="lt2dat_dst"/>
       
                 </div>
                 
@@ -410,7 +410,7 @@
           list(s). The local time value on the same format as defined in 
           calendar(3).</p>
 
-	<marker id="ut2dat"></marker>
+	<marker id="ut2dat"/>
       
                 </div>
                 
@@ -439,7 +439,7 @@
         <p>Converts a universal time value to a DateAndTime list.  The
           universal time value on the same format as defined in calendar(3).</p>
 
-        <marker id="vdat"></marker>
+        <marker id="vdat"/>
       
                 </div>
                 
@@ -490,7 +490,7 @@
           valid_date       {Year, Month, Day}
 	</pre>
 
-        <marker id="passwd2localized_key"></marker>
+        <marker id="passwd2localized_key"/>
       
                 </div>
                 
@@ -523,7 +523,7 @@
           or privacy key using MD5 och SHA.  The key is
           localized for EngineID.</p>
 
-        <marker id="octet_string_to_bits"></marker>
+        <marker id="octet_string_to_bits"/>
       
                 </div>
                 
@@ -551,7 +551,7 @@
         <p>Utility function for converting a value of type 
           <tt>OCTET-STRING</tt> to <tt>BITS</tt>. </p>
 
-        <marker id="bits_to_octet_string"></marker>
+        <marker id="bits_to_octet_string"/>
       
                 </div>
                 
@@ -579,7 +579,7 @@
         <p>Utility function for converting a value of type <tt>BITS</tt> 
           to <tt>OCTET-STRING</tt>. </p>
 
-        <marker id="read_mib"></marker>
+        <marker id="read_mib"/>
       
                 </div>
                 
@@ -608,7 +608,7 @@
                   
         <p>Read a compiled mib.</p>
 
-        <marker id="log_to_txt"></marker>
+        <marker id="log_to_txt"/>
       
                 </div>
                 
@@ -664,7 +664,7 @@
           </p>
         <p>The format of an audit trail log text item is as follows:
           </p>
-        <p><tt>Tag Addr - Community [TimeStamp] Vsn</tt><br>
+        <p><tt>Tag Addr - Community [TimeStamp] Vsn</tt><br/>
           <tt>PDU</tt></p>
         <p>where <tt>Tag</tt> is <tt>request</tt>, <tt>response</tt>, 
           <tt>report</tt>, <tt>trap</tt> or <tt>inform</tt>; Addr is 
@@ -676,7 +676,7 @@
           version of the protocol data unit. There is a new line
           between <tt>Vsn</tt> and <tt>PDU</tt>.</p>
 
-        <marker id="change_log_size"></marker>
+        <marker id="change_log_size"/>
       
                 </div>
                 
@@ -713,7 +713,7 @@
         <p>The change is permanent, as long as the log is not deleted. 
           That means, the log size is remembered across reboots.</p>
 
-	<marker id="print_version_info"></marker>
+	<marker id="print_version_info"/>
       
                 </div>
                 
@@ -746,8 +746,8 @@
            snmp:print_versions(V).
         </pre>
 
-	<marker id="versions1"></marker>
-	<marker id="versions2"></marker>
+	<marker id="versions1"/>
+	<marker id="versions2"/>
       
                 </div>
                 
@@ -780,7 +780,7 @@
           the modules to check. <tt>versions1</tt> uses the app-file and
           <tt>versions2</tt> uses the function <tt>application:get_key</tt>.</p>
 
-        <marker id="print_versions"></marker>
+        <marker id="print_versions"/>
       
                 </div>
                 
@@ -816,7 +816,7 @@
            snmp:print_versions(V).
         </pre>
 
-        <marker id="enable_trace"></marker>
+        <marker id="enable_trace"/>
       
                 </div>
                 
@@ -835,7 +835,7 @@
         <p>Starts a dbg tracer that prints trace events to stdout (using
           plain io:format after a minor formatting). </p>
 
-        <marker id="disable_trace"></marker>
+        <marker id="disable_trace"/>
       
                 </div>
                 
@@ -853,7 +853,7 @@
                   
         <p>Stop the tracer. </p>
 
-        <marker id="set_trace1"></marker>
+        <marker id="set_trace1"/>
       
                 </div>
                 
@@ -891,7 +891,7 @@
           all <em>exported</em> functions (both the call info and the return 
 	  value). Timestamp info will also be included. </p>
 
-        <marker id="reset_trace"></marker>
+        <marker id="reset_trace"/>
       
                 </div>
                 
@@ -921,7 +921,7 @@
         <p>This function is used to reset (disable) trace for the 
 	  given module(s). </p>
       
-	<marker id="set_trace2"></marker>
+	<marker id="set_trace2"/>
       
                 </div>
                 

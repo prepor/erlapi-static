@@ -63,7 +63,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#CasedocgtDecription">Case(doc) -&gt; [Decription]</a></li>
@@ -236,7 +236,7 @@
       </p>
     <p>The <tt>line_trace</tt> macro can e.g. be defined as a compile
       option, like this:
-            <br>
+            <br/>
 <tt>erlc -W -Dline_trace my_SUITE.erl</tt></p>
   
     </div>
@@ -637,11 +637,11 @@
           </p>
         <p>For example:
           </p>
-        <p><tt>m_out_of_n(1,4,fun() -&gt; tricky_test_case() end)</tt>          <br>
+        <p><tt>m_out_of_n(1,4,fun() -&gt; tricky_test_case() end)</tt>          <br/>
 Tries to run tricky_test_case() up to 4 times, and is
           happy if it succeeds once.
           </p>
-        <p><tt>m_out_of_n(7,8,fun() -&gt; clock_sanity_check() end)</tt>          <br>
+        <p><tt>m_out_of_n(7,8,fun() -&gt; clock_sanity_check() end)</tt>          <br/>
 Tries running clock_sanity_check() up to 8 times,and
           allows the function to fail once.  This might be useful if
           clock_sanity_check/0 is known to fail if the clock crosses an
@@ -748,7 +748,7 @@ Tries running clock_sanity_check() up to 8 times,and
           test case.</p>
         <p>When the <tt>break/1</tt> function is called, the shell will
           look something like this:</p>
-        <code type="none">
+        <pre><![CDATA[
    --- SEMIAUTOMATIC TESTING ---
    The test case executes on process <0.51.0>
 
@@ -758,7 +758,7 @@ Tries running clock_sanity_check() up to 8 times,and
 
    -----------------------------
 
-   Continue with --> test_server:continue().        </code>
+   Continue with --> test_server:continue().        ]]></pre>
         <p>The user can now interact with the erlang node, and when
           ready call <tt>test_server:continue().</tt></p>
         <p>Note that this function can not be used if the test is
@@ -895,13 +895,13 @@ Tries running clock_sanity_check() up to 8 times,and
            function does not return until the node is up and running,
            but this option makes it return as soon as the node start
            command is given..
-                    <br>
+                    <br/>
 Only valid for peer nodes
           </item>
           <tag><tt>{fail_on_error, false}</tt></tag>
           <item>Returns <tt>{error, Reason}</tt> rather than failing the
            test case.
-                    <br>
+                    <br/>
 Only valid for peer nodes. Note that slave nodes always
            act as if they had <tt>fail_on_error=false</tt></item>
           <tag><tt>{erl, ReleaseList}</tt></tag>
@@ -916,14 +916,14 @@ Only valid for peer nodes. Note that slave nodes always
            randomly.  (Only works on Solaris and Linux, and the test server 
            gives warnings when it notices that nodes are not of the same
            version as itself.)
-                    <br>
-          <br>
+                    <br/>
+          <br/>
 
            When specififying this option to run a previous release, use
           <tt>is_release_available/1</tt> function to test if the given
            release is available and skip the test case if not.
-                    <br>
-          <br>
+                    <br/>
+          <br/>
 
            In order to avoid compatibility problems (may not appear right
            away), use a shielded node (see <tt>run_on_shielded_node/2</tt>)
@@ -1312,7 +1312,9 @@ Only valid for peer nodes. Note that slave nodes always
           test case or <tt>{skip,Comment}</tt>. The syntax of a test
           specification is described in the Test Server User's Guide.
           </p>
-        <p><em>Note that the specification clause always is executed on the controller host.</em></p>
+        <p>
+  <em>Note that the specification clause always is executed on the controller host.</em>
+</p>
         <p>The <em>execution clause</em> (argument <tt>Config</tt>) is
           only called if the specification clause returns an empty list.
           The execution clause is the real test case. Here you must call

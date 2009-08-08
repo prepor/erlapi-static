@@ -36,7 +36,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abcastNodesNameMsggtvoid">abcast(Nodes, Name, Msg) -&gt; void()</a></li>
@@ -490,14 +490,14 @@
         <p>The following example is useful when new object code is to
           be loaded on all nodes in the network, and also indicates
           some side effects RPCs may produce:</p>
-        <code type="none">
+        <pre>
 %% Find object code for module Mod 
 {Mod, Bin, File} = code:get_object_code(Mod), 
 
 %% and load it on all nodes including this one 
 {ResL, _} = rpc:multicall(code, load_binary, [Mod, Bin, File,]),
 
-%% and then maybe check the ResL list.</code>
+%% and then maybe check the ResL list.</pre>
       
                 </div>
                 

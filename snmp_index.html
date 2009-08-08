@@ -39,27 +39,27 @@
       further that the INDEX in the SNMP table is an OCTET STRING.  The
       index structure would be created as follows:
       </p>
-    <code type="none">
+    <pre>
 snmp_index:new(string)
-    </code>
+    </pre>
     <p>For each new process we create, we insert an item in an
       <tt>snmp_index</tt> structure:
       </p>
-    <code type="none">
+    <pre><![CDATA[
 new_process(Name, SnmpIndex) ->
   Pid = start_process(),
   NewSnmpIndex = 
     snmp_index:insert(SnmpIndex, Name, Pid),
   <...>
-    </code>
+    ]]></pre>
     <p>With this structure, we can now map an OBJECT IDENTIFIER in
       e.g. a GET NEXT request, to the correct process:
       </p>
-    <code type="none">
+    <pre>
 get_next_pid(Oid, SnmpIndex) -&gt;
   {ok, {_, Pid}} = snmp_index:get_next(SnmpIndex, Oid),
   Pid.
-    </code>
+    </pre>
   </div>
     
 
@@ -75,7 +75,7 @@ get_next_pid(Oid, SnmpIndex) -&gt;
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#deleteIndexgttrue">delete(Index) -&gt; true</a></li>
@@ -161,7 +161,7 @@ get_next_pid(Oid, SnmpIndex) -&gt;
     <p>In the example above, valid <tt>keys</tt> could be <tt>{"hi", "mom"}</tt> and <tt>{"no", "thanks"}</tt>, whereas <tt>"hi"</tt>,
       <tt>{"hi", 42}</tt> and <tt>{"hello", "there"}</tt> would be invalid.</p>
     <warning>
-      <marker id="1"></marker>
+      <marker id="1"/>
       <p>All API functions that update the index return a <tt>NewIndex</tt>
         term. This is for backward compatibility with a previous
         implementation that used a B+ tree written purely in Erlang for 

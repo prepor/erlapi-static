@@ -42,7 +42,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#closeEppgtok">close(Epp) -&gt; ok</a></li>
@@ -66,12 +66,12 @@
       <tt>ErrorInfo</tt> structure which is returned from all IO
       modules. It has the following format:
       </p>
-    <code type="none">
-    {ErrorLine, Module, ErrorDescriptor}    </code>
+    <pre>
+    {ErrorLine, Module, ErrorDescriptor}    </pre>
     <p>A string which describes the error is obtained with the following call:
       </p>
-    <code type="none">
-apply(Module, format_error, ErrorDescriptor)    </code>
+    <pre>
+apply(Module, format_error, ErrorDescriptor)    </pre>
   
     </div>
     
@@ -81,7 +81,9 @@ apply(Module, format_error, ErrorDescriptor)    </code>
     <div class="description">
         
     <title>See Also</title>
-    <p><seealso marker="erl_parse">erl_parse(3)</seealso></p>
+    <p>
+  <seealso marker="erl_parse">erl_parse(3)</seealso>
+</p>
   
     </div>
     

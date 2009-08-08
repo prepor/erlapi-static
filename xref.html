@@ -26,19 +26,19 @@
       dependencies between functions, modules, applications and
       releases.
       </p>
-    <p>Calls between functions are either       <marker id="local_call"></marker>
-<em>local calls</em> like <tt>f()</tt>, or       <marker id="external_call"></marker>
+    <p>Calls between functions are either       <marker id="local_call"/>
+<em>local calls</em> like <tt>f()</tt>, or       <marker id="external_call"/>
 <em>external calls</em> like
-      <tt>m:f()</tt>.       <marker id="module_data"></marker>
+      <tt>m:f()</tt>.       <marker id="module_data"/>
 <em>Module data</em>,
       which are extracted from BEAM files, include local functions,
       exported functions, local calls and external calls. By default,
-      calls to built-in functions (<term id="BIF"></term>) are ignored, but
+      calls to built-in functions (<term id="BIF"/>) are ignored, but
       if the option <tt>builtins</tt>, accepted by some of this
       module's functions, is set to <tt>true</tt>, calls to BIFs
       are included as well. It is the analyzing OTP version that
       decides what functions are BIFs. Functional objects are assumed
-      to be called where they are created (and nowhere else).       <marker id="unresolved_call"></marker>
+      to be called where they are created (and nowhere else).       <marker id="unresolved_call"/>
 <em>Unresolved calls</em> are calls to
       <tt>apply</tt> or <tt>spawn</tt> with variable module, variable
       function, or variable arguments. Examples are <tt>M:F(a)</tt>,
@@ -67,18 +67,18 @@
       There is more to read about applications and releases in the
       Design Principles book.
       </p>
-    <p>      <marker id="xref_server"></marker>
+    <p>      <marker id="xref_server"/>
 <em>Xref servers</em> are identified
       by names, supplied when creating new servers. Each Xref server
       holds a set of releases, a set of applications, and a set of
       modules with module data. Xref servers are independent of each
       other, and all analyses are evaluated in the context of one
       single Xref server (exceptions are the functions <tt>m/1</tt> and
-      <tt>d/1</tt> which do not use servers at all). The       <marker id="mode"></marker>
+      <tt>d/1</tt> which do not use servers at all). The       <marker id="mode"/>
 <em>mode</em> of an Xref server determines what module
       data are extracted from BEAM files as modules are added to the
       server. Starting with R7, BEAM files compiled with the option
-      <tt>debug_info</tt> contain so called       <marker id="debug_info"></marker>
+      <tt>debug_info</tt> contain so called       <marker id="debug_info"/>
 debug information, which is an abstract
       representation of the code. In <tt>functions</tt> mode, which is
       the default mode, function calls and line numbers are extracted
@@ -89,25 +89,25 @@ debug information, which is an abstract
       consuming than the <tt>functions</tt> mode, but the analyses that
       can be done are limited.
       </p>
-    <p>An       <marker id="analyzed_module"></marker>
+    <p>An       <marker id="analyzed_module"/>
 <em>analyzed module</em> is a
       module that has been added to an Xref server together with its
       module data.
-      A       <marker id="library_module"></marker>
+      A       <marker id="library_module"/>
 <em>library module</em> is a
-      module located in some directory mentioned in the       <marker id="library_path"></marker>
+      module located in some directory mentioned in the       <marker id="library_path"/>
 <em>library path</em>. 
       A library module is said to be used if some of its exported
       functions are used by some analyzed module.
-      An       <marker id="unknown_module"></marker>
+      An       <marker id="unknown_module"/>
 <em>unknown module</em> is a
       module that is neither an analyzed module nor a library module,
       but whose exported functions are used by some analyzed module. 
-      An       <marker id="unknown_function"></marker>
+      An       <marker id="unknown_function"/>
 <em>unknown function</em> is a
       used function that is neither local or exported by any 
       analyzed module nor exported by any library module. 
-      An       <marker id="undefined_function"></marker>
+      An       <marker id="undefined_function"/>
 <em>undefined function</em> is an externally used function that
       is not exported by any analyzed module or library module. With
       this notion, a local function can be an undefined function, namely
@@ -116,7 +116,7 @@ debug information, which is an abstract
       User's Guide that illustrates this relationship.
       </p>
     <p>Starting with R9C, the module attribute tag <tt>deprecated</tt>
-      can be used to inform Xref about       <marker id="deprecated_function"></marker>
+      can be used to inform Xref about       <marker id="deprecated_function"/>
 <em>deprecated functions</em> and
       optionally when functions are planned to be removed. A few
       examples show the idea:
@@ -152,10 +152,10 @@ debug information, which is an abstract
       <tt>add</tt>, <tt>replace</tt>, <tt>remove</tt>,
       <tt>set_library_path</tt> or <tt>update</tt> functions.
       </p>
-    <p>The result of setting up module data is the       <marker id="call_graph"></marker>
+    <p>The result of setting up module data is the       <marker id="call_graph"/>
 <em>Call Graph</em>. A (directed) graph
       consists of a set of vertices and a set of (directed) edges. The
-      edges represent       <marker id="call"></marker>
+      edges represent       <marker id="call"/>
 <em>calls</em> (From,&nbsp;To)
       between functions, modules, applications or releases. From is
       said to call To, and To is said to be used by From. The vertices
@@ -169,7 +169,7 @@ debug information, which is an abstract
       only one edge if a function is locally or externally used
       several times on one and the same line of code.
       </p>
-    <p>The Call Graph is       <marker id="representation"></marker>
+    <p>The Call Graph is       <marker id="representation"/>
 represented by
       Erlang terms (the sets are lists), which is suitable for many
       analyses. But for analyses that look at chains of calls, a list
@@ -184,7 +184,7 @@ represented by
       subsequent analyses.
       </p>
     <p>In addition to the Call Graph there is a graph called the
-            <marker id="inter_call_graph"></marker>
+            <marker id="inter_call_graph"/>
 <em>Inter Call Graph</em>. This is
       a graph of calls (From,&nbsp;To) such that there is a chain of
       calls from From to To in the Call Graph, and every From and To
@@ -192,7 +192,7 @@ represented by
       The vertices are the same as for the Call Graph.
       </p>
     <p>Calls between modules, applications and releases are also
-      directed graphs. The       <marker id="type"></marker>
+      directed graphs. The       <marker id="type"/>
 <em>types</em>
       of the vertices and edges of these graphs are (ranging from the
       most special to the most general):
@@ -200,7 +200,7 @@ represented by
       <tt>App</tt> for applications; and <tt>Rel</tt> for releases.
       The following paragraphs will describe the different constructs
       of the language used for selecting and analyzing parts of the
-      graphs, beginning with the       <marker id="constants"></marker>
+      graphs, beginning with the       <marker id="constants"/>
 <em>constants</em>:
       </p>
     <list type="bulleted">
@@ -252,7 +252,7 @@ represented by
       Assigning a type to a list or tuple of <tt>Constant</tt> is
       equivalent to assigning the type to each <tt>Constant</tt>.
       </p>
-    <p>      <marker id="regexp"></marker>
+    <p>      <marker id="regexp"/>
 <em>Regular expressions</em> are used as a
       means to select some of the vertices of a graph.
       A <tt>RegExpr</tt> consisting of a <tt>RegString</tt> and a type -
@@ -269,7 +269,7 @@ represented by
       <tt>".*"</tt>, that is, the regular expression that matches
       anything.
       </p>
-    <p>The syntax of       <marker id="variable"></marker>
+    <p>The syntax of       <marker id="variable"/>
 <em>variables</em> is
       simple:
       </p>
@@ -279,11 +279,11 @@ represented by
     </list>
     <p>There are two kinds of variables: predefined variables and user 
       variables. 
-            <marker id="predefined_variable"></marker>
+            <marker id="predefined_variable"/>
 <em>Predefined variables</em>
       hold set up module data, and cannot be assigned to but only used 
       in queries. 
-            <marker id="user_variable"></marker>
+            <marker id="user_variable"/>
 <em>User variables</em> on the other 
       hand can be assigned to, and are typically used for
       temporary results while evaluating a query, and for keeping
@@ -366,7 +366,7 @@ represented by
       <item>Deprecated Functions. All deprecated functions to be
        removed in next version, next major release, or later.</item>
     </taglist>
-    <p>These are a few       <marker id="simple_facts"></marker>
+    <p>These are a few       <marker id="simple_facts"/>
 facts about the
       predefined variables (the set operators <tt>+</tt> (union) and
       <tt>-</tt> (difference) as well as the cast operator
@@ -409,7 +409,7 @@ facts about the
       <item><tt>DF_3</tt> is a subset of <tt>DF</tt>.</item>
       <item><tt>DF</tt> is a subset of <tt>X + B</tt>.</item>
     </list>
-    <p>An important notion is that of       <marker id="conversion"></marker>
+    <p>An important notion is that of       <marker id="conversion"/>
 <em>conversion</em> of expressions. The syntax of
       a cast expression is:
       </p>
@@ -458,7 +458,7 @@ facts about the
       </p>
     <p>The interpretation of constants and variables are sets, and
       those sets can be used as the basis for forming new sets by the
-      application of       <marker id="set_operator"></marker>
+      application of       <marker id="set_operator"/>
 <em>set operators</em>.
       The syntax:
       </p>
@@ -500,7 +500,7 @@ facts about the
       The interpretation of the <tt>strict</tt> operator is the operand
       with all calls on the form (A,&nbsp;A) removed. 
       </p>
-    <p>The interpretation of the       <marker id="restriction"></marker>
+    <p>The interpretation of the       <marker id="restriction"/>
 <em>restriction operators</em> is a 
       subset of the first operand, a set of calls. The second operand,
       a set of vertices, is converted to the type of the first operand.
@@ -525,7 +525,7 @@ facts about the
       <tt>VS</tt>, <tt>CS&nbsp;|||&nbsp;VS&nbsp;</tt> is equivalent to
       <tt>CS&nbsp;|&nbsp;VS&nbsp;*&nbsp;CS&nbsp;||&nbsp;VS</tt>.</item>
     </taglist>
-    <p>      <marker id="graph_analyses"></marker>
+    <p>      <marker id="graph_analyses"/>
 Two functions (modules,
       applications, releases) belong to the same strongly connected
       component if they call each other (in)directly. The
@@ -632,7 +632,7 @@ Two functions (modules,
       converted to functions. Similarly, the cast operator is defined
       for the interpretation of the LineOp operators.
       </p>
-    <p>The interpretation of the       <marker id="count"></marker>
+    <p>The interpretation of the       <marker id="count"/>
 <em>counting operator</em> is the number of elements of a set. The operator
       is undefined for closures. The <tt>+</tt>, <tt>-</tt> and <tt>*</tt>
       operators are interpreted as the obvious arithmetical operators
@@ -645,7 +645,7 @@ Two functions (modules,
     <p>All binary operators are left associative; for instance,
       <tt>A&nbsp;|&nbsp;B &nbsp;||&nbsp;C</tt> is equivalent to
       <tt>(A&nbsp;|&nbsp;B)&nbsp;||&nbsp;C</tt>. The following is a list
-      of all operators, in increasing order of       <marker id="precedence"></marker>
+      of all operators, in increasing order of       <marker id="precedence"/>
 <em>precedence</em>:
       </p>
     <list type="bulleted">
@@ -664,7 +664,7 @@ Two functions (modules,
     <list type="bulleted">
       <item>Expression ::= <tt>(</tt> Expression <tt>)</tt></item>
     </list>
-    <p>A       <marker id="query"></marker>
+    <p>A       <marker id="query"/>
 <em>query</em> is a non-empty sequence of
       statements. A statement is either an assignment of a user
       variable or an expression. The value of an assignment is the
@@ -687,7 +687,9 @@ Two functions (modules,
       necessary to set up module data again is called, all user
       variables are forgotten.
       </p>
-    <p><em>Types</em></p>
+    <p>
+  <em>Types</em>
+</p>
     <pre>
 application() = atom()
 arity() = int() | -1
@@ -723,7 +725,7 @@ xref() = atom() | pid()  </pre>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_applicationXrefDirectoryOptionsgtokapplicationError">add_application(Xref, Directory [, Options]) -&gt;  {ok, application()} | Error</a></li>
@@ -1002,7 +1004,7 @@ xref() = atom() | pid()  </pre>
                 
                 <div class="description">
                   
-        <p>          <marker id="analyze"></marker>
+        <p>          <marker id="analyze"/>
 Evaluates a predefined analysis.
           Returns a sorted list without duplicates of <tt>call()</tt> or
           <tt>constant()</tt>, depending on the chosen analysis. The
@@ -1808,7 +1810,7 @@ Evaluates a predefined analysis.
           the given order, for those modules that occur in more than
           one directory. By default, the library path is an empty list.
           </p>
-        <p>The library path           <marker id="code_path"></marker>
+        <p>The library path           <marker id="code_path"/>
 <tt>code_path</tt> is
           used by the functions
           <tt>m/1</tt> and <tt>d/1</tt>, but can also be set explicitly.

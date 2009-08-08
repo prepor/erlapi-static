@@ -22,9 +22,11 @@
         <div id="content">
     
     <div class="description">
-    <note><p>This module has been obsoleted by the
+    <note>
+  <p>This module has been obsoleted by the
     <seealso marker="re">re</seealso> module and will be removed in a future
-    release.</p></note>
+    release.</p>
+</note>
     <p>This module contains functions for regular expression
       matching and substitution.</p>
   </div>
@@ -42,7 +44,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#first_matchStringRegExpgtMatchRes">first_match(String, RegExp) -&gt; MatchRes</a></li>
@@ -358,7 +360,7 @@ Floats    (\\+|-)?[0-9]+\\.[0-9]+((E|e)(\\+|-)?[0-9]+)?</pre>
                 
                 <div class="description">
                   
-        <p>Substitutes the first occurrence of a substring matching <tt>RegExp</tt> in <tt>String</tt> with the string <tt>New</tt>. A <tt>&</tt> in the string <tt>New</tt> is replaced by the matched substring of <tt>String</tt>.  <tt>\\&</tt> puts a literal <tt>&</tt> into the replacement string. It returns as follows:</p>
+        <p>Substitutes the first occurrence of a substring matching <tt>RegExp</tt> in <tt>String</tt> with the string <tt>New</tt>. A <tt><![CDATA[&]]></tt> in the string <tt>New</tt> is replaced by the matched substring of <tt>String</tt>.  <tt><![CDATA[\\&]]></tt> puts a literal <tt><![CDATA[&]]></tt> into the replacement string. It returns as follows:</p>
         <taglist>
           <tag><tt>{ok,NewString,RepCount}</tt></tag>
           <item>
@@ -538,11 +540,11 @@ Floats    (\\+|-)?[0-9]+\\.[0-9]+((E|e)(\\+|-)?[0-9]+)?</pre>
         <taglist>
           <tag><tt>{ok, RE}</tt>if <tt>RegExp</tt>is correct and <tt>RE</tt>is the internal representation.</tag>
           <item>
-            <p></p>
+            <p/>
           </item>
           <tag><tt>{error, Error}</tt>if there is an error in <tt>RegExpString</tt>.</tag>
           <item>
-            <p></p>
+            <p/>
           </item>
         </taglist>
       

@@ -81,7 +81,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#accept_recvIpPortgtboolean">accept_recv(Ip, Port) -&gt; boolean()</a></li>
@@ -101,11 +101,11 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 port() = integer() &gt; 0
 pdu_type() = 'get-request' | 'get-next-request' | 'get-response' | 'set-request' | trap | 'get-bulk-request' | 'inform-request' | report
-    </code>
-    <marker id="accept_recv"></marker>
+    </pre>
+    <marker id="accept_recv"/>
   
     </div>
     
@@ -135,7 +135,7 @@ pdu_type() = 'get-request' | 'get-next-request' | 'get-response' | 'set-request'
           has been done).</p>
         <p>For the message to be discarded, the function <em>must</em> return
           <em>false</em>. </p>
-        <marker id="accept_send"></marker>
+        <marker id="accept_send"/>
       
                 </div>
                 
@@ -165,7 +165,7 @@ pdu_type() = 'get-request' | 'get-next-request' | 'get-response' | 'set-request'
           has been done).</p>
         <p>For the message to be discarded, the function <em>must</em> return
           <em>false</em>. </p>
-        <marker id="accept_recv_pdu"></marker>
+        <marker id="accept_recv_pdu"/>
       
                 </div>
                 
@@ -197,7 +197,7 @@ pdu_type() = 'get-request' | 'get-next-request' | 'get-response' | 'set-request'
           primary processing.</p>
         <p>For the pdu to be discarded, the function <em>must</em> return
           <em>false</em>. </p>
-        <marker id="accept_send_pdu"></marker>
+        <marker id="accept_send_pdu"/>
       
                 </div>
                 

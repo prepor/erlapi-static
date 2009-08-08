@@ -27,7 +27,7 @@
       context that functions as the root context for all names. Given this context 
       clients can navigate in the name space. </p>
     <p>Types that are declared on the CosNaming level are:</p>
-    <code type="none">
+    <pre><![CDATA[
 typedef string Istring;
 struct NameComponent {
       Istring id;  
@@ -44,7 +44,7 @@ struct Binding {
 };
 
 typedef sequence <Binding> BindingList;
-    </code>
+    ]]></pre>
     <p>To get access to the record definitions for the structs use:
       <tt>-include_lib("orber/COSS/CosNaming.hrl").</tt>.</p>
     <p>Names are not an ORB object but the can be structured in components as seen by 
@@ -56,7 +56,7 @@ typedef sequence <Binding> BindingList;
       <item>BindingIterator</item>
     </list>
     <p>IDL specification for CosNaming:</p>
-    <codeinclude file="../../COSS/CosNaming/cos_naming.idl" tag="" type="c"></codeinclude>
+    <codeinclude file="../../COSS/CosNaming/cos_naming.idl" tag="" type="c"/>
   </div>
     
 

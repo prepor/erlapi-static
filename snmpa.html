@@ -25,7 +25,7 @@
     <p>The module <tt>snmpa</tt> contains interface functions to the 
       SNMP agent.</p>
 
-    <marker id="data_types"></marker>
+    <marker id="data_types"/>
   </div>
     
 
@@ -43,7 +43,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_agent_capsSysORIDSysORDescrgtSysORIndex">add_agent_caps(SysORID, SysORDescr) -&gt; SysORIndex</a></li>
@@ -133,36 +133,36 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre><![CDATA[
 oid() = [byte()] 
 atl_type() = read | write | read_write
 notification_delivery_info() = #snmpa_notification_delivery_info{}
-    </code>
+    ]]></pre>
 
     <p>The <tt>oid()</tt> type is used to represent an ASN.1 OBJECT IDENTIFIER. </p>
 
-    <p>The record <tt>snmpa_notification_delivery_info</tt> contains the following fields: </p>
+    <p>The record <tt><![CDATA[snmpa_notification_delivery_info]]></tt> contains the following fields: </p>
     <taglist>
-      <tag><tt>tag = term()</tt></tag>
+      <tag><tt><![CDATA[tag = term()]]></tt></tag>
       <item>
         <p>A user defined identity representing this notification send 
           operation.</p>
       </item>
-      <tag><tt>mod = module()</tt></tag>
+      <tag><tt><![CDATA[mod = module()]]></tt></tag>
       <item>
         <p>A module implementing the 
           <seealso marker="snmpa_notification_delivery_info_receiver">snmpa_notification_delivery_info_receiver</seealso> 
           behaviour. The info functions of this module will be called at 
           various stages of delivery. </p>
       </item>
-      <tag><tt>extra = term()</tt></tag>
+      <tag><tt><![CDATA[extra = term()]]></tt></tag>
       <item>
         <p>This is any extra info the user wants to have supplied 
           when the functions in the callback module is called. </p>
       </item>
     </taglist>
     
-    <marker id="add_agent_caps"></marker>
+    <marker id="add_agent_caps"/>
   
     </div>
     
@@ -202,7 +202,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>This function can be used to add an AGENT-CAPABILITY
           statement to the sysORTable in the agent.  The table is
           defined in the SNMPv2-MIB.</p>
-        <marker id="del_agent_caps"></marker>
+        <marker id="del_agent_caps"/>
       
                 </div>
                 
@@ -231,7 +231,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           statement to the sysORTable in the agent.  This table is
           defined in the SNMPv2-MIB. </p>
 
-          <marker id="get_agent_caps"></marker>
+          <marker id="get_agent_caps"/>
       
                 </div>
                 
@@ -262,7 +262,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>Returns all AGENT-CAPABILITY statements in the sysORTable
           in the agent.  This table is defined in the SNMPv2-MIB. </p>
 
-        <marker id="get"></marker>
+        <marker id="get"/>
       
                 </div>
                 
@@ -300,7 +300,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           are not accessible for the instrumentation functions if this 
           function is used. </p>
 
-          <marker id="get_next"></marker>
+          <marker id="get_next"/>
       
                 </div>
                 
@@ -337,7 +337,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           <tt>snmpa:current_request_id/0</tt> are not accessible for the 
           instrumentation functions if this function is used. </p>
 
-        <marker id="backup"></marker>
+        <marker id="backup"/>
         <!-- <marker id="get_symbolic_store_db"></marker> -->
       
                 </div>
@@ -369,7 +369,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>Data stored by mnesia is not handled. </p>
         <p>BackupDir cannot be identical to DbDir. </p>
 
-        <marker id="info"></marker>
+        <marker id="info"/>
       
                 </div>
                 
@@ -402,7 +402,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           <seealso marker="#old_info_format">old_info_format</seealso> 
           function. </p>
 
-        <marker id="old_info_format"></marker>
+        <marker id="old_info_format"/>
       
                 </div>
                 
@@ -431,7 +431,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           This function is used to convert to the old (pre-4.4) info 
           format. </p>
 
-        <marker id="load_mibs"></marker>
+        <marker id="load_mibs"/>
       
                 </div>
                 
@@ -463,12 +463,12 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           all MIBs, it will indicate where loading was aborted.  The
           <tt>MibName</tt> is the name of the Mib, including the path to
           where the compiled mib is found.  For example,</p>
-        <code type="none">
+        <pre>
           Dir = code:priv_dir(my_app) ++ "/mibs/",
           snmpa:load_mibs(snmp_master_agent, [Dir ++ "MY-MIB"]).
-        </code>
+        </pre>
 
-        <marker id="unload_mibs"></marker>
+        <marker id="unload_mibs"/>
       
                 </div>
                 
@@ -498,7 +498,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>Unloads MIBs into an agent.  If it cannot unload all MIBs,
           it will indicate where unloading was aborted. </p>
 
-        <marker id="which_mibs"></marker>
+        <marker id="which_mibs"/>
       
                 </div>
                 
@@ -529,7 +529,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>Retrieve the list of all the mibs loaded into this agent. Default 
           is the master agent. </p>
                     
-        <marker id="whereis_mib"></marker>
+        <marker id="whereis_mib"/>
       
                 </div>
                 
@@ -559,10 +559,10 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>Get the full path to the (compiled) mib-file. </p>
 
-        <marker id="current_request_id"></marker>
-        <marker id="current_context"></marker>
-        <marker id="current_community"></marker>
-        <marker id="current_address"></marker>
+        <marker id="current_request_id"/>
+        <marker id="current_context"/>
+        <marker id="current_community"/>
+        <marker id="current_address"/>
       
                 </div>
                 
@@ -597,7 +597,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           executed in the context of the agent process (e.g. it does 
           not work if called from a spawned process).</p>
 
-        <marker id="enum_to_int"></marker>
+        <marker id="enum_to_int"/>
       
                 </div>
                 
@@ -636,7 +636,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p><tt>Db</tt> is a reference to the symbolic store database 
           (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
 
-        <marker id="int_to_enum"></marker>
+        <marker id="int_to_enum"/>
       
                 </div>
                 
@@ -675,7 +675,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p><tt>Db</tt> is a reference to the symbolic store database 
           (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
 
-        <marker id="name_to_oid"></marker>
+        <marker id="name_to_oid"/>
       
                 </div>
                 
@@ -709,7 +709,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p><tt>Db</tt> is a reference to the symbolic store database 
           (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
 
-        <marker id="oid_to_name"></marker>
+        <marker id="oid_to_name"/>
       
                 </div>
                 
@@ -743,7 +743,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p><tt>Db</tt> is a reference to the symbolic store database 
           (retrieved by a call to <tt>get_symbolic_store_db/0</tt>). </p>
 
-        <marker id="which_aliasnames"></marker>
+        <marker id="which_aliasnames"/>
       
                 </div>
                 
@@ -769,7 +769,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                 <div class="description">
                   
         <p>Retrieve all alias-names known to the agent.</p>
-        <marker id="which_tables"></marker>
+        <marker id="which_tables"/>
       
                 </div>
                 
@@ -796,7 +796,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>Retrieve all tables known to the agent.</p>
 
-        <marker id="which_variables"></marker>
+        <marker id="which_variables"/>
       
                 </div>
                 
@@ -823,7 +823,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>Retrieve all variables known to the agent.</p>
 
-        <marker id="which_notifications"></marker>
+        <marker id="which_notifications"/>
       
                 </div>
                 
@@ -853,7 +853,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>Retrieve all notifications (and traps) known to the agent.</p>
 
-        <marker id="log_to_txt"></marker>
+        <marker id="log_to_txt"/>
       
                 </div>
                 
@@ -894,7 +894,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           See <seealso marker="snmp#log_to_txt">snmp:log_to_txt</seealso> 
           for more info.</p>
 
-        <marker id="change_log_size"></marker>
+        <marker id="change_log_size"/>
       
                 </div>
                 
@@ -929,7 +929,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>The change is permanent, as long as the log is not deleted. 
           That means, the log size is remembered across reboots. </p>
 
-        <marker id="set_log_type"></marker>
+        <marker id="set_log_type"/>
       
                 </div>
                 
@@ -963,7 +963,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>This function is primarily useful in testing/debugging 
           scenarios. </p>
 
-        <marker id="mib_of"></marker>
+        <marker id="mib_of"/>
       
                 </div>
                 
@@ -996,7 +996,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           &lt;Oid for var&gt;.0 and if it is a table, Oid must be 
           &lt;table&gt;.&lt;entry&gt;.&lt;col&gt;.&lt;any&gt;</p>
 
-        <marker id="me_of"></marker>
+        <marker id="me_of"/>
       
                 </div>
                 
@@ -1029,7 +1029,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
           &lt;Oid for var&gt;.0 and if it is a table, Oid must be 
           &lt;table&gt;.&lt;entry&gt;.&lt;col&gt;.&lt;any&gt;</p>
 
-        <marker id="register_notification_filter"></marker>
+        <marker id="register_notification_filter"/>
       
                 </div>
                 
@@ -1068,7 +1068,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p><tt>Data</tt> will be passed on to the filter when calling the
           functions of the behaviour.</p>
 
-        <marker id="unregister_notification_filter"></marker>
+        <marker id="unregister_notification_filter"/>
       
                 </div>
                 
@@ -1097,7 +1097,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>Unregister a notification filter. </p>
 
-        <marker id="which_notification_filter"></marker>
+        <marker id="which_notification_filter"/>
       
                 </div>
                 
@@ -1126,7 +1126,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
                   
         <p>List all notification filters in an agent.</p>
 
-        <marker id="set_request_limit"></marker>
+        <marker id="set_request_limit"/>
       
                 </div>
                 
@@ -1160,7 +1160,7 @@ notification_delivery_info() = #snmpa_notification_delivery_info{}
         <p>This function is primarily useful in load regulation 
           scenarios. </p>
 
-        <marker id="register_subagent"></marker>
+        <marker id="register_subagent"/>
       
                 </div>
                 
@@ -1199,7 +1199,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
         <p><tt>SA2</tt> will not get requests starting with object
           identifier <tt>[1,2,3]</tt> since <tt>SA1</tt> does not. </p>
 
-        <marker id="unregister_subagent"></marker>
+        <marker id="unregister_subagent"/>
       
                 </div>
                 
@@ -1229,7 +1229,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
           then that sub-agent will be unregistered from all trees in
           <tt>Agent</tt>. </p>
 
-          <marker id="send_notification"></marker>
+          <marker id="send_notification"/>
       
                 </div>
                 
@@ -1421,7 +1421,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
           report module is called and the notification is discarded.
           </p>
 
-          <marker id="send_trap"></marker>
+          <marker id="send_trap"/>
       
                 </div>
                 
@@ -1506,7 +1506,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
           information.  If an error occurs, <tt>snmp_error:user_err/2</tt>
           is called and the trap is discarded. </p>
 
-        <marker id="discovery"></marker>
+        <marker id="discovery"/>
       
                 </div>
                 
@@ -1562,16 +1562,20 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
           return <tt>{ok, ManagerEngineID}</tt> for a successfull discovery.
           eitherwise <tt>ok</tt> is returned. </p>
 
-        <note><p>If we are not at security-level <tt>noAuthNoPriv</tt>,
+        <note>
+  <p>If we are not at security-level <tt>noAuthNoPriv</tt>,
           this could be complicated, since the agent will then continue 
           with stage 2, before which the usm-related updates must be 
-          done. </p></note>
+          done. </p>
+</note>
 
-        <note><p>The default discovery handler will require 
+        <note>
+  <p>The default discovery handler will require 
           additional actions by the caller and the discovery will not work
-          if the security-level is higher then <tt>noAuthNoPriv</tt>. </p></note>
+          if the security-level is higher then <tt>noAuthNoPriv</tt>. </p>
+</note>
 
-          <marker id="convert_config"></marker>
+          <marker id="convert_config"/>
       
                 </div>
                 
@@ -1609,7 +1613,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
           <seealso marker="snmp_config">Configuring the application</seealso> 
           chapter of the SNMP user's guide.</p>
 
-        <marker id="restart_worker"></marker>
+        <marker id="restart_worker"/>
       
                 </div>
                 
@@ -1638,7 +1642,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
         <p>This is a utility function, that can be usefull when 
           e.g. debugging instrumentation functions.</p>
 
-        <marker id="restart_set_worker"></marker>
+        <marker id="restart_set_worker"/>
       
                 </div>
                 
@@ -1667,7 +1671,7 @@ snmp_agent:register_subagent(SA1,[1,2,3], SA2).
         <p>This is a utility function, that can be usefull when 
           e.g. debugging instrumentation functions.</p>
 
-        <marker id="verbosity"></marker>
+        <marker id="verbosity"/>
       
                 </div>
                 

@@ -166,7 +166,7 @@ old        reboot_old            permanent
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#check_install_releaseVsngtokOtherVsnDescrerrorReason">check_install_release(Vsn) -&gt; {ok, OtherVsn, Descr} | {error, Reason}</a></li>
@@ -519,10 +519,10 @@ old        reboot_old            permanent
           <tt>$ROOT/lib/myapp-1.0</tt>. A new version <tt>NewVsn</tt> is
           unpacked outside the release handler, and the release handler
           is informed about this with a call to:</p>
-        <code type="none">
+        <pre>
 release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
 =&gt; {ok,NewVsn}
-        </code>
+        </pre>
         <p>If <tt>NewVsn</tt> is installed with the option
           <tt>{update_paths,true}</tt>, afterwards
           <tt>code:lib_dir(myapp)</tt> will return

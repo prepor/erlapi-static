@@ -62,7 +62,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#commitRefCommitModegt">commit(Ref, CommitMode) -&gt;</a></li>
@@ -106,56 +106,56 @@
       function in the ODBC API. </p>
     <note>
       <p>The type <tt>TimeOut</tt> has the default value
-        <tt>infinity</tt>, so for instance:        <br>
+        <tt>infinity</tt>, so for instance:        <br/>
 
         commit(Ref, CommitMode) is the same as
         commit(Ref, CommitMode, infinity). If the
         timeout expires the client will exit with the reason
         timeout. </p>
     </note>
-    <code type="none">
- connection_reference() - as returned by connect/2    </code>
-    <code type="none">
- time_out() = milliseconds() | infinity    </code>
-    <code type="none">
- milliseconds() = integer() &gt;= 0     </code>
-    <code type="none">
+    <pre>
+ connection_reference() - as returned by connect/2    </pre>
+    <pre>
+ time_out() = milliseconds() | infinity    </pre>
+    <pre>
+ milliseconds() = integer() &gt;= 0     </pre>
+    <pre>
  common_reason() = connection_closed | term() - some kind of
-                 explanation of what went wrong    </code>
-    <code type="none">
- string() = list of ASCII characters    </code>
-    <code type="none">
- col_name() = string() - Name of column in the result set    </code>
-    <code type="none">
+                 explanation of what went wrong    </pre>
+    <pre>
+ string() = list of ASCII characters    </pre>
+    <pre>
+ col_name() = string() - Name of column in the result set    </pre>
+    <pre>
  col_names() - [col_name()] - e.g. a list of the names of the
-           selected columns in the result set.     </code>
-    <code type="none">
+           selected columns in the result set.     </pre>
+    <pre>
  row() = {value()} - Tuple of column values e.g. one row of the
-           result set.     </code>
-    <code type="none">
- value() = null | term() - A column value.     </code>
-    <code type="none">
- rows() = [row()] - A list of rows from the result set.    </code>
-    <code type="none">
+           result set.     </pre>
+    <pre>
+ value() = null | term() - A column value.     </pre>
+    <pre>
+ rows() = [row()] - A list of rows from the result set.    </pre>
+    <pre>
  result_tuple() =
-      {updated, n_rows()} | {selected, col_names(), rows()}    </code>
-    <code type="none">
+      {updated, n_rows()} | {selected, col_names(), rows()}    </pre>
+    <pre>
  n_rows() = integer() - The number of affected rows for UPDATE,
            INSERT, or DELETE queries. For other query types the value
-           is driver defined, and hence should be ignored.    </code>
-    <code type="none">
+           is driver defined, and hence should be ignored.    </pre>
+    <pre>
  odbc_data_type() = sql_integer | sql_smallint | sql_tinyint |
       {sql_decimal, precison(), scale()} |
       {sql_numeric, precison(), scale()} |
       {sql_char, size()} | {sql_varchar, size()} | {sql_float, precision()} |
       {sql_float, precision()} | sql_real | sql_double | sql_bit | atom()
-    </code>
-    <code type="none">
- precision() = integer()    </code>
-    <code type="none">
- scale() = integer()    </code>
-    <code type="none">
- size() = integer()    </code>
+    </pre>
+    <pre>
+ precision() = integer()    </pre>
+    <pre>
+ scale() = integer()    </pre>
+    <pre>
+ size() = integer()    </pre>
   
     </div>
     
@@ -176,7 +176,7 @@
     <div class="description">
         
     <title>REFERENCES</title>
-    <p>[1]: Microsoft ODBC 3.0, Programmer's Reference and SDK Guide      <br>
+    <p>[1]: Microsoft ODBC 3.0, Programmer's Reference and SDK Guide      <br/>
 
       See also http://msdn.microsoft.com/</p>
   
@@ -311,7 +311,7 @@
           be brutally killed. However you may receive an error message
           as result if you try to disconnect a connection started by another
           process.
-                    <marker id="describe_table"></marker>
+                    <marker id="describe_table"/>
 </p>
       
                 </div>
@@ -437,7 +437,7 @@
           result set when this function is called the returned value
           will be <tt>{selected, ColNames,[]}</tt> e.i. the list of row
           values is empty indicating that there is no more data to fetch.
-                    <marker id="param_query"></marker>
+                    <marker id="param_query"/>
 </p>
       
                 </div>
@@ -601,7 +601,7 @@
             list of values of a row, e.g. the first <tt>ColName</tt> is
             associated with the first <tt>Value</tt> in a <tt>Row</tt>.</p>
         </note>
-        <br>
+        <br/>
       
                 </div>
                 

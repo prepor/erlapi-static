@@ -55,7 +55,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#cModFunArgsFlags">c(Mod, Fun, Args, Flags)</a></li>
@@ -174,13 +174,13 @@
     
     <div class="description">
         
-    <marker id="simple_example"></marker>
+    <marker id="simple_example"/>
     <title>Simple examples - tracing from the shell</title>
     <p>The simplest way of tracing from the Erlang shell is to use
       <tt>dbg:c/3</tt> or <tt>dbg:c/4</tt>, e.g. tracing the function
       <tt>dbg:get_tracer/0</tt>:</p>
     <pre>
-(tiger@durin)84&gt; <input>
+(tiger@durin)84&gt; <tt>dbg:c(dbg,get_tracer,[]).</tt><br/>
 (&lt;0.154.0&gt;) &lt;0.152.0&gt; ! {&lt;0.154.0&gt;,{get_tracer,tiger@durin}}
 (&lt;0.154.0&gt;) out {dbg,req,1}
 (&lt;0.154.0&gt;) &lt;&lt; {dbg,{ok,&lt;0.153.0&gt;}}
@@ -193,37 +193,37 @@
       choice on the processes you want to trace, e.g. trace messages and
       process events:</p>
     <pre>
-(tiger@durin)66&gt; <input>
+(tiger@durin)66&gt; <tt>Pid = spawn(fun() -&gt; receive {From,Msg} -&gt; From ! Msg end end).</tt><br/>
 &lt;0.126.0&gt;
-(tiger@durin)67&gt; <input>
+(tiger@durin)67&gt; <tt>dbg:tracer().</tt><br/>
 {ok,&lt;0.128.0&gt;}
-(tiger@durin)68&gt; <input>
+(tiger@durin)68&gt; <tt>dbg:p(Pid,[m,procs]).</tt><br/>
 {ok,[{matched,tiger@durin,1}]}
-(tiger@durin)69&gt; <input>
+(tiger@durin)69&gt; <tt>Pid ! {self(),hello}.</tt><br/>
 (&lt;0.126.0&gt;) &lt;&lt; {&lt;0.116.0&gt;,hello}
 {&lt;0.116.0&gt;,hello}
 (&lt;0.126.0&gt;) &lt;&lt; timeout
 (&lt;0.126.0&gt;) &lt;0.116.0&gt; ! hello
 (&lt;0.126.0&gt;) exit normal
-(tiger@durin)70&gt; <input>
+(tiger@durin)70&gt; <tt>flush().</tt><br/>
 Shell got hello
 ok
 (tiger@durin)71&gt;</pre>
     <p>If you set the <tt>call</tt> trace flag, you also have to set a
       <em>trace pattern</em> for the functions you want to trace:</p>
     <pre>
-(tiger@durin)77&gt; <input>
+(tiger@durin)77&gt; <tt>dbg:tracer().</tt><br/>
 {ok,&lt;0.142.0&gt;}
-(tiger@durin)78&gt; <input>
+(tiger@durin)78&gt; <tt>dbg:p(all,call).</tt><br/>
 {ok,[{matched,tiger@durin,3}]}
-(tiger@durin)79&gt; <input>
+(tiger@durin)79&gt; <tt>dbg:tp(dbg,get_tracer,0,[]).</tt><br/>
 {ok,[{matched,tiger@durin,1}]}
-(tiger@durin)80&gt; <input>
+(tiger@durin)80&gt; <tt>dbg:get_tracer().</tt><br/>
 (&lt;0.116.0&gt;) call dbg:get_tracer()
 {ok,&lt;0.143.0&gt;}
-(tiger@durin)81&gt; <input>
+(tiger@durin)81&gt; <tt>dbg:tp(dbg,get_tracer,0,[{'_',[],[{return_trace}]}]).</tt><br/>
 {ok,[{matched,tiger@durin,1},{saved,1}]}
-(tiger@durin)82&gt; <input>
+(tiger@durin)82&gt; <tt>dbg:get_tracer().</tt><br/>
 (&lt;0.116.0&gt;) call dbg:get_tracer()
 (&lt;0.116.0&gt;) returned from dbg:get_tracer/0 -&gt; {ok,&lt;0.143.0&gt;}
 {ok,&lt;0.143.0&gt;}
@@ -236,7 +236,7 @@ ok
     
     <div class="description">
         
-    <marker id="advanced"></marker>
+    <marker id="advanced"/>
     <title>Advanced topics - combining with seq_trace</title>
     <p>The <tt>dbg</tt> module is primarily targeted towards
       tracing through the <tt>erlang:trace/3</tt> function. It is
@@ -255,17 +255,17 @@ ok
       powerful.  This brief example shows a session where sequential
       tracing is used:</p>
     <pre>
-1&gt; <input>
+1&gt; <tt>dbg:tracer().</tt><br/>
 {ok,&lt;0.30.0&gt;}
-2&gt; <input>
+2&gt; <tt>{ok, Tracer} = dbg:get_tracer().</tt><br/>
 {ok,&lt;0.31.0&gt;}
-3&gt; <input>
+3&gt; <tt>seq_trace:set_system_tracer(Tracer).</tt><br/>
 false
-4&gt; <input>
+4&gt; <tt>dbg:tp(dbg, get_tracer, 0, [{[],[],[{set_seq_token, send, true}]}]).</tt><br/>
 {ok,[{matched,nonode@nohost,1},{saved,1}]}
-5&gt; <input>
+5&gt; <tt>dbg:p(all,call).</tt><br/>
 {ok,[{matched,nonode@nohost,22}]}
-6&gt; <input>
+6&gt; <tt>dbg:get_tracer(), seq_trace:set_token([]).</tt><br/>
 (&lt;0.25.0&gt;) call dbg:get_tracer()
 SeqTrace [0]: (&lt;0.25.0&gt;) &lt;0.30.0&gt; ! {&lt;0.25.0&gt;,get_tracer} [Serial: {2,4}]
 SeqTrace [0]: (&lt;0.30.0&gt;) &lt;0.25.0&gt; ! {dbg,{ok,&lt;0.31.0&gt;}} [Serial: {4,5}]
@@ -299,22 +299,22 @@ SeqTrace [0]: (&lt;0.30.0&gt;) &lt;0.25.0&gt; ! {dbg,{ok,&lt;0.31.0&gt;}} [Seria
       Here's an example:</p>
     <pre>
 %% Using a default line editing shell
-1&gt; <input>
+1&gt; <tt>dbg:tracer(process, {fun(Msg,_) -&gt; io:format("~p~n", [Msg]), 0 end, 0}).</tt><br/>
 {ok,&lt;0.37.0&gt;}
-2&gt; <input>
+2&gt; <tt>dbg:p(all, [call]).</tt><br/>
 {ok,[{matched,nonode@nohost,25}]}
-3&gt; <input>
+3&gt; <tt>dbg:tp(mymod,[{'_',[],[]}]).</tt><br/>
 {ok,[{matched,nonode@nohost,0},{saved,1}]}
-4&gt; <input> % TAB pressed here
+4&gt; <tt>mymod:</tt><br/> % TAB pressed here
 %% -- Deadlock --</pre>
     <p>Here's another example:</p>
     <pre>
 %% Using a shell without line editing (oldshell)
-1&gt; <input>
+1&gt; <tt>dbg:tracer(process).</tt><br/>
 {ok,&lt;0.31.0&gt;}
-2&gt; <input>
+2&gt; <tt>dbg:p(all, [call]).</tt><br/>
 {ok,[{matched,nonode@nohost,25}]}
-3&gt; <input>
+3&gt; <tt>dbg:tp(lists,[{'_',[],[]}]).</tt><br/>
 {ok,[{matched,nonode@nohost,0},{saved,1}]}
 % -- Deadlock --</pre>
     <p>The reason we get a deadlock in the first example is because when TAB is pressed 
@@ -390,14 +390,14 @@ SeqTrace [0]: (&lt;0.30.0&gt;) &lt;0.25.0&gt; ! {dbg,{ok,&lt;0.31.0&gt;}} [Seria
           the return value of the resulting match_spec.</p>
         <p>Example:</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>dbg:fun2ms(fun([M,N]) when N &gt; 3 -&gt; return_trace() end).</tt><br/>
 [{['$1','$2'],[{'&gt;','$2',3}],[{return_trace}]}]</pre>
         <p>Variables from the environment can be imported, so that this
           works:</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>X=3.</tt><br/>
 3
-3&gt; <input>
+3&gt; <tt>dbg:fun2ms(fun([M,N]) when N &gt; X  -&gt; return_trace() end).</tt><br/>
 [{['$1','$2'],[{'&gt;','$2',{const,3}}],[{return_trace}]}]</pre>
         <p>The imported variables will be replaced by match_spec
           <tt>const</tt> expressions, which is consistent with the
@@ -406,10 +406,10 @@ SeqTrace [0]: (&lt;0.30.0&gt;) &lt;0.25.0&gt; ! {dbg,{ok,&lt;0.31.0&gt;}} [Seria
           however. Calls to builtin match_spec functions of course is
           allowed:</p>
         <pre>
-4&gt; <input>
+4&gt; <tt>dbg:fun2ms(fun([M,N]) when N &gt; X, is_atomm(M)  -&gt; return_trace() end).</tt><br/>
 Error: fun containing local erlang function calls ('is_atomm' called in guard) cannot be translated into match_spec
 {error,transform_error}
-5&gt; <input>
+5&gt; <tt>dbg:fun2ms(fun([M,N]) when N &gt; X, is_atom(M)  -&gt; return_trace() end).</tt><br/>
 [{['$1','$2'],[{'&gt;','$2',{const,3}},{is_atom,'$1'}],[{return_trace}]}]</pre>
         <p>As you can see by the example, the function can be called from
           the shell too. The <tt>fun()</tt> needs to be literally in the
@@ -538,14 +538,14 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
            corresponding registered name is traced.The process may be a 
            remote process (on another Erlang node). The node must be added 
            with the <tt>n/1</tt> or <tt>tracer/0/2/3</tt> function.</item>
-          <item>If the <tt>Item</tt> is an integer, the process <tt><0.Item.0></tt> is
+          <item>If the <tt>Item</tt> is an integer, the process <tt><![CDATA[<0.Item.0>]]></tt> is
            traced.</item>
           <item>If the <tt>Item</tt> is a tuple <tt>{X, Y, Z}</tt>, the
-           process <tt><X.Y.Z></tt> is
+           process <tt><![CDATA[<X.Y.Z>]]></tt> is
            traced. </item>
-	  <item>If the <tt>Item</tt> is a string "<X.Y.Z>"
+	  <item>If the <tt>Item</tt> is a string <![CDATA["<X.Y.Z>"]]>
 	    as returned from <tt>pid_to_list/1</tt>, the process
-	   <tt><X.Y.Z></tt> is traced. </item>
+	   <tt><![CDATA[<X.Y.Z>]]></tt> is traced. </item>
         </list>
         <p><tt>Flags</tt> can be a single atom,
           or a list of flags. The available flags are:
@@ -780,7 +780,7 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
           the string is a textual explanation of the compilation
           error. An example:</p>
         <pre>
-(x@y)4&gt; <input>
+(x@y)4&gt; <tt>dbg:tp({dbg,ltp,0},[{[],[],[{message, two, arguments}, {noexist}]}]).</tt><br/>
 {error,
  [{error,"Special form 'message' called with wrong number of
 \011  arguments in {message,two,arguments}."},
@@ -1261,7 +1261,7 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
           problems (like a non existing or non readable file) or due
           to file format problems. The errors from a bad format file
           are in a more or less textual format, which will give a hint
-          to what's causing the problem.          <marker id="n"></marker>
+          to what's causing the problem.          <marker id="n"/>
 </p>
       
                 </div>
@@ -1384,7 +1384,7 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
         <p>A trace server started in this way will simply display the
           trace messages in a formatted way in the Erlang shell
           (i. e. use io:format). See <tt>tracer/2</tt> for a description
-          of how the trace message handler can be customized.          <marker id="tracer2"></marker>
+          of how the trace message handler can be customized.          <marker id="tracer2"/>
 </p>
         <p>To start a similar tracer on a remote node, use <tt>n/1</tt>.</p>
       
@@ -1445,7 +1445,7 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
           due to the <tt>HandlerFun</tt> throwing an exception.
           </p>
         <p>To start a similar tracer on a remote node, use
-          <tt>tracer/3</tt>.          <marker id="trace_port"></marker>
+          <tt>tracer/3</tt>.          <marker id="trace_port"/>
 </p>
       
                 </div>
@@ -1732,21 +1732,21 @@ Error: fun containing local erlang function calls ('is_atomm' called in guard) c
         <p>On the node <tt>stack</tt> there's an Erlang node
           <tt>ant@stack</tt>, in the shell, type the following:</p>
         <pre>
-ant@stack&gt; <input>
+ant@stack&gt; <tt>dbg:tracer(port, dbg:trace_port(ip,4711)).</tt><br/>
 &lt;0.17.0&gt;
-ant@stack&gt; <input>
+ant@stack&gt; <tt>dbg:p(self(), send).</tt><br/>
 {ok,1}</pre>
         <p>All trace messages are now sent to the trace port driver,
           which in turn listens for connections on the TCP/IP port
           4711. If we want to see the messages on another node,
           preferably on another host, we do like this:</p>
         <pre>
--&gt; <input>
+-&gt; <tt>dbg:trace_client(ip, {"stack", 4711}).</tt><br/>
 &lt;0.42.0&gt;</pre>
         <p>If we now send a message from the shell on the node
           <tt>ant@stack</tt>, where all sends from the shell are traced:</p>
         <pre>
-ant@stack&gt; <input>
+ant@stack&gt; <tt>self() ! hello.</tt><br/>
 hello</pre>
         <p>The following will appear at the console on the node that
           started the trace client:</p>

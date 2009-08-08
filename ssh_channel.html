@@ -48,7 +48,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#callChannelRefMsggt">call(ChannelRef, Msg) -&gt;</a></li>
@@ -95,14 +95,26 @@
     and/or abstractions to indicate the intended use of the data
     type:</p>
     
-    <p><tt>boolean() = true | false </tt></p>
-    <p><tt>string() = list of ASCII characters</tt></p>
-    <p><tt>timeout() =  infinity | integer() - in milliseconds.</tt></p>
-    <p><tt>ssh_connection_ref() - opaque to the user returned by
-    ssh:connect/[1,2,3] or sent to a ssh channel process</tt></p>
-    <p><tt>ssh_channel_id() = integer() </tt></p>
-    <p><tt>ssh_data_type_code() = 1 ("stderr") | 0 ("normal") are
-    currently valid values see RFC 4254 section 5.2.</tt></p>
+    <p>
+  <tt>boolean() = true | false </tt>
+</p>
+    <p>
+  <tt>string() = list of ASCII characters</tt>
+</p>
+    <p>
+  <tt>timeout() =  infinity | integer() - in milliseconds.</tt>
+</p>
+    <p>
+  <tt>ssh_connection_ref() - opaque to the user returned by
+    ssh:connect/[1,2,3] or sent to a ssh channel process</tt>
+</p>
+    <p>
+  <tt>ssh_channel_id() = integer() </tt>
+</p>
+    <p>
+  <tt>ssh_data_type_code() = 1 ("stderr") | 0 ("normal") are
+    currently valid values see RFC 4254 section 5.2.</tt>
+</p>
   
     </div>
     
@@ -129,7 +141,7 @@
     
     <div class="description">
         
-    <marker id="#cb_timeouts"></marker>
+    <marker id="#cb_timeouts"/>
     <title> CALLBACK TIMEOUTS</title>
     <p> If an integer timeout value is provided in a return value of
     one of the callback functions, a timeout will occur unless a
@@ -264,17 +276,17 @@
 	  The following options must be present:
 	</p>
 	  <taglist>
-	  <tag><tt>{channel_cb, atom()}</tt></tag>
+	  <tag><tt><![CDATA[{channel_cb, atom()}]]></tt></tag>
 	  <item>The module that implements the channel behavior.</item>
 	  
-	  <tag><tt>{init_args(), list()}</tt></tag>
+	  <tag><tt><![CDATA[{init_args(), list()}]]></tt></tag>
 	  <item> The list of arguments to the callback modules
 	  init function.</item>
 
-	  <tag><tt>{cm, connection_ref()}</tt></tag>
+	  <tag><tt><![CDATA[{cm, connection_ref()}]]></tt></tag>
 	  <item> Reference to the ssh connection.</item>
 	  
-	  <tag><tt>{channel_id, channel_id()}</tt></tag>
+	  <tag><tt><![CDATA[{channel_id, channel_id()}]]></tt></tag>
 	  <item> Id of the ssh channel.</item>
 	  
 	  </taglist>
@@ -393,10 +405,12 @@
 	  affected.
 	  </p>
 
-	  <note><p>If there are long lived ssh connections and more
+	  <note>
+  <p>If there are long lived ssh connections and more
 	  than one upgrade in a short time this may cause the old
 	  connections to fail as only two versions of the code may
-	  be loaded simultaneously.</p></note>
+	  be loaded simultaneously.</p>
+</note>
 	  
         <p>In the case of an upgrade, <tt>OldVsn</tt> is <tt>Vsn</tt>, and
           in the case of a downgrade, <tt>OldVsn</tt> is
@@ -516,7 +530,7 @@
 	</p>
 	<p>For more detailed information on timeouts see the section 
 	<seealso marker="#cb_timeouts">CALLBACK TIMEOUTS</seealso>. </p>
-	<marker id="#handle_msg"></marker>
+	<marker id="#handle_msg"/>
       
                 </div>
                 
@@ -551,8 +565,8 @@
 	function and all channels should handle the following message.</p>
 	
 	<taglist>
-	  <tag><tt>{ssh_channel_up, ssh_channel_id(), 
-	  ssh_connection_ref()}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_channel_up, ssh_channel_id(), 
+	  ssh_connection_ref()}]]></tt></tag>
 	  <item>This is the first messages that will be received
 	  by the channel, it is sent just before
 	  the ssh_channel:init/1 function returns successfully.
@@ -599,34 +613,34 @@
 	will not be called for any other messages. </p>
 	
 	<taglist>
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {data, ssh_channel_id(),
-	  ssh_data_type_code(), binary() = Data}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {data, ssh_channel_id(),
+	  ssh_data_type_code(), binary() = Data}}]]></tt></tag>
 	  <item> Data has arrived on the channel.  When the callback
 	  for this message returns the channel behavior will adjust
 	  the ssh flow control window.</item>
 	  
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {eof,
-	  ssh_channel_id()}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {eof,
+	  ssh_channel_id()}}]]></tt></tag>
 	  <item>Indicteas that the other side will not send any more
 	  data.</item>
 	  
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {signal,
-	  ssh_channel_id(), ssh_signal()}} </tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {signal,
+	  ssh_channel_id(), ssh_signal()}} ]]></tt></tag>
 	  <item>A signal can be delivered to the remote
 	  process/service using the following message.  Some systems
 	  may not implement signals, in which case they should ignore
 	  this message.</item>
 	  
-	  <tag><tt>{ssh_cm, ssh_connection_ref(),
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(),
 	  {exit_signal, ssh_channel_id(), string() = exit_signal,
 	  string() = ErrorMsg, string() =
-	  LanguageString}}</tt></tag>
+	  LanguageString}}]]></tt></tag>
 	  <item>A remote execution may terminate violently due to a
 	  signal then this message may be received. For details on valid string
 	  values see RFC 4254 section 6.10</item>
 	  
-	  <tag><tt>{ssh_cm,  ssh_connection_ref(), {exit_status,
-	  ssh_channel_id(), integer() = ExitStatus}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm,  ssh_connection_ref(), {exit_status,
+	  ssh_channel_id(), integer() = ExitStatus}}]]></tt></tag>
 	  <item> When the command running at the other end terminates,
 	  the following message can be sent to return the exit status
 	  of the command. A zero 'exit_status' usually means that the
@@ -637,8 +651,8 @@
 	should also handle the following messages. </p>
 	
 	<taglist>
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {env, ssh_channel_id(),
-	  boolean() = WantReply, string() = Var, string() = Value}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {env, ssh_channel_id(),
+	  boolean() = WantReply, string() = Var, string() = Value}}]]></tt></tag>
 	  <item> Environment variables may be passed to the
 	  shell/command to be started later. Note that before the
 	  callback returns it should call the function
@@ -646,19 +660,19 @@
 	  WantReply</tt> as the second argument.
 	  </item>
 	  
-	  <tag><tt>{ssh_cm, ConnectionRef, {exec, ssh_channel_id(),
-	  boolean() = WantReply, string() = Cmd}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ConnectionRef, {exec, ssh_channel_id(),
+	  boolean() = WantReply, string() = Cmd}}]]></tt></tag>
 	  <item> This message will request that the server start the
 	  execution of the given command. Note that before the
 	  callback returns it should call the function
 	  ssh_connection:reply_request/4 with the boolean value of <tt>
 	  WantReply</tt> as the second argument.</item>
 	  
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {pty, ssh_channel_id(),
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {pty, ssh_channel_id(),
 	  boolean() = WantReply, {string() = Terminal, integer() = CharWidth,
 	  integer() = RowHeight, integer() = PixelWidth, integer() = PixelHight,
 	  [{atom() | integer() = Opcode,
-	  integer() = Value}] = TerminalModes}}}</tt></tag>
+	  integer() = Value}] = TerminalModes}}}]]></tt></tag>
 	  <item>A pseudo-terminal has been requested for the
 	  session. Terminal is the value of the TERM environment
 	  variable value (e.g., vt100). Zero dimension parameters must
@@ -674,8 +688,8 @@
 	  boolean value of <tt> WantReply</tt> as the second
 	  argument.</item>
 	  
-	  <tag><tt>{ssh_cm, ConnectionRef, {shell, boolean() =
-	  WantReply}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ConnectionRef, {shell, boolean() =
+	  WantReply}}]]></tt></tag>
 	  <item> This message will request that the user's default
 	  shell be started at the other end.  Note that before the
 	  callback returns it should call the function
@@ -683,9 +697,9 @@
 	  WantReply</tt> as the second argument.
 	  </item>
 
-	  <tag><tt> {ssh_cm, ssh_connection_ref(), {window_change,
+	  <tag><tt><![CDATA[ {ssh_cm, ssh_connection_ref(), {window_change,
 	  ssh_channel_id(), integer() = CharWidth, integer() = RowHeight,
-	  integer() = PixWidth, integer() = PixHeight}}</tt></tag>
+	  integer() = PixWidth, integer() = PixHeight}}]]></tt></tag>
 	  <item> When the window (terminal) size changes on the client
 	  side, it MAY send a message to the other side to inform it
 	  of the new dimensions.</item>
@@ -695,8 +709,8 @@
 	ssh channel behavior</p>
 	
 	<taglist>
-	  <tag><tt>{ssh_cm, ssh_connection_ref(), {closed,
-	  ssh_channel_id()}}</tt></tag>
+	  <tag><tt><![CDATA[{ssh_cm, ssh_connection_ref(), {closed,
+	  ssh_channel_id()}}]]></tt></tag>
 	  <item> The channel behavior will send a close message to the
 	  other side if such a message has not already been sent and
 	  then terminate the channel with reason normal.</item>

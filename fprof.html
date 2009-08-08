@@ -83,7 +83,7 @@
       </p>
     <p><tt>fprof</tt> can also skip the file step and trace to a tracer
       process that does the profiling in runtime.
-            <marker id="start"></marker>
+            <marker id="start"/>
 </p>
   </div>
     
@@ -104,7 +104,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#analyseOptiongtokerrorReasonEXITServerPidReason">analyse([Option]) -&gt; ok | {error, Reason} |  {'EXIT', ServerPid, Reason}</a></li>
@@ -163,7 +163,7 @@
     
     <div class="description">
         
-    <marker id="analysis"></marker>
+    <marker id="analysis"/>
     <title>Analysis format</title>
     <p>This section describes the output format of the analyse
       command. See <seealso marker="#analyse">analyse/0</seealso>.
@@ -180,7 +180,7 @@
     <p>As an example, we will use the following function, that you may
       recogise as a slightly modified benchmark function from the
       manpage file(3):</p>
-    <code type="none">
+    <pre><![CDATA[
 -module(foo).
 -export([create_file_slow/2]).
 
@@ -201,12 +201,12 @@ create_file_slow(FD, M, M) ->
     ok;
 create_file_slow(FD, M, N) ->
     ok = file:write(FD, <<M:32/unsigned>>),
-    create_file_slow(FD, M+1, N).</code>
+    create_file_slow(FD, M+1, N).]]></pre>
     <p>Let us have a look at the printout after running:</p>
     <pre>
-1&gt; <input>
-2&gt; <input>
-3&gt; <input></pre>
+1&gt; <tt>fprof:apply(foo, create_file_slow, [junk, 1024]).</tt><br/>
+2&gt; <tt>fprof:profile().</tt><br/>
+3&gt; <tt>fprof:analyse().</tt><br/></pre>
     <p>The printout starts with:</p>
     <pre>
 %% Analysis results:
@@ -329,7 +329,7 @@ create_file_slow(FD, M, N) ->
       compensating for large file write operations (these are regarded
       as a shedule out followed by a shedule in to the same process).
       </p>
-    <p></p>
+    <p/>
     <p>Let us find the <tt>suspend</tt> entry:</p>
     <pre>
 {[{{file,write,2},                       53,    6.281,    0.000},      
@@ -538,7 +538,7 @@ create_file_slow(FD, M, N) ->
         <p>Note that it seldom
           needs to be started explicitly since it is automatically
           started by the functions that need a running server.
-                    <marker id="stop"></marker>
+                    <marker id="stop"/>
 </p>
       
                 </div>
@@ -595,7 +595,7 @@ create_file_slow(FD, M, N) ->
           <p>When the <tt>fprof</tt>&nbsp;server is stopped the
             collected raw profile data is lost.</p>
         </note>
-        <marker id="apply"></marker>
+        <marker id="apply"/>
       
                 </div>
                 
@@ -733,7 +733,7 @@ create_file_slow(FD, M, N) ->
           </p>
         <p><tt>OptionList</tt> is an option list allowed for 
           <tt>apply/3</tt>.
-                    <marker id="trace"></marker>
+                    <marker id="trace"/>
 </p>
       
                 </div>
@@ -965,7 +965,7 @@ create_file_slow(FD, M, N) ->
            This option is only allowed with the <tt>start</tt> option,
            but not with the <tt>{file, Filename}</tt> option.</item>
         </taglist>
-        <marker id="profile"></marker>
+        <marker id="profile"/>
       
                 </div>
                 
@@ -1145,7 +1145,7 @@ create_file_slow(FD, M, N) ->
            This option is not allowed with the <tt>start</tt>,
           <tt>file</tt> or <tt>{file, Filename}</tt> options.</item>
         </taglist>
-        <marker id="analyse"></marker>
+        <marker id="analyse"/>
       
                 </div>
                 

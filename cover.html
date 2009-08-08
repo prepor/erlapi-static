@@ -24,7 +24,7 @@
     <div class="description">
     <p>The module <tt>cover</tt> provides a set of functions for coverage
       analysis of Erlang programs, counting how many times each
-      <em>executable line</em> of code is executed when a program is run.      <br>
+      <em>executable line</em> of code is executed when a program is run.      <br/>
 
       An executable line contains an Erlang expression such as a matching
       or a function call. A blank line or a line containing a comment,
@@ -85,7 +85,9 @@
           executed.</p>
       </item>
     </list>
-    <p><em>Distribution</em></p>
+    <p>
+  <em>Distribution</em>
+</p>
     <p>Cover can be used in a distributed Erlang system. One of the
       nodes in the system must then be selected as the <em>main node</em>, and all Cover commands must be executed from this
       node. The error reason <tt>not_main_node</tt> is returned if an
@@ -109,7 +111,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#analyseModulegtokAnswererrorError">analyse(Module) -&gt; {ok,Answer} | {error,Error}</a></li>
@@ -331,7 +333,7 @@
           <tt>{no_abstract_code,BeamFile}</tt> is returned.
           If the abstract code is encrypted, and no key is available
           for decrypting it, the error reason 
-          <tt>{encrypted_abstract_code,BeamFile} is returned. <p>If only the module name (i.e. not the full name of the <c>.beam</tt> file) is given to this function, the
+          <tt><![CDATA[{encrypted_abstract_code,BeamFile} is returned. <p>If only the module name (i.e. not the full name of the <c>.beam]]></tt> file) is given to this function, the
           <tt>.beam</tt> file is found by calling
           <tt>code:which(Module)</tt>. If no <tt>.beam</tt> file is found,
           the error reason <tt>non_existing</tt> is returned. If the

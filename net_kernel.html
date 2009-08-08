@@ -30,12 +30,12 @@
     <p>An Erlang node is started using the command line flag
       <tt>-name</tt> or <tt>-sname</tt>:</p>
     <pre>
-$ <input></pre>
+$ <tt>erl -sname foobar</tt><br/></pre>
     <p>It is also possible to call <tt>net_kernel:start([foobar])</tt>
       directly from the normal Erlang shell prompt:</p>
-    <p></p>
+    <p/>
     <pre>
-1&gt; <input>
+1&gt; <tt>net_kernel:start([foobar, shortnames]).</tt><br/>
 {ok,&lt;0.64.0&gt;}
 (foobar@gringotts)2&gt;</pre>
     <p>If the node is started with the command line flag <tt>-sname</tt>,
@@ -61,7 +61,7 @@ $ <input></pre>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#allowNodesgtokerror">allow(Nodes) -&gt; ok | error</a></li>
@@ -202,14 +202,14 @@ $ <input></pre>
         <p>The format of the node status change messages depends on
           <tt>Options</tt>. If <tt>Options</tt> is [], which is the default,
           the format is:</p>
-        <code type="none">
+        <pre>
 {nodeup, Node} | {nodedown, Node}
-  Node = node()</code>
+  Node = node()</pre>
         <p>If <tt>Options /= []</tt>, the format is:</p>
-        <code type="none">
+        <pre>
 {nodeup, Node, InfoList} | {nodedown, Node, InfoList}
   Node = node()
-  InfoList = [{Tag, Val}]</code>
+  InfoList = [{Tag, Val}]</pre>
         <p><tt>InfoList</tt> is a list of tuples. Its contents depends on
           <tt>Options</tt>, see below.</p>
         <p>Also, when <tt>OptionList == []</tt> only visible nodes, that
@@ -338,7 +338,7 @@ $ <input></pre>
           <tt>NetTicktime</tt> seconds. <tt>TransitionPeriod</tt> defaults
           to 60.</p>
         <p>Some definitions:</p>
-        <p></p>
+        <p/>
         <taglist>
           <tag>The minimum transition traffic interval (<tt>MTTI</tt>)</tag>
           <item>
@@ -353,7 +353,7 @@ $ <input></pre>
               milliseconds).</p>
           </item>
         </taglist>
-        <p>If <tt>NetTicktime < PreviousNetTicktime</tt>, the actual
+        <p>If <tt><![CDATA[NetTicktime < PreviousNetTicktime]]></tt>, the actual
           <tt>net_ticktime</tt> change will be done at the end of
           the transition period; otherwise, at the beginning. During
           the transition period, <tt>net_kernel</tt> will ensure that

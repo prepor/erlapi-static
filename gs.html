@@ -24,11 +24,11 @@
     <div class="description">
     <p>The Graphics System, GS, is easy to learn and
       designed to be portable to many different platforms.</p>
-    <p>In the description below, the type <tt>gsobj()</tt> denotes a
+    <p>In the description below, the type <tt><![CDATA[gsobj()]]></tt> denotes a
       reference to a graphical object created with GS. Such a reference
       is either a GS object identifier or the name of the object (an atom),
       if such a name exists.
-      The functions all return the specified values or <tt>{error,Reason}</tt>
+      The functions all return the specified values or <tt><![CDATA[{error,Reason}]]></tt>
       if an error occurs.</p>
     <p>Please refer to the GS User's Guide for a description of
       the different object types and possible options.</p>
@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#ObjTypeParent">ObjType(Parent)</a></li>
@@ -122,7 +122,7 @@
         <p>If a name is provided, this name can be used to reference
           the object instead of the object identifier. The name is local
           to the process which creates the object.</p>
-        <p>The following object types exist: <tt>window | button | radiobutton | checkbutton | label | frame | entry | listbox | canvas | arc | image | line | oval | polygon | rectangle | text | menubar | menubutton | menu | menuitem | grid | gridline | editor | scale</tt></p>
+        <p>The following object types exist: <tt><![CDATA[window | button | radiobutton | checkbutton | label | frame | entry | listbox | canvas | arc | image | line | oval | polygon | rectangle | text | menubar | menubutton | menu | menuitem | grid | gridline | editor | scale]]></tt></p>
       
                 </div>
                 
@@ -190,8 +190,8 @@
                 
                 <div class="description">
                   
-        <p>These functions are shorthand equivalents of <tt>create/2</tt>,
-          <tt>create/3</tt>, and <tt>create/4</tt>, respectively.</p>
+        <p>These functions are shorthand equivalents of <tt><![CDATA[create/2]]></tt>,
+          <tt><![CDATA[create/3]]></tt>, and <tt><![CDATA[create/4]]></tt>, respectively.</p>
       
                 </div>
                 
@@ -253,7 +253,7 @@
                 <div class="description">
                   
         <p>Stops GS and closes all windows. This function is not the opposite
-          of <tt>start/0</tt> as it will cause <em>all</em> applications
+          of <tt><![CDATA[start/0]]></tt> as it will cause <em>all</em> applications
           to lose their GS objects.</p>
       
                 </div>

@@ -32,15 +32,15 @@
       function because the NameComponents are represented as Erlang records and 
       therefor will be removed by the garbage collector when not in use.</p>
     <p>The type <tt>NameComponent</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record('CosNaming_NameComponent', {id, kind=""}).
-    </code>
+    </pre>
     <p><tt>id</tt> and <tt>kind</tt> are strings. </p>
     <p>The record is defined in the file <tt>CosNaming.hrl</tt> and it 
       is included with:</p>
-    <code type="none">
+    <pre>
       -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
-    </code>
+    </pre>
   </div>
     
 
@@ -49,7 +49,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#creategtReturn">create() -&gt; Return</a></li>

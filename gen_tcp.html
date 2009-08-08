@@ -27,16 +27,16 @@
     <p>The following code fragment provides a simple example of 
       a client connecting to a server at port 5678, transferring a
       binary and closing the connection:</p>
-    <code type="none">
+    <pre>
 client() -&gt;
     SomeHostInNet = "localhost" % to make it runnable on one machine
     {ok, Sock} = gen_tcp:connect(SomeHostInNet, 5678, 
                                  [binary, {packet, 0}]),
     ok = gen_tcp:send(Sock, "Some Data"),
-    ok = gen_tcp:close(Sock).</code>
+    ok = gen_tcp:close(Sock).</pre>
     <p>At the other end a server is listening on port 5678, accepts
       the connection and receives the binary:</p>
-    <code type="none">
+    <pre>
 server() -&gt;
     {ok, LSock} = gen_tcp:listen(5678, [binary, {packet, 0}, 
 \011\011\011\011\011{active, false}]),
@@ -51,7 +51,7 @@ do_recv(Sock, Bs) -&gt;
 \011    do_recv(Sock, [Bs, B]);
 \011{error, closed} -&gt;
 \011    {ok, list_to_binary(Bs)}
-    end.</code>
+    end.</pre>
     <p>For more examples, see the <seealso marker="#examples">examples</seealso> section.</p>
   </div>
     
@@ -70,7 +70,7 @@ do_recv(Sock, Bs) -&gt;
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#acceptListenSocketgtokSocketerrorReason">accept(ListenSocket) -&gt; {ok, Socket} | {error, Reason}</a></li>
@@ -98,7 +98,7 @@ do_recv(Sock, Bs) -&gt;
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 ip_address()
   see inet(3)
 
@@ -106,7 +106,7 @@ posix()
   see inet(3)
 
 socket()
-  as returned by accept/1,2 and connect/3,4</code>
+  as returned by accept/1,2 and connect/3,4</pre>
   
     </div>
     
@@ -116,7 +116,7 @@ socket()
     <div class="description">
         
     <title>Examples</title>
-    <marker id="examples"></marker>
+    <marker id="examples"/>
     <p>The following example illustrates usage of the {active,once}
       option and multiple accepts by implementing a server as a
       number of worker processes doing accept on one single listen
@@ -125,7 +125,7 @@ socket()
       connections on. If <tt>LPort</tt> is specified as <tt>0</tt>, an
       ephemeral portnumber is used, why the start function returns
       the actual portnumber allocated:</p>
-    <code type="none">
+    <pre>
 start(Num,LPort) -&gt;
     case gen_tcp:listen(LPort,[{active, false},{packet,2}]) of
 \011{ok, ListenSock} -&gt;
@@ -162,16 +162,16 @@ loop(S) -&gt;
 \011{tcp_closed,S} -&gt;
 \011    io:format("Socket ~w closed [~w]~n",[S,self()]),
 \011    ok
-    end.</code>
+    end.</pre>
     <p>A simple client could look like this:</p>
-    <code type="none">
+    <pre>
 client(PortNo,Message) -&gt;
     {ok,Sock} = gen_tcp:connect("localhost",PortNo,[{active,false},
 \011\011\011\011\011\011    {packet,2}]),
     gen_tcp:send(Sock,Message),
     A = gen_tcp:recv(Sock,0),
     gen_tcp:close(Sock),
-    A.</code>
+    A.</pre>
     <p>The fact that the <tt>send</tt> call does not accept a timeout
       option, is because timeouts on send is handled through the socket
       option <tt>send_timeout</tt>. The behavior of a send operation with
@@ -186,17 +186,17 @@ client(PortNo,Message) -&gt;
       for each message it sends, but has to rely on the send timeout
       option to detect that the other end is unresponsive. We could use
       the <tt>send_timeout</tt> option when connecting:</p>
-    <code type="none">
+    <pre>
     ...
     {ok,Sock} = gen_tcp:connect(HostAddress, Port,
 \011\011\011\011[{active,false},
 \011\011\011\011 {send_timeout, 5000},
 \011\011\011\011 {packet,2}]),
 \011\011    loop(Sock), % See below
-    ...    </code>
+    ...    </pre>
     <p>In the loop where requests are handled, we can now detect send
       timeouts:</p>
-    <code type="none">
+    <pre>
 loop(Sock) -&gt;
     receive
 \011{Client, send_data, Binary} -&gt;
@@ -219,7 +219,7 @@ loop(Sock) -&gt;
 \011\011    Client ! {self(), data_sent},
 \011\011    loop(Sock)
 \011    end
-    end.    </code>
+    end.    </pre>
     <p>Usually it would suffice to detect timeouts on receive, as most
       protocols include some sort of acknowledgment from the server,
       but if the protocol is strictly one way, the <tt>send_timeout</tt>
@@ -299,15 +299,15 @@ loop(Sock) -&gt;
         <p>Packets can be sent to the returned socket <tt>Socket</tt>
           using\011<tt>send/2</tt>. Packets sent from the peer are delivered
           as messages:</p>
-        <code type="none">
-{tcp, Socket, Data}</code>
+        <pre>
+{tcp, Socket, Data}</pre>
         <p>If the socket is closed, the following message is delivered:</p>
-        <code type="none">
-{tcp_closed, Socket}</code>
+        <pre>
+{tcp_closed, Socket}</pre>
         <p>If an error occurs on the socket, the following message is
           delivered:</p>
-        <code type="none">
-{tcp_error, Socket, Reason}</code>
+        <pre>
+{tcp_error, Socket, Reason}</pre>
         <p>unless <tt>{active, false}</tt> is specified in the option list
           for the socket, in which case packets are retrieved by
           calling <tt>recv/2</tt>.</p>
@@ -440,8 +440,8 @@ loop(Sock) -&gt;
         <p>Packets can be sent to the returned socket <tt>Socket</tt>
           using <tt>send/2</tt>. Packets sent from the peer are delivered
           as messages:</p>
-        <code type="none">
-{tcp, Socket, Data}</code>
+        <pre>
+{tcp, Socket, Data}</pre>
         <p>unless <tt>{active, false}</tt> was specified in the option
           list for the listen socket, in which case packets are
           retrieved by calling <tt>recv/2</tt>.</p>

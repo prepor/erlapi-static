@@ -55,14 +55,16 @@
     </list>
     <p>The above publications can be found at <url href="http://csrc.nist.gov/publications">NIST publications</url>, at <url href="http://www.ietf.org">IETF</url>.
       </p>
-    <p><em>Types</em></p>
+    <p>
+  <em>Types</em>
+</p>
     <pre>
 byte() = 0 ... 255
 ioelem() = byte() | binary() | iolist()
 iolist() = [ioelem()]
-Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
+Mpint() = <![CDATA[<<ByteLen:32/integer-big, Bytes:ByteLen/binary>>]]>
     </pre>
-    <p></p>
+    <p/>
   </div>
     
 
@@ -78,7 +80,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#aes_cfb_128_decryptKeyIVecCiphergtText">aes_cfb_128_decrypt(Key, IVec, Cipher) -&gt; Text</a></li>
@@ -191,7 +193,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
       resulting cipher text is settled. The following code fragment
       returns `true'.
       </p>
-    <pre>
+    <pre><![CDATA[
 
       Key = <<16#01,16#23,16#45,16#67,16#89,16#ab,16#cd,16#ef>>,
       IVec = <<16#12,16#34,16#56,16#78,16#90,16#ab,16#cd,16#ef>>,
@@ -209,7 +211,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
              16#68,16#37,16#88,16#49,16#9a,16#7c,16#05,16#f6>>,
       <<"Now is the time for all ">> == 
                         crypto:des_cbc_decrypt(Key, IVec, C).
-    </pre>
+    ]]></pre>
     <p>The following is true for the DES CBC mode. For all
       decompositions <tt>P1 ++ P2 = P</tt> of a plain text message
       <tt>P</tt> (where the length of all quantities are multiples of 8
@@ -313,7 +315,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
         the numeric version according to the library's own versioning
         scheme. <tt>VerStr</tt> contains a text variant of the version.</p>
         <pre>
-&gt; <input>
+&gt; <tt>info_lib().</tt><br/>
 [{&lt;&lt;"OpenSSL"&gt;&gt;,9469983,&lt;&lt;"OpenSSL 0.9.8a 11 Oct 2005"&gt;&gt;}]
         </pre>
       
@@ -856,7 +858,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
         <p>Convert a binary multi-precision integer <tt>Mpint</tt> to and from
           an erlang big integer. A multi-precision integer is a binary
           with the following form:
-          <tt><<ByteLen:32/integer, Bytes:ByteLen/binary>></tt> where both
+          <tt><![CDATA[<<ByteLen:32/integer, Bytes:ByteLen/binary>>]]></tt> where both
           <tt>ByteLen</tt> and <tt>Bytes</tt> are big-endian. Mpints are used in
           some of the functions in <tt>crypto</tt> and are not translated
           in the API for performance reasons.</p>
@@ -912,7 +914,7 @@ Mpint() = <<ByteLen:32/integer-big, Bytes:ByteLen/binary>>
                 
                 <div class="description">
                   
-        <p>Generate a random number <tt>N, Lo =< N < Hi.</tt> Uses the
+        <p>Generate a random number <tt><![CDATA[N, Lo =< N < Hi.]]></tt> Uses the
           <tt>crypto</tt> library pseudo-random number generator. The
           arguments (and result) can be either erlang integers or binary
           multi-precision integers.</p>

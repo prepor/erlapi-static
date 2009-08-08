@@ -88,7 +88,9 @@
       the process with the error tuple). If given badly formed
       arguments, all functions exit the process with a <tt>badarg</tt>
       message.</p>
-    <p><em>Types</em></p>
+    <p>
+  <em>Types</em>
+</p>
     <pre>
 access() = read | read_write
 auto_save() = infinity | int()
@@ -119,7 +121,7 @@ version() = 8 | 9 | default    </pre>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#allgtName">all() -&gt; [Name]</a></li>
@@ -915,13 +917,13 @@ version() = 8 | 9 | default    </pre>
         <p>Returns a list of all objects with the key <tt>Key</tt>
           stored in the table <tt>Name</tt>. For example:</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>dets:open_file(abc, [{type, bag}]).</tt><br/>
 {ok,abc}
-3&gt; <input>
+3&gt; <tt>dets:insert(abc, {1,2,3}).</tt><br/>
 ok
-4&gt; <input>
+4&gt; <tt>dets:insert(abc, {1,3,4}).</tt><br/>
 ok
-5&gt; <input>
+5&gt; <tt>dets:lookup(abc, 1).</tt><br/>
 [{1,2,3},{1,3,4}]        </pre>
         <p>If the table is of type <tt>set</tt>, the function returns
           either the empty list or a list with one object, as there
@@ -1794,7 +1796,7 @@ ok
                 
                 <div class="description">
                   
-        <p>          <marker id="qlc_table"></marker>
+        <p>          <marker id="qlc_table"/>
 Returns a QLC (Query List
           Comprehension) query handle. The module <tt>qlc</tt>
           implements a query language aimed mainly at Mnesia but Ets
@@ -1835,17 +1837,17 @@ Returns a QLC (Query List
         <p>The following example uses an explicit match specification
           to traverse the table:</p>
         <pre>
-1&gt; <input>
-<input>
-<input>
-<input>        </pre>
+1&gt; <tt>dets:open_file(t, []),</tt><br/>
+<tt>ok = dets:insert(t, [{1,a},{2,b},{3,c},{4,d}]),</tt><br/>
+<tt>MS = ets:fun2ms(fun({X,Y}) when (X &gt; 1) or (X &lt; 5) -&gt; {Y} end),</tt><br/>
+<tt>QH1 = dets:table(t, [{traverse, {select, MS}}]).</tt><br/>        </pre>
         <p>An example with implicit match specification:</p>
         <pre>
-2&gt; <input>        </pre>
+2&gt; <tt>QH2 = qlc:q([{Y} || {X,Y} &lt;- dets:table(t), (X &gt; 1) or (X &lt; 5)]).</tt><br/>        </pre>
         <p>The latter example is in fact equivalent to the former which 
           can be verified using the function <tt>qlc:info/1</tt>:</p>
         <pre>
-3&gt; <input>
+3&gt; <tt>qlc:info(QH1) =:= qlc:info(QH2).</tt><br/>
 true        </pre>
         <p><tt>qlc:info/1</tt> returns information about a query handle,
           and in this case identical information is returned for the

@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#agent_infoTargetNameItemgtokValerrorReason">agent_info(TargetName, Item) -&gt; {ok, Val} | {error, Reason}</a></li>
@@ -134,7 +134,7 @@
         
     <title>Common Data Types</title>
     <p>The following data types are used in the functions below:</p>
-<code type="none">
+<pre><![CDATA[
 oid() = [byte()]  -  The oid() type is used to represent an ASN.1 OBJECT IDENTIFIER
 snmp_reply() = {error_status(), error_index(), varbinds()}
 error_status() = noError | atom()
@@ -156,9 +156,9 @@ value_type() = o ('OBJECT IDENTIFIER') |
                c64 ('Counter64') | 
                tt ('TimeTicks')
 value() = term()
-</code>
+]]></pre>
 
-    <marker id="monitor"></marker>
+    <marker id="monitor"/>
   
     </div>
     
@@ -187,7 +187,7 @@ value() = term()
           (monitoring) process will get a 'DOWN' message (see the erlang 
           module for more info). </p>
 
-        <marker id="demonitor"></marker>
+        <marker id="demonitor"/>
       
                 </div>
                 
@@ -214,7 +214,7 @@ value() = term()
                   
         <p>Turn off monitoring of the SNMP manager. </p>
 
-        <marker id="notify_started"></marker>
+        <marker id="notify_started"/>
       
                 </div>
                 
@@ -271,7 +271,7 @@ value() = term()
           client application is linked to this handler. </p>
         <p>This function is used in conjunction with the monitor function.</p>
 
-        <marker id="cancel_notify_started"></marker>
+        <marker id="cancel_notify_started"/>
       
                 </div>
                 
@@ -298,7 +298,7 @@ value() = term()
                   
         <p>Cancel a previous request to be notified of SNMP manager start.</p>
 
-        <marker id="register_user"></marker>
+        <marker id="register_user"/>
       
                 </div>
                 
@@ -344,7 +344,7 @@ value() = term()
           this user register agents.</p>
 
         <p>The type of <tt>Val</tt> depends on <tt>Item</tt>: </p>
-<code type="none">
+<pre><![CDATA[
 community = string()
 timeout = integer() | snmp_timer()
 max_message_size = integer()
@@ -352,9 +352,9 @@ version = v1 | v2 | v3
 sec_model = any | v1 | v2c | usm 
 sec_name = string() 
 sec_level = noAuthNoPriv | authNoPriv | authPriv
-        </code>
+        ]]></pre>
 
-        <marker id="register_user_monitor"></marker>
+        <marker id="register_user_monitor"/>
       
                 </div>
                 
@@ -405,7 +405,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
           this user register agents.</p>
 
         <p>The type of <tt>Val</tt> depends on <tt>Item</tt>: </p>
-<code type="none">
+<pre><![CDATA[
 community = string()
 timeout = integer() | snmp_timer()
 max_message_size = integer()
@@ -413,9 +413,9 @@ version = v1 | v2 | v3
 sec_model = any | v1 | v2c | usm 
 sec_name = string() 
 sec_level = noAuthNoPriv | authNoPriv | authPriv
-        </code>
+        ]]></pre>
 
-        <marker id="unregister_user"></marker>
+        <marker id="unregister_user"/>
       
                 </div>
                 
@@ -442,7 +442,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
                   
         <p>Unregister the user.</p>
 
-        <marker id="which_users"></marker>
+        <marker id="which_users"/>
       
                 </div>
                 
@@ -470,7 +470,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
                   
         <p>Get a list of the identities of all registered users.</p>
 
-        <marker id="register_agent"></marker>
+        <marker id="register_agent"/>
       
                 </div>
                 
@@ -514,7 +514,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
         <p><tt>TargetName</tt> is a non-empty string, 
           uniquely identifying the agent. </p>
         <p>The type of <tt>Val</tt> depends on <tt>Item</tt>: </p>
-<code type="none">
+<pre><![CDATA[
 [mandatory] engine_id = string()
 [mandatory] address = ip_address()
 [optional]  port = integer()
@@ -525,10 +525,10 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
 [optional]  sec_model = any | v1 | v2c | usm 
 [optional]  sec_name = string() 
 [optional]  sec_level = noAuthNoPriv | authNoPriv | authPriv
-</code>
+]]></pre>
         <p>Note that if no <tt>Port</tt> is given, the default value is used.</p>
 
-        <marker id="unregister_agent"></marker>
+        <marker id="unregister_agent"/>
       
                 </div>
                 
@@ -556,7 +556,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
                   
         <p>Unregister the agent.</p>
 
-        <marker id="agent_info"></marker>
+        <marker id="agent_info"/>
       
                 </div>
                 
@@ -585,7 +585,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
                   
         <p>Retrieve agent config.</p>
 
-        <marker id="update_agent_info"></marker>
+        <marker id="update_agent_info"/>
       
                 </div>
                 
@@ -616,7 +616,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
                   
         <p>Update agent config.</p>
 
-        <marker id="which_agents"></marker>
+        <marker id="which_agents"/>
       
                 </div>
                 
@@ -646,7 +646,7 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
         <p>Get a list of all registered agents or all agents registered
           by a specific user.</p>
 
-        <marker id="register_usm_user"></marker>
+        <marker id="register_usm_user"/>
       
                 </div>
                 
@@ -682,16 +682,16 @@ sec_level = noAuthNoPriv | authNoPriv | authPriv
           Add the usm user to the manager config files (see 
           <seealso marker="snmp_manager_config_files#usm_user">usm.conf</seealso>).</p>
         <p>The type of <tt>Val</tt> depends on <tt>Item</tt>: </p>
-<code type="none">
+<pre><![CDATA[
 sec_name = string()
 auth = usmNoAuthProtocol | usmHMACMD5AuthProtocol | usmHMACSHAAuthProtocoltimeout
 auth_key = [integer()]   (length 16 if auth = usmHMACMD5AuthProtocol, 
                           length 20 if auth = usmHMACSHAAuthProtocol)
 priv = usmNoPrivProtocol | usmDESPrivProtocol | usmAesCfb128Protocol
 priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb128Protocol).
-</code>
+]]></pre>
 
-        <marker id="unregister_usm_user"></marker>
+        <marker id="unregister_usm_user"/>
       
                 </div>
                 
@@ -720,7 +720,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Unregister this USM user.</p>
 
-        <marker id="which_usm_users1"></marker>
+        <marker id="which_usm_users1"/>
       
                 </div>
                 
@@ -750,7 +750,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Retrieve usm user config.</p>
 
-        <marker id="update_usm_user_info"></marker>
+        <marker id="update_usm_user_info"/>
       
                 </div>
                 
@@ -781,7 +781,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Update usm user config.</p>
 
-        <marker id="which_usm_users"></marker>
+        <marker id="which_usm_users"/>
       
                 </div>
                 
@@ -810,7 +810,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Get a list of all registered usm users.</p>
 
-        <marker id="which_usm_users2"></marker>
+        <marker id="which_usm_users2"/>
       
                 </div>
                 
@@ -839,7 +839,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>Get a list of all registered usm users with engine-id 
           <tt>EngineID</tt>.</p>
 
-        <marker id="sync_get"></marker>
+        <marker id="sync_get"/>
       
                 </div>
                 
@@ -893,7 +893,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>For <tt>SnmpInfo</tt>, see the user callback function 
           <seealso marker="snmpm_user#handle_report">handle_report</seealso>.</p>
 
-        <marker id="async_get"></marker>
+        <marker id="async_get"/>
       
                 </div>
                 
@@ -937,7 +937,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           in such a configuration (when using the built in net-if) would
           be tracing.</p>
 
-        <marker id="sync_get_next"></marker>
+        <marker id="sync_get_next"/>
       
                 </div>
                 
@@ -983,7 +983,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           in such a configuration (when using the built in net-if) would
           be tracing.</p>
 
-        <marker id="async_get_next"></marker>
+        <marker id="async_get_next"/>
       
                 </div>
                 
@@ -1021,7 +1021,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>The <tt>Expire</tt> time indicates for how long the request is 
           valid (after which the manager is free to delete it).</p>
 
-        <marker id="sync_set"></marker>
+        <marker id="sync_set"/>
       
                 </div>
                 
@@ -1069,7 +1069,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           in such a configuration (when using the built in net-if) would
           be tracing.</p>
 
-        <marker id="async_set"></marker>
+        <marker id="async_set"/>
       
                 </div>
                 
@@ -1113,7 +1113,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           in such a configuration (when using the built in net-if) would
           be tracing.</p>
 
-        <marker id="sync_get_bulk"></marker>
+        <marker id="sync_get_bulk"/>
       
                 </div>
                 
@@ -1160,7 +1160,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           in such a configuration (when using the built in net-if) would
           be tracing.</p>
 
-        <marker id="async_get_bulk"></marker>
+        <marker id="async_get_bulk"/>
       
                 </div>
                 
@@ -1200,7 +1200,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>The <tt>Expire</tt> time indicates for how long the request is 
           valid (after which the manager is free to delete it).</p>
 
-        <marker id="cancel_async_request"></marker>
+        <marker id="cancel_async_request"/>
       
                 </div>
                 
@@ -1229,7 +1229,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Cancel a previous asynchronous request.</p>
 
-        <marker id="log_to_txt"></marker>
+        <marker id="log_to_txt"/>
       
                 </div>
                 
@@ -1270,7 +1270,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           See <seealso marker="snmp#log_to_txt">snmp:log_to_txt</seealso> 
           for more info.</p>
 
-        <marker id="change_log_size"></marker>
+        <marker id="change_log_size"/>
       
                 </div>
                 
@@ -1306,7 +1306,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>The change is permanent, as long as the log is not deleted. 
           That means, the log size is remembered across reboots.</p>
 
-        <marker id="set_log_type"></marker>
+        <marker id="set_log_type"/>
       
                 </div>
                 
@@ -1339,7 +1339,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>This function is primarily useful in testing/debugging 
           scenarios. </p>
 
-        <marker id="load_mib"></marker>
+        <marker id="load_mib"/>
       
                 </div>
                 
@@ -1369,12 +1369,12 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>Load a <tt>Mib</tt> into the manager. The <tt>MibName</tt> is the 
           name of the Mib, including the path to where the compiled mib is 
           found.  For example,</p>
-        <code type="none">
+        <pre>
           Dir = code:priv_dir(my_app) ++ "/mibs/",
           snmpm:load_mib(Dir ++ "MY-MIB").
-        </code>
+        </pre>
 
-        <marker id="unload_mib"></marker>
+        <marker id="unload_mib"/>
       
                 </div>
                 
@@ -1404,12 +1404,12 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>Unload a <tt>Mib</tt> from the manager. The <tt>MibName</tt> is the 
           name of the Mib, including the path to where the compiled mib is 
           found.  For example,</p>
-        <code type="none">
+        <pre>
           Dir = code:priv_dir(my_app) ++ "/mibs/",
           snmpm:unload_mib(Dir ++ "MY-MIB").
-        </code>
+        </pre>
 
-        <marker id="which_mibs"></marker>
+        <marker id="which_mibs"/>
       
                 </div>
                 
@@ -1438,7 +1438,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Get a list of all the mib's loaded into the manager.</p>
 
-        <marker id="name_to_oid"></marker>
+        <marker id="name_to_oid"/>
       
                 </div>
                 
@@ -1469,7 +1469,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           when loading several mib's into a manager, there might be
           several instances of the same aliasname.</p>
 
-        <marker id="oid_to_name"></marker>
+        <marker id="oid_to_name"/>
       
                 </div>
                 
@@ -1498,7 +1498,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Transform a oid to it's aliasname.</p>
 
-        <marker id="oid_to_type"></marker>
+        <marker id="oid_to_type"/>
       
                 </div>
                 
@@ -1527,7 +1527,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
                   
         <p>Retreive the type (asn1 bertype) of an oid.</p>
 
-        <marker id="backup"></marker>
+        <marker id="backup"/>
       
                 </div>
                 
@@ -1555,7 +1555,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
         <p>Backup persistent data handled by the manager. </p>
         <p>BackupDir cannot be identical to DbDir. </p>
 
-        <marker id="info"></marker>
+        <marker id="info"/>
       
                 </div>
                 
@@ -1586,7 +1586,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           miscellaneous info about each process (e.g. memory allocation), 
           and so on.</p>
 
-        <marker id="verbosity"></marker>
+        <marker id="verbosity"/>
       
                 </div>
                 
@@ -1617,7 +1617,7 @@ priv_key = [integer()]   (length is 16 if priv = usmDESPrivProtocol | usmAesCfb1
           verbosity <tt>silence</tt>, nothing is printed. The higher the
           verbosity, the more is printed.</p>
 
-        <marker id="format_reason"></marker>
+        <marker id="format_reason"/>
       
                 </div>
                 

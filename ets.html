@@ -104,7 +104,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#allgtTab">all() -&gt; [Tab]</a></li>
@@ -227,7 +227,7 @@
     
     <div class="description">
         
-    <marker id="match_spec"></marker>
+    <marker id="match_spec"/>
     <title>Match Specifications</title>
     <p>Some of the functions uses a <em>match specification</em>,
       match_spec. A brief explanation is given in
@@ -243,12 +243,12 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 match_spec()
   a match specification, see above
 
 tid()
-  a table identifier, as returned by new/2</code>
+  a table identifier, as returned by new/2</pre>
   
     </div>
     
@@ -649,14 +649,14 @@ tid()
         <p>The return value is the resulting match_spec.</p>
         <p>Example:</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>ets:fun2ms(fun({M,N}) when N &gt; 3 -&gt; M end).</tt><br/>
 [{{'$1','$2'},[{'&gt;','$2',3}],['$1']}]</pre>
         <p>Variables from the environment can be imported, so that this
           works:</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>X=3.</tt><br/>
 3
-3&gt; <input>
+3&gt; <tt>ets:fun2ms(fun({M,N}) when N &gt; X -&gt; M end).</tt><br/>
 [{{'$1','$2'},[{'&gt;','$2',{const,3}}],['$1']}]</pre>
         <p>The imported variables will be replaced by match_spec
           <tt>const</tt> expressions, which is consistent with the
@@ -664,11 +664,11 @@ tid()
           calls can not be in the guard or body of the fun however.
           Calls to builtin match_spec functions of course is allowed:</p>
         <pre>
-4&gt; <input>
+4&gt; <tt>ets:fun2ms(fun({M,N}) when N &gt; X, is_atomm(M) -&gt; M end).</tt><br/>
 Error: fun containing local Erlang function calls
 ('is_atomm' called in guard) cannot be translated into match_spec
 {error,transform_error}
-5&gt; <input>
+5&gt; <tt>ets:fun2ms(fun({M,N}) when N &gt; X, is_atom(M) -&gt; M end).</tt><br/>
 [{{'$1','$2'},[{'&gt;','$2',{const,3}},{is_atom,'$1'}],['$1']}]</pre>
         <p>As can be seen by the example, the function can be called
           from the shell too. The fun needs to be literally in the call
@@ -799,35 +799,35 @@ Error: fun containing local Erlang function calls
 	  correct type, this function fails with reason <tt>badarg</tt>.</p>
 
         <list type="bulleted">
-          <item><tt>Item=memory, Value=int()</tt>          <br>
+          <item><tt>Item=memory, Value=int()</tt>          <br/>
 
            The number of words allocated to the table.</item>
-          <item><tt>Item=owner, Value=pid()</tt>          <br>
+          <item><tt>Item=owner, Value=pid()</tt>          <br/>
 
            The pid of the owner of the table.</item>
-          <item><tt>Item=heir, Value=pid()|none</tt>          <br>
+          <item><tt>Item=heir, Value=pid()|none</tt>          <br/>
 
            The pid of the heir of the table, or <tt>none</tt> if no heir is set.</item>
-          <item><tt>Item=name, Value=atom()</tt>          <br>
+          <item><tt>Item=name, Value=atom()</tt>          <br/>
 
            The name of the table.</item>
-          <item><tt>Item=size, Value=int()</tt>          <br>
+          <item><tt>Item=size, Value=int()</tt>          <br/>
 
            The number of objects inserted in the table.</item>
-          <item><tt>Item=node, Value=atom()</tt>          <br>
+          <item><tt>Item=node, Value=atom()</tt>          <br/>
 
            The node where the table is stored. This field is no longer
            meaningful as tables cannot be accessed from other nodes.</item>
-          <item><tt>Item=named_table, Value=true|false</tt>          <br>
+          <item><tt>Item=named_table, Value=true|false</tt>          <br/>
 
            Indicates if the table is named or not.</item>
-          <item><tt>Item=type, Value=set|ordered_set|bag|duplicate_bag</tt>          <br>
+          <item><tt>Item=type, Value=set|ordered_set|bag|duplicate_bag</tt>          <br/>
 
            The table type.</item>
-          <item><tt>Item=keypos, Value=int()</tt>          <br>
+          <item><tt>Item=keypos, Value=int()</tt>          <br/>
 
            The key position.</item>
-          <item><tt>Item=protection, Value=public|protected|private</tt>          <br>
+          <item><tt>Item=protection, Value=public|protected|private</tt>          <br/>
 
            The table access rights.</item>
         </list>
@@ -870,11 +870,11 @@ Error: fun containing local Erlang function calls
           pairs defined for <tt>info/1</tt>, the following items are
           allowed:</p>
         <list type="bulleted">
-          <item><tt>Item=fixed, Value=true|false</tt>          <br>
+          <item><tt>Item=fixed, Value=true|false</tt>          <br/>
 
            Indicates if the table is fixed by any process or not.</item>
           <item>
-            <p><tt>Item=safe_fixed, Value={FirstFixed,Info}|false</tt>              <br>
+            <p><tt>Item=safe_fixed, Value={FirstFixed,Info}|false</tt>              <br/>
 </p>
             <p>If the table has been fixed using <tt>safe_fixtable/2</tt>,
               the call returns a tuple where <tt>FirstFixed</tt> is the
@@ -1040,15 +1040,15 @@ Error: fun containing local Erlang function calls
           <em>not</em> be sent between Erlang nodes nor be stored on
           disk. Any attempt to create an external representation of a
           compiled match_spec will result in an empty binary
-          (<tt><<>></tt>). As an example, the following
+          (<tt><![CDATA[<<>>]]></tt>). As an example, the following
           expression:</p>
-        <code type="none">
-ets:is_compiled_ms(ets:match_spec_compile([{'_',[],[true]}])).</code>
+        <pre>
+ets:is_compiled_ms(ets:match_spec_compile([{'_',[],[true]}])).</pre>
         <p>will yield <tt>true</tt>, while the following expressions:</p>
-        <code type="none">
+        <pre>
 MS = ets:match_spec_compile([{'_',[],[true]}]),
 Broken = binary_to_term(term_to_binary(MS)),
-ets:is_compiled_ms(Broken).</code>
+ets:is_compiled_ms(Broken).</pre>
         <p>will yield false, as the variable <tt>Broken</tt> will contain
           a compiled match_spec that has passed through external
           representation.</p>
@@ -1224,11 +1224,11 @@ ets:is_compiled_ms(Broken).</code>
           matching object, where each element is an ordered list of
           pattern variable bindings. An example:</p>
         <pre>
-6&gt; <input> % Matches every object in the table
+6&gt; <tt>ets:match(T, '$1').</tt><br/> % Matches every object in the table
 [[{rufsen,dog,7}],[{brunte,horse,5}],[{ludde,dog,5}]]
-7&gt; <input>
+7&gt; <tt>ets:match(T, {'_',dog,'$1'}).</tt><br/>
 [[7],[5]]
-8&gt; <input>
+8&gt; <tt>ets:match(T, {'_',cow,'$1'}).</tt><br/>
 []</pre>
         <p>If the key is specified in the pattern, the match is very
           efficient. If the key is not specified, i.e. if it is a
@@ -1513,14 +1513,14 @@ ets:is_compiled_ms(Broken).</code>
           <tt>List</tt>. The two calls in the following example will give
           the same result (but certainly not the same execution
           time...):</p>
-        <code type="none">
+        <pre>
 Table = ets:new...
 MatchSpec = ....
 % The following call...
 ets:match_spec_run(ets:tab2list(Table),
 ets:match_spec_compile(MatchSpec)),
 % ...will give the same result as the more common (and more efficient)
-ets:select(Table,MatchSpec),</code>
+ets:select(Table,MatchSpec),</pre>
         <note>
           <p>This function has limited use in normal code, it is used by
             Dets to perform the <tt>dets:select</tt> operations and by
@@ -1659,8 +1659,8 @@ ets:select(Table,MatchSpec),</code>
               least <tt>Pos</tt> number of elements.</p>
           </item>
           <item>
-            <marker id="heir"></marker>
-            <p><tt>{heir,Pid,HeirData} | {heir,none}</tt><br>
+            <marker id="heir"/>
+            <p><tt>{heir,Pid,HeirData} | {heir,none}</tt><br/>
               Set a process as heir. The heir will inherit the table if
               the owner terminates. The message
               <tt>{'ETS-TRANSFER',tid(),FromPid,HeirData}</tt> will be sent to
@@ -1816,7 +1816,7 @@ ets:select(Table,MatchSpec),</code>
           <tt>ets:select/1</tt> calls even though it has been stored on
           disk or on another node.</p>
         <p>As an example, the following seqence of calls will fail:</p>
-        <code type="none">
+        <pre>
 T=ets:new(x,[]),
 ...
 {_,C} = ets:select(T,ets:fun2ms(fun({N,_}=A)
@@ -1824,9 +1824,9 @@ when (N rem 10) =:= 0 -&gt;
 A
 end),10),
 Broken = binary_to_term(term_to_binary(C)),
-ets:select(Broken).</code>
+ets:select(Broken).</pre>
         <p>...while the following sequence will work:</p>
-        <code type="none">
+        <pre>
 T=ets:new(x,[]),
 ...
 MS = ets:fun2ms(fun({N,_}=A)
@@ -1835,7 +1835,7 @@ A
 end),
 {_,C} = ets:select(T,MS,10),
 Broken = binary_to_term(term_to_binary(C)),
-ets:select(ets:repair_continuation(Broken,MS)).</code>
+ets:select(ets:repair_continuation(Broken,MS)).</pre>
         <p>...as the call to <tt>ets:repair_continuation/2</tt> will
           reestablish the (deliberately) invalidated continuation
           <tt>Broken</tt>.</p>
@@ -1893,7 +1893,7 @@ ets:select(ets:repair_continuation(Broken,MS)).</code>
 	  The keys for new objects inserted during the traversal <em>may</em>
 	  be returned by <seealso marker="#next/2">next/2</seealso>
 	  (it depends on the internal ordering of the keys). An example:</p>
-        <code type="none">
+        <pre>
 clean_all_with_value(Tab,X) -&gt;
     safe_fixtable(Tab,true),
     clean_all_with_value(Tab,X,ets:first(Tab)),
@@ -1908,7 +1908,7 @@ clean_all_with_value(Tab,X,Key) -&gt;
         _ -&gt;
             true
     end,
-    clean_all_with_value(Tab,X,ets:next(Tab,Key)).</code>
+    clean_all_with_value(Tab,X,ets:next(Tab,Key)).</pre>
         <p>Note that no deleted objects are actually removed from a
           fixed table until it has been released. If a process fixes a
           table but never releases it, the memory used by the deleted
@@ -1973,34 +1973,34 @@ clean_all_with_value(Tab,X,Key) -&gt;
           <tt>'$_'</tt> (the whole matching object) and <tt>'$$'</tt> (all
           match variables in a list), so that the following
           <tt>ets:match/2</tt> expression:</p>
-        <code type="none">
-ets:match(Tab,{'$1','$2','$3'})</code>
+        <pre>
+ets:match(Tab,{'$1','$2','$3'})</pre>
         <p>is exactly equivalent to:</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$3'},[],['$$']}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$3'},[],['$$']}])</pre>
         <p>- and the following <tt>ets:match_object/2</tt> call:</p>
-        <code type="none">
-ets:match_object(Tab,{'$1','$2','$1'})</code>
+        <pre>
+ets:match_object(Tab,{'$1','$2','$1'})</pre>
         <p>is exactly equivalent to</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$1'},[],['$_']}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$1'},[],['$_']}])</pre>
         <p>Composite terms can be constructed in the <tt>Result</tt> part
           either by simply writing a list, so that this code:</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$3'},[],['$$']}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$3'},[],['$$']}])</pre>
         <p>gives the same output as:</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$3'},[],[['$1','$2','$3']]}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$3'},[],[['$1','$2','$3']]}])</pre>
         <p>i.e. all the bound variables in the match head as a list. If
           tuples are to be constructed, one has to write a tuple of
           arity 1 with the single element in the tuple being the tuple
           one wants to construct (as an ordinary tuple could be mistaken
           for a <tt>Guard</tt>). Therefore the following call:</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$1'},[],['$_']}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$1'},[],['$_']}])</pre>
         <p>gives the same output as:</p>
-        <code type="none">
-ets:select(Tab,[{{'$1','$2','$1'},[],[{{'$1','$2','$3'}}]}])</code>
+        <pre>
+ets:select(Tab,[{{'$1','$2','$1'},[],[{{'$1','$2','$3'}}]}])</pre>
         <p>- this syntax is equivalent to the syntax used in the trace
           patterns (see
           <seealso marker="runtime_tools:dbg">dbg(3)</seealso>).</p>
@@ -2018,12 +2018,12 @@ ets:select(Tab,[{{'$1','$2','$1'},[],[{{'$1','$2','$3'}}]}])</code>
           arithmetic operations, which are written with the same syntax
           as the guard tests (prefix notation), so that a guard test
           written in Erlang looking like this:</p>
-        <code type="none">
-is_integer(X), is_integer(Y), X + Y < 4711</code>
+        <pre><![CDATA[
+is_integer(X), is_integer(Y), X + Y < 4711]]></pre>
         <p>is expressed like this (X replaced with '$1' and Y with
           '$2'):</p>
-        <code type="none">
-[{is_integer, '$1'}, {is_integer, '$2'}, {'<', {'+', '$1', '$2'}, 4711}]</code>
+        <pre><![CDATA[
+[{is_integer, '$1'}, {is_integer, '$2'}, {'<', {'+', '$1', '$2'}, 4711}]]]></pre>
         <p>On tables of the <tt>ordered_set</tt> type, objects are visited
           in the same order as in a <tt>first/next</tt>
           traversal. This means that the match specification will be
@@ -2474,7 +2474,7 @@ is_integer(X), is_integer(Y), X + Y < 4711</code>
                 
                 <div class="description">
                   
-        <p>          <marker id="qlc_table"></marker>
+        <p>          <marker id="qlc_table"/>
 Returns a QLC (Query List
           Comprehension) query handle. The module <tt>qlc</tt> implements
           a query language aimed mainly at Mnesia but ETS tables, Dets
@@ -2521,16 +2521,16 @@ Returns a QLC (Query List
         <p>The following example uses an explicit match_spec to
           traverse the table:</p>
         <pre>
-9&gt; <input>
-<input>
-<input></pre>
+9&gt; <tt>true = ets:insert(Tab = ets:new(t, []), [{1,a},{2,b},{3,c},{4,d}]),</tt><br/>
+<tt>MS = ets:fun2ms(fun({X,Y}) when (X &gt; 1) or (X &lt; 5) -&gt; {Y} end),</tt><br/>
+<tt>QH1 = ets:table(Tab, [{traverse, {select, MS}}]).</tt><br/></pre>
         <p>An example with implicit match_spec:</p>
         <pre>
-10&gt; <input></pre>
+10&gt; <tt>QH2 = qlc:q([{Y} || {X,Y} &lt;- ets:table(Tab), (X &gt; 1) or (X &lt; 5)]).</tt><br/></pre>
         <p>The latter example is in fact equivalent to the former which
           can be verified using the function <tt>qlc:info/1</tt>:</p>
         <pre>
-11&gt; <input>
+11&gt; <tt>qlc:info(QH1) =:= qlc:info(QH2).</tt><br/>
 true</pre>
         <p><tt>qlc:info/1</tt> returns information about a query handle,
           and in this case identical information is returned for the
@@ -2641,15 +2641,15 @@ true</pre>
           in the table <tt>Tab</tt> by adding <tt>Incr</tt> to the element
           at the <tt>Pos</tt>:th position. The new counter value is
           returned. If no position is specified, the element directly
-          following the key (<tt><keypos>+1</tt>) is updated.</p>
+          following the key (<tt><![CDATA[<keypos>+1]]></tt>) is updated.</p>
         <p>If a <tt>Threshold</tt> is specified, the counter will be
           reset to the value <tt>SetValue</tt> if the following
           conditions occur:</p>
         <list type="bulleted">
           <item>The <tt>Incr</tt> is not negative (<tt>&gt;= 0</tt>) and the
            result would be greater than (<tt>&gt;</tt>) <tt>Threshold</tt></item>
-          <item>The <tt>Incr</tt> is negative (<tt>< 0</tt>) and the
-           result would be less than (<tt><</tt>)
+          <item>The <tt>Incr</tt> is negative (<tt><![CDATA[< 0]]></tt>) and the
+           result would be less than (<tt><![CDATA[<]]></tt>)
           <tt>Threshold</tt></item>
         </list>
         <p>A list of <tt>UpdateOp</tt> can be supplied to do several update 

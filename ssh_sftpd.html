@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#subsystem_specOptionsgtsubssystem_spec">subsystem_spec(Options) -&gt; subssystem_spec()</a></li>
@@ -52,13 +52,19 @@
     <div class="description">
         
     <title>COMMON DATA TYPES </title>
-    <p><tt>subsystem_spec() = {subsystem_name(), {channel_callback(), channel_init_args()}} </tt></p>
-    <p><tt>subsystem_name() =  "sftp"</tt></p>
+    <p>
+  <tt>subsystem_spec() = {subsystem_name(), {channel_callback(), channel_init_args()}} </tt>
+</p>
+    <p>
+  <tt>subsystem_name() =  "sftp"</tt>
+</p>
     <p><tt>channel_callback() = atom()</tt> - Name of the erlang module implementing the
     subsystem using the ssh_channel behavior see
     <seealso marker="ssh_channel">ssh_channel(3)</seealso></p>
-    <p><tt> channel_init_args() = list() - The one given as argument to function
-    subssystem_spec/1.</tt></p>  
+    <p>
+  <tt> channel_init_args() = list() - The one given as argument to function
+    subssystem_spec/1.</tt>
+</p>  
   
     </div>
     
@@ -86,12 +92,12 @@
         <p>Should be used together with ssh:daemon/[1,2,3]</p>
         <p>Options are:</p>
         <taglist>
-          <tag><tt>{cwd, String}</tt></tag>
+          <tag><tt><![CDATA[{cwd, String}]]></tt></tag>
           <item>
             <p>Sets the initial current working directory for the
               server.</p>
           </item>
-          <tag><tt>{file_handler, CallbackModule}</tt></tag>
+          <tag><tt><![CDATA[{file_handler, CallbackModule}]]></tt></tag>
           <item>
             <p>Determines which module to call for communicating with
               the file server. Default value is <tt>ssh_sftpd_file</tt> that uses the
@@ -99,13 +105,13 @@
               server. This option may be used to plug in the use of
               other file servers.</p>
           </item>
-          <tag><tt>{max_files, Integer}</tt></tag>
+          <tag><tt><![CDATA[{max_files, Integer}]]></tt></tag>
           <item>
             <p>The default value is <tt>0</tt>, which means that there is no upper limit.
                If supplied, the number of filenames returned to the sftp client per <tt>READDIR</tt>
                request, is limited to at most the given value.</p>
           </item>
-	  <tag><tt>{root, String}</tt></tag>
+	  <tag><tt><![CDATA[{root, String}]]></tt></tag>
 	  <item>
 	    <p>Sets the sftp root directory. The user will then not be
 	      able to see any files above this root. If for instance

@@ -53,7 +53,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#pseudoMasterServerListgtok">pseudo([Master | ServerList]) -&gt; ok</a></li>
@@ -127,10 +127,10 @@
           </item>
         </list>
         <p>The following code is executed to achieve this:</p>
-        <code type="none">
+        <pre>
 E = " -env DISPLAY " ++ net_adm:localhost() ++ ":0 ",
 Arg = "-mnesia_dir " ++ M ++ " -pa " ++ Dir ++ E,
-slave:start(H, Name, Arg).</code>
+slave:start(H, Name, Arg).</pre>
         <p>If successful, the function returns <tt>{ok, Node}</tt>,
           where <tt>Node</tt> is the name of the new node. Otherwise it
           returns <tt>{error, Reason}</tt>, where <tt>Reason</tt> can be
@@ -279,8 +279,8 @@ slave:start(H, Name, Arg).</code>
           want to execute <tt>pxw</tt> graphics code on this node, we can
           start the server <tt>pxw_server</tt> as a pseudo server at
           the slave node. The following code illustrates:</p>
-        <code type="none">
-rpc:call(N, slave, pseudo, [node(), [pxw_server]]).</code>
+        <pre>
+rpc:call(N, slave, pseudo, [node(), [pxw_server]]).</pre>
       
                 </div>
                 

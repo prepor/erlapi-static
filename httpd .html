@@ -50,7 +50,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#ModuledoModDatagtproceedOldDataproceedNewDatabreakNewDatadone">Module:do(ModData)-&gt; {proceed, OldData} | {proceed, NewData} | {break, NewData} | done</a></li>
@@ -80,13 +80,25 @@
     <title>COMMON DATA TYPES </title>
     <p>Type definitions that are used more than once in
       this module:</p>
-    <p><tt>boolean() = true | false </tt></p>
-    <p><tt>string() = list of ASCII characters</tt></p>
-    <p><tt>path() = string() - representing a file or directory path.</tt></p>
-    <p><tt> ip_address() = {N1,N2,N3,N4}  % IPv4
-       | {K1,K2,K3,K4,K5,K6,K7,K8}  % IPv6</tt></p>
-    <p><tt>hostname() = string() - representing a host ex "foo.bar.com"</tt></p>
-    <p><tt>property() = atom()</tt></p>
+    <p>
+  <tt>boolean() = true | false </tt>
+</p>
+    <p>
+  <tt>string() = list of ASCII characters</tt>
+</p>
+    <p>
+  <tt>path() = string() - representing a file or directory path.</tt>
+</p>
+    <p>
+  <tt> ip_address() = {N1,N2,N3,N4}  % IPv4
+       | {K1,K2,K3,K4,K5,K6,K7,K8}  % IPv6</tt>
+</p>
+    <p>
+  <tt>hostname() = string() - representing a host ex "foo.bar.com"</tt>
+</p>
+    <p>
+  <tt>property() = atom()</tt>
+</p>
     
   
     </div>
@@ -105,7 +117,9 @@
       description of the available configuration options, also called
       properties.</p>
 
-    <p><em>File properties</em></p>
+    <p>
+  <em>File properties</em>
+</p>
 
     <p>When the web server is started
     at application start time the properties should be fetched from a
@@ -134,9 +148,9 @@
 	each new word begins with a capital, followed by a white-space
 	followed by the value followed by a new line. Ex:
 
-	<code>
+	<pre>
 	  {server_root, "/urs/local/www"} -&gt; ServerRoot /usr/local/www
-	</code>
+	</pre>
 	  
 	<p>With a few exceptions, that are documented
 	  for each property that behaves differently,
@@ -144,18 +158,20 @@
 	  {security_directory, {Dir, PropertyList}} that are represented
 	  as:</p>
 	<pre>
-	  
+	  <![CDATA[
 	  <Directory Dir>
 	   <Properties handled as described above> 
           </Directory>
-         
+         ]]>
 	</pre>
       </item>
     </taglist>
     <note>
       <p>The properties proplist_file and file are mutually exclusive.</p>
     </note>
-    <p><em>Mandatory properties</em></p>
+    <p>
+  <em>Mandatory properties</em>
+</p>
     <taglist>
       <tag>{port, integer()} </tag>
       <item> 
@@ -254,7 +270,9 @@
 	request. Defaults to no limit.</item>   
     </taglist>
     
-    <p><em>Administrative properties</em></p>
+    <p>
+  <em>Administrative properties</em>
+</p>
     <taglist> 
       <tag>{mime_types, [{MimeType, Extension}] | path()}</tag>
       <item>
@@ -334,13 +352,13 @@ bytes
 	option. <tt>pretty</tt> has the format corresponding to:
 	</p>
 	
-	<code>io:format("[~s] ~s, reason: ~n ~p ~n~n", [Date, Msg, Reason]).
-	</code>
+	<pre>io:format("[~s] ~s, reason: ~n ~p ~n~n", [Date, Msg, Reason]).
+	</pre>
 
 	<p><tt>compact</tt> has the format corresponding to:</p>
 	
-	<code>io:format("[~s] ~s, reason: ~w ~n", [Date, Msg, Reason]).
-	</code>
+	<pre>io:format("[~s] ~s, reason: ~w ~n", [Date, Msg, Reason]).
+	</pre>
 
 	<p>This affects the error logs written by mod_log and mod_disk_log.
 	</p>
@@ -348,7 +366,9 @@ bytes
       
     </taglist>
     
-    <p><em>ssl properties</em></p>
+    <p>
+  <em>ssl properties</em>
+</p>
     <taglist>
       <tag>{ssl_ca_certificate_file, path()}</tag>
       <item> 
@@ -398,7 +418,9 @@ bytes
 
     </taglist>
     
-    <p><em>URL aliasing properties - requires mod_alias</em></p>
+    <p>
+  <em>URL aliasing properties - requires mod_alias</em>
+</p>
     <taglist>
       <tag>{alias, {Alias, RealName}}</tag>
       
@@ -408,7 +430,7 @@ bytes
 	begins with url-path is mapped to local files that begins with
 	directory-filename, for example:
 	
-	<code>{alias, {"/image", "/ftp/pub/image"}</code>
+	<pre>{alias, {"/image", "/ftp/pub/image"}</pre>
 	
 	and an access to http://your.server.org/image/foo.gif would refer to
 	the file /ftp/pub/image/foo.gif.</item>
@@ -422,7 +444,7 @@ bytes
 	directory. Several files may be given, in which case the server
 	will return the first it finds, for example:
 	
-	<code>{directory_index, ["index.hml", "welcome.html"]}</code>
+	<pre>{directory_index, ["index.hml", "welcome.html"]}</pre>
 	
 	and access to http://your.server.org/docs/ would return
 	http://your.server.org/docs/index.html or
@@ -431,7 +453,9 @@ bytes
       </item> 
     </taglist>
 
-    <p><em>CGI  properties - requires mod_cgi</em></p>
+    <p>
+  <em>CGI  properties - requires mod_cgi</em>
+</p>
     <taglist> 
       <tag>{script_alias, {Alias, RealName}}</tag>
       <item> Where Alias = string() and RealName = string().
@@ -440,7 +464,7 @@ bytes
 	scripts. URLs with a path beginning with url-path are mapped to
 	scripts beginning with directory-filename, for example:
 	
-	<code> {script_alias, {"/cgi-bin/", "/web/cgi-bin/"}</code>
+	<pre> {script_alias, {"/cgi-bin/", "/web/cgi-bin/"}</pre>
 	
 	and an access to http://your.server.org/cgi-bin/foo would cause
 	the server to run the script /web/cgi-bin/foo.
@@ -470,8 +494,8 @@ bytes
 	propagates the URL and file path of the requested document using
 	the standard CGI PATH_INFO and PATH_TRANSLATED environment
 	variables.
-	<code> {action, {"text/plain", "/cgi-bin/log_and_deliver_text"}
-	</code>
+	<pre> {action, {"text/plain", "/cgi-bin/log_and_deliver_text"}
+	</pre>
       </item>
 
       <tag>{script, {Method, CgiScript}} - requires mod_action</tag>
@@ -484,13 +508,15 @@ bytes
 	the standard CGI PATH_INFO and PATH_TRANSLATED environment
 	variables.
 	
-	<code> {script, {"PUT", "/cgi-bin/put"}
-	</code>
+	<pre> {script, {"PUT", "/cgi-bin/put"}
+	</pre>
 	
       </item>
     </taglist>
     
-    <p><em>ESI properties - requires mod_esi</em></p>
+    <p>
+  <em>ESI properties - requires mod_esi</em>
+</p>
     <taglist>
       <tag>{erl_script_alias, {URLPath, [AllowedModule]}}</tag>
       
@@ -499,8 +525,8 @@ bytes
 	scheme scripts. A matching URL is mapped into a specific module
 	and function. For example:
 	
-	<code>{erl_script_alias, {"/cgi-bin/example" [httpd_example]}
-	</code>
+	<pre>{erl_script_alias, {"/cgi-bin/example" [httpd_example]}
+	</pre>
 	
 	and a request to
 	http://your.server.org/cgi-bin/example/httpd_example:yahoo
@@ -535,7 +561,9 @@ bytes
       for backwards compatibility. The eval scheme is deprecated.</item>
     </taglist>
 
-    <p><em>Log properties - requires mod_log</em></p>
+    <p>
+  <em>Log properties - requires mod_log</em>
+</p>
     <taglist>
       <tag>{error_log, path()}</tag>
       
@@ -561,7 +589,9 @@ bytes
       </item>
     </taglist>
 
-    <p><em>Disk Log properties - requires mod_disk_log</em></p>
+    <p>
+  <em>Disk Log properties - requires mod_disk_log</em>
+</p>
     <taglist>
       <tag>{disk_log_format, internal | external}</tag>
 
@@ -625,9 +655,13 @@ bytes
 	used before the first file is truncated and reused.</item>
     </taglist>
 
-    <p><em>Authentication properties - requires mod_auth</em></p>
+    <p>
+  <em>Authentication properties - requires mod_auth</em>
+</p>
 
-    <p><em>{directory, {path(), [{property(), term()}]}}</em></p>
+    <p>
+  <em>{directory, {path(), [{property(), term()}]}}</em>
+</p>
 
     <p> Here follows the valid properties for directories </p>
     
@@ -640,7 +674,7 @@ bytes
 	
 	For example:
 	
-	<code>{allow_from, ["123.34.56.11", "150.100.23"] </code>
+	<pre>{allow_from, ["123.34.56.11", "150.100.23"] </pre>
           
 	The host 123.34.56.11 and all machines on the 150.100.23
 	subnet are allowed access.</item>
@@ -652,7 +686,7 @@ bytes
 	which should be denied access to a given directory.
 	For example:
 	
-	<code>{deny_from, ["123.34.56.11", "150.100.23"] </code>
+	<pre>{deny_from, ["123.34.56.11", "150.100.23"] </pre>
           
 	The host 123.34.56.11 and all machines on the 150.100.23
 	subnet are not allowed access.</item>
@@ -678,8 +712,8 @@ bytes
 	by the non-encrypted password. If user names are duplicated,
 	the behavior is undefined. For example:
 	
-	<code> ragnar:s7Xxv7
- edward:wwjau8 </code> 
+	<pre> ragnar:s7Xxv7
+ edward:wwjau8 </pre> 
 
 	If using the dets storage method, the user database is
 	maintained by dets and should not be edited by hand. Use the
@@ -700,7 +734,7 @@ bytes
 	each line contains a group name followed by a colon, followed
 	by the member user names separated by spaces. For example:
 	
-	<code>group1: bob joe ante</code>
+	<pre>group1: bob joe ante</pre>
           
 	If using the dets storage method, the group database is
 	maintained by dets and should not be edited by hand. Use the
@@ -741,7 +775,9 @@ bytes
       
     </taglist>
 
-    <p><em>Htacess authenication properties - requires mod_htacess</em></p>
+    <p>
+  <em>Htacess authenication properties - requires mod_htacess</em>
+</p>
     <taglist>
       <tag>{access_files, [path()]}</tag>
 
@@ -754,9 +790,13 @@ bytes
       </item>
     </taglist>
 
-    <p><em>Authentication properties - requires mod_security </em></p>
+    <p>
+  <em>Authentication properties - requires mod_security </em>
+</p>
  
-    <p><em>{security_directory, {path(), [{property(), term()}]}</em></p>
+    <p>
+  <em>{security_directory, {path(), [{property(), term()}]}</em>
+</p>
        
     <p> Here follows the valid properties for security directories</p>
     <taglist>
@@ -808,7 +848,7 @@ bytes
     <div class="description">
         
     <title>ERLANG WEB SERVER API DATA TYPES </title>
-    <code type="none">
+    <pre>
       ModData = #mod{}
 
       -record(mod, {
@@ -825,7 +865,7 @@ bytes
 \011\011entity_body,
 \011\011connection
 \011       }).
-    </code>
+    </pre>
     <p>The fields of the <tt>mod</tt> record has the following meaning:
       </p>
     <taglist>
@@ -950,10 +990,12 @@ bytes
 	Available properties are the same as the servers start options. 
 	</p>
 	
-	<note><p>Pid is the pid returned from inets:start/[2,3]. 
+	<note>
+  <p>Pid is the pid returned from inets:start/[2,3]. 
 	    Can also be retrieved form inets:services/0, inets:services_info/0
 	    see <seealso marker="inets">inets(3)</seealso>
-	  </p></note>
+	  </p>
+</note>
       
                 </div>
                 
@@ -989,9 +1031,11 @@ bytes
 	options.
 	</p>
 
-	<note><p> Address has to be the ip-address and can not be
+	<note>
+  <p> Address has to be the ip-address and can not be
 	    the hostname.
-	  </p></note>	
+	  </p>
+</note>	
       
                 </div>
                 
@@ -1023,9 +1067,11 @@ bytes
 	  server. Incoming requests will be answered with a temporary
 	  down message during the time the it takes to reload.</p>
 	
-	<note><p>Available properties are the same as the servers
+	<note>
+  <p>Available properties are the same as the servers
 	    start options, although the properties bind_address and
-	    port can not be changed.</p></note>
+	    port can not be changed.</p>
+</note>
 	
 	<p>If mode is disturbing, the server is blocked forcefully and
 	  all ongoing requests are terminated and the reload will
@@ -1219,7 +1265,7 @@ bytes
                 
                 <div class="description">
                   
-        <marker id="parse_query"></marker>
+        <marker id="parse_query"/>
         <p><tt>parse_query/1</tt> parses incoming data to <tt>erl</tt> and
           <tt>eval</tt> scripts (See <seealso marker="mod_esi">mod_esi(3)</seealso>) as defined in the standard
           URL format, that is '+' becomes 'space' and decoding of

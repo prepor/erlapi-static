@@ -179,7 +179,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#accessible_logsgtLocalLogDistributedLog">accessible_logs() -&gt; {[LocalLog], [DistributedLog]}</a></li>
@@ -709,7 +709,7 @@
                 
                 <div class="description">
                   
-        <p>          <marker id="close_1"></marker>
+        <p>          <marker id="close_1"/>
 The function <tt>close/1</tt> closes a
           local or distributed disk log properly. An internally
           formatted log must be closed before the Erlang system is
@@ -1128,13 +1128,13 @@ The function <tt>close/1</tt> closes a
               omitted and the name of the log is either an atom or a string, 
               the file name will default to <tt>lists:concat([Log, ".LOG"])</tt> for halt logs. For wrap logs, this will be
               the base name of the files. Each file in a wrap log
-              will be called <tt><base_name>.N</tt>, where <tt>N</tt> is an
+              will be called <tt><![CDATA[<base_name>.N]]></tt>, where <tt>N</tt> is an
               integer. Each wrap log will also have two files called
-              <tt><base_name>.idx</tt> and <tt><base_name>.siz</tt>.
+              <tt><![CDATA[<base_name>.idx]]></tt> and <tt><![CDATA[<base_name>.siz]]></tt>.
               </p>
           </item>
           <item>
-            <p><tt>{linkto, LinkTo}</tt>.               <marker id="linkto"></marker>
+            <p><tt>{linkto, LinkTo}</tt>.               <marker id="linkto"/>
 If
               <tt>LinkTo</tt> is a pid, that pid becomes an owner of the
               log. If <tt>LinkTo</tt> is <tt>none</tt> the log records
@@ -1199,7 +1199,7 @@ If
               </p>
           </item>
           <item>
-            <marker id="notify"></marker>
+            <marker id="notify"/>
             <p><tt>{notify, bool()}</tt>. If <tt>true</tt>, the owners of the
               log are notified when certain events occur in the log.
               Default is <tt>false</tt>. The owners are sent one of the

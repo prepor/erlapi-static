@@ -31,7 +31,7 @@
       numbering starts at 1. That is, the first element of a list is at
       position 1.</p>
 
-    <p>Whenever an <marker id="ordering_function"></marker><em>ordering function</em>
+    <p>Whenever an <marker id="ordering_function"/><em>ordering function</em>
       <tt>F</tt> is expected as argument, it is assumed that the
       following properties hold of <tt>F</tt> for all x, y and z:</p>
     <list type="bulleted">
@@ -53,7 +53,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#allPredListgtbool">all(Pred, List) -&gt; bool()</a></li>
@@ -279,7 +279,7 @@
         <p>Returns a list in which all the sub-lists of
           <tt>ListOfLists</tt> have been appended. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:append([[1, 2, 3], [a, b], [4, 5, 6]]).</tt><br/>
 [1,2,3,a,b,4,5,6]</pre>
       
                 </div>
@@ -309,7 +309,7 @@
           the elements of <tt>List1</tt> followed by the elements of
           <tt>List2</tt>. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:append("abc", "def").</tt><br/>
 "abcdef"</pre>
         <p><tt>lists:append(A, B)</tt> is equivalent to <tt>A ++ B</tt>.</p>
       
@@ -341,7 +341,7 @@
           of <tt>Things</tt>. The elements of <tt>Things</tt> can be atoms,
           integers, floats or strings.</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:concat([doc, '/', file, '.', 3]).</tt><br/>
 "doc/file.3"</pre>
       
                 </div>
@@ -429,7 +429,7 @@
         <p>Returns a list which contains N copies of the term
           <tt>Elem</tt>. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:duplicate(5, xx).</tt><br/>
 [xx,xx,xx,xx,xx]</pre>
       
                 </div>
@@ -519,12 +519,12 @@
           <tt>List1</tt> and appending the resulting lists.</p>
         <p>That is, <tt>flatmap</tt> behaves as if it had been defined as
           follows:</p>
-        <code type="none">
+        <pre>
 flatmap(Fun, List1) -&gt;
-    append(map(Fun, List1))</code>
+    append(map(Fun, List1))</pre>
         <p>Example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:flatmap(fun(X)-&gt;[X,X] end, [a,b,c]).</tt><br/>
 [a,a,b,b,c,c]</pre>
       
                 </div>
@@ -613,9 +613,9 @@ flatmap(Fun, List1) -&gt;
           the accumulator. <tt>Acc0</tt> is returned if the list is empty.
           For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:foldl(fun(X, Sum) -&gt; X + Sum end, 0, [1,2,3,4,5]).</tt><br/>
 15
-&gt; <input>
+&gt; <tt>lists:foldl(fun(X, Prod) -&gt; X * Prod end, 1, [1,2,3,4,5]).</tt><br/>
 120</pre>
       
                 </div>
@@ -647,11 +647,11 @@ flatmap(Fun, List1) -&gt;
         <p>Like <tt>foldl/3</tt>, but the list is traversed from right to
           left. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>P = fun(A, AccIn) -&gt; io:format("~p ", [A]), AccIn end.</tt><br/>
 #Fun&lt;erl_eval.12.2225172&gt;
-&gt; <input>
+&gt; <tt>lists:foldl(P, void, [1,2,3]).</tt><br/>
 1 2 3 void
-&gt; <input>
+&gt; <tt>lists:foldr(P, void, [1,2,3]).</tt><br/>
 3 2 1 void</pre>
         <p><tt>foldl/3</tt> is tail recursive and would usually be
           preferred to <tt>foldr/3</tt>.</p>
@@ -779,9 +779,9 @@ flatmap(Fun, List1) -&gt;
           <tt>Fun(Term1)</tt>.</p>
         <p>Examples:</p>
         <pre>
-&gt; <input>
+&gt; <tt>Fun = fun(Atom) -&gt; atom_to_list(Atom) end.</tt><br/>
 #Fun&lt;erl_eval.6.10732646&gt;
-2&gt; <input>
+2&gt; <tt>lists:keymap(Fun, 2, [{name,jane,22},{name,lizzie,20},{name,lydia,15}]).</tt><br/>
 [{name,"jane",22},{name,"lizzie",20},{name,"lydia",15}]</pre>
       
                 </div>
@@ -908,9 +908,11 @@ flatmap(Fun, List1) -&gt;
           tuple whose <tt>N</tt>th element compares equal to <tt>Key</tt>.
           Returns <tt>{value, Tuple}</tt> if such a tuple is found,
           otherwise <tt>false</tt>.</p>
-      <note><p>This function is retained for backward compatibility.
+      <note>
+  <p>This function is retained for backward compatibility.
       The function <tt>lists:keyfind/3</tt> (introduced in R13A)
-      is in most cases more convenient.</p></note>
+      is in most cases more convenient.</p>
+</note>
       
                 </div>
                 
@@ -1098,8 +1100,8 @@ flatmap(Fun, List1) -&gt;
           <tt>foldl/3</tt> into one pass. An example, summing
           the elements in a list and double them at the same time:</p>
         <pre>
-&gt; <input>
-<input>
+&gt; <tt>lists:mapfoldl(fun(X, Sum) -&gt; {2*X, X+Sum} end,</tt><br/>
+<tt>0, [1,2,3,4,5]).</tt><br/>
 {[2,4,6,8,10],15}</pre>
       
                 </div>
@@ -1369,7 +1371,7 @@ flatmap(Fun, List1) -&gt;
                   
         <p>Returns the <tt>N</tt>th element of <tt>List</tt>. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:nth(3, [a, b, c, d, e]).</tt><br/>
 c</pre>
       
                 </div>
@@ -1400,13 +1402,13 @@ c</pre>
           <tt>List</tt> starting at <tt>N+1</tt> and continuing up to
           the end of the list. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:nthtail(3, [a, b, c, d, e]).</tt><br/>
 [d,e]
-&gt; <input>
+&gt; <tt>tl(tl(tl([a, b, c, d, e]))).</tt><br/>
 [d,e]
-&gt; <input>
+&gt; <tt>lists:nthtail(0, [a, b, c, d, e]).</tt><br/>
 [a,b,c,d,e]
-&gt; <input>
+&gt; <tt>lists:nthtail(5, [a, b, c, d, e]).</tt><br/>
 []</pre>
       
                 </div>
@@ -1440,9 +1442,9 @@ c</pre>
           which <tt>Pred(Elem)</tt> returns <tt>false</tt>.</p>
         <p>Examples:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:partition(fun(A) -&gt; A rem 2 == 1 end, [1,2,3,4,5,6,7]).</tt><br/>
 {[1,3,5,7],[2,4,6]}
-&gt; <input>
+&gt; <tt>lists:partition(fun(A) -&gt; is_atom(A) end, [a,b,1,c,d,2,3,4,e]).</tt><br/>
 {[a,b,c,d,e],[1,2,3,4]}</pre>
         <p>See also <tt>splitwith/2</tt> for a different way to partition
           a list.</p>
@@ -1526,7 +1528,7 @@ c</pre>
           in reverse order, with the tail <tt>Tail</tt> appended. For
           example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:reverse([1, 2, 3, 4], [a, b, c]).</tt><br/>
 [4,3,2,1,a,b,c]</pre>
       
                 </div>
@@ -1558,24 +1560,24 @@ c</pre>
           the previous element, until <tt>To</tt> has been reached or
           passed (in the latter case, <tt>To</tt> is not an element of
           the sequence). <tt>Incr</tt> defaults to 1.</p>
-        <p>Failure: If <tt>To<From-Incr</tt> and <tt>Incr</tt>
+        <p>Failure: If <tt><![CDATA[To<From-Incr]]></tt> and <tt>Incr</tt>
           is positive, or if <tt>To&gt;From-Incr</tt> and <tt>Incr</tt> is
           negative, or if <tt>Incr==0</tt> and <tt>From/=To</tt>.</p>
         <p>The following equalities hold for all sequences:</p>
-        <code type="none">
+        <pre>
 length(lists:seq(From, To)) == To-From+1
-length(lists:seq(From, To, Incr)) == (To-From+Incr) div Incr</code>
+length(lists:seq(From, To, Incr)) == (To-From+Incr) div Incr</pre>
         <p>Examples:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:seq(1, 10).</tt><br/>
 [1,2,3,4,5,6,7,8,9,10]
-&gt; <input>
+&gt; <tt>lists:seq(1, 20, 3).</tt><br/>
 [1,4,7,10,13,16,19]
-&gt; <input>
+&gt; <tt>lists:seq(1, 0, 1).</tt><br/>
 []
-&gt; <input>
+&gt; <tt>lists:seq(10, 6, 4).</tt><br/>
 []
-&gt; <input>
+&gt; <tt>lists:seq(1, 1, 0).</tt><br/>
 [1]</pre>
       
                 </div>
@@ -1691,14 +1693,14 @@ length(lists:seq(From, To, Incr)) == (To-From+Incr) div Incr</code>
         <p>Partitions <tt>List</tt> into two lists according to
           <tt>Pred</tt>. <tt>splitwith/2</tt> behaves as if it is defined
           as follows:</p>
-        <code type="none">
+        <pre>
 splitwith(Pred, List) -&gt; 
-    {takewhile(Pred, List), dropwhile(Pred, List)}.</code>
+    {takewhile(Pred, List), dropwhile(Pred, List)}.</pre>
         <p>Examples:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:splitwith(fun(A) -&gt; A rem 2 == 1 end, [1,2,3,4,5,6,7]).</tt><br/>
 {[1],[2,3,4,5,6,7]}
-&gt; <input>
+&gt; <tt>lists:splitwith(fun(A) -&gt; is_atom(A) end, [a,b,1,c,d,2,3,4,e]).</tt><br/>
 {[a,b],[1,c,d,2,3,4,e]}</pre>
         <p>See also <tt>partition/2</tt> for a different way to partition
           a list.</p>
@@ -1761,11 +1763,11 @@ splitwith(Pred, List) -&gt;
           and with (max) <tt>Len</tt> elements. It is not an error for
           <tt>Start+Len</tt> to exceed the length of the list.</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:sublist([1,2,3,4], 2, 2).</tt><br/>
 [2,3]
-&gt; <input>
+&gt; <tt>lists:sublist([1,2,3,4], 2, 5).</tt><br/>
 [2,3,4]
-&gt; <input>
+&gt; <tt>lists:sublist([1,2,3,4], 5, 2).</tt><br/>
 []</pre>
       
                 </div>
@@ -1796,15 +1798,17 @@ splitwith(Pred, List) -&gt;
           element in <tt>List2</tt>, its first occurrence in <tt>List1</tt>
           is deleted. For example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:subtract("123212", "212").</tt><br/>
 "312".</pre>
         <p><tt>lists:subtract(A, B)</tt> is equivalent to <tt>A -- B</tt>.</p>
-	<warning><p>The complexity of <tt>lists:subtract(A, B)</tt> is proportional
+	<warning>
+  <p>The complexity of <tt>lists:subtract(A, B)</tt> is proportional
 	to <tt>length(A)*length(B)</tt>, meaning that it will be very slow if
 	both <tt>A</tt> and <tt>B</tt> are long lists.
 	(Using ordered lists and
 	<seealso marker="ordsets#subtract/2">ordsets:subtract/2</seealso>
-	is a much better choice if both lists are long.)</p></warning>
+	is a much better choice if both lists are long.)</p>
+</warning>
       
                 </div>
                 
@@ -2291,7 +2295,7 @@ splitwith(Pred, List) -&gt;
           equivalent to <tt>zip(List1, List2)</tt>.</p>
         <p>Example:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:zipwith(fun(X, Y) -&gt; X+Y end, [1,2,3], [4,5,6]).</tt><br/>
 [5,7,9]</pre>
       
                 </div>
@@ -2329,9 +2333,9 @@ splitwith(Pred, List) -&gt;
         <p><tt>zipwith3(fun(X, Y, Z) -&gt; {X,Y,Z} end, List1, List2, List3)</tt> is equivalent to <tt>zip3(List1, List2, List3)</tt>.</p>
         <p>Examples:</p>
         <pre>
-&gt; <input>
+&gt; <tt>lists:zipwith3(fun(X, Y, Z) -&gt; X+Y+Z end, [1,2,3], [4,5,6], [7,8,9]).</tt><br/>
 [12,15,18]
-&gt; <input>
+&gt; <tt>lists:zipwith3(fun(X, Y, Z) -&gt; [X,Y,Z] end, [a,b,c], [x,y,z], [1,2,3]).</tt><br/>
 [[a,x,1],[b,y,2],[c,z,3]]</pre>
       
                 </div>

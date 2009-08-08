@@ -67,7 +67,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#get_system_tracergtTracer">get_system_tracer() -&gt; Tracer</a></li>
@@ -98,17 +98,17 @@
         
     <title>Trace Messages Sent To the System Tracer</title>
     <p>The format of the messages are:</p>
-    <code type="none">
-{seq_trace, Label, SeqTraceInfo, TimeStamp}</code>
+    <pre>
+{seq_trace, Label, SeqTraceInfo, TimeStamp}</pre>
     <p>or</p>
-    <code type="none">
-{seq_trace, Label, SeqTraceInfo}</code>
+    <pre>
+{seq_trace, Label, SeqTraceInfo}</pre>
     <p>depending on whether the <tt>timestamp</tt> flag of the trace
       token is set to <tt>true</tt> or <tt>false</tt>. Where:</p>
-    <code type="none">
+    <pre>
 Label = int()
 TimeStamp = {Seconds, Milliseconds, Microseconds}  
-  Seconds = Milliseconds = Microseconds = int()</code>
+  Seconds = Milliseconds = Microseconds = int()</pre>
     <p>The <tt>SeqTraceInfo</tt> can have the following formats:</p>
     <taglist>
       <tag><tt>{send, Serial, From, To, Message}</tt></tag>
@@ -147,7 +147,7 @@ TimeStamp = {Seconds, Milliseconds, Microseconds}
     
     <div class="description">
         
-    <marker id="whatis"></marker>
+    <marker id="whatis"/>
     <title>What is Sequential Tracing</title>
     <p>Sequential tracing is a way to trace a sequence of messages sent
       between different local or remote processes, where the sequence
@@ -227,9 +227,9 @@ TimeStamp = {Seconds, Milliseconds, Microseconds}
       <item>
         <p><em>When the process is about to send a message and the trace token is not empty.</em></p>
         <p>Let the serial of the trace token be <tt>tprev</tt> and
-          <tt>tcurr</tt>.          <br>
-<tt>curr_cnt := curr_cnt + 1</tt>          <br>
-<tt>tprev := prev_cnt</tt>          <br>
+          <tt>tcurr</tt>.          <br/>
+<tt>curr_cnt := curr_cnt + 1</tt>          <br/>
+<tt>tprev := prev_cnt</tt>          <br/>
 <tt>tcurr := curr_cnt</tt></p>
         <p>The trace token with <tt>tprev</tt> and <tt>tcurr</tt> is then
           passed along with the message.</p>
@@ -243,10 +243,10 @@ TimeStamp = {Seconds, Milliseconds, Microseconds}
         <p>The process trace token is set to the trace token from
           the message.</p>
         <p>Let the serial of the trace token be <tt>tprev</tt> and
-          <tt>tcurr</tt>.          <br>
-<tt>if (curr_cnt < tcurr )</tt>          <br>
+          <tt>tcurr</tt>.          <br/>
+<tt><![CDATA[if (curr_cnt < tcurr )]]></tt>          <br/>
 
-          &nbsp; &nbsp; &nbsp; &nbsp;<tt>curr_cnt := tcurr</tt>          <br>
+          &nbsp; &nbsp; &nbsp; &nbsp;<tt>curr_cnt := tcurr</tt>          <br/>
 <tt>prev_cnt := tcurr</tt></p>
       </item>
     </list>
@@ -327,8 +327,8 @@ TimeStamp = {Seconds, Milliseconds, Microseconds}
     <p>The example shown here will give rough idea of how the new
       primitives can be used and what kind of output it will produce.</p>
     <p>Assume that we have an initiating process with
-      <tt>Pid == <0.30.0></tt> like this:</p>
-    <code type="none">
+      <tt><![CDATA[Pid == <0.30.0>]]></tt> like this:</p>
+    <pre>
 -module(seqex).
 -compile(export_all).
 
@@ -343,10 +343,10 @@ loop(Port) -&gt;
 \011{ack,Ack} -&gt;
 \011    ok
     end,
-    loop(Port).</code>
+    loop(Port).</pre>
     <p>And a registered process <tt>call_server</tt> with
-      <tt>Pid == <0.31.0></tt> like this:</p>
-    <code type="none">
+      <tt><![CDATA[Pid == <0.31.0>]]></tt> like this:</p>
+    <pre>
 loop() -&gt;
     receive
         {PortController,Message} -&gt;
@@ -354,7 +354,7 @@ loop() -&gt;
 \011    seq_trace:print(17,"We are here now"),
 \011    PortController ! {ack,Ack}
     end,
-    loop().</code>
+    loop().</pre>
     <p>A possible output from the system's sequential_tracer (inspired
       by AXE-10 and MD-110) could look like:</p>
     <pre>
@@ -368,7 +368,7 @@ loop() -&gt;
 {ack,{received,the_message}}</pre>
     <p>The implementation of a system tracer process that produces
       the printout above could look like this:</p>
-    <code type="none">
+    <pre>
 tracer() -&gt;
     receive
         {seq_trace,Label,TraceInfo} -&gt;
@@ -393,23 +393,23 @@ print_trace({'receive',Serial,From,To,Message}) -&gt;
               [To,Serial,From,Message]);
 print_trace({send,Serial,From,To,Message}) -&gt;
     io:format("~p Sent ~p TO ~p WITH~n~p~n", 
-              [From,Serial,To,Message]).</code>
+              [From,Serial,To,Message]).</pre>
     <p>The code that creates a process that runs the tracer function
       above and sets that process as the system tracer could look like
       this:</p>
-    <code type="none">
+    <pre>
 start() -&gt;
     Pid = spawn(?MODULE,tracer,[]),
     seq_trace:set_system_tracer(Pid), % set Pid as the system tracer 
-    ok.</code>
+    ok.</pre>
     <p>With a function like <tt>test/0</tt> below the whole example can be
       started.</p>
-    <code type="none">
+    <pre>
 test() -&gt;
     P = spawn(?MODULE, loop, [port]),
     register(call_server, spawn(?MODULE, loop, [])),
     start(),
-    P ! {port,message}.</code>
+    P ! {port,message}.</pre>
   
     </div>
     
@@ -440,13 +440,13 @@ test() -&gt;
           <tt>get_token/0</tt> or <tt>set_token/1</tt>. <tt>set_token/1</tt>
           can be used to temporarily exclude message passing from
           the trace by setting the trace token to empty like this:</p>
-        <code type="none">
+        <pre>
 OldToken = seq_trace:set_token([]), % set to empty and save 
                                     % old value
 % do something that should not be part of the trace
 io:format("Exclude the signalling caused by this~n"),
 seq_trace:set_token(OldToken), % activate the trace token again
-...  </code>
+...  </pre>
         <p>Returns the previous value of the trace token.</p>
       
                 </div>

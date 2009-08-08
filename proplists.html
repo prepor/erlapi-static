@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#append_valuesKeyListgtList">append_values(Key, List) -&gt; List</a></li>
@@ -136,7 +136,7 @@
                 <div class="description">
                   
         <p>Minimizes the representation of all entries in the list. This is
-          equivalent to <tt>[property(P) || P <- List]</tt>.</p>
+          equivalent to <tt><![CDATA[[property(P) || P <- List]]]></tt>.</p>
         <p>See also: <tt>property/1</tt>, <tt>unfold/1</tt>.</p>
       
                 </div>
@@ -199,17 +199,17 @@
           the terms in <tt>Expansion</tt>, and any following entries with
           the same key are deleted from <tt>List</tt>.</p>
         <p>For example, the following expressions all return <tt>[fie, bar, baz, fum]</tt>:</p>
-        <code type="none">
+        <pre>
 \011  expand([{foo, [bar, baz]}],
 \011  [fie, foo, fum])
 \011  expand([{{foo, true}, [bar, baz]}],
 \011  [fie, foo, fum])
 \011  expand([{{foo, false}, [bar, baz]}],
-\011  [fie, {foo, false}, fum])</code>
+\011  [fie, {foo, false}, fum])</pre>
         <p>However, no expansion is done in the following call:</p>
-        <code type="none">
+        <pre>
 \011  expand([{{foo, true}, [bar, baz]}],
-\011  [{foo, false}, fie, foo, fum])</code>
+\011  [{foo, false}, fie, foo, fum])</pre>
         <p>because <tt>{foo, false}</tt> shadows <tt>foo</tt>.</p>
         <p>Note that if the original property term is to be preserved in the
           result when expanded, it must be included in the expansion list. The

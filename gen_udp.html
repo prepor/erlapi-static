@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#closeSocketgtokerrorReason">close(Socket) -&gt; ok | {error, Reason}</a></li>
@@ -61,7 +61,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 ip_address()
   see inet(3)
 
@@ -69,7 +69,7 @@ posix()
   see inet(3)
 
 socket()
-  as returned by open/1,2</code>
+  as returned by open/1,2</pre>
   
     </div>
     
@@ -138,8 +138,8 @@ socket()
         <p>The returned socket <tt>Socket</tt> is used to send packets
           from this port with <tt>send/4</tt>. When UDP packets arrive at
           the opened port, they are delivered as messages:</p>
-        <code type="none">
-{udp, Socket, IP, InPortNo, Packet}</code>
+        <pre>
+{udp, Socket, IP, InPortNo, Packet}</pre>
         <p>Note that arriving UDP packets that are longer than
           the receive buffer option specifies, might be truncated
           without warning.</p>

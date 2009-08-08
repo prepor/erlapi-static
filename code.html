@@ -29,7 +29,7 @@
       <em>interactive</em> mode. Which one is decided by the command
       line flag <tt>-mode</tt>.</p>
     <pre>
-% <input></pre>
+% <tt>erl -mode interactive</tt><br/></pre>
     <p>Default mode is <tt>interactive</tt>.</p>
     <list type="bulleted">
       <item>
@@ -76,7 +76,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_pathDirgttrueerrorWhat">add_path(Dir) -&gt; true | {error, What}</a></li>
@@ -225,12 +225,14 @@
         
     <title>Loading of Code From Archive Files</title>
 
-    <warning><p>The support for loading of code from archive files is
+    <warning>
+  <p>The support for loading of code from archive files is
      experimental. The sole purpose of releasing it before it is ready
      is to obtain early feedback. The file format, semantics,
      interfaces etc. may be changed in a future release. The function
      <tt>lib_dir/2</tt> and the flag <tt>-code_path_choice</tt> are also
-     experimental.</p></warning>
+     experimental.</p>
+</warning>
 
     <p>In the current implementation, Erlang archives are <tt>ZIP</tt>
      files with <tt>.ez</tt> extension. Erlang archives may also be
@@ -1009,11 +1011,11 @@
           remote node in a distributed system. For example, loading
           module <tt>Module</tt> on a node <tt>Node</tt> is done as
           follows:</p>
-        <code type="none">
+        <pre>
 ...\011  
 {_Module, Binary, Filename} = code:get_object_code(Module),
 rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
-...</code>
+...</pre>
       
                 </div>
                 
@@ -1032,7 +1034,7 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
         <p>Returns the root directory of Erlang/OTP, which is
           the directory where it is installed.</p>
         <pre>
-&gt; <input>
+&gt; <tt>code:root_dir().</tt><br/>
 "/usr/local/otp"</pre>
       
                 </div>
@@ -1052,7 +1054,7 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
         <p>Returns the library directory, <tt>$OTPROOT/lib</tt>, where
           <tt>$OTPROOT</tt> is the root directory of Erlang/OTP.</p>
         <pre>
-&gt; <input>
+&gt; <tt>code:lib_dir().</tt><br/>
 "/usr/local/otp/lib"</pre>
       
                 </div>
@@ -1096,7 +1098,7 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
           application resides in an archive or not.</p>
 
         <pre>
-&gt; <input>
+&gt; <tt>code:lib_dir(mnesia).</tt><br/>
 "/usr/local/otp/lib/mnesia-4.2.2"</pre>
         <p>Returns <tt>{error, bad_name}</tt> if <tt>Name</tt>
 	 is not the name of an application under <tt>$OTPROOT/lib</tt> or
@@ -1104,8 +1106,10 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
          environment variable. Fails with an exception if <tt>Name</tt>
          has the wrong type.</p>
 
-	<warning><p>For backward compatibility, <tt>Name</tt> is also allowed to
-	be a string. That will probably change in a future release.</p></warning>
+	<warning>
+  <p>For backward compatibility, <tt>Name</tt> is also allowed to
+	be a string. That will probably change in a future release.</p>
+</warning>
       
                 </div>
                 
@@ -1140,7 +1144,7 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
          file. It is not checked if this directory really exists.</p>
 
         <pre>
-&gt; <input>
+&gt; <tt>code:lib_dir(megaco, priv).</tt><br/>
 "/usr/local/otp/lib/megaco-3.9.1.1/priv"</pre>
 
         <p>Fails with an exception if <tt>Name</tt> or <tt>SubDir</tt> has
@@ -1189,8 +1193,10 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
         <p>Returns the path to the <tt>priv</tt> directory in an
          application. Equivalent to <tt>code:lib_dir(Name,priv).</tt>.</p>
 
-	<warning><p>For backward compatibility, <tt>Name</tt> is also allowed to
-	be a string. That will probably change in a future release.</p></warning>
+	<warning>
+  <p>For backward compatibility, <tt>Name</tt> is also allowed to
+	be a string. That will probably change in a future release.</p>
+</warning>
       
                 </div>
                 

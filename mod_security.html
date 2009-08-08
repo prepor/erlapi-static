@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#block_userUserPortDirSecondsgttrueerrorReason">block_user(User, Port, Dir, Seconds) -&gt; true | {error, Reason}</a></li>
@@ -59,7 +59,7 @@
     
     <div class="description">
         
-    <marker id="callback_module"></marker>
+    <marker id="callback_module"/>
     <title>The SecurityCallbackModule</title>
     <p>The SecurityCallbackModule is a user written module that can receive events from
       the mod_security Erlang Webserver API module. This module only exports one function,
@@ -92,7 +92,7 @@
                 
                 <div class="description">
                   
-        <marker id="list_auth_users"></marker>
+        <marker id="list_auth_users"/>
         <p><tt>list_auth_users/1</tt>, <tt>list_auth_users/2</tt> and 
           <tt>list_auth_users/3</tt> returns a list of users that are 
           currently authenticated. Authentications are stored for
@@ -124,7 +124,7 @@
                 
                 <div class="description">
                   
-        <marker id="list_blocked_users"></marker>
+        <marker id="list_blocked_users"/>
         <p><tt>list_blocked_users/1</tt>, <tt>list_blocked_users/2</tt> and 
           <tt>list_blocked_users/3</tt> returns a list of users that are 
           currently blocked from access.</p>
@@ -157,7 +157,7 @@
                 
                 <div class="description">
                   
-        <marker id="block_user"></marker>
+        <marker id="block_user"/>
         <p><tt>block_user/4</tt> and <tt>block_user/5</tt> blocks the user 
           <tt>User</tt> from the directory <tt>Dir</tt> for a specified 
           amount of time.</p>
@@ -189,7 +189,7 @@
                 
                 <div class="description">
                   
-        <marker id="unblock_user"></marker>
+        <marker id="unblock_user"/>
         <p><tt>unblock_user/2</tt>, <tt>unblock_user/3</tt> and 
           <tt>unblock_user/4</tt> removes the user <tt>User</tt> from 
           the list of blocked users for the Port (and Dir) specified.</p>
@@ -221,7 +221,7 @@
                 
                 <div class="description">
                   
-        <marker id="callback_module_event"></marker>
+        <marker id="callback_module_event"/>
         <p><tt>event/4</tt> or <tt>event/4</tt> is called whenever an event 
           occurs in the mod_security Erlang Webserver API module (<tt>event/4</tt> is
           called if Address is undefined and <tt>event/5</tt> otherwise). 

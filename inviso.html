@@ -32,7 +32,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_nodeRTtaggtNodeResulterrorReason">add_node(RTtag) -&gt; NodeResult | {error,Reason}</a></li>
@@ -457,7 +457,7 @@
                 <div class="description">
                   
         <p>Stops tracing on all or specified <tt>Nodes</tt>. Flushes the trace buffer if a trace-port is used, closes the trace-port and removes all trace flags and meta-patterns. The nodes are called in parallel.</p>
-        <p>Stopping tracing means going to state <tt>idle<c>. If the runtime component was already in state <c>new</tt>, it will of course remain in state <tt>new</tt> (then there was no tracing to stop).</p>
+        <p>Stopping tracing means going to state <tt><![CDATA[idle<c>. If the runtime component was already in state <c>new]]></tt>, it will of course remain in state <tt>new</tt> (then there was no tracing to stop).</p>
       
                 </div>
                 
@@ -742,12 +742,12 @@
         <p>See tpm/X for details on arguments and return values.</p>
         <p>Same as tpm/X but all match specs in <tt>MS</tt> containing a <tt>trace</tt> action term will have a <tt>{tracer,Tracer}</tt> appended to its enable-list. <tt>Tracer</tt> will be the current output for regular trace messages as specified when tracing was initiated. This function is useful when setting a meta trace pattern on a function with the intent that its execution shall turn tracing on for the process executing the match-spec in the meta trace pattern. The reason the <tt>tracer</tt> process trace flag can not be explicitly written in the action term by the user is that it may be difficult to learn its exact value for a remote node. Further more inviso functions are made to work on several nodes at the same time, requiering different match specs to be set for different nodes.</p>
         <p>Simple example: We want any process executing the function <tt>mymod:init(1234)</tt> (with the argument, exactly the integer 1234) to begin function-call tracing. In the example, if the process is found to be one that shall start call tracing, we also first disable <tt>all</tt> process trace flags to ensure that we have full control over what the process traces. <tt>void</tt> in the example specifies that the meta-tracer (inviso_rt_meta) will not call any function when meta trace messages for <tt>mymod:init/1</tt> arrives. There is no need for a <tt>CallFunc</tt> since the side-effect (start call-tracing) is achieved immediately with the match-spec.</p>
-        <code type="none">
-    inviso:tpm_tracer(mymod,init,1,[{[1234],[],[{trace,[all],[call]}]}],void).        </code>
+        <pre>
+    inviso:tpm_tracer(mymod,init,1,[{[1234],[],[{trace,[all],[call]}]}],void).        </pre>
         <p>This will internally, by the meta tracer on each Erlang node, be translated to:</p>
-        <code type="none">
+        <pre>
     erlang:trace_pattern({mymod,init,1},[{[1234],[],[{trace,[all],[call,{{tracer,T}}]}]}],[{meta,P}]).
-        </code>
+        </pre>
         <p>Where <tt>T</tt> is the tracer for regular trace messages (most often a trace-port, but can be the runtime component inviso_rt process), and <tt>P</tt> is the meta tracer (the inviso_rt_meta process).</p>
       
                 </div>
@@ -1224,14 +1224,14 @@
                   
         <p>Adds <tt>Pid</tt> or <tt>self()</tt> if using <tt>subscribe/0</tt> to the inviso-event sending list. Note that it is possible to add a pid several times and that the <tt>Pid</tt> then will receive multiple copies of inviso-event messages.</p>
         <p>All events will be sent to all subscribers in the event sending list.</p>
-        <code type="none">
+        <pre>
 Event = {inviso_event,ControllerPid,erlang:localtime(),Msg}
   Msg = {connected, Node, {RTtag, {State,Status}}}
       | {disconnected, Node, NA}
       | {state_change,Node,{State,Status}}
       | {port_down,Node,Reason}
     Node = node() | local_runtime
-        </code>
+        </pre>
         <p>Subscribing to inviso-event may be necessary for a higher layer trace-tool using inviso to follow the runtime components. <tt>local_runtime</tt> will be used for a runtime component running in a non-distributed environment.</p>
       
                 </div>

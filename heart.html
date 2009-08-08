@@ -37,7 +37,7 @@
       also <seealso marker="erts:erl">erl(1)</seealso>. The <tt>heart</tt>
       process is then started automatically:</p>
     <pre>
-% <input></pre>
+% <tt>erl -heart ...</tt><br/></pre>
     <p>If the system should be rebooted because of missing heart-beats,
       or a terminated Erlang runtime system, the environment variable
       <tt>HEART_COMMAND</tt> has to be set before the system is started.
@@ -56,7 +56,7 @@
       they can be set in the operating system shell before Erlang is
       started or be specified at the command line:</p>
     <pre>
-% <input></pre>
+% <tt>erl -heart -env HEART_BEAT_TIMEOUT 30 ...</tt><br/></pre>
     <p>The value (in seconds) must be in the range 10 &lt; X &lt;= 65535.</p>
     <p>It should be noted that if the system clock is adjusted with
       more than <tt>HEART_BEAT_TIMEOUT</tt> seconds, <tt>heart</tt> will
@@ -73,7 +73,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#clear_cmdgtok">clear_cmd() -&gt; ok</a></li>

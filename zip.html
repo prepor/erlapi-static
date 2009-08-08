@@ -70,7 +70,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#list_dirArchivegtRetValue">list_dir(Archive) -&gt; RetValue</a></li>
@@ -121,8 +121,8 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
-zip_file()    </code>
+    <pre>
+zip_file()    </pre>
     <p>The record <tt>zip_file</tt> contains the following fields.</p>
     <taglist>
       <tag><tt>name = string()</tt></tag>
@@ -148,7 +148,7 @@ zip_file()    </code>
           in <tt>info</tt>)</p>
       </item>
     </taglist>
-    <code type="none">zip_comment</code>
+    <pre>zip_comment</pre>
     <p>The record <tt>zip_comment</tt> just contains the archive comment for
       a zip archive</p>
     <taglist>
@@ -190,7 +190,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The <marker id="zip_2"></marker><tt>zip</tt> function creates a
+        <p>The <marker id="zip_2"/><tt>zip</tt> function creates a
           zip archive containing the files specified in <tt>FileList</tt>.</p>
         <p>As synonyms, the functions <tt>create/2</tt> and <tt>create/3</tt>
           are provided, to make it resemble the <tt>erl_tar</tt> module.</p>
@@ -325,10 +325,10 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="unzip_1"></marker>
+        <p>The           <marker id="unzip_1"/>
 <tt>unzip/1</tt> function extracts
           all files from a zip archive. The
-                    <marker id="unzip_2"></marker>
+                    <marker id="unzip_2"/>
 <tt>unzip/2</tt> function provides options
           to extract some files, and more.</p>
         <p>If the <tt>Archive</tt> argument is given as a binary,
@@ -414,10 +414,10 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="list_dir_1"></marker>
+        <p>The           <marker id="list_dir_1"/>
 <tt>list_dir/1</tt> function retrieves
           the names of all files in the zip archive <tt>Archive</tt>. The
-                    <marker id="list_dir_2"></marker>
+                    <marker id="list_dir_2"/>
 <tt>list_dir/2</tt> function provides options.</p>
         <p>As synonyms, the functions <tt>table/2</tt> and <tt>table/3</tt>
           are provided, to make it resemble the <tt>erl_tar</tt> module.</p>
@@ -459,7 +459,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="t_1"></marker>
+        <p>The           <marker id="t_1"/>
 <tt>t/1</tt> function prints the names
           of all files in the zip archive <tt>Archive</tt> to the Erlang shell.
           (Similar to "<tt>tar&nbsp;t</tt>".)</p>
@@ -487,7 +487,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="tt_1"></marker>
+        <p>The           <marker id="tt_1"/>
 <tt>tt/1</tt> function prints names and
           information about all files in the zip archive <tt>Archive</tt> to
           the Erlang shell. (Similar to "<tt>tar tv</tt>".)</p>
@@ -519,7 +519,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="zip_open"></marker>
+        <p>The           <marker id="zip_open"/>
 <tt>zip_open</tt> function opens a
           zip archive, and reads and saves its directory. This
           means that subsequently reading files from the archive will be
@@ -552,7 +552,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="zip_list_dir"></marker>
+        <p>The           <marker id="zip_list_dir"/>
 <tt>zip_list_dir/1</tt> function
           returns the file list of an open zip archive.</p>
       
@@ -581,7 +581,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="zip_get"></marker>
+        <p>The           <marker id="zip_get"/>
 <tt>zip_get</tt> function extracts
           one or all files from an open archive.</p>
         <p>The files will be unzipped to memory or to file, depending on
@@ -611,7 +611,7 @@ zip_file()    </code>
                 
                 <div class="description">
                   
-        <p>The           <marker id="zip_close"></marker>
+        <p>The           <marker id="zip_close"/>
 <tt>zip_close/1</tt> function closes
           a zip archive, previously opened with <tt>zip_open</tt>. All
           resources are closed, and the handle should not be used after

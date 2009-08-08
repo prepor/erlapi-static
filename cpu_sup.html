@@ -40,9 +40,9 @@
       the load values are not restricted to a fixed interval. In this
       case, the following simple mathematical transformation can
       produce the load value as a percentage:</p>
-    <code type="none">
+    <pre>
       PercentLoad = 100 * (1 - D/(D + Load))
-    </code>
+    </pre>
     <p><tt>D</tt> determines which load value should be associated with
       which percentage. Choosing <tt>D</tt> = 50 means that 128 is 60% 
       load, 256 is 80%, 512 is 90%, and so on.</p>
@@ -79,7 +79,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#avg1gtSystemLoaderrorReason">avg1() -&gt; SystemLoad | {error, Reason}</a></li>
@@ -103,7 +103,9 @@
     <div class="description">
         
     <title>See Also</title>
-    <p><seealso marker="os_mon">os_mon(3)</seealso></p>
+    <p>
+  <seealso marker="os_mon">os_mon(3)</seealso>
+</p>
   
     </div>
     

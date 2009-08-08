@@ -58,7 +58,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#appendQHLgtQH">append(QHL) -&gt; QH</a></li>
@@ -145,13 +145,13 @@
     <p>Syntactically QLCs have the same parts as ordinary list
       comprehensions:</p>
 
-    <code type="none">[Expression || Qualifier1, Qualifier2, ...]</code>
+    <pre>[Expression || Qualifier1, Qualifier2, ...]</pre>
 
     <p><tt>Expression</tt> (the <em>template</em>) is an arbitrary
       Erlang expression. Qualifiers are either <em>filters</em> or
       <em>generators</em>. Filters are Erlang expressions returning
       <tt>bool()</tt>. Generators have the form
-      <tt>Pattern <- ListExpression</tt>, where
+      <tt><![CDATA[Pattern <- ListExpression]]></tt>, where
       <tt>ListExpression</tt> is an expression evaluating to a query
       handle or a list. Query handles are returned from
       <tt>qlc:table/2</tt>, <tt>qlc:append/1,2</tt>, <tt>qlc:sort/1,2</tt>,
@@ -266,7 +266,7 @@
         <tt>{cache_all,&nbsp;no}</tt>. The option <tt>cache_all</tt> is
         equivalent to <tt>{cache_all,&nbsp;ets}</tt>.
       </item>
-      <item><tt>{max_list_size, MaxListSize}</tt> <marker id="max_list_size"></marker> where <tt>MaxListSize</tt> is the
+      <item><tt>{max_list_size, MaxListSize}</tt> <marker id="max_list_size"/> where <tt>MaxListSize</tt> is the
         size in bytes of terms on the external format. If the
         accumulated size of collected objects exceeds
         <tt>MaxListSize</tt> the objects are written onto a temporary
@@ -377,7 +377,7 @@
     <div class="description">
         <title>Getting started</title>
 
-    <p><marker id="getting_started"></marker> As already mentioned
+    <p><marker id="getting_started"/> As already mentioned
       queries are stated in the list comprehension syntax as described
       in the <seealso marker="doc/reference_manual:expressions">Erlang
       Reference Manual</seealso>. In the following some familiarity
@@ -395,7 +395,7 @@
       variables introduced in patterns (or filters) are used in some
       generator later in the list comprehension. As an example
       consider an implementation of lists:append(L): 
-      <tt>[X ||Y <- L, X <- Y]</tt>. 
+      <tt><![CDATA[[X ||Y <- L, X <- Y]]]></tt>. 
       Y is introduced in the first generator and used in the second.
       The ordinary list comprehension is normally to be preferred when
       there is a choice as to which to use. One difference is that
@@ -434,8 +434,8 @@
       queries QH1 and QH2 while removing all duplicates. The means to
       accomplish this is to use the <tt>unique</tt> option:</p> 
 
-    <code type="none">
-qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})</code>
+    <pre><![CDATA[
+qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})]]></pre>
 
     <p>The cost is substantial: every returned answer will be stored
       in an ETS table. Before returning an answer it is looked up in
@@ -447,8 +447,8 @@ qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})</code>
     <p>If the order of the answers is not important there is the
       alternative to sort the answers uniquely:</p>
 
-    <code type="none">
-qlc:sort(qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})).</code>
+    <pre><![CDATA[
+qlc:sort(qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})).]]></pre>
 
     <p>This query also removes duplicates but the answers will be
       sorted. If there are many answers temporary files will be used.
@@ -461,21 +461,21 @@ qlc:sort(qlc:q([X || X <- qlc:append(QH1, QH2)], {unique, true})).</code>
       code returns no more than five answers using an ETS table for
       storing the unique answers:</p>
 
-    <code type="none">
+    <pre><![CDATA[
 C = qlc:cursor(qlc:q([X || X <- qlc:append(QH1, QH2)],{unique,true})),
 R = qlc:next_answers(C, 5),
 ok = qlc:delete_cursor(C),
-R.</code>
+R.]]></pre>
 
     <p>Query list comprehensions are convenient for stating
       constraints on data from two or more tables. An example that
       does a natural join on two query handles on position 2:</p>
 
-    <code type="none">
+    <pre><![CDATA[
 qlc:q([{X1,X2,X3,Y1} || 
           {X1,X2,X3} <- QH1, 
           {Y1,Y2} <- QH2, 
-          X2 =:= Y2])</code>
+          X2 =:= Y2])]]></pre>
 
     <p>The <tt>qlc</tt> module will evaluate this differently depending on 
       the query
@@ -494,12 +494,12 @@ qlc:q([{X1,X2,X3,Y1} ||
       that the excessively slow join method called "nested loop" has
       been chosen:</p>
 
-    <code type="none">
+    <pre><![CDATA[
 qlc:q([{X1,X2,X3,Y1} || 
           {X1,X2,X3} <- QH1, 
           {Y1,Y2} <- QH2, 
           X2 =:= Y2],
-      {join, nested_loop})</code>
+      {join, nested_loop})]]></pre>
 
     <p>In this case the filter will be applied to every possible pair
       of answers to QH1 and QH2, one at a time. If there are M answers
@@ -523,13 +523,13 @@ qlc:q([{X1,X2,X3,Y1} ||
       substitute the list of answers for QH2 in the query. Another way
       is to use the <tt>cache</tt> option. It is stated like this:</p>
 
-    <code type="none">
-QH2' = qlc:q([X || X <- QH2], {cache, ets})</code>
+    <pre><![CDATA[
+QH2' = qlc:q([X || X <- QH2], {cache, ets})]]></pre>
 
     <p>or just</p> 
 
-    <code type="none">
-QH2' = qlc:q([X || X <- QH2], cache)</code>
+    <pre><![CDATA[
+QH2' = qlc:q([X || X <- QH2], cache)]]></pre>
 
     <p>The effect of the <tt>cache</tt> option is that when the
       generator QH2' is run the first time every answer is stored in
@@ -566,11 +566,11 @@ QH2' = qlc:q([X || X <- QH2], cache)</code>
     <div class="description">
         <title>Implementing a QLC table</title>
 
-    <p><marker id="implementing_a_qlc_table"></marker>As an example of
+    <p><marker id="implementing_a_qlc_table"/>As an example of
       how to use the <seealso marker="#q">qlc:table/2</seealso>
       function the implementation of a QLC table for the <seealso marker="gb_trees">gb_trees</seealso> module is given:</p>
 
-    <code type="none">
+    <pre><![CDATA[
 -module(gb_table).
 
 -export([table/1]).
@@ -627,7 +627,7 @@ gb_iter(I0, N, EFun) ->
             [EFun({X,V}) | gb_iter(I, N-1, EFun)];
         none ->
             []
-    end.</code>
+    end.]]></pre>
 
     <p><tt>TF</tt> is the traversal function. The <tt>qlc</tt> module
       requires that there is a way of traversing all objects of the
@@ -660,8 +660,8 @@ gb_iter(I0, N, EFun) ->
       looked up depends on how the query is stated. If the query has
       the form</p>
 
-    <code type="none">
-qlc:q([T || P <- LE, F])</code>
+    <pre><![CDATA[
+qlc:q([T || P <- LE, F])]]></pre>
 
     <p>and P is a tuple, the <tt>qlc</tt> module analyzes P and F in
       compile time to find positions of the tuple P that are tested
@@ -699,11 +699,11 @@ qlc:q([T || P <- LE, F])</code>
       <tt>==/2</tt> or <tt>=:=/2</tt> is used:</p>
 
     <pre>
-1&gt; <input>
-<input>
-<input>
-<input>
-<input>
+1&gt; <tt>E1 = ets:new(t, [set]), % uses =:=/2 for key equality</tt><br/>
+<tt>Q1 = qlc:q([K ||</tt><br/>
+<tt>{K} &lt;- ets:table(E1),</tt><br/>
+<tt>K == 2.71 orelse K == a]),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(Q1)]).</tt><br/>
 ets:match_spec_run(lists:flatmap(fun(V) -&gt;
                                         ets:lookup(20493, V)
                                  end,
@@ -722,17 +722,17 @@ ets:match_spec_run(lists:flatmap(fun(V) -&gt;
       looked up:</p>
 
     <pre>
-2&gt; <input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
+2&gt; <tt>E2 = ets:new(t, [set]),</tt><br/>
+<tt>true = ets:insert(E2, [{{2,2},a},{{2,2.0},b},{{2.0,2},c}]),</tt><br/>
+<tt>F2 = fun(I) -&gt;</tt><br/>
+<tt>qlc:q([V || {K,V} &lt;- ets:table(E2), K == I])</tt><br/>
+<tt>end,</tt><br/>
+<tt>Q2 = F2({2,2}),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(Q2)]).</tt><br/>
 ets:table(53264,
           [{traverse,
             {select,[{{'$1','$2'},[{'==','$1',{const,{2,2}}}],['$2']}]}}])
-3&gt; <input>
+3&gt; <tt>lists:sort(qlc:e(Q2)).</tt><br/>
 [a,b,c]</pre>
 
     <p>Looking up just <tt>{2,2}</tt> would not return <tt>b</tt> and
@@ -744,16 +744,16 @@ ets:table(53264,
       be preferred:</p>
 
     <pre>
-4&gt; <input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
+4&gt; <tt>E3 = ets:new(t, [ordered_set]), % uses ==/2 for key equality</tt><br/>
+<tt>true = ets:insert(E3, [{{2,2.0},b}]),</tt><br/>
+<tt>F3 = fun(I) -&gt;</tt><br/>
+<tt>qlc:q([V || {K,V} &lt;- ets:table(E3), K == I])</tt><br/>
+<tt>end,</tt><br/>
+<tt>Q3 = F3({2,2}),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(Q3)]).</tt><br/>
 ets:match_spec_run(ets:lookup(86033, {2,2}),
                    ets:match_spec_compile([{{'$1','$2'},[],['$2']}]))
-5&gt; <input>
+5&gt; <tt>qlc:e(Q3).</tt><br/>
 [b]</pre>
 
     <p>Lookup join is handled analogously to lookup of constants in a
@@ -874,7 +874,7 @@ ets:match_spec_run(ets:lookup(86033, {2,2}),
                 
                 <div class="description">
                   
-        <p><marker id="cursor"></marker>Creates a query cursor and
+        <p><marker id="cursor"/>Creates a query cursor and
           makes the calling process the owner of the cursor. The
           cursor is to be used as argument to <tt>next_answers/1,2</tt>
           and (eventually) <tt>delete_cursor/1</tt>. Calls
@@ -884,15 +884,15 @@ ets:match_spec_run(ets:lookup(86033, {2,2}),
           <tt>spawn_opt</tt>. The default value is <tt>[link]</tt>.</p>
 
         <pre>
-1&gt; <input>
-<input>
-<input>
+1&gt; <tt>QH = qlc:q([{X,Y} || X &lt;- [a,b], Y &lt;- [1,2]]),</tt><br/>
+<tt>QC = qlc:cursor(QH),</tt><br/>
+<tt>qlc:next_answers(QC, 1).</tt><br/>
 [{a,1}]
-2&gt; <input>
+2&gt; <tt>qlc:next_answers(QC, 1).</tt><br/>
 [{a,2}]
-3&gt; <input>
+3&gt; <tt>qlc:next_answers(QC, all_remaining).</tt><br/>
 [{b,1},{b,2}]
-4&gt; <input>
+4&gt; <tt>qlc:delete_cursor(QC).</tt><br/>
 ok</pre>
       
                 </div>
@@ -942,12 +942,12 @@ ok</pre>
                 
                 <div class="description">
                   
-        <p><marker id="eval"></marker>Evaluates a query handle in the
+        <p><marker id="eval"/>Evaluates a query handle in the
           calling process and collects all answers in a list.</p>
 
         <pre>
-1&gt; <input>
-<input>
+1&gt; <tt>QH = qlc:q([{X,Y} || X &lt;- [a,b], Y &lt;- [1,2]]),</tt><br/>
+<tt>qlc:eval(QH).</tt><br/>
 [{a,1},{a,2},{b,1},{b,2}]</pre>
       
                 </div>
@@ -991,8 +991,8 @@ ok</pre>
           are no answers to the query handle.</p>
 
         <pre>
-1&gt; <input>
-<input>
+1&gt; <tt>QH = [1,2,3,4,5,6],</tt><br/>
+<tt>qlc:fold(fun(X, Sum) -&gt; X + Sum end, 0, QH).</tt><br/>
 21</pre>
       
                 </div>
@@ -1061,7 +1061,7 @@ ok</pre>
                 
                 <div class="description">
                   
-        <p><marker id="info"></marker>Returns information about a
+        <p><marker id="info"/>Returns information about a
           query handle. The information describes the simplifications
           and optimizations that are the results of preparing the
           query for evaluation. This function is probably useful
@@ -1086,8 +1086,8 @@ ok</pre>
           below a certain depth are replaced by <tt>'...'</tt>.</p>
 
         <pre>
-1&gt; <input>
-<input>
+1&gt; <tt>QH = qlc:q([{X,Y} || X &lt;- [x,y], Y &lt;- [a,b]]),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(QH, unique_all)]).</tt><br/>
 begin
     V1 =
         qlc:q([SQV ||
@@ -1107,15 +1107,15 @@ end</pre>
           hold the <tt>{unique,&nbsp;true}</tt> option.</p>
 
         <pre>
-1&gt; <input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
+1&gt; <tt>E1 = ets:new(e1, []),</tt><br/>
+<tt>E2 = ets:new(e2, []),</tt><br/>
+<tt>true = ets:insert(E1, [{1,a},{2,b}]),</tt><br/>
+<tt>true = ets:insert(E2, [{a,1},{b,2}]),</tt><br/>
+<tt>Q = qlc:q([{X,Z,W} ||</tt><br/>
+<tt>{X, Z} &lt;- ets:table(E1),</tt><br/>
+<tt>{W, Y} &lt;- ets:table(E2),</tt><br/>
+<tt>X =:= Y]),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(Q)]).</tt><br/>
 begin
     V1 =
         qlc:q([P0 ||
@@ -1239,14 +1239,14 @@ end</pre>
                 
                 <div class="description">
                   
-        <p><marker id="q"></marker>Returns a query handle for a query
+        <p><marker id="q"/>Returns a query handle for a query
           list comprehension. The query list comprehension must be the
           first argument to <tt>qlc:q/1,2</tt> or it will be evaluated
           as an ordinary list comprehension. It is also necessary to
           add the line</p>
 
-        <code type="none">
--include_lib("stdlib/include/qlc.hrl").</code>
+        <pre>
+-include_lib("stdlib/include/qlc.hrl").</pre>
 
         <p>to the source file. This causes a parse transform to
           substitute a fun for the query list comprehension. The
@@ -1323,13 +1323,13 @@ QH = qlc:q(A),
           specifications, and joining handles. </p>
 
         <pre>
-1&gt; <input>
-<input>
-<input>
-<input>
-<input>
-<input>
-<input>
+1&gt; <tt>Q = qlc:q([{A,X,Z,W} ||</tt><br/>
+<tt>A &lt;- [a,b,c],</tt><br/>
+<tt>{X,Z} &lt;- [{a,1},{b,4},{c,6}],</tt><br/>
+<tt>{W,Y} &lt;- [{2,a},{3,b},{4,c}],</tt><br/>
+<tt>X =:= Y],</tt><br/>
+<tt>{cache, list}),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(Q)]).</tt><br/>
 begin
     V1 =
         qlc:q([P0 ||
@@ -1363,7 +1363,7 @@ end</pre>
           of tables can be done by looking up key values, which is
           assumed to be fast. Under certain (rare) circumstances it
           could happen that there are too many key values to look up.
-          <marker id="max_lookup"></marker> The
+          <marker id="max_lookup"/> The
           <tt>{max_lookup,&nbsp;MaxLookup}</tt> option can then be used
           to limit the number of lookups: if more than
           <tt>MaxLookup</tt> lookups would be required no lookups are
@@ -1371,11 +1371,11 @@ end</pre>
           <tt>infinity</tt> which means that there is no limit on the
           number of keys to look up.</p>
         <pre>
-1&gt; <input>
-<input>
-<input>
-<input>
-<input>
+1&gt; <tt>T = gb_trees:empty(),</tt><br/>
+<tt>QH = qlc:q([X || {{X,Y},_} &lt;- gb_table:table(T),</tt><br/>
+<tt>((X == 1) or (X == 2)) andalso</tt><br/>
+<tt>((Y == a) or (Y == b) or (Y == c))]),</tt><br/>
+<tt>io:format("~s~n", [qlc:info(QH)]).</tt><br/>
 ets:match_spec_run(
        lists:flatmap(fun(K) -&gt;
                             case
@@ -1503,10 +1503,10 @@ ets:match_spec_run(
           period.</p>
 
         <pre>
-1&gt; <input>
-<input>
-<input>
-<input>
+1&gt; <tt>L = [1,2,3],</tt><br/>
+<tt>Bs = erl_eval:add_binding('L', L, erl_eval:new_bindings()),</tt><br/>
+<tt>QH = qlc:string_to_handle("[X+1 || X &lt;- L].", [], Bs),</tt><br/>
+<tt>qlc:eval(QH).</tt><br/>
 [2,3,4]</pre>
 
         <p>This function is probably useful mostly when called from
@@ -1575,7 +1575,7 @@ ets:match_spec_run(
                 
                 <div class="description">
                   
-        <p><marker id="table"></marker>Returns a query handle for a
+        <p><marker id="table"/>Returns a query handle for a
           QLC table. In Erlang/OTP there is support for ETS, Dets and
           Mnesia tables, but it is also possible to turn many other
           data structures into QLC tables. The way to accomplish this
@@ -1628,7 +1628,7 @@ ets:match_spec_run(
           that deletes the cursor if called from the parent, or
           <tt>undefined</tt> if there is no cursor.</p>
 
-        <p><marker id="lookup_fun"></marker>The binary callback
+        <p><marker id="lookup_fun"/>The binary callback
           function <tt>LookupFun</tt> is used for looking up objects in
           the table. The first argument <tt>Position</tt> is the key
           position or an indexed position and the second argument
@@ -1718,7 +1718,7 @@ ets:match_spec_run(
           (<tt>{lookup,&nbsp;Position,&nbsp;Keys}</tt> or
           <tt>all</tt>).</p>
 
-        <p><marker id="key_equality"></marker>The value of
+        <p><marker id="key_equality"/>The value of
           <tt>key_equality</tt> is to be <tt>'=:='</tt> if the table
           considers two keys equal if they match, and to be
           <tt>'=='</tt> if two keys are equal if they compare equal. The

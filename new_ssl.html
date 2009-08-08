@@ -48,7 +48,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#cipher_suitesgt">cipher_suites() -&gt;</a></li>
@@ -170,15 +170,23 @@
     <p>The following data types are used in the functions below:
     </p>
 
-    <p><tt>boolean() = true | false</tt></p> 
+    <p>
+  <tt>boolean() = true | false</tt>
+</p> 
     
-    <p><tt>property() = atom()</tt></p>
+    <p>
+  <tt>property() = atom()</tt>
+</p>
     
-    <p><tt>option() = socketoption() | ssloption() | transportoption()</tt></p>
+    <p>
+  <tt>option() = socketoption() | ssloption() | transportoption()</tt>
+</p>
 
-     <p><tt>socketoption() = [{property(), term()}] - defaults to
+     <p>
+  <tt>socketoption() = [{property(), term()}] - defaults to
       [{mode,list},{packet, 0},{header, 0},{active, true}].
-    </tt></p>
+    </tt>
+</p>
 
     <p>For valid options
       see <seealso marker="kernel:inet">inet(3) </seealso> and
@@ -193,46 +201,74 @@
       | {reuse_sessions, boolean()} | {reuse_session, fun()}
     </tt></p>
 
-    <p><tt>transportoption() = {CallbackModule, DataTag, ClosedTag}
+    <p>
+  <tt>transportoption() = {CallbackModule, DataTag, ClosedTag}
 	- defaults to {gen_tcp, tcp, tcp_closed}. Ssl may be
 	run over any reliable transport protocol that has
-	an equivalent API to gen_tcp's.</tt></p>
+	an equivalent API to gen_tcp's.</tt>
+</p>
     
     <p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CallbackModule =
 	atom()</tt>
-    </p> <p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DataTag =
-	atom() - tag used in socket data message.</tt></p>
-    <p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClosedTag = atom() - tag used in
-    socket close message.</tt></p>
+    </p> <p>
+  <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DataTag =
+	atom() - tag used in socket data message.</tt>
+</p>
+    <p>
+  <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClosedTag = atom() - tag used in
+    socket close message.</tt>
+</p>
 
-    <p><tt>verify_type() = verify_none | verify_peer</tt></p>
+    <p>
+  <tt>verify_type() = verify_none | verify_peer</tt>
+</p>
     
-    <p><tt>path() = string() - representing a file path.</tt></p>
+    <p>
+  <tt>path() = string() - representing a file path.</tt>
+</p>
     
-    <p><tt>host() = hostname() | ipaddress()</tt></p>
+    <p>
+  <tt>host() = hostname() | ipaddress()</tt>
+</p>
         
-    <p><tt>hostname() = string()</tt></p>
+    <p>
+  <tt>hostname() = string()</tt>
+</p>
     
-    <p><tt>
+    <p>
+  <tt>
       ip_address() = {N1,N2,N3,N4}  % IPv4
-      | {K1,K2,K3,K4,K5,K6,K7,K8}  % IPv6    </tt></p>
+      | {K1,K2,K3,K4,K5,K6,K7,K8}  % IPv6    </tt>
+</p>
 
-    <p><tt>sslsocket() - opaque to the user. </tt></p>
+    <p>
+  <tt>sslsocket() - opaque to the user. </tt>
+</p>
     
-    <p><tt>protocol() = sslv3 | tlsv1 </tt></p>
+    <p>
+  <tt>protocol() = sslv3 | tlsv1 </tt>
+</p>
     
-    <p><tt>ciphers() = [ciphersuite()] | sting() (according to old API)</tt></p>
+    <p>
+  <tt>ciphers() = [ciphersuite()] | sting() (according to old API)</tt>
+</p>
     
-    <p><tt>chiphersuite() =
-      {key_exchange(), chipher(), hash(), exportable()}</tt></p>
+    <p>
+  <tt>chiphersuite() =
+      {key_exchange(), chipher(), hash(), exportable()}</tt>
+</p>
     
-    <p><tt>key_exchange() =  rsa | dh_dss | dh_rsa | dh_anon | dhe_dss
+    <p>
+  <tt>key_exchange() =  rsa | dh_dss | dh_rsa | dh_anon | dhe_dss
       | dhe_rsa | krb5 | KeyExchange_export
-    </tt></p>
+    </tt>
+</p>
 
-   <p><tt>cipher() = rc4_128 | idea_cbc | des_cbc | '3des_ede_cbc'
+   <p>
+  <tt>cipher() = rc4_128 | idea_cbc | des_cbc | '3des_ede_cbc'
       des40_cbc | dh_dss | aes_128_cbc | aes_256_cbc |
-      rc2_cbc_40 | rc4_40  </tt></p>
+      rc2_cbc_40 | rc4_40  </tt>
+</p>
 
    <p> <tt>hash() = md5 | sha
     </tt></p>
@@ -240,7 +276,9 @@
    <p> <tt>exportable() = export | no_export | ignore
     </tt></p>
 
-    <p><tt>ssl_imp() = new | old - default is old.</tt></p>
+    <p>
+  <tt>ssl_imp() = new | old - default is old.</tt>
+</p>
     
   
     </div>
@@ -281,7 +319,7 @@
 	x509-certificate path validations errors are acceptable or
 	if the connection should fail. Defaults to:
        
-<code>
+<pre>
 fun(ErrorList) -&gt;
 	case lists:foldl(fun({bad_cert,unknown_ca}, Acc) -&gt;
 						  Acc;
@@ -294,7 +332,7 @@ fun(ErrorList) -&gt;
 		false
 	end
 end
-</code>
+</pre>
        I.e. by default if the only error found was that the CA-certificate
        holder was unknown this will be accepted.
 

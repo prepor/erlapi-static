@@ -58,7 +58,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#check_childspecsChildSpecgtResult">check_childspecs([ChildSpec]) -&gt; Result</a></li>
@@ -94,7 +94,7 @@
       processes are started in order from left to right according to
       this list. When the supervisor terminates, it first terminates
       its child processes in reversed start order, from right to left.</p>
-    <p></p>
+    <p/>
     <p>A supervisor can have one of the following <em>restart strategies</em>:</p>
     <list type="bulleted">
       <item>
@@ -131,7 +131,7 @@
       <tt>MaxT</tt> seconds, the supervisor terminates all child
       processes and then itself.
     </p>
-    <marker id="child_spec"></marker>
+    <marker id="child_spec"/>
     <p>This is the type definition of a child specification:</p>
     <pre>
 child_spec() = {Id,StartFunc,Restart,Shutdown,Type,Modules}
@@ -153,24 +153,24 @@ child_spec() = {Id,StartFunc,Restart,Shutdown,Type,Modules}
         <p><tt>StartFunc</tt> defines the function call used to start
           the child process. It should be a module-function-arguments
           tuple <tt>{M,F,A}</tt> used as <tt>apply(M,F,A)</tt>.</p>
-        <p>          <br>
+        <p>          <br/>
 </p>
         <p>The start function <em>must create and link to</em> the child
           process, and should return <tt>{ok,Child}</tt> or
           <tt>{ok,Child,Info}</tt> where <tt>Child</tt> is the pid of
           the child process and <tt>Info</tt> an arbitrary term which is
           ignored by the supervisor.</p>
-        <p>          <br>
+        <p>          <br/>
 </p>
         <p>The start function can also return <tt>ignore</tt> if the child
           process for some reason cannot be started, in which case
           the child specification will be kept by the supervisor but
           the non-existing child process will be ignored.</p>
-        <p>          <br>
+        <p>          <br/>
 </p>
         <p>If something goes wrong, the function may also return an
           error tuple <tt>{error,Error}</tt>.</p>
-        <p>          <br>
+        <p>          <br/>
 </p>
         <p>Note that the <tt>start_link</tt> functions of the different
           behaviour modules fulfill the above requirements.</p>

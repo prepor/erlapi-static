@@ -53,7 +53,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#apply_afterTimeModuleFunctionArgumentsgtokTreferrorReason">apply_after(Time, Module, Function, Arguments) -&gt; {ok, Tref} |  {error, Reason}</a></li>
@@ -94,22 +94,22 @@
         
     <title>Examples</title>
     <p>This example illustrates  how to print out "Hello World!" in 5 seconds:</p>
-    <p></p>
+    <p/>
     <pre>
-      1&gt; <input>
+      1&gt; <tt>timer:apply_after(5000, io, format, ["~nHello World!~n", []]).</tt><br/>
       {ok,TRef}
       Hello World!</pre>
     <p>The following coding example illustrates a process which performs a 
       certain action and if this action is not completed within a certain 
       limit, then the process is killed.</p>
-    <code type="none">
+    <pre>
       Pid = spawn(mod, fun, [foo, bar]),
       %% If pid is not finished in 10 seconds, kill him
       {ok, R} = timer:kill_after(timer:seconds(10), Pid),
       ...
       %% We change our mind...
       timer:cancel(R),
-      ...</code>
+      ...</pre>
   
     </div>
     
@@ -207,7 +207,7 @@
                 
                 <div class="description">
                   
-        <p></p>
+        <p/>
         <taglist>
           <tag><tt>send_after/3</tt></tag>
           <item>
@@ -247,7 +247,7 @@
                 
                 <div class="description">
                   
-        <p></p>
+        <p/>
         <taglist>
           <tag><tt>exit_after/3</tt></tag>
           <item>
@@ -324,7 +324,7 @@
                 
                 <div class="description">
                   
-        <p></p>
+        <p/>
         <taglist>
           <tag><tt>send_interval/3</tt></tag>
           <item>

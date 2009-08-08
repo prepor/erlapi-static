@@ -41,7 +41,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#Modulebottomgtstring">Module:bottom() -&gt; string()</a></li>
@@ -285,9 +285,9 @@
                   
 	<p>When referring to another part of the document, or another
 	  document, the XML tag <tt>&lt;seealso&gt;</tt> is used:
-	  <tt><seealso marker="File#Marker">...text...</seealso></tt>.
+	  <tt><![CDATA[<seealso marker="File#Marker">...text...</seealso>]]></tt>.
 	  By default, this is translated to
-	  <tt><A HREF="File.html#Marker>...text...</A></tt>.</p>
+	  <tt><![CDATA[<A HREF="File.html#Marker>...text...</A>]]></tt>.</p>
 
 	<p>This function makes it possible to specify an alternative
 	  translation <tt>Href</tt> of the <tt>marker</tt> attribute value

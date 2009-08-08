@@ -43,7 +43,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#btPidgtvoid">bt(Pid) -&gt; void()</a></li>
@@ -162,8 +162,8 @@
         <p><tt>c/1,2</tt> compiles and then purges and loads the code for
           a file. <tt>Options</tt> defaults to []. Compilation is
           equivalent to:</p>
-        <code type="none">
-compile:file(File, Options ++ [report_errors, report_warnings])</code>
+        <pre>
+compile:file(File, Options ++ [report_errors, report_warnings])</pre>
         <p>Note that purging the code means that any processes
           lingering in old code for the module are killed without
           warning. See <tt>code/3</tt> for more information.</p>
@@ -195,7 +195,7 @@ compile:file(File, Options ++ [report_errors, report_warnings])</code>
           relative name, and then prints the name of the new working
           directory.</p>
         <pre>
-2&gt; <input>
+2&gt; <tt>cd("../erlang").</tt><br/>
 /home/ron/erlang</pre>
       
                 </div>
@@ -493,8 +493,8 @@ compile:file(File, Options ++ [report_errors, report_warnings])</code>
                   
         <p>Compiles and then loads the code for a file on all nodes.
           <tt>Options</tt> defaults to []. Compilation is equivalent to:</p>
-        <code type="none">
-compile:file(File, Opts ++ [report_errors, report_warnings])</code>
+        <pre>
+compile:file(File, Opts ++ [report_errors, report_warnings])</pre>
       
                 </div>
                 
@@ -545,7 +545,7 @@ compile:file(File, Opts ++ [report_errors, report_warnings])</code>
                 <div class="description">
                   
         <p>Converts <tt>X</tt>, <tt>Y</tt>, <tt>Z</tt> to the pid
-          <tt><X.Y.Z></tt>. This function should only be used when
+          <tt><![CDATA[<X.Y.Z>]]></tt>. This function should only be used when
           debugging.</p>
       
                 </div>
@@ -653,8 +653,8 @@ compile:file(File, Opts ++ [report_errors, report_warnings])</code>
                 <div class="description">
                   
         <p>Generates an LALR-1 parser. Equivalent to:</p>
-        <code type="none">
-yecc:file(File)</code>
+        <pre>
+yecc:file(File)</pre>
       
                 </div>
                 
@@ -681,8 +681,8 @@ yecc:file(File)</code>
                 <div class="description">
                   
         <p>Generates an LALR-1 parser. Equivalent to:</p>
-        <code type="none">
-yecc:file(File, Options)</code>
+        <pre>
+yecc:file(File, Options)</pre>
       
                 </div>
                 

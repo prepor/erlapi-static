@@ -27,7 +27,7 @@
       but includes an additional method for connecting a supplier to the proxy
       consumer.</p>
     <p>To get access to all definitions, e.g., exceptions,
-      include necessary <tt>hrl</tt> files by using:<br><tt>-include_lib("cosEvent/include/*.hrl").</tt></p>
+      include necessary <tt><![CDATA[hrl]]></tt> files by using:<br/><tt><![CDATA[-include_lib("cosEvent/include/*.hrl").]]></tt></p>
     <p>Any object that possesses an object reference that supports the ProxyPullConsumer
       interface can perform the following operations:</p>
   </div>
@@ -38,7 +38,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#connect_pull_supplierObjectPullSuppliergtReturn">connect_pull_supplier(Object, PullSupplier) -&gt; Return</a></li>
@@ -73,12 +73,12 @@
                 <div class="description">
                   
         <p>This operation connects PullSupplier object to the ProxyPullConsumer object.
-          If a nil object reference is passed CORBA standard <tt>BAD_PARAM</tt> exception 
+          If a nil object reference is passed CORBA standard <tt><![CDATA[BAD_PARAM]]></tt> exception 
           is raised. If the ProxyPullConsumer is already connected to a PullSupplier,
-          then the <tt>CosEventChannelAdmin_AlreadyConnected</tt> exception is raised.
+          then the <tt><![CDATA[CosEventChannelAdmin_AlreadyConnected]]></tt> exception is raised.
           Implementations of ProxyPullConsumers may require additional interface
           functionality; if these requirements are not met the 
-          <tt>CosEventChannelAdmin_TypeError</tt> exception will be raised.</p>
+          <tt><![CDATA[CosEventChannelAdmin_TypeError]]></tt> exception will be raised.</p>
       
                 </div>
                 

@@ -24,7 +24,7 @@
     <div class="description">
 
     <p>The <tt>ftp</tt> module implements a client for file transfer
-      according to a subset of the File Transfer Protocol (see <term id="RFC"></term>959). Starting from inets version 4.4.1 the ftp
+      according to a subset of the File Transfer Protocol (see <term id="RFC"/>959). Starting from inets version 4.4.1 the ftp
       client will always try to use passive ftp mode and only resort
       to active ftp mode if this fails. There is a start option mode
       where this default behavior may be changed.</p>
@@ -74,7 +74,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#accountPidAccountgtokerrorReason">account(Pid, Account) -&gt; ok | {error, Reason}</a></li>
@@ -188,51 +188,61 @@
 	  should be a new value for the UserProgressTerm that will
 	  bu used as input next time the callback function is
 	  called.</p>
-	<br>
+	<br/>
 	<p><tt>
 	  CBModule:CBFunction(InitProgress, File, {file_size, FileSize})
 	</tt></p>
-	<br>
+	<br/>
       </item>
       
       <item>
 	<p>Every time a chunk of bytes is transfered the
 	  following call will be made:</p>
-	<br>
+	<br/>
 	<p><tt>
 	    CBModule:CBFunction(UserProgressTerm, File, {transfer_size, TransferSize})             </tt></p>
-	<br>
+	<br/>
       </item>
 
       <item>
 	<p>At the end of the file the following call will be
 	  made to indicate the end of the transfer.</p>
-	<br>
+	<br/>
 	<p><tt>
 	    CBModule:CBFunction(UserProgressTerm, File, {transfer_size, 0})             </tt></p>
-	<br>
+	<br/>
       </item>
     </list>
     
     <p>The callback function should be defined as </p>
 
-    <p><tt>
-	CBModule:CBFunction(UserProgressTerm, File, Size) -&gt; UserProgressTerm        </tt></p>
+    <p>
+  <tt>
+	CBModule:CBFunction(UserProgressTerm, File, Size) -&gt; UserProgressTerm        </tt>
+</p>
     
-    <p><tt>
+    <p>
+  <tt>
 	CBModule = CBFunction = atom()
-      </tt></p>
+      </tt>
+</p>
 
-    <p><tt>
+    <p>
+  <tt>
 	UserProgressTerm = term()
-      </tt></p>
+      </tt>
+</p>
 
-    <p><tt>
+    <p>
+  <tt>
 	File = string()
-      </tt></p>
+      </tt>
+</p>
 
-    <p><tt>
-	Size = {transfer_size, integer()} | {file_size, integer()} | {file_size, unknown}        </tt></p>
+    <p>
+  <tt>
+	Size = {transfer_size, integer()} | {file_size, integer()} | {file_size, unknown}        </tt>
+</p>
     
     <p>Alas for remote files it is not possible for ftp to determine the
       file size in a platform independent way. In this case the size
@@ -273,14 +283,24 @@
     <title>COMMON DATA TYPES </title>
     <p>Here follows type definitions that are used by more than one
       function in the FTP client API. </p>
-    <p><tt> pid() - identifier of an ftp connection.</tt></p>
-    <p><tt> string() = list of ASCII characters.</tt></p>
-    <p><tt> shortage_reason() = etnospc | epnospc</tt></p>
-    <p><tt> restriction_reason() = epath | efnamena | elogin | enotbinary
+    <p>
+  <tt> pid() - identifier of an ftp connection.</tt>
+</p>
+    <p>
+  <tt> string() = list of ASCII characters.</tt>
+</p>
+    <p>
+  <tt> shortage_reason() = etnospc | epnospc</tt>
+</p>
+    <p>
+  <tt> restriction_reason() = epath | efnamena | elogin | enotbinary
       - note not all restrictions may always relevant to all functions
-    </tt></p>
-    <p><tt>common_reason() = econn | eclosed | term() - some kind of
-      explanation of what went wrong.</tt></p>
+    </tt>
+</p>
+    <p>
+  <tt>common_reason() = econn | eclosed | term() - some kind of
+      explanation of what went wrong.</tt>
+</p>
   
     </div>
     

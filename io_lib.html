@@ -43,7 +43,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#char_listTermgtbool">char_list(Term) -&gt; bool()</a></li>
@@ -81,8 +81,8 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
-chars() = [char() | chars()]</code>
+    <pre>
+chars() = [char() | chars()]</pre>
   
     </div>
     
@@ -131,9 +131,9 @@ chars() = [char() | chars()]</code>
           everything below this level is replaced by "...". For
           example:</p>
         <pre>
-1&gt; <input>
+1&gt; <tt>lists:flatten(io_lib:write({1,[2],[3],[4,5],6,7,8,9})).</tt><br/>
 "{1,[2],[3],[4,5],6,7,8,9}"
-2&gt; <input>
+2&gt; <tt>lists:flatten(io_lib:write({1,[2],[3],[4,5],6,7,8,9}, 5)).</tt><br/>
 "{1,[2],[3],[...],...}"</pre>
       
                 </div>
@@ -267,7 +267,7 @@ chars() = [char() | chars()]</code>
         </taglist>
         <p>Example:</p>
         <pre>
-3&gt; <input>
+3&gt; <tt>io_lib:fread("~f~f~f", "15.6 17.3e-6 24.5").</tt><br/>
 {ok,[15.6,1.73e-5,24.5],[]}</pre>
       
                 </div>

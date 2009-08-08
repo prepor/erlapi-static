@@ -40,7 +40,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#compileFile">compile(File)</a></li>
@@ -102,10 +102,10 @@
                 
                 <div class="description">
                   
-        <marker id="compiler_opts"></marker>
-        <p>Compiles the specified MIB file <tt><File>.mib</tt>.  The
+        <marker id="compiler_opts"/>
+        <p>Compiles the specified MIB file <tt><![CDATA[<File>.mib]]></tt>.  The
           compiled file <tt>BinFileName</tt> is called 
-          <tt><File>.bin</tt>. </p>
+          <tt><![CDATA[<File>.bin]]></tt>. </p>
         <list type="bulleted">
           <item>The option <tt>db</tt> specifies which database should
            be used for the default instrumentation. Default is
@@ -145,7 +145,7 @@
            the current installed version. For example, the value
            ["snmp/mibs/"] will be replaced by ["snmp-3.1.1/mibs/"]
            (or what the current version may be in the system). The
-           current directory and the <tt><snmp-home>/priv/mibs/</tt>
+           current directory and the <tt><![CDATA[<snmp-home>/priv/mibs/]]></tt>
            are always listed last in the include path.
           </item>
           <item>The option <tt>imports</tt>, if present, specifies that the
@@ -245,7 +245,7 @@
                   
         <p>Generates a <tt>.hrl</tt> file with definitions of Erlang
           constants for the objects in the MIB. The <tt>.hrl</tt> file is
-          called <tt><MibName>.hrl</tt>. The MIB must be compiled, and
+          called <tt><![CDATA[<MibName>.hrl]]></tt>. The MIB must be compiled, and
           present in the current directory.
           </p>
         <p>The <tt>mib_to_hrl</tt> generator can be invoked from the OS

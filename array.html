@@ -42,8 +42,7 @@ the default value cannot be confused with the values of set entries.</p>
   calling <seealso marker="#resize-2">resize/2</seealso>.</p>
  
   <p>Examples:
-  </p>
-<pre>  %% Create a fixed-size array with entries 0-9 set to 'undefined'
+  </p><pre>  %% Create a fixed-size array with entries 0-9 set to 'undefined'
   A0 = array:new(10).
   10 = array:size(A0).
  
@@ -87,7 +86,7 @@ the default value cannot be confused with the values of set entries.</p>
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#defaultArrayarraygtterm">default(Array::array()) -&gt; term()</a></li>
@@ -155,12 +154,11 @@ the default value cannot be confused with the values of set entries.</p>
     <div class="sectiontitle">DATA TYPES</div>
     
     <div class="description">
-        <title>DATA TYPES</title>
-<marker id="types"></marker>
+        <title>DATA TYPES</title><marker id="types"/>
 
 <taglist>
 <tag><tt>array()</tt></tag>
-<item><marker id="type-array"></marker>
+<item><marker id="type-array"/>
 <p>A functional, extendible array. The representation is
   not documented and is subject to change without notice. Note that
   arrays cannot be directly compared for equality.</p>
@@ -179,7 +177,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="default-1"></marker>
+                  <marker id="default-1"/>
 
 <p>Get the value used for uninitialized entries.
  </p>
@@ -198,7 +196,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="fix-1"></marker>
+                  <marker id="fix-1"/>
 
 <p>Fix the size of the array. This prevents it from growing
   automatically upon insertion; see also <seealso marker="#set-3">set/3</seealso>.</p>
@@ -225,7 +223,7 @@ the default value cannot be confused with the values of set entries.</p>
                 
                 
                 <div class="description">
-                  <marker id="foldl-3"></marker>
+                  <marker id="foldl-3"/>
 
 <p>Fold the elements of the array using the given function and
   initial accumulator value. The elements are visited in order from the
@@ -255,7 +253,7 @@ the default value cannot be confused with the values of set entries.</p>
                 
                 
                 <div class="description">
-                  <marker id="foldr-3"></marker>
+                  <marker id="foldr-3"/>
 
 <p>Fold the elements of the array right-to-left using the given
   function and initial accumulator value. The elements are visited in
@@ -277,7 +275,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="from_list-1"></marker>
+                  <marker id="from_list-1"/>
 <p>Equivalent to <seealso marker="#from_list-2">from_list(List, undefined)</seealso>.</p>
 
                 </div>
@@ -293,7 +291,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="from_list-2"></marker>
+                  <marker id="from_list-2"/>
 
 <p>Convert a list to an extendible array. <tt>Default</tt> is used as the value
   for uninitialized entries of the array. If <tt>List</tt> is not a proper list,
@@ -314,7 +312,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="from_orddict-1"></marker>
+                  <marker id="from_orddict-1"/>
 <p>Equivalent to <seealso marker="#from_orddict-2">from_orddict(Orddict, undefined)</seealso>.</p>
 
                 </div>
@@ -330,7 +328,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="from_orddict-2"></marker>
+                  <marker id="from_orddict-2"/>
 
 <p>Convert an ordered list of pairs <tt>{Index, Value}</tt> to a
   corresponding extendible array. <tt>Default</tt> is used as the value for
@@ -353,7 +351,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="get-2"></marker>
+                  <marker id="get-2"/>
 
 <p>Get the value of entry <tt>I</tt>. If <tt>I</tt> is not a nonnegative
   integer, or if the array has fixed size and <tt>I</tt> is larger than the
@@ -376,7 +374,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="is_array-1"></marker>
+                  <marker id="is_array-1"/>
 
 <p>Returns <tt>true</tt> if <tt>X</tt> appears to be an array, otherwise <tt>false</tt>.
   Note that the check is only shallow; there is no guarantee that <tt>X</tt>
@@ -396,7 +394,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="is_fix-1"></marker>
+                  <marker id="is_fix-1"/>
 
 <p>Check if the array has fixed size.
   Returns <tt>true</tt> if the array is fixed, otherwise <tt>false</tt>.</p>
@@ -423,7 +421,7 @@ the default value cannot be confused with the values of set entries.</p>
                 
                 
                 <div class="description">
-                  <marker id="map-2"></marker>
+                  <marker id="map-2"/>
 
 <p>Map the given function onto each element of the array. The
   elements are visited in order from the lowest index to the highest.
@@ -444,7 +442,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="new-0"></marker>
+                  <marker id="new-0"/>
 
 <p>Create a new, extendible array with initial size zero.</p>
 <p><em>See also:</em> <seealso marker="#new-1">new/1</seealso>, <seealso marker="#new-2">new/2</seealso>.</p>
@@ -462,7 +460,7 @@ the default value cannot be confused with the values of set entries.</p>
 								
                 
                 <div class="description">
-                  <marker id="new-1"></marker>
+                  <marker id="new-1"/>
 
 <p>Create a new array according to the given options. By default,  
 the array is extendible and has initial size zero. Array indices  
@@ -470,8 +468,7 @@ start at 0.</p>
  
   <p><tt>Options</tt> is a single term or a list of terms, selected from the
   following:
-  </p>
-<taglist>
+  </p><taglist>
     <tag><tt>N::integer()</tt> or <tt>{size, N::integer()}</tt></tag>
     <item><p>Specifies the initial size of the array; this also implies
     <tt>{fixed, true}</tt>. If <tt>N</tt> is not a nonnegative integer, the call
@@ -490,16 +487,10 @@ later options have higher precedence.</p>
 cannot be changed once the array has been created.</p>
  
   <p>Examples:
-  </p>
-<pre>     array:new(100)</pre>
-<p> creates a fixed-size array of size 100.
-  </p>
-<pre>     array:new({default,0})</pre>
-<p> creates an empty, extendible array
+  </p><pre>     array:new(100)</pre><p> creates a fixed-size array of size 100.
+  </p><pre>     array:new({default,0})</pre><p> creates an empty, extendible array
   whose default value is 0.
-  </p>
-<pre>     array:new([{size,10},{fixed,false},{default,-1}])</pre>
-<p> creates an
+  </p><pre>     array:new([{size,10},{fixed,false},{default,-1}])</pre><p> creates an
   extendible array with initial size 10 whose default value is -1.
  </p>
 <p><em>See also:</em> <seealso marker="#fix-1">fix/1</seealso>, <seealso marker="#from_list-2">from_list/2</seealso>, <seealso marker="#get-2">get/2</seealso>, <seealso marker="#new-0">new/0</seealso>, <seealso marker="#new-2">new/2</seealso>, <seealso marker="#set-3">set/3</seealso>.</p>
@@ -517,7 +508,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="new-2"></marker>
+                  <marker id="new-2"/>
 
 <p>Create a new array according to the given size and options. If
   <tt>Size</tt> is not a nonnegative integer, the call fails with reason
@@ -529,9 +520,7 @@ cannot be changed once the array has been created.</p>
   [Options]]</tt>. However, using this function directly is more efficient.</p>
  
   <p>Example:
-  </p>
-<pre>     array:new(100, {default,0})</pre>
-<p> creates a fixed-size array of size
+  </p><pre>     array:new(100, {default,0})</pre><p> creates a fixed-size array of size
   100, whose default value is 0.
  </p>
 <p><em>See also:</em> <seealso marker="#new-1">new/1</seealso>.</p>
@@ -549,7 +538,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="relax-1"></marker>
+                  <marker id="relax-1"/>
 
 <p>Make the array resizable. (Reverses the effects of <seealso marker="#fix-1">fix/1</seealso>.)</p>
 <p><em>See also:</em> <seealso marker="#fix-1">fix/1</seealso>.</p>
@@ -567,7 +556,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="reset-2"></marker>
+                  <marker id="reset-2"/>
 
 <p>Reset entry <tt>I</tt> to the default value for the array. This is
   equivalent to <tt>set(I, default(Array), Array)</tt>, and hence may cause
@@ -593,7 +582,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="resize-1"></marker>
+                  <marker id="resize-1"/>
 
 <p>Change the size of the array to that reported by <seealso marker="#sparse_size-1">sparse_size/1</seealso>. If the given array has fixed size, the resulting
   array will also have fixed size.</p>
@@ -612,7 +601,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="resize-2"></marker>
+                  <marker id="resize-2"/>
 
 <p>Change the size of the array. If <tt>Size</tt> is not a nonnegative
   integer, the call fails with reason <tt>badarg</tt>. If the given array has
@@ -631,7 +620,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="set-3"></marker>
+                  <marker id="set-3"/>
 
 <p>Set entry <tt>I</tt> of the array to <tt>Value</tt>. If <tt>I</tt> is not a
   nonnegative integer, or if the array has fixed size and <tt>I</tt> is larger
@@ -655,7 +644,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="size-1"></marker>
+                  <marker id="size-1"/>
 
 <p>Get the number of entries in the array. Entries are numbered
   from 0 to <tt>size(Array)-1</tt>; hence, this is also the index of the first
@@ -683,7 +672,7 @@ cannot be changed once the array has been created.</p>
                 
                 
                 <div class="description">
-                  <marker id="sparse_foldl-3"></marker>
+                  <marker id="sparse_foldl-3"/>
 
 <p>Fold the elements of the array using the given function and
   initial accumulator value, skipping default-valued entries. The
@@ -713,7 +702,7 @@ cannot be changed once the array has been created.</p>
                 
                 
                 <div class="description">
-                  <marker id="sparse_foldr-3"></marker>
+                  <marker id="sparse_foldr-3"/>
 
 <p>Fold the elements of the array right-to-left using the given
   function and initial accumulator value, skipping default-valued
@@ -744,7 +733,7 @@ cannot be changed once the array has been created.</p>
                 
                 
                 <div class="description">
-                  <marker id="sparse_map-2"></marker>
+                  <marker id="sparse_map-2"/>
 
 <p>Map the given function onto each element of the array, skipping
   default-valued entries. The elements are visited in order from the
@@ -766,7 +755,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="sparse_size-1"></marker>
+                  <marker id="sparse_size-1"/>
 
 <p>Get the number of entries in the array up until the last
   non-default valued entry. In other words, returns <tt>I+1</tt> if <tt>I</tt> is the
@@ -787,7 +776,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="sparse_to_list-1"></marker>
+                  <marker id="sparse_to_list-1"/>
 
 <p>Converts the array to a list, skipping default-valued entries.
  </p>
@@ -806,7 +795,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="sparse_to_orddict-1"></marker>
+                  <marker id="sparse_to_orddict-1"/>
 
 <p>Convert the array to an ordered list of pairs <tt>{Index, Value}</tt>,
   skipping default-valued entries.
@@ -826,7 +815,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="to_list-1"></marker>
+                  <marker id="to_list-1"/>
 
 <p>Converts the array to a list.
  </p>
@@ -845,7 +834,7 @@ cannot be changed once the array has been created.</p>
 								
                 
                 <div class="description">
-                  <marker id="to_orddict-1"></marker>
+                  <marker id="to_orddict-1"/>
 
 <p>Convert the array to an ordered list of pairs <tt>{Index, Value}</tt>.
  </p>

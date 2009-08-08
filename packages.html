@@ -34,7 +34,9 @@
 	known issues in tools and other parts where packages don't work well.
     </p>
     </warning>
-    <p><em>Introduction</em></p>
+    <p>
+  <em>Introduction</em>
+</p>
     <p>Packages are simply namespaces for modules. 
       All old Erlang modules automatically belong to the top level 
       ("empty-string") namespace, and do not need any changes.</p>
@@ -68,8 +70,8 @@
       simply map to <tt>.../lists.beam</tt>, exactly as before.)</p>
     <p>A packaged module in a file "<tt>foo/bar/fred.erl</tt>" is declared
       as:</p>
-    <code type="none">
--module(foo.bar.fred).</code>
+    <pre>
+-module(foo.bar.fred).</pre>
     <p>This can be compiled and loaded from the Erlang shell using 
       <tt>c(fred)</tt>, if
       your current directory is the same as that of the file. 
@@ -88,36 +90,38 @@
       will be looked for as <tt>"/usr/lib/erl/lists.beam"</tt>,
       <tt>"/usr/local/lib/otp/legacy/ebin/lists.beam"</tt> and 
       <tt>"/home/barney/erl/lists.beam"</tt>.</p>
-    <p><em>Programming</em></p>
+    <p>
+  <em>Programming</em>
+</p>
     <p>Normally, if a call is made from one module to another, 
       it is assumed that the
       called module belongs to the same package as the source module. 
       The compiler
       automatically expands such calls. E.g., in:</p>
-    <code type="none">
+    <pre>
 -module(foo.bar.m1).
 -export([f/1]).
 
-f(X) -&gt; m2:g(X).</code>
+f(X) -&gt; m2:g(X).</pre>
     <p><tt>m2:g(X)</tt> becomes a call to <tt>foo.bar.m2</tt>
       If this is not what was intended, the call can be written 
       explicitly, as in</p>
-    <code type="none">
+    <pre>
 -module(foo.bar.m1).
 -export([f/1]).
 
-f(X) -&gt; fee.fie.foe.m2:g(X).</code>
+f(X) -&gt; fee.fie.foe.m2:g(X).</pre>
     <p>Because the called module is given with an explicit package name, 
       no expansion is done in this case.</p>
     <p>If a module from another package is used repeatedly in a module, 
       an import declaration can make life easier:</p>
-    <code type="none">
+    <pre>
 -module(foo.bar.m1).
 -export([f/1, g/1]).
 -import(fee.fie.foe.m2).
 
 f(X) -&gt; m2:g(X).
-g(X) -&gt; m2:h(X).</code>
+g(X) -&gt; m2:h(X).</pre>
     <p>will make the calls to <tt>m2</tt> refer to <tt>fee.fie.foe.m2</tt>. 
       More generally, a declaration <tt>-import(Package.Module).</tt> 
       will cause calls to <tt>Module</tt>
@@ -125,8 +129,8 @@ g(X) -&gt; m2:h(X).</code>
     <p>Old-style function imports work as normal (but full module 
       names must be
       used); e.g.:</p>
-    <code type="none">
--import(fee.fie.foe.m2, [g/1, h/1]).</code>
+    <pre>
+-import(fee.fie.foe.m2, [g/1, h/1]).</pre>
     <p>however, it is probably better to avoid this form of import 
       altogether in new
       code, since it makes it hard to see what calls are really "remote".</p>
@@ -139,30 +143,32 @@ g(X) -&gt; m2:h(X).</code>
       However, the best way is to use an import declaration - 
       this is most obvious to
       the eye, and makes sure we don't forget adding a period somewhere:</p>
-    <code type="none">
+    <pre>
 -module(foo.bar.fred).
 -export([f/1]).
 -import(lists).
 
-f(X) -&gt; lists:reverse(X).</code>
+f(X) -&gt; lists:reverse(X).</pre>
     <p>The dot-syntax for module names can be used in any expression. 
       All segments must
       be constant atoms, and the result must be a well-formed 
       package/module name.
       E.g.:</p>
-    <code type="none">
-spawn(foo.bar.fred, f, [X])</code>
+    <pre>
+spawn(foo.bar.fred, f, [X])</pre>
     <p>is equivalent to <tt>spawn('foo.bar.fred', f, [X])</tt>.</p>
-    <p><em>The Erlang Shell</em></p>
+    <p>
+  <em>The Erlang Shell</em>
+</p>
     <p>The shell also automatically expands remote calls, 
       however currently no
       expansions are made by default. 
       The user can change the behaviour by using the <tt>import/1</tt>
       shell command (or its abbreviation <tt>use/1</tt>). E.g.:</p>
     <pre>
-1&gt; <input>
+1&gt; <tt>import(foo.bar.m).</tt><br/>
 ok
-2&gt; <input></pre>
+2&gt; <tt>m:f().</tt><br/></pre>
     <p>will evaluate <tt>foo.bar.m:f()</tt>. 
       If a new import is made of the same name,
       this overrides any previous import. 
@@ -177,7 +183,7 @@ ok
       and "<tt>.../foo/bar/bambam.beam</tt>" can be found from our current
       path,</p>
     <pre>
-1&gt; <input></pre>
+1&gt; <tt>import_all(foo.bar).</tt><br/></pre>
     <p>will make <tt>fred</tt>, <tt>barney</tt> and <tt>bambam</tt> 
       expand to <tt>foo.bar.fred</tt>,
       <tt>foo.bar.barney</tt> and <tt>foo.bar.bambam</tt>, respectively.</p>

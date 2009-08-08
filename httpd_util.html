@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#convert_request_dateDateStringgtErlDatebad_date">convert_request_date(DateString) -&gt; ErlDate|bad_date</a></li>
@@ -92,9 +92,11 @@
     
     <div class="description">
         
-    <marker id="see_also"></marker>
+    <marker id="see_also"/>
     <title>SEE ALSO</title>
-    <p><seealso marker="httpd">httpd(3)</seealso></p>
+    <p>
+  <seealso marker="httpd">httpd(3)</seealso>
+</p>
   
     </div>
     
@@ -121,7 +123,7 @@
                 
                 <div class="description">
                   
-        <marker id="convert_request_date"></marker>
+        <marker id="convert_request_date"/>
         <p><tt>convert_request_date/1</tt> converts <tt>DateString</tt> to the Erlang
           date format. DateString must be in one of the three date formats that is defined
           in the RFC 2616.</p>
@@ -150,7 +152,7 @@
                 
                 <div class="description">
                   
-        <marker id="create_etag"></marker>
+        <marker id="create_etag"/>
         <p><tt>create_etag/1</tt> calculates the Etag for a file, from it's size and time for
           last modification. fileinfo is a record defined in <tt>kernel/include/file.hrl</tt></p>
       
@@ -177,7 +179,7 @@
                 
                 <div class="description">
                   
-        <marker id="decode_hex"></marker>
+        <marker id="decode_hex"/>
         <p>Converts the hexadecimal value <tt>HexValue</tt> into it's
           decimal equivalent (<tt>DecValue</tt>).</p>
       
@@ -205,7 +207,7 @@
                 
                 <div class="description">
                   
-        <marker id="day"></marker>
+        <marker id="day"/>
         <p><tt>day/1</tt> converts the day of the week
           (<tt>NthDayOfWeek</tt>) as an integer (1-7) to an abbreviated
           string, that is: </p>
@@ -235,7 +237,7 @@
                 
                 <div class="description">
                   
-        <marker id="flatlength"></marker>
+        <marker id="flatlength"/>
         <p><tt>flatlength/1</tt> computes the size of the possibly nested
           list <tt>NestedList</tt>. Which may contain binaries.</p>
       
@@ -265,7 +267,7 @@
                 
                 <div class="description">
                   
-        <marker id="header"></marker>
+        <marker id="header"/>
         <p><tt>header</tt> returns a HTTP 1.1 header string. The
           <tt>StatusCode</tt> is one of the status codes defined in RFC
           2616 and the <tt>Date</tt> string is RFC 1123 
@@ -301,7 +303,7 @@
                 
                 <div class="description">
                   
-        <marker id="hexlist_to_integer"></marker>
+        <marker id="hexlist_to_integer"/>
         <p><tt>hexlist_to_integer</tt> Convert the Hexadecimal value of HexString to an integer.</p>
       
                 </div>
@@ -328,7 +330,7 @@
                 
                 <div class="description">
                   
-        <marker id="integer_to_hexlist"></marker>
+        <marker id="integer_to_hexlist"/>
         <p><tt>integer_to_hexlist/1</tt> Returns a string that represents the Number in a Hexadecimal form.</p>
       
                 </div>
@@ -357,7 +359,7 @@
                 
                 <div class="description">
                   
-        <marker id="lookup"></marker>
+        <marker id="lookup"/>
         <p><tt>lookup</tt> extracts <tt>{Key,Value}</tt> tuples from
           <tt>ETSTable</tt> and returns the <tt>Value</tt> associated  
           with <tt>Key</tt>. If <tt>ETSTable</tt> is of type <tt>bag</tt>
@@ -392,7 +394,7 @@
                 
                 <div class="description">
                   
-        <marker id="lookup_mime"></marker>
+        <marker id="lookup_mime"/>
         <p><tt>lookup_mime</tt> returns the mime type associated with a
           specific file suffix as specified in the <tt>mime.types</tt>
           file (located in the <path unix="$SERVER_ROOT/conf/mime.types" windows="%SERVER_ROOT%\\\\conf\\\\mime.types">config directory</path>).</p>
@@ -423,7 +425,7 @@
                 
                 <div class="description">
                   
-        <marker id="lookup_mime_default"></marker>
+        <marker id="lookup_mime_default"/>
         <p><tt>lookup_mime_default</tt> returns the mime type associated
           with a specific file suffix as specified in the
           <tt>mime.types</tt> file (located in the
@@ -457,7 +459,7 @@
                 
                 <div class="description">
                   
-        <marker id="message"></marker>
+        <marker id="message"/>
         <p><tt>message/3</tt> returns an informative HTTP 1.1 status
           string in HTML. Each <tt>StatusCode</tt> requires a specific
           <tt>PhraseArgs</tt>:
@@ -504,7 +506,7 @@
                 
                 <div class="description">
                   
-        <marker id="month"></marker>
+        <marker id="month"/>
         <p><tt>month/1</tt> converts the month <tt>NthMonth</tt> as an
           integer (1-12) to an abbreviated string, that is: </p>
         <p>1 = "Jan", 2 = "Feb", ..., 12 = "Dec".</p>
@@ -534,7 +536,7 @@
                 
                 <div class="description">
                   
-        <marker id="multi_lookup"></marker>
+        <marker id="multi_lookup"/>
         <p><tt>multi_lookup</tt> extracts all <tt>{Key,Value}</tt> tuples
           from an <tt>ETSTable</tt> and returns <em>all</em><tt>Values</tt> associated with the <tt>Key</tt> in a list.</p>
       
@@ -562,7 +564,7 @@
                 
                 <div class="description">
                   
-        <marker id="reason phrase"></marker>
+        <marker id="reason phrase"/>
         <p><tt>reason_phrase</tt> returns the <tt>Description</tt> of an
           HTTP 1.1 <tt>StatusCode</tt>, for example 200 is "OK" and 201
           is "Created". Read RFC 2616 for further information.</p>
@@ -591,7 +593,7 @@
                 
                 <div class="description">
                   
-        <marker id="rfc1123_date"></marker>
+        <marker id="rfc1123_date"/>
         <p><tt>rfc1123_date/0</tt> returns the current date in RFC 1123
           format. <tt>rfc_date/1</tt> converts the date in the Erlang format
           to the RFC 1123 date format.</p>
@@ -622,7 +624,7 @@
                 
                 <div class="description">
                   
-        <marker id="split"></marker>
+        <marker id="split"/>
         <p><tt>split/3</tt> splits the <tt>String</tt> in <tt>N</tt> chunks
           using the <tt>RegExp</tt>. <tt>split/3</tt> is is equivalent to
           <tt>regexp:split/2</tt> with one exception, that is <tt>N</tt>
@@ -654,7 +656,7 @@
                 
                 <div class="description">
                   
-        <marker id="split_script_path"></marker>
+        <marker id="split_script_path"/>
         <p><tt>split_script_path/1</tt> is equivalent to
           <tt>split_path/1</tt> with one exception. If the longest
           possible path is not a regular, accessible and executable
@@ -683,7 +685,7 @@
                 
                 <div class="description">
                   
-        <marker id="split_path"></marker>
+        <marker id="split_path"/>
         <p><tt>split_path/1</tt> splits the <tt>RequestLine</tt> in a file
           reference (<tt>Path</tt>) and a <tt>QueryString</tt> or a
           <tt>PathInfo</tt> string as specified in RFC 2616. A
@@ -722,7 +724,7 @@
                 
                 <div class="description">
                   
-        <marker id="strip"></marker>
+        <marker id="strip"/>
         <p><tt>strip/1</tt> removes any leading or trailing linear white
           space from the string.  Linear white space should be read as
           horisontal tab or space.</p>
@@ -750,7 +752,7 @@
                 
                 <div class="description">
                   
-        <marker id="suffix"></marker>
+        <marker id="suffix"/>
         <p><tt>suffix/1</tt> is equivalent to
           <tt>filename:extension/1</tt> with one exception, that is
           <tt>Suffix</tt> is returned without a leading dot (<tt>.</tt>). </p>

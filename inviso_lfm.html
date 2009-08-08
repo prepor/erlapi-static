@@ -41,7 +41,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#mergeFilesOutFilegt">merge(Files, OutFile) -&gt;</a></li>
@@ -107,7 +107,7 @@
         <p>When specifying <tt>LogFiles</tt>, currently the standard reader-process only supports:</p>
         <list type="bulleted">
           <item>one single file</item>
-          <item>a list of wraplog files, following the naming convention <tt><Prefix><Nr><Suffix></tt>.</item>
+          <item>a list of wraplog files, following the naming convention <tt><![CDATA[<Prefix><Nr><Suffix>]]></tt>.</item>
         </list>
         <p>Note that (when using the standard reader process) it is possible to give a list of <tt>LogFiles</tt>. The list must be sorted starting with the oldest. This will cause several trace-logs (from the same node) to be merged together in the same <tt>OutFile</tt>. The reader process will simply start reading the next file (or wrapset) when the previous is done.</p>
         <p><tt>FileDescription == {reader,RMod,RFunc,FileSet}</tt> indicates that <tt>spawn(RMod, RFunc, [OutputPid,LogFiles])</tt> shall create a reader process.</p>

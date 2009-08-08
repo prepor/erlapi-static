@@ -39,7 +39,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#ensure_dirNamegtokerrorReason">ensure_dir(Name) -&gt; ok | {error, Reason}</a></li>
@@ -69,10 +69,10 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre>
 filename() = string() | atom() | DeepList
 dirname() = filename()
-DeepList = [char() | atom() | DeepList]</code>
+DeepList = [char() | atom() | DeepList]</pre>
   
     </div>
     
@@ -320,24 +320,24 @@ DeepList = [char() | atom() | DeepList]</code>
           </p>
         <p>To find all <tt>.beam</tt> files in all applications, the following
           line can be used:</p>
-        <code type="none">
-    filelib:wildcard("lib/*/ebin/*.beam").        </code>
+        <pre>
+    filelib:wildcard("lib/*/ebin/*.beam").        </pre>
         <p>To find either <tt>.erl</tt> or <tt>.hrl</tt> in all applications
           <tt>src</tt> directories, the following</p>
-        <code type="none">
-    filelib:wildcard("lib/*/src/*.?rl")        </code>
+        <pre>
+    filelib:wildcard("lib/*/src/*.?rl")        </pre>
         <p>or the following line</p>
-        <code type="none">
-    filelib:wildcard("lib/*/src/*.{erl,hrl}")        </code>
+        <pre>
+    filelib:wildcard("lib/*/src/*.{erl,hrl}")        </pre>
         <p>can be used.</p>
         <p>To find all <tt>.hrl</tt> files in either <tt>src</tt> or <tt>include</tt>
           directories, use:</p>
-        <code type="none">
-    filelib:wildcard("lib/*/{src,include}/*.hrl").        </code>
+        <pre>
+    filelib:wildcard("lib/*/{src,include}/*.hrl").        </pre>
         <p>To find all <tt>.erl</tt> or <tt>.hrl</tt> files in either
           <tt>src</tt> or <tt>include</tt> directories, use:</p>
-        <code type="none">
-    filelib:wildcard("lib/*/{src,include}/*.{erl,hrl}")        </code>
+        <pre>
+    filelib:wildcard("lib/*/{src,include}/*.{erl,hrl}")        </pre>
       
                 </div>
                 

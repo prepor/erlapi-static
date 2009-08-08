@@ -71,7 +71,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#abortCodeTextStategtok">abort(Code, Text, State) -&gt; ok</a></li>
@@ -144,7 +144,7 @@
     
     <div class="description">
         
-    <marker id="options"></marker>
+    <marker id="options"/>
     <title>COMMON DATA TYPES</title>
     <pre>
       ServiceConfig = Options
@@ -191,7 +191,7 @@
       </item>
       <tag><tt>{port_policy, Policy}</tt></tag>
       <item>
-        <p><tt>Policy = random | Port | {range, MinPort, MaxPort}</tt>          <br>
+        <p><tt>Policy = random | Port | {range, MinPort, MaxPort}</tt>          <br/>
 <tt>Port = MinPort = MaxPort = int()</tt></p>
         <p>Policy for the selection of the temporary port which is used
           by the server/client during the file transfer. It defaults to
@@ -231,14 +231,14 @@
       </item>
       <tag><tt>{TftpKey, TftpVal}</tt></tag>
       <item>
-        <p><tt>TftpKey = string()</tt>          <br>
+        <p><tt>TftpKey = string()</tt>          <br/>
 <tt>TftpVal = string()</tt></p>
         <p>The name and value of a TFTP option.</p>
       </item>
       <tag><tt>{reject, Feature}</tt></tag>
       <item>
-        <p><tt>Feature = Mode | TftpKey</tt>          <br>
-<tt>&nbsp;Mode = read | write</tt>          <br>
+        <p><tt>Feature = Mode | TftpKey</tt>          <br/>
+<tt>&nbsp;Mode = read | write</tt>          <br/>
 <tt>&nbsp;TftpKey = string()</tt></p>
         <p>Control which features that should be rejected. This is
           mostly useful for the server as it may restrict usage of
@@ -246,8 +246,8 @@
       </item>
       <tag><tt>{callback, {RegExp, Module, State}}</tt></tag>
       <item>
-        <p><tt>RegExp = string()</tt>          <br>
-<tt>Module = atom()</tt>          <br>
+        <p><tt>RegExp = string()</tt>          <br/>
+<tt>Module = atom()</tt>          <br/>
 <tt>State  = term()</tt></p>
         <p>Registration of a callback module. When a file is to be
           transferred, its local filename will be matched to the regular
@@ -288,7 +288,7 @@
     
     <div class="description">
         
-    <marker id="tftp_callback"></marker>
+    <marker id="tftp_callback"/>
     <title>CALLBACK FUNCTIONS</title>
     <p>A <tt>tftp</tt> callback module should be implemented as a
       <tt>tftp</tt> behavior and export the functions listed below.</p>
@@ -347,7 +347,7 @@
     
     <div class="description">
         
-    <marker id="tftp_logger"></marker>
+    <marker id="tftp_logger"/>
     <title>LOGGER FUNCTIONS</title>
     
     <p>A <tt>tftp_logger</tt> callback module should be implemented as a

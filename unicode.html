@@ -41,7 +41,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#bom_to_encodingBingtEncodingLength">bom_to_encoding(Bin) -&gt; {Encoding,Length}</a></li>
@@ -67,32 +67,32 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <marker id="charlist_definition"></marker>
-    <code type="none">
+    <marker id="charlist_definition"/>
+    <pre>
 unicode_binary() = binary() with characters encoded in UTF-8 coding standard
 unicode_char() = integer() representing valid unicode codepoint
 
 chardata() = charlist() | unicode_binary()
 
 charlist() = [unicode_char() | unicode_binary() | charlist()]
-  a unicode_binary is allowed as the tail of the list</code>
+  a unicode_binary is allowed as the tail of the list</pre>
 
-    <code type="none">
+    <pre>
 external_unicode_binary() = binary() with characters coded in a user specified Unicode encoding other than UTF-8 (UTF-16 or UTF-32)
 
 external_chardata() = external_charlist() | external_unicode_binary()
 
 external_charlist() = [unicode_char() | external_unicode_binary() | external_charlist()]
-  an external_unicode_binary is allowed as the tail of the list</code>
+  an external_unicode_binary is allowed as the tail of the list</pre>
 
-    <code type="none">
+    <pre>
 latin1_binary() = binary() with characters coded in iso-latin-1
 latin1_char() = integer() representing valid latin1 character (0-255)
 
 latin1_chardata() = latin1_charlist() | latin1_binary()
 
 latin1_charlist() = [latin1_char() | latin1_binary() | latin1_charlist()]
-  a latin1_binary is allowed as the tail of the list</code>
+  a latin1_binary is allowed as the tail of the list</pre>
   
     </div>
     
@@ -273,7 +273,7 @@ latin1_charlist() = [latin1_char() | latin1_binary() | latin1_charlist()]
       as the whole range is given as input without errors
       occuring. Example:</p>
 
-<code>
+<pre>
      decode_data(Data) -&gt;
          case unicode:characters_to_list(Data,unicode) of
              {inclomplete,Encoded, Rest} -&gt;
@@ -284,7 +284,7 @@ latin1_charlist() = [latin1_char() | latin1_binary() | latin1_charlist()]
              List -&gt;
 	           List
          end.
-</code>
+</pre>
       <p>Bit-strings that are not whole bytes are however not allowed,
       so a UTF character has to be split along 8-bit boundaries to
       ever be decoded.</p>

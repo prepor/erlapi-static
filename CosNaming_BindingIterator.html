@@ -25,22 +25,22 @@
     <p>This interface allows a client to iterate over the Bindinglist it has been
       initiated with.</p>
     <p>The type <tt>NameComponent</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record('CosNaming_NameComponent', {id, kind=""}).
-    </code>
+    </pre>
     <p><tt>id</tt> and <tt>kind</tt> are strings. </p>
     <p>The type <tt>Binding</tt> used below is defined as:</p>
-    <code type="none">
+    <pre>
       -record('CosNaming_Binding', {binding_name, binding_type}).
-    </code>
+    </pre>
     <p><tt>binding_name</tt> is a <tt>Name = [NameComponent]</tt> and
       <tt>binding_type</tt> is an enum which 
       has the values <tt>nobject</tt> and <tt>ncontext</tt>.</p>
     <p>Both these records are defined in the file <tt>CosNaming.hrl</tt> and it 
       is included with:</p>
-    <code type="none">
+    <pre>
       -include_lib("orber/COSS/CosNaming/CosNaming.hrl").
-    </code>
+    </pre>
   </div>
     
 
@@ -49,7 +49,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#destroyBindingIteratorgtReturn">destroy(BindingIterator) -&gt; Return</a></li>

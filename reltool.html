@@ -53,20 +53,20 @@
     <p>The following top level <tt>options</tt> are supported:</p>
 
     <taglist>
-      <tag><tt>config</tt></tag>
+      <tag><tt><![CDATA[config]]></tt></tag>
       <item>
         <p>This is the main option and it controls the configuration
            of <tt>reltool</tt>.  It can either be a <tt>sys</tt> tuple or
            a name of a <tt>file</tt> containing a sys tuple.</p>
       </item>
-      <tag><tt>trap_exit</tt></tag>
+      <tag><tt><![CDATA[trap_exit]]></tt></tag>
       <item>
         <p>This option controls the error handling behavior of
            <tt>reltool</tt>.  By default the window processes traps
            exit, but this behavior can altered by setting
            <tt>trap_exit</tt> to <tt>false</tt>.</p>
       </item>
-      <tag><tt>wx_debug</tt></tag>
+      <tag><tt><![CDATA[wx_debug]]></tt></tag>
       <item>
         <p>This option controls the debug level of <tt>wx</tt>. As its
            name indicates it is only useful for debugging. See
@@ -79,18 +79,18 @@
        (<tt>sys</tt>) level options are supported:</p>
 
     <taglist>
-      <tag><tt>erts</tt></tag>
+      <tag><tt><![CDATA[erts]]></tt></tag>
       <item>
         <p>Erts specific configuration. See application level options
         below.</p>
       </item>
-      <tag><tt>app</tt></tag>
+      <tag><tt><![CDATA[app]]></tt></tag>
       <item>
         <p>Application specific configuration. An application has a
         mandatory name and application level options that are
         described below.</p>
       </item>
-      <tag><tt>mod_cond</tt></tag>
+      <tag><tt><![CDATA[mod_cond]]></tt></tag>
       <item>
         <p>This parameter controls the module inclusion policy. It
         defaults to <tt>all</tt> which means that if an application is
@@ -106,7 +106,7 @@
         included modules are included. The <tt>mod_cond</tt> setting on
         system level is used as default for all applications.</p>
       </item>
-      <tag><tt>incl_cond</tt></tag>
+      <tag><tt><![CDATA[incl_cond]]></tt></tag>
       <item>
 	<p>This parameter controls the application inclusion policy.
 	It defaults to <tt>derived</tt> which means that the
@@ -119,13 +119,13 @@
 	have any explicit <tt>incl_cond</tt> setting will be
 	excluded.</p>
       </item>
-      <tag><tt>boot_rel</tt></tag>
+      <tag><tt><![CDATA[boot_rel]]></tt></tag>
       <item>
         <p>A target system may have several releases but the one given
         as <tt>boot_rel</tt> will be used as default when the system is
         booting up.</p>
       </item>
-      <tag><tt>rel</tt></tag>
+      <tag><tt><![CDATA[rel]]></tt></tag>
       <item>
         <p>Release specific configuration. Each release maps to a
         <tt>rel</tt>, <tt>script</tt> and <tt>boot </tt> file. See the
@@ -134,7 +134,7 @@
         few release specific parameters such as type and included
         applications.</p>
       </item>
-      <tag><tt>app_file</tt></tag>
+      <tag><tt><![CDATA[app_file]]></tt></tag>
       <item>
         <p>This parameter controls the default handling of the
         <tt>app</tt> files when a target system is generated. It
@@ -150,14 +150,14 @@
         file will be created for <tt>all</tt> but not for <tt>keep</tt>
         and <tt>strip</tt>.</p>
       </item>
-      <tag><tt>debug_info</tt></tag>
+      <tag><tt><![CDATA[debug_info]]></tt></tag>
       <item>
         <p>The <tt>debug_info</tt> parameter controls whether the debug
         information in the beam file should be kept (<tt>keep</tt>) or
         stripped <tt>strip</tt> when the file is copied to the target
         system.</p>
       </item>
-      <tag><tt>incl_erts_dirs</tt></tag>
+      <tag><tt><![CDATA[incl_erts_dirs]]></tt></tag>
       <item>
         <p>By default only the <tt>bin</tt> directory is copied to the
         target system for erts. This parameter controls if other
@@ -167,20 +167,20 @@
         shall be copied are controlled with <tt>incl_app_dirs</tt> and
         <tt>excl_app_dirs</tt>.</p>
       </item>
-      <tag><tt>excl_erts_dirs</tt></tag>
+      <tag><tt><![CDATA[excl_erts_dirs]]></tt></tag>
       <item>
         <p>This parameter controls which erts directories that not
         should be copied to the target system. In order to be copied,
         a directory must be included in <tt>incl_erts_dirs</tt> and NOT
         be included in <tt>excl_erts_dirs</tt>.</p>
       </item>
-      <tag><tt>incl_app_dirs</tt></tag>
+      <tag><tt><![CDATA[incl_app_dirs]]></tt></tag>
       <item>
         <p>By default only the application directories <tt>ebin</tt> and
         <tt>priv</tt> are copied to the target system. This parameter
         controls if other directories should be copied.</p>
       </item>
-      <tag><tt>excl_app_dirs</tt></tag>
+      <tag><tt><![CDATA[excl_app_dirs]]></tt></tag>
       <item>
         <p>This parameter controls which applications directories that
         not should be copied to the target system. In order to be
@@ -193,44 +193,44 @@
        supported:</p>
 
    <taglist>
-      <tag><tt>vsn</tt></tag>
+      <tag><tt><![CDATA[vsn]]></tt></tag>
       <item>
         <p>The version of the application. In an installed system there may
         exist several versions of an application. The <tt>vsn</tt> parameter
         controls which version of the application that will be choosen. If it
         is omitted, the latest version will be choosen.</p>
       </item>
-      <tag><tt>mod</tt></tag>
+      <tag><tt><![CDATA[mod]]></tt></tag>
       <item>
         <p>Module specific configuration. A module has a mandatory
         name and module level options that are described below.</p>
       </item>
-      <tag><tt>mod_cond</tt></tag>
+      <tag><tt><![CDATA[mod_cond]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
       </item>
-      <tag><tt>incl_cond</tt></tag>
+      <tag><tt><![CDATA[incl_cond]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
       </item>
-      <tag><tt>app_file</tt></tag>
+      <tag><tt><![CDATA[app_file]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
       </item>
-      <tag><tt>debug_info</tt></tag>
+      <tag><tt><![CDATA[debug_info]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
       </item>
-      <tag><tt>incl_app_dirs</tt></tag>
+      <tag><tt><![CDATA[incl_app_dirs]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
       </item>
-      <tag><tt>excl_app_dirs</tt></tag>
+      <tag><tt><![CDATA[excl_app_dirs]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with the
         same name on system level.</p>
@@ -241,7 +241,7 @@
        supported:</p>
 
    <taglist>
-      <tag><tt>incl_cond</tt></tag>
+      <tag><tt><![CDATA[incl_cond]]></tt></tag>
       <item>
 	<p>This parameter controls whether the module is included or not. By
 	default the <tt>mod_incl</tt> parameter on application and system level
@@ -252,7 +252,7 @@
 	<tt>derived</tt> implies that the is included if any included uses the
 	module.</p>
       </item>
-      <tag><tt>debug_info</tt></tag>
+      <tag><tt><![CDATA[debug_info]]></tt></tag>
       <item>
         <p>The value of this parameter overrides the parameter with
         the same name on application level.</p>
@@ -274,7 +274,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#create_targetServerTargetDirgtokerrorReason">create_target(Server, TargetDir) -&gt; ok | {error, Reason}</a></li>
@@ -302,7 +302,7 @@
     <div class="description">
         
     <title>DATA TYPES</title>
-    <code type="none">
+    <pre><![CDATA[
 options()        = [option()]
 option()         = {config, config() | file()}
                  | {trap_exit, bool()}
@@ -365,9 +365,9 @@ root_dir()       = dir()
 script_file()    = term()
 server()         = server_pid() | options()
 server_pid()     = pid()
-window_pid()     = pid()</code>
+window_pid()     = pid()]]></pre>
 
-    <marker id="start"></marker>
+    <marker id="start"/>
   
     </div>
     

@@ -45,7 +45,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#add_bindingNameValueBindingsgtBindingStruct">add_binding(Name, Value, Bindings) -&gt; BindingStruct</a></li>
@@ -83,8 +83,8 @@
       <tag><tt>{value,Func}</tt></tag>
       <item>
         <p>This defines a local function handler which is called with:</p>
-        <code type="none">
-Func(Name, Arguments)        </code>
+        <pre>
+Func(Name, Arguments)        </pre>
         <p><tt>Name</tt> is the name of the local function (an atom) and
           <tt>Arguments</tt> is a list of the <em>evaluated</em>
           arguments. The function handler returns the value of the
@@ -95,14 +95,14 @@ Func(Name, Arguments)        </code>
       <tag><tt>{eval,Func}</tt></tag>
       <item>
         <p>This defines a local function handler which is called with:</p>
-        <code type="none">
-Func(Name, Arguments, Bindings)        </code>
+        <pre>
+Func(Name, Arguments, Bindings)        </pre>
         <p><tt>Name</tt> is the name of the local function (an atom),
           <tt>Arguments</tt> is a list of the <em>unevaluated</em>
           arguments, and <tt>Bindings</tt> are the current variable
           bindings. The function handler returns:</p>
-        <code type="none">
-{value,Value,NewBindings}        </code>
+        <pre>
+{value,Value,NewBindings}        </pre>
         <p><tt>Value</tt> is the value of the local function and
           <tt>NewBindings</tt> are the updated variable bindings. In
           this case, the function handler must itself evaluate all the
@@ -137,8 +137,8 @@ Func(Name, Arguments, Bindings)        </code>
       <tag><tt>{value,Func}</tt></tag>
       <item>
         <p>This defines an nonlocal function handler which is called with:</p>
-        <code type="none">
-Func(FuncSpec, Arguments)        </code>
+        <pre>
+Func(FuncSpec, Arguments)        </pre>
         <p><tt>FuncSpec</tt> is the name of the function on the form
           <tt>{Module,Function}</tt> or a fun, and <tt>Arguments</tt> is a
           list of the <em>evaluated</em> arguments. The function

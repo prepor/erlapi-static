@@ -42,7 +42,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#adjust_windowConnectionRefChannelIdNumOfBytesgtok">adjust_window(ConnectionRef, ChannelId, NumOfBytes) -&gt; ok</a></li>
@@ -80,15 +80,29 @@
     <p>Type definitions that are used more than once in this module and/or
     abstractions to indicate the intended use of the data type:</p>
     
-    <p><tt>boolean() = true | false </tt></p>
-    <p><tt>string() = list of ASCII characters</tt></p>
-    <p><tt>timeout() =  infinity | integer() - in milliseconds.</tt></p>
-    <p><tt>ssh_connection_ref() - opaque to the user returned by
-    ssh:connect/[1,2,3] or sent to a ssh channel processes</tt></p>
-    <p><tt>ssh_channel_id() = integer() </tt></p>
-    <p><tt>ssh_data_type_code() = 1 ("stderr") | 0 ("normal") are
-    currently valid values see RFC 4254 section 5.2.</tt></p>
-    <p><tt>ssh_request_status() = success | failure</tt></p>
+    <p>
+  <tt>boolean() = true | false </tt>
+</p>
+    <p>
+  <tt>string() = list of ASCII characters</tt>
+</p>
+    <p>
+  <tt>timeout() =  infinity | integer() - in milliseconds.</tt>
+</p>
+    <p>
+  <tt>ssh_connection_ref() - opaque to the user returned by
+    ssh:connect/[1,2,3] or sent to a ssh channel processes</tt>
+</p>
+    <p>
+  <tt>ssh_channel_id() = integer() </tt>
+</p>
+    <p>
+  <tt>ssh_data_type_code() = 1 ("stderr") | 0 ("normal") are
+    currently valid values see RFC 4254 section 5.2.</tt>
+</p>
+    <p>
+  <tt>ssh_request_status() = success | failure</tt>
+</p>
    
     </div>
     
@@ -100,7 +114,7 @@
      <title>MESSAGES SENT TO CHANNEL PROCESSES</title>
      
      <p>As a result of the ssh connection protocol messages on the form
-     <tt>{ssh_cm, ssh_connection_ref(), term()}</tt>
+     <tt><![CDATA[{ssh_cm, ssh_connection_ref(), term()}]]></tt>
      will be sent to a channel process. The term will contain
      information regarding the ssh connection protocol event,
      for details see the ssh channel behavior callback <seealso marker="ssh_channel">handle_ssh_msg/2 </seealso> </p>
@@ -132,12 +146,14 @@
                   
 	<p>Adjusts the ssh flowcontrol window. </p>
 	
-	<note><p>This will be taken care of by the ssh_channel
+	<note>
+  <p>This will be taken care of by the ssh_channel
 	behavior when the callback <seealso marker="ssh_channel">
 	handle_ssh_msg/2 </seealso> has returned after processing a
 	{ssh_cm, ssh_connection_ref(), {data, ssh_channel_id(),
 	ssh_data_type_code(), binary()}}
-	message, and should normally not be called explicitly.</p></note>
+	message, and should normally not be called explicitly.</p>
+</note>
       
                 </div>
                 
@@ -166,9 +182,11 @@
        <p>Sends a close message on the channel <tt>ChannelId</tt>
        </p>
 
-       <note><p>This function will be called by the ssh channel
+       <note>
+  <p>This function will be called by the ssh channel
        behavior when the channel is terminated see <seealso marker="ssh_channel"> ssh_channel(3) </seealso> and should
-       normally not be called explicitly.</p></note>
+       normally not be called explicitly.</p>
+</note>
      
                 </div>
                 

@@ -44,7 +44,7 @@
 
     
     
-    <div class="sectiontitle">Methods</div>
+    <div class="sectiontitle">Functions</div>
     <ul>
         
         <li><a href="#moduleFilegtokerrorReason">module(File) -&gt; ok | {error, Reason}</a></li>
@@ -97,43 +97,43 @@
 
     <p>Known limitations for some XHTML tags:</p>
     <taglist>
-      <tag><tt><a></tt></tag>
+      <tag><tt><![CDATA[<a>]]></tt></tag>
       <item>
         <p>All attributes except the first <tt>href</tt> or <tt>name</tt>
 	  attribute are ignored.</p>
-        <p>A <tt>href</tt> attribute means the <tt><a></tt> tag
-	  will be transformed to a <tt><seealso></tt> or
-	  <tt><url></tt> tag and an attempt is made to
+        <p>A <tt>href</tt> attribute means the <tt><![CDATA[<a>]]></tt> tag
+	  will be transformed to a <tt><![CDATA[<seealso>]]></tt> or
+	  <tt><![CDATA[<url>]]></tt> tag and an attempt is made to
 	  resolve the reference if necessary.</p>
 
-	<p>A <tt>name</tt> attribute means the <tt><a></tt> tag
-	  will be transformed to a <tt><marker></tt> tag.</p>
+	<p>A <tt>name</tt> attribute means the <tt><![CDATA[<a>]]></tt> tag
+	  will be transformed to a <tt><![CDATA[<marker>]]></tt> tag.</p>
       </item>
 
-      <tag><tt><b>, <em>, <pre></tt></tag>
+      <tag><tt><![CDATA[<b>, <em>, <pre>]]></tt></tag>
       <item>Cannot contain other tags in Erlang/OTP XML, content is
 	converted to plain text.
       </item>
 
-      <tag><tt><center></tt></tag>
+      <tag><tt><![CDATA[<center>]]></tt></tag>
       <item>No corresponding Erlang/OTP XML tag, converted to plain
 	text.
       </item>
 
-      <tag><tt><font></tt></tag>
+      <tag><tt><![CDATA[<font>]]></tt></tag>
       <item>No corresponding Erlang/OTP XML tag, converted to plain
 	text.
       </item>
 
-      <tag><tt><h1>, <h2>, ...</tt></tag>
+      <tag><tt><![CDATA[<h1>, <h2>, ...]]></tt></tag>
       <item>There is no tag corresponding to a header in Erlang/OTP XML,
 	so these are converted to plain text instead, with
-	the exception of <tt><h3></tt> and
-	<tt><h4></tt> tags within <tt>overview.edoc</tt>, see
+	the exception of <tt><![CDATA[<h3>]]></tt> and
+	<tt><![CDATA[<h4>]]></tt> tags within <tt>overview.edoc</tt>, see
 	part about "<tt>chapter</tt> DTD" below.
       </item>
 
-      <tag><tt><sup></tt></tag>
+      <tag><tt><![CDATA[<sup>]]></tt></tag>
       <item>There is no tag corresponding to superscript in Erlang/OTP
 	XML, so this is converted to plain text within brackets "(..)".
       </item>
@@ -145,13 +145,15 @@
 	the left-hand frame of the User's Guide will not work, and
 	also that cross referencing a function in a module the usual
 	Erlang/OTP way
-	"<tt><seealso marker="edoc:edoc#run/3...></tt>" does
+	"<tt><![CDATA[<seealso marker="edoc:edoc#run/3...>]]></tt>" does
 	not work. (But
-	"<tt><seealso marker="edoc:edoc#run-3...></tt>" does.)
+	"<tt><![CDATA[<seealso marker="edoc:edoc#run-3...>]]></tt>" does.)
       </item>
     </taglist>
 
-    <p><em>erlref DTD</em></p>
+    <p>
+  <em>erlref DTD</em>
+</p>
     <taglist>
       <tag>Tables</tag>
       <item>Tables are not allowed. The contents of a table is
@@ -160,15 +162,17 @@
       </item>
     </taglist>
 
-    <p><em>chapter DTD</em></p>
+    <p>
+  <em>chapter DTD</em>
+</p>
     <taglist>
       <tag>Sections</tag>
-      <item>Only two levels of sections. <tt><h3></tt>
+      <item>Only two levels of sections. <tt><![CDATA[<h3>]]></tt>
 	(equivalent to EDoc headings "<tt>== Heading ==</tt>") is
 	interpreted as start of top-level section, or if there is no
-	<tt><h3></tt> tag, the entire document is made into
-	one top-level section. <tt><h4></tt> (equivalent to
-	EDoc sub-headings ("<tt>=== Sub-heading ===</tt>") is
+	<tt><![CDATA[<h3>]]></tt> tag, the entire document is made into
+	one top-level section. <tt><![CDATA[<h4>]]></tt> (equivalent to
+	EDoc sub-headings ("<tt><![CDATA[=== Sub-heading ===]]></tt>") is
 	interpreted as start of second-level section.
       </item>
 
